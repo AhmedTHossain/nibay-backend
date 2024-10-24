@@ -38,7 +38,7 @@ export function FormSelectInput({
   label,
   leftIcon,
   rightIcon,
-  ...props
+  // ...props
 }: FormInputProps) {
   return (
     <div>
