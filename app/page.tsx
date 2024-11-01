@@ -1,12 +1,17 @@
-import {
-  Briefcase,
-  BriefcaseBusinessIcon,
-  HeartIcon,
-  MapPin,
-  MapPinIcon,
-  PlayIcon
-} from "lucide-react";
-import Header from "./components/header";
+"use client";
+
+import BookmarkIcon from "@/app/assets/Icons/bookmark.svg";
+import FacebookIcon from "@/app/assets/Icons/facebook.svg";
+import GoogleIcon from "@/app/assets/Icons/google.svg";
+import HeroImage from "@/app/assets/Illustrations/hero.svg";
+import Blog1 from "@/app/assets/images/blog-1.jpg";
+import Blog2 from "@/app/assets/images/blog-2.jpg";
+import Blog3 from "@/app/assets/images/blog-3.jpg";
+import Feature1 from "@/app/assets/images/feature-1.jpg";
+import Feature2 from "@/app/assets/images/feature-2.jpg";
+import Feature3 from "@/app/assets/images/feature-3.jpg";
+import Footer from "@/components/sections/Footer";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -17,21 +22,20 @@ import {
   SelectTrigger,
   SelectValue
 } from "@/components/ui/select";
-import HeroImage from "@/app/assets/Illustrations/hero.svg";
+import {
+  Briefcase,
+  BriefcaseBusinessIcon,
+  MapPin,
+  MapPinIcon,
+  PlayIcon
+} from "lucide-react";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import Feature1 from "@/app/assets/images/feature-1.jpg";
-import Feature2 from "@/app/assets/images/feature-2.jpg";
-import Feature3 from "@/app/assets/images/feature-3.jpg";
-import FacebookIcon from "@/app/assets/Icons/facebook.svg";
-import GoogleIcon from "@/app/assets/Icons/google.svg";
-import BookmarkIcon from "@/app/assets/Icons/bookmark.svg";
-import Blog1 from "@/app/assets/images/blog-1.jpg";
-import Blog2 from "@/app/assets/images/blog-2.jpg";
-import Blog3 from "@/app/assets/images/blog-3.jpg";
-import AppLogo from "@/app/assets/logo.png";
+import Header from "./components/header";
+import { useTranslation } from "next-i18next";
 
 export default function Home() {
+  const { t } = useTranslation();
+
   return (
     <div>
       <Header />
@@ -42,13 +46,9 @@ export default function Home() {
             <div className="md:order-1 order-2">
               <div className="bg-white dark:bg-slate-900 rounded-xl shadow dark:shadow-gray-800 md:p-8 p-6 lg:me-10 relative">
                 <h4 className="mb-3 text-3xl font-semibold">
-                  Find Your Expected Job
+                  {t("home:title")}
                 </h4>
-                <p className="text-slate-400 text-sm">
-                  Find Jobs, Employment &amp; Career Opportunities. Some of the
-                  companies we&apos;ve helped recruit excellent applicants over
-                  the years.
-                </p>
+                <p className="text-slate-400 text-sm">{t("home:sub_title")}</p>
                 <form className="mt-6">
                   <div className="grid grid-cols-1 gap-6">
                     <div>
@@ -134,222 +134,6 @@ export default function Home() {
                       </Button>
                     </div>
                   </div>
-
-                  {/* <div className="grid grid-cols-1">
-                    <div className="mb-4">
-                      <label className="form-label font-medium">Search :</label>
-                      <div className="filter-search-form relative mt-2">
-                        <svg
-                          stroke="currentColor"
-                          fill="currentColor"
-                          strokeWidth={0}
-                          viewBox="0 0 24 24"
-                          className="icons"
-                          height="1em"
-                          width="1em"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path d="M20 6h-3V4c0-1.103-.897-2-2-2H9c-1.103 0-2 .897-2 2v2H4c-1.103 0-2 .897-2 2v11c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V8c0-1.103-.897-2-2-2zm-5-2v2H9V4h6zM4 8h16v4h-3v-2h-2v2H9v-2H7v2H4V8zm0 11v-5h3v2h2v-2h6v2h2v-2h3.001v5H4z" />
-                        </svg>
-                        <input
-                          name="name"
-                          type="text"
-                          id="job-keyword"
-                          className="form-input filter-input-box bg-gray-50 dark:bg-slate-800"
-                          placeholder="Search your Keywords"
-                        />
-                      </div>
-                    </div>
-                    <div className="mb-4">
-                      <label className="form-label font-medium">
-                        Location :
-                      </label>
-                      <div className="filter-search-form relative mt-2">
-                        <svg
-                          stroke="currentColor"
-                          fill="currentColor"
-                          strokeWidth={0}
-                          viewBox="0 0 256 256"
-                          className="icons"
-                          height="1em"
-                          width="1em"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path d="M128,64a40,40,0,1,0,40,40A40,40,0,0,0,128,64Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,128Zm0-112a88.1,88.1,0,0,0-88,88c0,31.4,14.51,64.68,42,96.25a254.19,254.19,0,0,0,41.45,38.3,8,8,0,0,0,9.18,0A254.19,254.19,0,0,0,174,200.25c27.45-31.57,42-64.85,42-96.25A88.1,88.1,0,0,0,128,16Zm0,206c-16.53-13-72-60.75-72-118a72,72,0,0,1,144,0C200,161.23,144.53,209,128,222Z" />
-                        </svg>
-                        <div className="form-input filter-input-box bg-gray-50 dark:bg-slate-800 border-0 css-b62m3t-container">
-                          <span
-                            id="react-select-2-live-region"
-                            className="css-7pg0cj-a11yText"
-                          />
-                          <span
-                            aria-live="polite"
-                            aria-atomic="false"
-                            aria-relevant="additions text"
-                            className="css-7pg0cj-a11yText"
-                          />
-                          <div className=" css-13cymwt-control">
-                            <div className=" css-hlgwow">
-                              <div
-                                className=" css-1jqq78o-placeholder"
-                                id="react-select-2-placeholder"
-                              >
-                                Select...
-                              </div>
-                              <div className=" css-19bb58m" data-value="">
-                                <input
-                                  className=""
-                                  autoCapitalize="none"
-                                  autoComplete="off"
-                                  autoCorrect="off"
-                                  id="react-select-2-input"
-                                  spellCheck="false"
-                                  tabIndex={0}
-                                  type="text"
-                                  aria-autocomplete="list"
-                                  aria-expanded="false"
-                                  aria-haspopup="true"
-                                  role="combobox"
-                                  aria-describedby="react-select-2-placeholder"
-                                  defaultValue=""
-                                  style={{
-                                    color: "inherit",
-                                    background: "0px center",
-                                    opacity: 1,
-                                    width: "100%",
-                                    gridArea: "1 / 2",
-                                    font: "inherit",
-                                    minWidth: 2,
-                                    border: 0,
-                                    margin: 0,
-                                    outline: 0,
-                                    padding: 0
-                                  }}
-                                />
-                              </div>
-                            </div>
-                            <div className=" css-1wy0on6">
-                              <span className=" css-1u9des2-indicatorSeparator" />
-                              <div
-                                className=" css-1xc3v61-indicatorContainer"
-                                aria-hidden="true"
-                              >
-                                <svg
-                                  height={20}
-                                  width={20}
-                                  viewBox="0 0 20 20"
-                                  aria-hidden="true"
-                                  focusable="false"
-                                  className="css-8mmkcg"
-                                >
-                                  <path d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z" />
-                                </svg>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="mb-4">
-                      <label className="form-label font-medium">
-                        Job Type :
-                      </label>
-                      <div className="filter-search-form relative mt-2">
-                        <svg
-                          stroke="currentColor"
-                          fill="currentColor"
-                          strokeWidth={0}
-                          viewBox="0 0 24 24"
-                          className="icons"
-                          height="1em"
-                          width="1em"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path d="M20 6h-3V4c0-1.103-.897-2-2-2H9c-1.103 0-2 .897-2 2v2H4c-1.103 0-2 .897-2 2v11c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V8c0-1.103-.897-2-2-2zm-5-2v2H9V4h6zM4 8h16v4h-3v-2h-2v2H9v-2H7v2H4V8zm0 11v-5h3v2h2v-2h6v2h2v-2h3.001v5H4z" />
-                        </svg>
-                        <div className="form-input filter-input-box bg-gray-50 dark:bg-slate-800 border-0 css-b62m3t-container">
-                          <span
-                            id="react-select-3-live-region"
-                            className="css-7pg0cj-a11yText"
-                          />
-                          <span
-                            aria-live="polite"
-                            aria-atomic="false"
-                            aria-relevant="additions text"
-                            className="css-7pg0cj-a11yText"
-                          />
-                          <div className=" css-13cymwt-control">
-                            <div className=" css-hlgwow">
-                              <div
-                                className=" css-1jqq78o-placeholder"
-                                id="react-select-3-placeholder"
-                              >
-                                Select...
-                              </div>
-                              <div className=" css-19bb58m" data-value="">
-                                <input
-                                  className=""
-                                  autoCapitalize="none"
-                                  autoComplete="off"
-                                  autoCorrect="off"
-                                  id="react-select-3-input"
-                                  spellCheck="false"
-                                  tabIndex={0}
-                                  type="text"
-                                  aria-autocomplete="list"
-                                  aria-expanded="false"
-                                  aria-haspopup="true"
-                                  role="combobox"
-                                  aria-describedby="react-select-3-placeholder"
-                                  defaultValue=""
-                                  style={{
-                                    color: "inherit",
-                                    background: "0px center",
-                                    opacity: 1,
-                                    width: "100%",
-                                    gridArea: "1 / 2",
-                                    font: "inherit",
-                                    minWidth: 2,
-                                    border: 0,
-                                    margin: 0,
-                                    outline: 0,
-                                    padding: 0
-                                  }}
-                                />
-                              </div>
-                            </div>
-                            <div className=" css-1wy0on6">
-                              <span className=" css-1u9des2-indicatorSeparator" />
-                              <div
-                                className=" css-1xc3v61-indicatorContainer"
-                                aria-hidden="true"
-                              >
-                                <svg
-                                  height={20}
-                                  width={20}
-                                  viewBox="0 0 20 20"
-                                  aria-hidden="true"
-                                  focusable="false"
-                                  className="css-8mmkcg"
-                                >
-                                  <path d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z" />
-                                </svg>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div>
-                      <input
-                        type="submit"
-                        id="search"
-                        name="search"
-                        className="btn bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white searchbtn submit-btn rounded-md"
-                        defaultValue="Search"
-                      />
-                    </div>
-                  </div> */}
                 </form>
               </div>
             </div>
@@ -1537,132 +1321,7 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className="relative bg-slate-900 dark:bg-slate-800">
-        <div className="container">
-          <div className="grid grid-cols-1">
-            <div className="relative py-12">
-              <div className="relative w-full">
-                <div className="grid md:grid-cols-12 grid-cols-1 gap-[30px]">
-                  <div className="md:col-span-3">
-                    <a
-                      className="flex justify-center md:justify-start focus:outline-none"
-                      href="/index-three"
-                    >
-                      <Image src={AppLogo} alt="App logo" />
-                    </a>
-                  </div>
-                  <div className="md:col-span-9">
-                    <ul className="list-disc footer-list md:text-left text-center space-x-3">
-                      <li className="inline-block">
-                        <a
-                          className="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium me-4"
-                          href="/index"
-                        >
-                          Home
-                        </a>
-                      </li>
-                      <li className="inline-block mt-[10px] md:mt-0">
-                        <a
-                          className="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium me-4"
-                          href="/services"
-                        >
-                          How it works
-                        </a>
-                      </li>
-                      <li className="inline-block mt-[10px] md:mt-0">
-                        <a
-                          className="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium me-4"
-                          href="/index-three"
-                        >
-                          Create a job
-                        </a>
-                      </li>
-                      <li className="inline-block mt-[10px] md:mt-0">
-                        <a
-                          className="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium me-4"
-                          href="/aboutus"
-                        >
-                          About us
-                        </a>
-                      </li>
-                      <li className="inline-block mt-[10px] md:mt-0">
-                        <a
-                          className="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium"
-                          href="/contact"
-                        >
-                          Contact us
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="py-[30px] px-0 border-t border-gray-800 dark:border-gray-700">
-          <div className="container text-center">
-            <div className="flex items-center justify-between">
-              <div className="md:text-left text-center">
-                <p className="text-gray-300 font-medium flex space-x-1">
-                  <span>©2024 Jobstack. Design &amp; Develop with</span>
-                  <span>
-                    <HeartIcon fill="red" strokeWidth={0} size={18} />
-                  </span>
-                  <span>by</span>
-                  <a
-                    className="text-reset"
-                    href="https://shreethemes.in/"
-                    target="_blank"
-                  >
-                    Shreethemes
-                  </a>
-                </p>
-              </div>
-              <ul className="list-none md:text-right text-center flex space-x-3">
-                <li className="inline">
-                  <a
-                    className="text-white"
-                    href="https://1.envato.market/shreethemes-portfolio"
-                    target="_blank"
-                  >
-                    <svg
-                      stroke="currentColor"
-                      fill="currentColor"
-                      strokeWidth={0}
-                      viewBox="0 0 1024 1024"
-                      height="1em"
-                      width="1em"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M922.9 701.9H327.4l29.9-60.9 496.8-.9c16.8 0 31.2-12 34.2-28.6l68.8-385.1c1.8-10.1-.9-20.5-7.5-28.4a34.99 34.99 0 0 0-26.6-12.5l-632-2.1-5.4-25.4c-3.4-16.2-18-28-34.6-28H96.5a35.3 35.3 0 1 0 0 70.6h125.9L246 312.8l58.1 281.3-74.8 122.1a34.96 34.96 0 0 0-3 36.8c6 11.9 18.1 19.4 31.5 19.4h62.8a102.43 102.43 0 0 0-20.6 61.7c0 56.6 46 102.6 102.6 102.6s102.6-46 102.6-102.6c0-22.3-7.4-44-20.6-61.7h161.1a102.43 102.43 0 0 0-20.6 61.7c0 56.6 46 102.6 102.6 102.6s102.6-46 102.6-102.6c0-22.3-7.4-44-20.6-61.7H923c19.4 0 35.3-15.8 35.3-35.3a35.42 35.42 0 0 0-35.4-35.2zM305.7 253l575.8 1.9-56.4 315.8-452.3.8L305.7 253zm96.9 612.7c-17.4 0-31.6-14.2-31.6-31.6 0-17.4 14.2-31.6 31.6-31.6s31.6 14.2 31.6 31.6a31.6 31.6 0 0 1-31.6 31.6zm325.1 0c-17.4 0-31.6-14.2-31.6-31.6 0-17.4 14.2-31.6 31.6-31.6s31.6 14.2 31.6 31.6a31.6 31.6 0 0 1-31.6 31.6z" />
-                    </svg>
-                  </a>
-                </li>
-                <li className="inline">
-                  <a
-                    className="text-white"
-                    href="https://dribbble.com/shreethemes"
-                    target="_blank"
-                  >
-                    <svg
-                      stroke="currentColor"
-                      fill="currentColor"
-                      strokeWidth={0}
-                      viewBox="0 0 24 24"
-                      height="1em"
-                      width="1em"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M20.66 6.98a9.932 9.932 0 0 0-3.641-3.64C15.486 2.447 13.813 2 12 2s-3.486.447-5.02 1.34c-1.533.893-2.747 2.107-3.64 3.64S2 10.187 2 12s.446 3.487 1.34 5.02a9.924 9.924 0 0 0 3.641 3.64C8.514 21.553 10.187 22 12 22s3.486-.447 5.02-1.34a9.932 9.932 0 0 0 3.641-3.64C21.554 15.487 22 13.813 22 12s-.446-3.487-1.34-5.02zM12 3.66c2 0 3.772.64 5.32 1.919-.92 1.174-2.286 2.14-4.1 2.9-1.002-1.813-2.088-3.327-3.261-4.54A7.715 7.715 0 0 1 12 3.66zM5.51 6.8a8.116 8.116 0 0 1 2.711-2.22c1.212 1.201 2.325 2.7 3.34 4.5-2 .6-4.114.9-6.341.9-.573 0-1.006-.013-1.3-.04A8.549 8.549 0 0 1 5.51 6.8zM3.66 12c0-.054.003-.12.01-.2.007-.08.01-.146.01-.2.254.014.641.02 1.161.02 2.666 0 5.146-.367 7.439-1.1.187.373.381.793.58 1.26-1.32.293-2.674 1.006-4.061 2.14S6.4 16.247 5.76 17.5c-1.4-1.587-2.1-3.42-2.1-5.5zM12 20.34c-1.894 0-3.594-.587-5.101-1.759.601-1.187 1.524-2.322 2.771-3.401 1.246-1.08 2.483-1.753 3.71-2.02a29.441 29.441 0 0 1 1.56 6.62 8.166 8.166 0 0 1-2.94.56zm7.08-3.96a8.351 8.351 0 0 1-2.58 2.621c-.24-2.08-.7-4.107-1.379-6.081.932-.066 1.765-.1 2.5-.1.799 0 1.686.034 2.659.1a8.098 8.098 0 0 1-1.2 3.46zm-1.24-5c-1.16 0-2.233.047-3.22.14a27.053 27.053 0 0 0-.68-1.62c2.066-.906 3.532-2.006 4.399-3.3 1.2 1.414 1.854 3.027 1.96 4.84-.812-.04-1.632-.06-2.459-.06z" />
-                    </svg>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

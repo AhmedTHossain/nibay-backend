@@ -1,4 +1,7 @@
-import AppLogo from "@/app/assets/logo.png";
+"use client";
+
+import app_logo_black from "@/app/assets/logo-black.png";
+import app_logo_white from "@/app/assets/logo-white.png";
 import { Input } from "@/components/ui/input";
 import {
   Menubar,
@@ -11,15 +14,34 @@ import {
 import { LogOutIcon, SearchIcon, SettingsIcon, UserIcon } from "lucide-react";
 import Image from "next/image";
 import { Avatar } from "../common/Avatar";
-import { Navigation } from "./Navigation";
 import { ModeToggle } from "../common/ModeToggle";
+import { Navigation } from "./Navigation";
+import Link from "next/link";
+import { useEffect } from "react";
 
 const Header = () => {
+  useEffect(() => {
+    if (!localStorage.getItem("default-lang")) {
+      localStorage.setItem("default-lang", "en");
+    }
+  }, []);
+
   return (
     <div className="py-6 fixed w-full z-50 bg-gradient-to-b from-emerald-600/20 dark:from-emerald-600/40 via-emerald-600/10 dark:via-emerald-600/20 to-transparent">
       <div className="container">
         <div className="flex items-center justify-between">
-          <Image src={AppLogo} alt="App logo" />
+          <Link href="/">
+            <Image
+              src={app_logo_black}
+              alt="App logo"
+              className="h-[24px] inline-block dark:hidden"
+            />
+            <Image
+              src={app_logo_white}
+              alt="App logo"
+              className="h-[24px] hidden dark:inline-block"
+            />
+          </Link>
 
           <Navigation />
 
