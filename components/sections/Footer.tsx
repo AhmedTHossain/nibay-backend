@@ -1,29 +1,8 @@
-"use client";
-
 import app_logo_white from "@/app/assets/logo-white.png";
-import i18n from "@/utils/i18";
 
 import { HeartIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
-} from "../ui/select";
-
-const changeLangToEnglish = () => {
-  i18n.changeLanguage("en");
-  localStorage.setItem("default-lang", "en");
-};
-
-const changeLangToBengali = () => {
-  i18n.changeLanguage("bn");
-  localStorage.setItem("default-lang", "bn");
-};
 
 const Footer = () => {
   return (
@@ -88,31 +67,6 @@ const Footer = () => {
                       </a>
                     </li>
                   </ul>
-                </div>
-
-                <div className="md:col-span-2">
-                  <Select
-                    defaultValue={
-                      localStorage.getItem("default-lang") as string
-                    }
-                    onValueChange={(value) => {
-                      if (value === "en") {
-                        changeLangToEnglish();
-                      } else {
-                        changeLangToBengali();
-                      }
-                    }}
-                  >
-                    <SelectTrigger className="w-max px-4 py-1">
-                      <SelectValue placeholder="Select" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectGroup>
-                        <SelectItem value="en">en</SelectItem>
-                        <SelectItem value="bn">bn</SelectItem>
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
                 </div>
               </div>
             </div>

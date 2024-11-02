@@ -13,19 +13,12 @@ import {
 } from "@/components/ui/menubar";
 import { LogOutIcon, SearchIcon, SettingsIcon, UserIcon } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { Avatar } from "../common/Avatar";
 import { ModeToggle } from "../common/ModeToggle";
 import { Navigation } from "./Navigation";
-import Link from "next/link";
-import { useEffect } from "react";
 
 const Header = () => {
-  useEffect(() => {
-    if (!localStorage.getItem("default-lang")) {
-      localStorage.setItem("default-lang", "en");
-    }
-  }, []);
-
   return (
     <div className="py-6 fixed w-full z-50 bg-gradient-to-b from-emerald-600/20 dark:from-emerald-600/40 via-emerald-600/10 dark:via-emerald-600/20 to-transparent">
       <div className="container">

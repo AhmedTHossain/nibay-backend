@@ -31,11 +31,8 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Header from "./components/header";
-import { useTranslation } from "next-i18next";
 
 export default function Home() {
-  const { t } = useTranslation();
-
   return (
     <div>
       <Header />
@@ -46,9 +43,13 @@ export default function Home() {
             <div className="md:order-1 order-2">
               <div className="bg-white dark:bg-slate-900 rounded-xl shadow dark:shadow-gray-800 md:p-8 p-6 lg:me-10 relative">
                 <h4 className="mb-3 text-3xl font-semibold">
-                  {t("home:title")}
+                  Find Your Expected Job
                 </h4>
-                <p className="text-slate-400 text-sm">{t("home:sub_title")}</p>
+                <p className="text-slate-400 text-sm">
+                  Find Jobs, Employment & Career Opportunities. Some of the
+                  companies we&apos;ve helped recruit excellent applicants over
+                  the years.
+                </p>
                 <form className="mt-6">
                   <div className="grid grid-cols-1 gap-6">
                     <div>
