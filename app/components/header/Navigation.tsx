@@ -5,33 +5,12 @@ import * as React from "react";
 
 import {
   NavigationMenu,
-  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
   navigationMenuTriggerStyle
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
-
-const jobItems: { title: string; href: string }[] = [
-  {
-    title: "Job Categories",
-    href: "/docs/primitives/alert-dialog"
-  },
-  {
-    title: "Job Apply",
-    href: "/docs/primitives/hover-card"
-  },
-  {
-    title: "Job Post",
-    href: "/docs/primitives/progress"
-  },
-  {
-    title: "Career",
-    href: "/docs/primitives/scroll-area"
-  }
-];
 
 export function Navigation() {
   return (
@@ -40,39 +19,32 @@ export function Navigation() {
         <NavigationMenuItem>
           <Link href="/" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Home
+              {/* Home */}
+              হোম
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
 
         <NavigationMenuItem>
-          <NavigationMenuTrigger>Jobs</NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <ul className="p-2 w-max">
-              {jobItems.map((job) => (
-                <ListItem key={job.title} title={job.title} href={job.href} />
-              ))}
-            </ul>
-          </NavigationMenuContent>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <Link href="/services" legacyBehavior passHref>
+          <Link href="/" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Services
+              {/* Home */}
+              জব
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
+
         <NavigationMenuItem>
           <Link href="/about-us" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              About
+              আমাদের সম্পর্কে
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
         <NavigationMenuItem>
           <Link href="/contact" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Contact
+              যোগাযোগ
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>

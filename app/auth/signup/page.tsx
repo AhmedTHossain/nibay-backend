@@ -23,18 +23,18 @@ export default function SignupRoute() {
                 className="h-[24px] hidden dark:inline-block"
               />
             </Link>
-            <h5 className="my-6 text-xl font-semibold">Signup</h5>
+            <h5 className="my-6 text-xl font-semibold">সাইন আপ</h5>
             <form className="text-left">
               <div className="grid grid-cols-1">
                 <div className="mb-4 ltr:text-left rtl:text-right">
                   <label className="font-semibold" htmlFor="RegisterName">
-                    Your Name:
+                    আপনার নাম
                   </label>
                   <Input id="RegisterName" type="text" placeholder="Harry" />
                 </div>
                 <div className="mb-4 ltr:text-left rtl:text-right">
                   <label className="font-semibold" htmlFor="LoginEmail">
-                    Email Address:
+                    ইমেইল
                   </label>
                   <Input
                     id="LoginEmail"
@@ -44,7 +44,7 @@ export default function SignupRoute() {
                 </div>
                 <div className="mb-4 ltr:text-left rtl:text-right">
                   <label className="font-semibold" htmlFor="LoginPassword">
-                    Password:
+                    পাসওয়ার্ড
                   </label>
                   <Input
                     id="LoginPassword"
@@ -52,7 +52,7 @@ export default function SignupRoute() {
                     placeholder="Password:"
                   />
                 </div>
-                <div className="mb-4">
+                {/* <div className="mb-4">
                   <div className="flex items-center w-full mb-0">
                     <Input
                       className="form-checkbox text-emerald-600 rounded size-4 me-2 border border-inherit"
@@ -70,21 +70,21 @@ export default function SignupRoute() {
                       </a>
                     </label>
                   </div>
-                </div>
+                </div> */}
                 <div className="mb-4">
                   <Button className="bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white rounded-md w-full">
-                    Register
+                    অ্যাকাউন্ট তৈরি
                   </Button>
                 </div>
                 <div className="text-center">
                   <span className="text-slate-400 me-2">
-                    Already have an account ?{" "}
+                    ইতিমধ্যেই রেজিস্ট্রেশন করা আছে ?{" "}
                   </span>{" "}
                   <Link
                     className="text-black dark:text-white font-bold"
                     href="/auth/login"
                   >
-                    Sign in
+                    সাইন ইন
                   </Link>
                 </div>
               </div>

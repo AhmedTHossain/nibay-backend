@@ -1,6 +1,5 @@
 import app_logo_white from "@/app/assets/logo-white.png";
 
-import { HeartIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -31,7 +30,7 @@ const Footer = () => {
                         className="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium me-4"
                         href="/index"
                       >
-                        Home
+                        হোম
                       </a>
                     </li>
                     <li className="inline-block mt-[10px] md:mt-0">
@@ -39,7 +38,7 @@ const Footer = () => {
                         className="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium me-4"
                         href="/services"
                       >
-                        How it works
+                        জব
                       </a>
                     </li>
                     <li className="inline-block mt-[10px] md:mt-0">
@@ -47,7 +46,7 @@ const Footer = () => {
                         className="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium me-4"
                         href="/index-three"
                       >
-                        Create a job
+                        আমাদের সম্পর্কে
                       </a>
                     </li>
                     <li className="inline-block mt-[10px] md:mt-0">
@@ -55,15 +54,7 @@ const Footer = () => {
                         className="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium me-4"
                         href="/aboutus"
                       >
-                        About us
-                      </a>
-                    </li>
-                    <li className="inline-block mt-[10px] md:mt-0">
-                      <a
-                        className="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium"
-                        href="/contact"
-                      >
-                        Contact us
+                        যোগাযোগ
                       </a>
                     </li>
                   </ul>
@@ -79,18 +70,7 @@ const Footer = () => {
           <div className="flex items-center justify-between md:flex-row flex-col md:space-y-0 space-y-4">
             <div className="md:text-left text-center">
               <p className="text-gray-300 font-medium ">
-                <span>
-                  ©{new Date().getFullYear()} Jobstack. Design &amp; Develop
-                  with
-                </span>
-                <span>
-                  <HeartIcon
-                    className="inline-block ml-2"
-                    fill="red"
-                    strokeWidth={0}
-                    size={18}
-                  />
-                </span>
+                ©{new Date().getFullYear()} Jobstack
               </p>
             </div>
             <ul className="list-none md:text-right text-center flex space-x-3">

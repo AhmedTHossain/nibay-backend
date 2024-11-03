@@ -1,6 +1,5 @@
 "use client";
 
-import BookmarkIcon from "@/app/assets/Icons/bookmark.svg";
 import FacebookIcon from "@/app/assets/Icons/facebook.svg";
 import GoogleIcon from "@/app/assets/Icons/google.svg";
 import HeroImage from "@/app/assets/Illustrations/hero.svg";
@@ -18,21 +17,35 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue
 } from "@/components/ui/select";
 import {
+  ArrowUpRight,
+  Bookmark,
   Briefcase,
   BriefcaseBusinessIcon,
+  BusIcon,
   MapPin,
   MapPinIcon,
   PlayIcon
 } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import Header from "./components/header";
 
 export default function Home() {
+  const router = useRouter();
+
+  useEffect(() => {
+    const isLoggedIn = !!localStorage.getItem("isLoggedIn");
+    if (!isLoggedIn) {
+      router.push("/auth/login");
+    }
+    // eslint-disable-next-line
+  }, []);
+
   return (
     <div>
       <Header />
@@ -43,18 +56,18 @@ export default function Home() {
             <div className="md:order-1 order-2">
               <div className="bg-white dark:bg-slate-900 rounded-xl shadow dark:shadow-gray-800 md:p-8 p-6 lg:me-10 relative">
                 <h4 className="mb-3 text-3xl font-semibold">
-                  Find Your Expected Job
+                  আপনার প্রত্যাশিত চাকরি খুঁজুন
                 </h4>
                 <p className="text-slate-400 text-sm">
-                  Find Jobs, Employment & Career Opportunities. Some of the
-                  companies we&apos;ve helped recruit excellent applicants over
-                  the years.
+                  চাকরি, কর্মসংস্থান এবং ক্যারিয়ারের সুযোগ খুঁজুন। আমরা বছরের
+                  পর বছর ধরে চমৎকার আবেদনকারীদের নিয়োগ করতে সাহায্য করেছি এমন
+                  কিছু কোম্পানি।
                 </p>
                 <form className="mt-6">
                   <div className="grid grid-cols-1 gap-6">
                     <div>
                       <label className="form-label font-medium block">
-                        Search
+                        সঠিক চাকরি খুঁজে নিন
                       </label>
                       <div className="relative mt-2 flex items-center px-4 py-2 bg-gray-50 dark:bg-slate-800">
                         <span className="">
@@ -65,14 +78,14 @@ export default function Home() {
                           type="text"
                           id="job-keyword"
                           className="border-0 bg-transparent dark:bg-transparent"
-                          placeholder="Search your Keywords"
+                          placeholder="সঠিক চাকরি খুঁজে নিন"
                         />
                       </div>
                     </div>
 
                     <div>
                       <label className="form-label font-medium block">
-                        Location
+                        জেলা
                       </label>
                       <div className="relative mt-2 flex items-center px-4 py-2 bg-gray-50 dark:bg-slate-800">
                         <span className="">
@@ -80,14 +93,13 @@ export default function Home() {
                         </span>
                         <Select>
                           <SelectTrigger className="w-full bg-transparent dark:bg-transparent border-0 focus:ring-0 focus:ring-offset-0">
-                            <SelectValue placeholder="Select location" />
+                            <SelectValue placeholder="জেলা নির্বাচন" />
                           </SelectTrigger>
                           <SelectContent>
                             <SelectGroup>
-                              <SelectLabel>Choose</SelectLabel>
-                              <SelectItem value="dhaka">Dhaka</SelectItem>
+                              <SelectItem value="dhaka">ঢাকা</SelectItem>
                               <SelectItem value="chattogram">
-                                Chattogram
+                                চট্টগ্রাম
                               </SelectItem>
                             </SelectGroup>
                           </SelectContent>
@@ -97,7 +109,7 @@ export default function Home() {
 
                     <div>
                       <label className="form-label font-medium block">
-                        Job Type
+                        কাজের ধরন
                       </label>
                       <div className="relative mt-2 flex items-center px-4 py-2 bg-gray-50 dark:bg-slate-800">
                         <span className="">
@@ -105,11 +117,10 @@ export default function Home() {
                         </span>
                         <Select>
                           <SelectTrigger className="w-full bg-transparent dark:bg-transparent border-0 focus:ring-0 focus:ring-offset-0">
-                            <SelectValue placeholder="Select job type" />
+                            <SelectValue placeholder="কাজের ধরন" />
                           </SelectTrigger>
                           <SelectContent>
                             <SelectGroup>
-                              <SelectLabel>Choose</SelectLabel>
                               <SelectItem value="full-time">
                                 Full Time
                               </SelectItem>
@@ -131,7 +142,7 @@ export default function Home() {
 
                     <div>
                       <Button className="bg-[#10b981] hover:bg-[#10b981]">
-                        Search
+                        অনুসন্ধান
                       </Button>
                     </div>
                   </div>
@@ -140,6 +151,110 @@ export default function Home() {
             </div>
             <div className="md:order-2 order-1">
               <Image src={HeroImage} alt="Hero image" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="relative md:py-12 py-8">
+        <div className="container">
+          <div className="grid grid-cols-1 pb-8 text-center">
+            <h3 className="mb-4 md:text-[26px] md:leading-normal text-2xl leading-normal font-semibold">
+              Popular Jobs
+            </h3>
+            <p className="text-slate-400 max-w-xl mx-auto">
+              Search all the open positions on the web. Get your own
+              personalized salary estimate. Read reviews on over 30000+
+              companies worldwide.
+            </p>
+          </div>
+          <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 mt-8 gap-[30px]">
+            <div className="group p-6 rounded-lg border border-emerald-600/20 dark:border-emerald-600/40 bg-white dark:bg-slate-900 hover:bg-emerald-600/[0.02] hover:dark:bg-emerald-600/5 hover:shadow-md hover:shadow-emerald-600/5 transition-all duration-500">
+              <div className="flex justify-between items-start">
+                <div>
+                  <div className="size-14 flex items-center justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-full mb-2">
+                    <BusIcon size={26} />
+                  </div>
+                  <a
+                    className="text-lg hover:text-emerald-600 font-semibold transition-all duration-500"
+                    href="/employer-detail/1"
+                  >
+                    Shohag Paribahan
+                  </a>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <span className="rounded-full bg-emerald-600/5 hover:bg-emerald-500 border-emerald-600/10 hover:border-emerald-600 text-emerald-600 hover:text-white md:relative absolute top-0 end-0 md:m-0 m-3 w-10 h-10 flex items-center justify-center">
+                    <Bookmark strokeWidth={1.5} size={18} />
+                  </span>
+                  <span className="rounded-full bg-emerald-600/5 hover:bg-emerald-500 border-emerald-600/10 hover:border-emerald-600 text-emerald-600 hover:text-white md:relative absolute top-0 end-0 md:m-0 m-3 w-10 h-10 flex items-center justify-center">
+                    <ArrowUpRight strokeWidth={1.5} size={18} />
+                  </span>
+                </div>
+              </div>
+              <div className="mt-3">
+                <a
+                  className="text-xl hover:text-emerald-600 font-semibold transition-all duration-500"
+                  href="/job-detail-one/1"
+                >
+                 Shohag Paribahan (PVT) Ltd. চাকরির বিজ্ঞপ্তি
+                </a>
+                <p className="text-slate-400 mt-2">
+                ঢাকা-চট্টগ্রাম রুটের জন্য ২ জন অভিজ্ঞ যাত্রীর গাইড প্রয়োজন 
+                </p>
+                <div className="mt-3">
+                  <a href="/index-seven">
+                    <span className="bg-orange-500/5 hover:bg-orange-500/20 dark:bg-orange-500/10 hover:dark:bg-orange-500/30 inline-block text-orange-500 px-4 text-[14px] font-medium rounded-full mt-2 me-1 transition-all duration-500">
+                      Full Time
+                    </span>
+                  </a>
+                  <a href="/index-seven">
+                    <span className="bg-purple-600/5 hover:bg-purple-600/20 dark:bg-purple-600/10 hover:dark:bg-purple-600/30 inline-block text-purple-600 px-4 text-[14px] font-medium rounded-full mt-2 me-1 transition-all duration-500">
+                      $4,000 - $4,500
+                    </span>
+                  </a>
+                  <a href="/index-seven">
+                    <span className="bg-emerald-600/5 hover:bg-emerald-600/20 dark:bg-emerald-600/10 hover:dark:bg-emerald-600/30 inline-flex items-center text-emerald-600 px-4 text-[14px] font-medium rounded-full mt-2 transition-all duration-500">
+                      <svg
+                        stroke="currentColor"
+                        fill="currentColor"
+                        strokeWidth={0}
+                        viewBox="0 0 256 256"
+                        className="me-1"
+                        height="1em"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M128,64a40,40,0,1,0,40,40A40,40,0,0,0,128,64Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,128Zm0-112a88.1,88.1,0,0,0-88,88c0,31.4,14.51,64.68,42,96.25a254.19,254.19,0,0,0,41.45,38.3,8,8,0,0,0,9.18,0A254.19,254.19,0,0,0,174,200.25c27.45-31.57,42-64.85,42-96.25A88.1,88.1,0,0,0,128,16Zm0,206c-16.53-13-72-60.75-72-118a72,72,0,0,1,144,0C200,161.23,144.53,209,128,222Z" />
+                      </svg>
+                      চট্টগ্রাম
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
+         
+          </div>
+          <div className="grid md:grid-cols-12 grid-cols-1 mt-8">
+            <div className="md:col-span-12 text-center">
+              <a
+                className="btn btn-link text-slate-400 hover:text-emerald-600 after:bg-emerald-600 duration-500 ease-in-out inline-flex items-center"
+                href="/index-seven/job-grid-four"
+              >
+                See More Jobs{" "}
+                <svg
+                  stroke="currentColor"
+                  fill="currentColor"
+                  strokeWidth={0}
+                  viewBox="0 0 24 24"
+                  className="ms-1"
+                  height="1em"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path fill="none" d="M0 0h24v24H0V0z" />
+                  <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8-8-8z" />
+                </svg>
+              </a>
             </div>
           </div>
         </div>
@@ -762,163 +877,6 @@ export default function Home() {
                     <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8-8-8z" />
                   </svg>
                 </a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="container md:mt-24 mt-16">
-          <div className="grid grid-cols-1 pb-8 text-center">
-            <h3 className="mb-4 md:text-[26px] md:leading-normal text-2xl leading-normal font-semibold">
-              Popular Jobs
-            </h3>
-            <p className="text-slate-400 max-w-xl mx-auto">
-              Search all the open positions on the web. Get your own
-              personalized salary estimate. Read reviews on over 30000+
-              companies worldwide.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 mt-8 gap-[30px]">
-            <div className="group relative overflow-hidden md:flex justify-between items-center rounded shadow hover:shadow-md dark:shadow-gray-700 transition-all duration-500 p-5">
-              <div className="flex items-center">
-                <div className="size-14 flex items-center justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md">
-                  <Image src={FacebookIcon} alt="facebook icon" />
-                </div>
-                <a
-                  className="text-lg hover:text-emerald-600 font-semibold transition-all duration-500 ms-3 min-w-[180px]"
-                  href="/job-detail-one/1"
-                >
-                  Facebook
-                </a>
-              </div>
-              <div className="md:block flex justify-between md:mt-0 mt-4">
-                <span className="block">
-                  <span className="bg-emerald-600/10 inline-block text-emerald-600 text-xs px-2.5 py-0.5 font-semibold rounded-full">
-                    Full Time
-                  </span>
-                </span>
-                <span className="flex items-center text-slate-400 text-sm md:mt-1 mt-0">
-                  <svg
-                    stroke="currentColor"
-                    fill="currentColor"
-                    strokeWidth={0}
-                    viewBox="0 0 1024 1024"
-                    className="me-1"
-                    height="1em"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z" />
-                    <path d="M686.7 638.6L544.1 535.5V288c0-4.4-3.6-8-8-8H488c-4.4 0-8 3.6-8 8v275.4c0 2.6 1.2 5 3.3 6.5l165.4 120.6c3.6 2.6 8.6 1.8 11.2-1.7l28.6-39c2.6-3.7 1.8-8.7-1.8-11.2z" />
-                  </svg>{" "}
-                  20th Feb 2023
-                </span>
-              </div>
-              <div className="md:block flex justify-between md:mt-0 mt-2">
-                <span className="text-slate-400 flex items-center">
-                  <svg
-                    stroke="currentColor"
-                    fill="currentColor"
-                    strokeWidth={0}
-                    viewBox="0 0 256 256"
-                    className="me-1"
-                    height="1em"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path d="M128,64a40,40,0,1,0,40,40A40,40,0,0,0,128,64Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,128Zm0-112a88.1,88.1,0,0,0-88,88c0,31.4,14.51,64.68,42,96.25a254.19,254.19,0,0,0,41.45,38.3,8,8,0,0,0,9.18,0A254.19,254.19,0,0,0,174,200.25c27.45-31.57,42-64.85,42-96.25A88.1,88.1,0,0,0,128,16Zm0,206c-16.53-13-72-60.75-72-118a72,72,0,0,1,144,0C200,161.23,144.53,209,128,222Z" />
-                  </svg>
-                  Australia
-                </span>
-                <span className="block font-semibold md:mt-1 mt-0">
-                  $4,000 - $4,500
-                </span>
-              </div>
-              <div className="md:mt-0 mt-4 flex items-center gap-2">
-                <span className="btn btn-icon rounded-full bg-emerald-600/5 hover:bg-emerald-50 border-emerald-600/10 hover:border-emerald-600 text-emerald-600 hover:text-white md:relative absolute top-0 end-0 md:m-0 m-3 w-10 h-10 flex items-center justify-center">
-                  <Image
-                    src={BookmarkIcon}
-                    alt="bookmark icon"
-                    width={12}
-                    height={12}
-                    className="text-emerald-600"
-                  />
-                </span>
-                <Button className="bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white">
-                  Apply Now
-                </Button>
-              </div>
-            </div>
-          </div>
-          <div className="grid grid-cols-1 mt-8 gap-[30px]">
-            <div className="group relative overflow-hidden md:flex justify-between items-center rounded shadow hover:shadow-md dark:shadow-gray-700 transition-all duration-500 p-5">
-              <div className="flex items-center">
-                <div className="size-14 flex items-center justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md">
-                  <Image src={GoogleIcon} alt="google icon" />
-                </div>
-                <a
-                  className="text-lg hover:text-emerald-600 font-semibold transition-all duration-500 ms-3 min-w-[180px]"
-                  href="/job-detail-one/2"
-                >
-                  Google
-                </a>
-              </div>
-              <div className="md:block flex justify-between md:mt-0 mt-4">
-                <span className="block">
-                  <span className="bg-emerald-600/10 inline-block text-emerald-600 text-xs px-2.5 py-0.5 font-semibold rounded-full">
-                    Part Time
-                  </span>
-                </span>
-                <span className="flex items-center text-slate-400 text-sm md:mt-1 mt-0">
-                  <svg
-                    stroke="currentColor"
-                    fill="currentColor"
-                    strokeWidth={0}
-                    viewBox="0 0 1024 1024"
-                    className="me-1"
-                    height="1em"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z" />
-                    <path d="M686.7 638.6L544.1 535.5V288c0-4.4-3.6-8-8-8H488c-4.4 0-8 3.6-8 8v275.4c0 2.6 1.2 5 3.3 6.5l165.4 120.6c3.6 2.6 8.6 1.8 11.2-1.7l28.6-39c2.6-3.7 1.8-8.7-1.8-11.2z" />
-                  </svg>{" "}
-                  20th Feb 2023
-                </span>
-              </div>
-              <div className="md:block flex justify-between md:mt-0 mt-2">
-                <span className="text-slate-400 flex items-center">
-                  <svg
-                    stroke="currentColor"
-                    fill="currentColor"
-                    strokeWidth={0}
-                    viewBox="0 0 256 256"
-                    className="me-1"
-                    height="1em"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path d="M128,64a40,40,0,1,0,40,40A40,40,0,0,0,128,64Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,128Zm0-112a88.1,88.1,0,0,0-88,88c0,31.4,14.51,64.68,42,96.25a254.19,254.19,0,0,0,41.45,38.3,8,8,0,0,0,9.18,0A254.19,254.19,0,0,0,174,200.25c27.45-31.57,42-64.85,42-96.25A88.1,88.1,0,0,0,128,16Zm0,206c-16.53-13-72-60.75-72-118a72,72,0,0,1,144,0C200,161.23,144.53,209,128,222Z" />
-                  </svg>
-                  USA
-                </span>
-                <span className="block font-semibold md:mt-1 mt-0">
-                  $4,000 - $4,500
-                </span>
-              </div>
-              <div className="md:mt-0 mt-4 flex items-center gap-2">
-                <span className="btn btn-icon rounded-full bg-emerald-600/5 hover:bg-emerald-50 border-emerald-600/10 hover:border-emerald-600 text-emerald-600 hover:text-white md:relative absolute top-0 end-0 md:m-0 m-3 w-10 h-10 flex items-center justify-center">
-                  <Image
-                    src={BookmarkIcon}
-                    alt="bookmark icon"
-                    width={12}
-                    height={12}
-                    className="text-emerald-600"
-                  />
-                </span>
-                <Button className="bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white">
-                  Apply Now
-                </Button>
               </div>
             </div>
           </div>

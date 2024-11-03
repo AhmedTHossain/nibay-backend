@@ -17,6 +17,7 @@ import Link from "next/link";
 import { Avatar } from "../common/Avatar";
 import { ModeToggle } from "../common/ModeToggle";
 import { Navigation } from "./Navigation";
+import { useRouter } from "next/navigation";
 
 const Header = () => {
   return (
@@ -60,6 +61,8 @@ const Header = () => {
 export default Header;
 
 function ProfileMenu() {
+  const router = useRouter();
+
   return (
     <Menubar className="border-0 bg-transparent dark:bg-transparent dark:border-0">
       <MenubarMenu>
@@ -68,14 +71,20 @@ function ProfileMenu() {
         </MenubarTrigger>
         <MenubarContent>
           <MenubarItem className="gap-2">
-            <UserIcon size={18} strokeWidth={1.5} /> <span>Profile</span>
+            <UserIcon size={18} strokeWidth={1.5} /> <span>আপনার প্রোফাইল</span>
           </MenubarItem>
           <MenubarItem className="gap-2">
-            <SettingsIcon size={18} strokeWidth={1.5} /> <span>Settings</span>
+            <SettingsIcon size={18} strokeWidth={1.5} /> <span>সেটিংস</span>
           </MenubarItem>
           <MenubarSeparator />
-          <MenubarItem className="gap-2">
-            <LogOutIcon size={18} strokeWidth={1.5} /> <span>Logout</span>
+          <MenubarItem
+            className="gap-2"
+            onClick={() => {
+              localStorage.clear();
+              router.push("/auth/login");
+            }}
+          >
+            <LogOutIcon size={18} strokeWidth={1.5} /> <span>লগ আউট</span>
           </MenubarItem>
         </MenubarContent>
       </MenubarMenu>
