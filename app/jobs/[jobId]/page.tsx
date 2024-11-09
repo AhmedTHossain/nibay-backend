@@ -1,10 +1,18 @@
+"use client";
+
 import Header from "@/app/components/header";
 import Footer from "@/components/sections/Footer";
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { ApplicantListModal } from "../components/ApplicantListModal";
 
 export default function JobDetailsRoute() {
+  const [open, setIsOpen] = useState(false);
+
   return (
     <>
+      <ApplicantListModal open={open} setIsOpen={setIsOpen} />
+
       <Header />
       <section
         className={`relative table w-full py-36 bg-[url('./assets/images/about-hero.jpg')] bg-top bg-no-repeat bg-cover`}
@@ -211,6 +219,15 @@ export default function JobDetailsRoute() {
               </div>
             </div>
             <div className="lg:col-span-8 md:col-span-6">
+              <div className="mb-5 flex justify-end">
+                <Button
+                  onClick={() => setIsOpen(true)}
+                  className="bg-emerald-600/5 border-emerald-100 border hover:bg-emerald-600 hover:border-emerald-600 text-emerald-600 hover:text-white rounded-md ms-2"
+                >
+                  Applicant list
+                </Button>
+              </div>
+
               <h5 className="text-lg font-semibold">Job Description:</h5>
               <p className="text-slate-400 mt-4">
                 One disadvantage of Lorum Ipsum is that in Latin certain letters
