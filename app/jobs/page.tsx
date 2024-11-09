@@ -127,12 +127,12 @@ export default function JobsRoute() {
                   <div className="size-14 flex items-center justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-full mb-2">
                     <BusIcon size={26} />
                   </div>
-                  <a
+                  <Link
+                    href="/jobs/1"
                     className="text-lg hover:text-emerald-600 font-semibold transition-all duration-500"
-                    href="/employer-detail/1"
                   >
                     Shohag Paribahan
-                  </a>
+                  </Link>
                 </div>
                 <div className="flex items-center space-x-2">
                   <span className="rounded-full bg-emerald-600/5 hover:bg-emerald-500 border-emerald-600/10 hover:border-emerald-600 text-emerald-600 hover:text-white md:relative absolute top-0 end-0 md:m-0 m-3 w-10 h-10 flex items-center justify-center">

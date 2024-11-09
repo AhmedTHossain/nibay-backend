@@ -33,6 +33,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import Header from "./components/header";
+import Link from "next/link";
 
 export default function Home() {
   const router = useRouter();
@@ -376,12 +377,12 @@ export default function Home() {
                 </div>
               </div>
               <div className="mt-3">
-                <a
+                <Link
                   className="text-xl hover:text-emerald-600 font-semibold transition-all duration-500"
                   href="/jobs/1"
                 >
                   Shohag Paribahan (PVT) Ltd. চাকরির বিজ্ঞপ্তি
-                </a>
+                </Link>
                 <p className="text-slate-400 mt-2">
                   ঢাকা-চট্টগ্রাম রুটের জন্য ২ জন অভিজ্ঞ যাত্রীর গাইড প্রয়োজন
                 </p>
