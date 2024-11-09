@@ -10,8 +10,8 @@ const Footer = () => {
         <div className="grid grid-cols-1">
           <div className="relative py-12">
             <div className="relative w-full">
-              <div className="grid md:grid-cols-12 grid-cols-1 gap-[30px]">
-                <div className="md:col-span-3">
+              <div className="flex items-center justify-between md:flex-row flex-col md:space-y-0 space-y-3">
+                <div className="">
                   <Link
                     className="flex justify-center md:justify-start focus:outline-none"
                     href="/"
@@ -23,7 +23,7 @@ const Footer = () => {
                     />
                   </Link>
                 </div>
-                <div className="md:col-span-7">
+                <div className="">
                   <ul className="list-disc footer-list md:text-left text-center space-x-3">
                     <li className="inline-block">
                       <a

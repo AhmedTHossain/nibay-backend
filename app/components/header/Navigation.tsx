@@ -26,7 +26,7 @@ export function Navigation() {
         </NavigationMenuItem>
 
         <NavigationMenuItem>
-          <Link href="/" legacyBehavior passHref>
+          <Link href="/jobs" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               {/* Home */}
               জব
@@ -35,7 +35,7 @@ export function Navigation() {
         </NavigationMenuItem>
 
         <NavigationMenuItem>
-          <Link href="/about-us" legacyBehavior passHref>
+          <Link href="/about" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               আমাদের সম্পর্কে
             </NavigationMenuLink>

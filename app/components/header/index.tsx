@@ -2,7 +2,6 @@
 
 import app_logo_black from "@/app/assets/logo-black.png";
 import app_logo_white from "@/app/assets/logo-white.png";
-import { Input } from "@/components/ui/input";
 import {
   Menubar,
   MenubarContent,
@@ -11,13 +10,13 @@ import {
   MenubarSeparator,
   MenubarTrigger
 } from "@/components/ui/menubar";
-import { LogOutIcon, SearchIcon, SettingsIcon, UserIcon } from "lucide-react";
+import { LogOutIcon, SettingsIcon, UserIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Avatar } from "../common/Avatar";
 import { ModeToggle } from "../common/ModeToggle";
 import { Navigation } from "./Navigation";
-import { useRouter } from "next/navigation";
 
 const Header = () => {
   return (
@@ -40,15 +39,6 @@ const Header = () => {
           <Navigation />
 
           <div className="flex items-center">
-            <div className="relative flex items-center">
-              <Input
-                type="text"
-                placeholder="Search..."
-                className="rounded-3xl"
-              />
-              <SearchIcon size={18} className="absolute right-2 top-2" />
-            </div>
-
             <ProfileMenu />
             <ModeToggle />
           </div>

@@ -17,3 +17,10 @@ body {
     --radius: 0.5rem;
   }
 }
+
+.shape {
+  bottom: -1px;
+  inset-inline-end: 0;
+  inset-inline-start: 0;
+  position: absolute;
+}
