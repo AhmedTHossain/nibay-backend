@@ -1,16 +1,14 @@
 "use client";
 
-import app_logo_black from "@/app/assets/logo-black.png";
-import app_logo_white from "@/app/assets/logo-white.png";
+import { InputPassword } from "@/app/components/forms";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import Image from "next/image";
-import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { z } from "zod";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
@@ -47,79 +45,56 @@ export default function LoginRoute() {
   }
 
   return (
-    <div className="container">
-      <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
-        <div className="relative overflow-hidden bg-white dark:bg-slate-900 shadow-md dark:shadow-gray-800 rounded-md">
-          <div className="p-6">
-            <Link href="/">
-              <Image
-                src={app_logo_black}
-                alt="App logo"
-                className="h-[24px] inline-block dark:hidden"
+    <div className="relative overflow-hidden max-w-lg mx-auto mt-20 bg-white dark:bg-slate-900 shadow-md dark:shadow-gray-800 rounded-md">
+      <div className="p-6">
+        <h5 className="my-6 text-xl font-semibold">সাইন ইন</h5>
+        <form className="text-left" onSubmit={form.handleSubmit(onSubmit)}>
+          <div className="grid grid-cols-1">
+            <div className="mb-4 text-left">
+              <label className="font-semibold" htmlFor="email">
+                ইমেইল
+              </label>
+              <Input
+                id="email"
+                type="email"
+                className="mt-3"
+                placeholder="name@example.com"
+                {...form.register("email")}
               />
-              <Image
-                src={app_logo_white}
-                alt="App logo"
-                className="h-[24px] hidden dark:inline-block"
-              />
-            </Link>
-            <h5 className="my-6 text-xl font-semibold">সাইন ইন</h5>
-            <form className="text-left" onSubmit={form.handleSubmit(onSubmit)}>
-              <div className="grid grid-cols-1">
-                <div className="mb-4 ltr:text-left rtl:text-right">
-                  <label className="font-semibold" htmlFor="email">
-                    ইমেইল
-                  </label>
-                  <Input
-                    id="email"
-                    type="email"
-                    className="mt-3"
-                    placeholder="name@example.com"
-                    {...form.register("email")}
-                  />
-                </div>
-                <div className="mb-4 ltr:text-left rtl:text-right">
-                  <label className="font-semibold" htmlFor="LoginPassword">
-                    পাসওয়ার্ড
-                  </label>
-                  <Input
-                    id="LoginPassword"
-                    type="password"
-                    className="mt-3"
-                    placeholder="Password:"
-                    {...form.register("password")}
-                  />
-                </div>
-                <div className="flex justify-between mb-4">
-                  <p className="text-slate-400 mb-0">
-                    <a className="text-slate-400" href="/reset-password">
-                      পাসওয়ার্ড ভুলে গেছেন ?
-                    </a>
-                  </p>
-                </div>
-                <div className="mb-4">
-                  <Button className="bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white rounded-md w-full">
-                    সাইন ইন
-                  </Button>
-                </div>
-                <div className="text-center">
-                  <span className="text-slate-400 me-2">অ্যাকাউন্ট নেই ?</span>{" "}
-                  <Link
-                    className="text-black dark:text-white font-bold"
-                    href="/auth/signup"
-                  >
-                    সাইন আপ
-                  </Link>
-                </div>
-              </div>
-            </form>
+            </div>
+            <InputPassword label="পাসওয়ার্ড" {...form.register("password")} />
+
+            <div className="flex justify-between mb-4">
+              <p className="text-slate-400 mb-0">
+                <a className="text-slate-400" href="/reset-password">
+                  পাসওয়ার্ড ভুলে গেছেন ?
+                </a>
+              </p>
+            </div>
+            <div className="mb-4">
+              <Button
+                type="submit"
+                className="bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white rounded-md w-full"
+              >
+                সাইন ইন
+              </Button>
+            </div>
+            <div className="text-center">
+              <span className="text-slate-400 me-2">অ্যাকাউন্ট নেই ?</span>{" "}
+              <Link
+                className="text-black dark:text-white font-bold"
+                href="/auth/signup"
+              >
+                সাইন আপ
+              </Link>
+            </div>
           </div>
-          <div className="px-6 py-2 bg-slate-50 dark:bg-slate-800 text-center">
-            <p className="mb-0 text-gray-400 font-medium">
-              ©{new Date().getFullYear()} Jobstack
-            </p>
-          </div>
-        </div>
+        </form>
+      </div>
+      <div className="px-6 py-2 bg-slate-50 dark:bg-slate-800 text-center">
+        <p className="mb-0 text-gray-400 font-medium">
+          ©{new Date().getFullYear()} Jobstack
+        </p>
       </div>
     </div>
   );

@@ -1,4 +1,8 @@
 import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
+import app_logo_black from "@/app/assets/logo-black.png";
+import app_logo_white from "@/app/assets/logo-white.png";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -11,9 +15,26 @@ export default function AuthLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <section className="h-screen flex items-center justify-center relative overflow-hidden bg-[url('./assets/auth-bg.jpg')] bg-no-repeat bg-center bg-cover">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black" />
-      {children}
+    <section className="h-screen">
+      <div className="w-full max-w-7xl mx-auto p-6">
+        <div>
+          <Link href="/">
+            <Image
+              src={app_logo_black}
+              alt="App logo"
+              className="h-[24px] inline-block dark:hidden"
+            />
+            <Image
+              src={app_logo_white}
+              alt="App logo"
+              className="h-[24px] hidden dark:inline-block"
+            />
+          </Link>
+        </div>
+        {children}
+      </div>
     </section>
   );
 }
+
+// bg-[url('./assets/auth-bg.jpg')] bg-no-repeat bg-center bg-cover

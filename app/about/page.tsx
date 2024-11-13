@@ -6,24 +6,14 @@ import { Button } from "@/components/ui/button";
 import { PlayIcon } from "lucide-react";
 import Image from "next/image";
 import Header from "../components/header";
+import { HeroSection } from "../components/common/HeroSection";
 
 export default function AboutRoute() {
   return (
     <>
       <Header />
 
-      <section
-        className={`relative table w-full py-36 bg-[url('./assets/images/about-hero.jpg')] bg-top bg-no-repeat bg-cover`}
-      >
-        <div className="absolute inset-0 bg-emerald-900/90" />
-        <div className="container">
-          <div className="grid grid-cols-1 text-center mt-10">
-            <h3 className="md:text-3xl z-10 text-2xl md:leading-snug tracking-wide leading-snug font-medium text-white">
-              About Us
-            </h3>
-          </div>
-        </div>
-      </section>
+      <HeroSection title="About us" />
 
       <section className="relative md:py-24 py-16">
         <div className="container md:pb-16">
@@ -487,12 +477,12 @@ export default function AboutRoute() {
               </svg>
               <div className="flex-1">
                 <h5 className="mb-2 text-lg font-semibold">
-                  How our Jobstack work ?<span className="text-emerald-600" />{" "}
+                  কিভাবে আমি চাকরির জন্য আবেদন করব?
                 </h5>
                 <p className="text-slate-400">
-                  Due to its widespread use as filler text for layouts,
-                  non-readability is of great importance: human perception is
-                  tuned to recognize certain patterns and repetitions in texts.
+                  আবেদনের জন্য, প্রথমে চাকরির বিবরণ স্ক্রীনে যান চাকরির তালিকায়
+                  ট্যাপ করে। তারপর, &quot;আবেদন করুন&quot; বোতামে ট্যাপ করুন এবং
+                  আপনার আবেদন সম্পূর্ণ করতে সমস্ত প্রয়োজনীয় নথি আপলোড করুন।
                 </p>
               </div>
             </div>
@@ -515,71 +505,14 @@ export default function AboutRoute() {
               </svg>
               <div className="flex-1">
                 <h5 className="mb-2 text-lg font-semibold">
-                  What is the main process open account ?
+                  বিভিন্ন আবেদন স্ট্যাটাসের অর্থ কী?
                   <span className="text-emerald-600" />{" "}
                 </h5>
                 <p className="text-slate-400">
-                  words is random, the reader will not be distracted from making
-                  a neutral judgement on the visual impact.
-                </p>
-              </div>
-            </div>
-            <div className="flex">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width={24}
-                height={24}
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={2}
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="h-8 text-emerald-600 me-3"
-              >
-                <circle cx={12} cy={12} r={10} />
-                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
-                <line x1={12} y1={17} x2="12.01" y2={17} />
-              </svg>
-              <div className="flex-1">
-                <h5 className="mb-2 text-lg font-semibold">
-                  How to make unlimited data entry ?
-                  <span className="text-emerald-600" />{" "}
-                </h5>
-                <p className="text-slate-400">
-                  Furthermore, it is advantageous when the dummy text is
-                  relatively realistic so that the layout impression of the
-                  final publication is not compromised.
-                </p>
-              </div>
-            </div>
-            <div className="flex">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width={24}
-                height={24}
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={2}
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="h-8 text-emerald-600 me-3"
-              >
-                <circle cx={12} cy={12} r={10} />
-                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
-                <line x1={12} y1={17} x2="12.01" y2={17} />
-              </svg>
-              <div className="flex-1">
-                <h5 className="mb-2 text-lg font-semibold">
-                  Is Jobstack safer to use with my account ?
-                  <span className="text-emerald-600" />{" "}
-                </h5>
-                <p className="text-slate-400">
-                  The most well-known dummy text is the &apos;Lorem Ipsum&apos;,
-                  which is said to have originated in the 16th century. Lorem
-                  Ipsum is composed in a pseudo-Latin language which more or
-                  less corresponds to &apos;proper&apos; Latin.
+                  আমি কি চাকরির আপডেটের জন্য কোম্পানিগুলোকে অনুসরণ করতে পারি?
+                  আমি কিভাবে আমার প্রোফাইল রেটিং এবং নিয়োগকর্তাদের মন্তব্য
+                  দেখতে পারি যদি আমাকে অ্যাপটি ব্যবহার করতে সাহায্য প্রয়োজন
+                  হয়, তাহলে আমি কি করব?
                 </p>
               </div>
             </div>

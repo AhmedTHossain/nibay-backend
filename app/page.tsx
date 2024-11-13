@@ -20,20 +20,19 @@ import {
   SelectTrigger,
   SelectValue
 } from "@/components/ui/select";
-import {
-  ArrowUpRight,
-  Bookmark,
-  Briefcase,
-  BusIcon,
-  MapPin,
-  MapPinIcon,
-  PlayIcon
-} from "lucide-react";
+import { Briefcase, MapPin, MapPinIcon, PlayIcon } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import Header from "./components/header";
+import { JobFilter } from "./jobs/components/JobFilter";
+import { JobGrid } from "./jobs/components/JobGrid";
 import Link from "next/link";
+import {
+  HowItWorks,
+  howItWorksItems
+} from "@/components/sections/home/how-it-works";
+import { JOB_ITEMS } from "./assets/nav-items";
 
 export default function Home() {
   const router = useRouter();
@@ -241,73 +240,6 @@ export default function Home() {
                     <h5 className="text-lg font-semibold mb-3">
                       5k+ candidates get job
                     </h5>
-                    {/* <ul className="list-none relative">
-                      <li className="inline-block relative">
-                        <a href="/index-six">
-                          <img
-                            src="/static/media/01.6ac85de7298319b1f8d5.jpg"
-                            className="size-10 rounded-full shadow-md dark:shadow-gray-700 border-4 border-white dark:border-slate-900 relative hover:z-1 hover:scale-105 transition-all duration-500"
-                            alt=""
-                          />
-                        </a>
-                      </li>
-                      <li className="inline-block relative -ms-3">
-                        <a href="/index-six">
-                          <img
-                            src="/static/media/02.7df14e12e444ad660802.jpg"
-                            className="size-10 rounded-full shadow-md dark:shadow-gray-700 border-4 border-white dark:border-slate-900 relative hover:z-1 hover:scale-105 transition-all duration-500"
-                            alt=""
-                          />
-                        </a>
-                      </li>
-                      <li className="inline-block relative -ms-3">
-                        <a href="/index-six">
-                          <img
-                            src="/static/media/03.ba5f8794c055cc1488b5.jpg"
-                            className="size-10 rounded-full shadow-md dark:shadow-gray-700 border-4 border-white dark:border-slate-900 relative hover:z-1 hover:scale-105 transition-all duration-500"
-                            alt=""
-                          />
-                        </a>
-                      </li>
-                      <li className="inline-block relative -ms-3">
-                        <a href="/index-six">
-                          <img
-                            src="/static/media/04.35463172278c4051b5f4.jpg"
-                            className="size-10 rounded-full shadow-md dark:shadow-gray-700 border-4 border-white dark:border-slate-900 relative hover:z-1 hover:scale-105 transition-all duration-500"
-                            alt=""
-                          />
-                        </a>
-                      </li>
-                      <li className="inline-block relative -ms-3">
-                        <a href="/index-six">
-                          <img
-                            src="/static/media/05.a7ab2c82813cb95da9d6.jpg"
-                            className="size-10 rounded-full shadow-md dark:shadow-gray-700 border-4 border-white dark:border-slate-900 relative hover:z-1 hover:scale-105 transition-all duration-500"
-                            alt=""
-                          />
-                        </a>
-                      </li>
-                      <li className="inline-block relative -ms-3">
-                        <a
-                          className="btn btn-icon table-cell rounded-full bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white hover:z-1 hover:scale-105  items-center justify-center"
-                          href="/index-six"
-                        >
-                          <svg
-                            stroke="currentColor"
-                            fill="currentColor"
-                            strokeWidth={0}
-                            viewBox="0 0 1024 1024"
-                            className="mx-auto"
-                            height="1em"
-                            width="1em"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path d="M482 152h60q8 0 8 8v704q0 8-8 8h-60q-8 0-8-8V160q0-8 8-8Z" />
-                            <path d="M192 474h672q8 0 8 8v60q0 8-8 8H160q-8 0-8-8v-60q0-8 8-8Z" />
-                          </svg>
-                        </a>
-                      </li>
-                    </ul> */}
                   </div>
                 </div>
                 <div className="absolute md:-start-5 start-0 -bottom-16">
@@ -345,7 +277,7 @@ export default function Home() {
         <div className="container">
           <div className="grid grid-cols-1 pb-8 text-center">
             <h3 className="mb-4 md:text-[26px] md:leading-normal text-2xl leading-normal font-semibold">
-              Popular Jobs
+              All Jobs
             </h3>
             <p className="text-slate-400 max-w-xl mx-auto">
               Search all the open positions on the web. Get your own
@@ -353,71 +285,32 @@ export default function Home() {
               companies worldwide.
             </p>
           </div>
-          <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 mt-8 gap-[30px]">
-            <div className="group p-6 rounded-lg border border-emerald-600/20 dark:border-emerald-600/40 bg-white dark:bg-slate-900 hover:bg-emerald-600/[0.02] hover:dark:bg-emerald-600/5 hover:shadow-md hover:shadow-emerald-600/5 transition-all duration-500">
-              <div className="flex justify-between items-start">
-                <div>
-                  <div className="size-14 flex items-center justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-full mb-2">
-                    <BusIcon size={26} />
-                  </div>
-                  <Link
-                    href="/jobs/1"
-                    className="text-lg hover:text-emerald-600 font-semibold transition-all duration-500"
-                  >
-                    Shohag Paribahan
-                  </Link>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <span className="rounded-full bg-emerald-600/5 hover:bg-emerald-500 border-emerald-600/10 hover:border-emerald-600 text-emerald-600 hover:text-white md:relative absolute top-0 end-0 md:m-0 m-3 w-10 h-10 flex items-center justify-center">
-                    <Bookmark strokeWidth={1.5} size={18} />
-                  </span>
-                  <span className="rounded-full bg-emerald-600/5 hover:bg-emerald-500 border-emerald-600/10 hover:border-emerald-600 text-emerald-600 hover:text-white md:relative absolute top-0 end-0 md:m-0 m-3 w-10 h-10 flex items-center justify-center">
-                    <ArrowUpRight strokeWidth={1.5} size={18} />
-                  </span>
-                </div>
-              </div>
-              <div className="mt-3">
-                <Link
-                  className="text-xl hover:text-emerald-600 font-semibold transition-all duration-500"
-                  href="/jobs/1"
-                >
-                  Shohag Paribahan (PVT) Ltd. চাকরির বিজ্ঞপ্তি
+          <div className="flex justify-end"></div>
+
+          <div className="mt-12">
+            <div className="container z-1">
+              <div className="flex justify-end">
+                <Link href="/">
+                  <Button className="bg-emerald-600/5 border-emerald-100 border hover:bg-emerald-600 hover:border-emerald-600 font-semibold text-emerald-600 hover:text-white rounded-md ms-2">
+                    Create New Job
+                  </Button>
                 </Link>
-                <p className="text-slate-400 mt-2">
-                  ঢাকা-চট্টগ্রাম রুটের জন্য ২ জন অভিজ্ঞ যাত্রীর গাইড প্রয়োজন
-                </p>
-                <div className="mt-3">
-                  <a href="/index-seven">
-                    <span className="bg-orange-500/5 hover:bg-orange-500/20 dark:bg-orange-500/10 hover:dark:bg-orange-500/30 inline-block text-orange-500 px-4 text-[14px] font-medium rounded-full mt-2 me-1 transition-all duration-500">
-                      Full Time
-                    </span>
-                  </a>
-                  <a href="/index-seven">
-                    <span className="bg-purple-600/5 hover:bg-purple-600/20 dark:bg-purple-600/10 hover:dark:bg-purple-600/30 inline-block text-purple-600 px-4 text-[14px] font-medium rounded-full mt-2 me-1 transition-all duration-500">
-                      $4,000 - $4,500
-                    </span>
-                  </a>
-                  <a href="/index-seven">
-                    <span className="bg-emerald-600/5 hover:bg-emerald-600/20 dark:bg-emerald-600/10 hover:dark:bg-emerald-600/30 inline-flex items-center text-emerald-600 px-4 text-[14px] font-medium rounded-full mt-2 transition-all duration-500">
-                      <svg
-                        stroke="currentColor"
-                        fill="currentColor"
-                        strokeWidth={0}
-                        viewBox="0 0 256 256"
-                        className="me-1"
-                        height="1em"
-                        width="1em"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path d="M128,64a40,40,0,1,0,40,40A40,40,0,0,0,128,64Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,128Zm0-112a88.1,88.1,0,0,0-88,88c0,31.4,14.51,64.68,42,96.25a254.19,254.19,0,0,0,41.45,38.3,8,8,0,0,0,9.18,0A254.19,254.19,0,0,0,174,200.25c27.45-31.57,42-64.85,42-96.25A88.1,88.1,0,0,0,128,16Zm0,206c-16.53-13-72-60.75-72-118a72,72,0,0,1,144,0C200,161.23,144.53,209,128,222Z" />
-                      </svg>
-                      চট্টগ্রাম
-                    </span>
-                  </a>
+              </div>
+
+              <div className="md:w-5/6 mt-10">
+                <JobFilter />
+              </div>
+
+              <div className="mt-6">
+                <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 mt-4 gap-[30px]">
+                  {JOB_ITEMS.map((item) => {
+                    return <JobGrid key={item.id} {...item} />;
+                  })}
                 </div>
               </div>
             </div>
           </div>
+
           <div className="grid md:grid-cols-12 grid-cols-1 mt-8">
             <div className="md:col-span-12 text-center">
               <a
@@ -457,160 +350,9 @@ export default function Home() {
             </p>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 mt-6 gap-[30px]">
-            <div className="p-6 hover:shadow-xl hover:shadow-gray-100 dark:hover:shadow-gray-800 transition duration-500 rounded-2xl mt-6 text-center">
-              <div className="size-14 bg-emerald-600/5 text-emerald-600 rounded-xl text-2xl flex align-middle justify-center items-center mx-auto shadow-sm dark:shadow-gray-800">
-                <svg
-                  stroke="currentColor"
-                  fill="none"
-                  strokeWidth={2}
-                  viewBox="0 0 24 24"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  height="1em"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M5 17H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-1" />
-                  <polygon points="12 15 17 21 7 21 12 15" />
-                </svg>
-              </div>
-              <div className="content mt-7">
-                <a
-                  className="title h5 text-lg font-semibold hover:text-emerald-600"
-                  href="/index-three"
-                >
-                  Create Account
-                </a>
-                <p className="text-slate-400 mt-3">
-                  The phrasal sequence of the is now so that many campaign and
-                  benefit
-                </p>
-                <div className="mt-5">
-                  <a
-                    className="btn btn-link text-emerald-600 hover:text-emerald-600 after:bg-emerald-600 duration-500 ease-in-out inline-flex items-center"
-                    href="/index-three"
-                  >
-                    Read More{" "}
-                    <svg
-                      stroke="currentColor"
-                      fill="currentColor"
-                      strokeWidth={0}
-                      viewBox="0 0 24 24"
-                      className="ms-1"
-                      height="1em"
-                      width="1em"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path fill="none" d="M0 0h24v24H0V0z" />
-                      <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8-8-8z" />
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div className="p-6 hover:shadow-xl hover:shadow-gray-100 dark:hover:shadow-gray-800 transition duration-500 rounded-2xl mt-6 text-center">
-              <div className="size-14 bg-emerald-600/5 text-emerald-600 rounded-xl text-2xl flex align-middle justify-center items-center mx-auto shadow-sm dark:shadow-gray-800">
-                <svg
-                  stroke="currentColor"
-                  fill="currentColor"
-                  strokeWidth={0}
-                  viewBox="0 0 24 24"
-                  height="1em"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path fill="none" d="M0 0h24v24H0V0z" />
-                  <path d="M15 1H9v2h6V1zm4.03 6.39l1.42-1.42c-.43-.51-.9-.99-1.41-1.41l-1.42 1.42A8.962 8.962 0 0012 4c-4.97 0-9 4.03-9 9s4.02 9 9 9a8.994 8.994 0 007.03-14.61zM12 20c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7zm-.32-5H6.35a5.992 5.992 0 003.41 3.56l-.11-.06 2.03-3.5zm5.97-4a6.012 6.012 0 00-3.34-3.54L12.26 11h5.39zm-7.04 7.83c.45.11.91.17 1.39.17 1.34 0 2.57-.45 3.57-1.19l-2.11-3.9-2.85 4.92zM7.55 8.99A5.965 5.965 0 006 13c0 .34.04.67.09 1h4.72L7.55 8.99zm8.79 8.14A5.94 5.94 0 0018 13c0-.34-.04-.67-.09-1h-4.34l2.77 5.13zm-3.01-9.98C12.9 7.06 12.46 7 12 7c-1.4 0-2.69.49-3.71 1.29l2.32 3.56 2.72-4.7z" />
-                </svg>
-              </div>
-              <div className="content mt-7">
-                <a
-                  className="title h5 text-lg font-semibold hover:text-emerald-600"
-                  href="/index-three"
-                >
-                  Complete Your Profile
-                </a>
-                <p className="text-slate-400 mt-3">
-                  The phrasal sequence of the is now so that many campaign and
-                  benefit
-                </p>
-                <div className="mt-5">
-                  <a
-                    className="btn btn-link text-emerald-600 hover:text-emerald-600 after:bg-emerald-600 duration-500 ease-in-out inline-flex items-center"
-                    href="/index-three"
-                  >
-                    Read More{" "}
-                    <svg
-                      stroke="currentColor"
-                      fill="currentColor"
-                      strokeWidth={0}
-                      viewBox="0 0 24 24"
-                      className="ms-1"
-                      height="1em"
-                      width="1em"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path fill="none" d="M0 0h24v24H0V0z" />
-                      <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8-8-8z" />
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div className="p-6 hover:shadow-xl hover:shadow-gray-100 dark:hover:shadow-gray-800 transition duration-500 rounded-2xl mt-6 text-center">
-              <div className="size-14 bg-emerald-600/5 text-emerald-600 rounded-xl text-2xl flex align-middle justify-center items-center mx-auto shadow-sm dark:shadow-gray-800">
-                <svg
-                  stroke="currentColor"
-                  fill="none"
-                  strokeWidth={2}
-                  viewBox="0 0 24 24"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  height="1em"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                  <path d="M12 20h-7a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2h1a2 2 0 0 0 2 -2a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1a2 2 0 0 0 2 2h1a2 2 0 0 1 2 2v3.5" />
-                  <path d="M16 19h6" />
-                  <path d="M19 16v6" />
-                  <path d="M9 13a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
-                </svg>
-              </div>
-              <div className="content mt-7">
-                <a
-                  className="title h5 text-lg font-semibold hover:text-emerald-600"
-                  href="/index-three"
-                >
-                  Apply Job or Hire
-                </a>
-                <p className="text-slate-400 mt-3">
-                  The phrasal sequence of the is now so that many campaign and
-                  benefit
-                </p>
-                <div className="mt-5">
-                  <a
-                    className="btn btn-link text-emerald-600 hover:text-emerald-600 after:bg-emerald-600 duration-500 ease-in-out inline-flex items-center"
-                    href="/index-three"
-                  >
-                    Read More{" "}
-                    <svg
-                      stroke="currentColor"
-                      fill="currentColor"
-                      strokeWidth={0}
-                      viewBox="0 0 24 24"
-                      className="ms-1"
-                      height="1em"
-                      width="1em"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path fill="none" d="M0 0h24v24H0V0z" />
-                      <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8-8-8z" />
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            </div>
+            {howItWorksItems.map((item) => {
+              return <HowItWorks key={item.id} {...item} />;
+            })}
           </div>
         </div>
 

@@ -5,6 +5,8 @@ import Footer from "@/components/sections/Footer";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { ApplicantListModal } from "../components/ApplicantListModal";
+import { HeroSection } from "@/app/components/common/HeroSection";
+import Link from "next/link";
 
 export default function JobDetailsRoute() {
   const [open, setIsOpen] = useState(false);
@@ -14,18 +16,7 @@ export default function JobDetailsRoute() {
       <ApplicantListModal open={open} setIsOpen={setIsOpen} />
 
       <Header />
-      <section
-        className={`relative table w-full py-36 bg-[url('./assets/images/about-hero.jpg')] bg-top bg-no-repeat bg-cover`}
-      >
-        <div className="absolute inset-0 bg-emerald-900/90" />
-        <div className="container">
-          <div className="grid grid-cols-1 text-center mt-10">
-            <h3 className="md:text-3xl z-10 text-2xl md:leading-snug tracking-wide leading-snug font-medium text-white">
-              Shohag Paribahan (PVT) Ltd. চাকরির বিজ্ঞপ্তি
-            </h3>
-          </div>
-        </div>
-      </section>
+      <HeroSection title="Shohag Paribahan (PVT) Ltd. চাকরির বিজ্ঞপ্তি" />
 
       <section className="relative md:py-24 py-16">
         <div className="container">
@@ -220,12 +211,11 @@ export default function JobDetailsRoute() {
             </div>
             <div className="lg:col-span-8 md:col-span-6">
               <div className="mb-5 flex justify-end">
-                <Button
-                  onClick={() => setIsOpen(true)}
-                  className="bg-emerald-600/5 border-emerald-100 border hover:bg-emerald-600 hover:border-emerald-600 text-emerald-600 hover:text-white rounded-md ms-2"
-                >
-                  Applicant list
-                </Button>
+                <Link href={`/jobs/1/applicant-list`}>
+                  <Button className="bg-emerald-600/5 border-emerald-100 border hover:bg-emerald-600 hover:border-emerald-600 text-emerald-600 hover:text-white rounded-md ms-2">
+                    Applicant list
+                  </Button>
+                </Link>
               </div>
 
               <h5 className="text-lg font-semibold">Job Description:</h5>

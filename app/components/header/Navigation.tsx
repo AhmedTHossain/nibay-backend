@@ -12,42 +12,44 @@ import {
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
 
+export const NAV_ITEMS = [
+  {
+    id: 1,
+    title: "আমাদের সম্পর্কে",
+    link: "/about"
+  },
+  {
+    id: 2,
+    title: "যোগাযোগ",
+    link: "/contact"
+  },
+  {
+    id: 3,
+    title: "প্রাইভেসি পলিসি",
+    link: "/privacy-policy"
+  },
+  {
+    id: 4,
+    title: "শর্তাবলী এবং নীতিমালা",
+    link: "/terms-of-services"
+  }
+];
+
 export function Navigation() {
   return (
     <NavigationMenu>
       <NavigationMenuList>
-        <NavigationMenuItem>
-          <Link href="/" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              {/* Home */}
-              হোম
-            </NavigationMenuLink>
-          </Link>
-        </NavigationMenuItem>
-
-        <NavigationMenuItem>
-          <Link href="/jobs" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              {/* Home */}
-              জব
-            </NavigationMenuLink>
-          </Link>
-        </NavigationMenuItem>
-
-        <NavigationMenuItem>
-          <Link href="/about" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              আমাদের সম্পর্কে
-            </NavigationMenuLink>
-          </Link>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <Link href="/contact" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              যোগাযোগ
-            </NavigationMenuLink>
-          </Link>
-        </NavigationMenuItem>
+        {NAV_ITEMS.map((item) => {
+          return (
+            <NavigationMenuItem key={item.id}>
+              <Link href={item.link} legacyBehavior passHref>
+                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                  {item.title}
+                </NavigationMenuLink>
+              </Link>
+            </NavigationMenuItem>
+          );
+        })}
       </NavigationMenuList>
     </NavigationMenu>
   );

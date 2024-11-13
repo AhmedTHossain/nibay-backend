@@ -1,4 +1,6 @@
+"use client";
 import app_logo_white from "@/app/assets/logo-white.png";
+import { NAV_ITEMS } from "@/app/components/header/Navigation";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -25,38 +27,18 @@ const Footer = () => {
                 </div>
                 <div className="">
                   <ul className="list-disc footer-list md:text-left text-center space-x-3">
-                    <li className="inline-block">
-                      <a
-                        className="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium me-4"
-                        href="/index"
-                      >
-                        হোম
-                      </a>
-                    </li>
-                    <li className="inline-block mt-[10px] md:mt-0">
-                      <a
-                        className="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium me-4"
-                        href="/services"
-                      >
-                        জব
-                      </a>
-                    </li>
-                    <li className="inline-block mt-[10px] md:mt-0">
-                      <a
-                        className="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium me-4"
-                        href="/index-three"
-                      >
-                        আমাদের সম্পর্কে
-                      </a>
-                    </li>
-                    <li className="inline-block mt-[10px] md:mt-0">
-                      <a
-                        className="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium me-4"
-                        href="/aboutus"
-                      >
-                        যোগাযোগ
-                      </a>
-                    </li>
+                    {NAV_ITEMS.map((item) => {
+                      return (
+                        <li key={item.id} className="inline-block">
+                          <a
+                            className="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium me-4"
+                            href={item.link}
+                          >
+                            {item.title}
+                          </a>
+                        </li>
+                      );
+                    })}
                   </ul>
                 </div>
               </div>

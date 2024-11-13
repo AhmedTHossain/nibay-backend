@@ -10,17 +10,42 @@ import {
   MenubarSeparator,
   MenubarTrigger
 } from "@/components/ui/menubar";
+import { cn } from "@/lib/utils";
+import { useMotionValue, useScroll } from "framer-motion";
 import { LogOutIcon, SettingsIcon, UserIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { Avatar } from "../common/Avatar";
 import { ModeToggle } from "../common/ModeToggle";
 import { Navigation } from "./Navigation";
 
 const Header = () => {
+  const { scrollY } = useScroll();
+  const height = useMotionValue(80);
+  const [hasShadow, setHasShadow] = useState(false);
+
+  useEffect(() => {
+    return scrollY.on("change", (current) => {
+      const diff = (current - Number(scrollY.getPrevious())) * 0.1;
+      if (diff > 0) {
+        height.set(Math.max(height.get() - diff, 72));
+      } else {
+        height.set(Math.min(height.get() - diff, 80));
+      }
+      if (current > 100) setHasShadow(true);
+      else setHasShadow(false);
+    });
+  }, [scrollY]); // eslint-disable-line
+
   return (
-    <div className="py-6 fixed w-full z-50 bg-gradient-to-b from-emerald-600/20 dark:from-emerald-600/40 via-emerald-600/10 dark:via-emerald-600/20 to-transparent">
+    <div
+      className={cn(
+        "py-5 fixed w-full z-50 bg-gradient-to-b from-emerald-600/20 dark:from-emerald-600/40 via-emerald-600/10 dark:via-emerald-600/20 to-transparent",
+        hasShadow ? "shadow bg-white dark:bg-emerald-700" : ""
+      )}
+    >
       <div className="container">
         <div className="flex items-center justify-between">
           <Link href="/">
