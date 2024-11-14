@@ -60,9 +60,8 @@ const Header = () => {
             />
           </Link>
 
-          <Navigation />
-
           <div className="flex space-x-3">
+            <Navigation />
             <ProfileMenu />
             {/* <ModeToggle /> */}
           </div>

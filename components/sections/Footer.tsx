@@ -10,11 +10,11 @@ const Footer = () => {
     <footer className="relative bg-slate-900 dark:bg-slate-800">
       <div className="container">
         <div className="grid grid-cols-1">
-          <div className="relative py-12">
+          <div className="relative py-6">
             <div className="relative w-full">
-              <div className="flex items-center justify-between md:flex-row flex-col md:space-y-0 space-y-3">
+              <div className="flex items-center justify-center md:flex-row flex-col md:space-y-0 space-y-3">
                 <div className="">
-                  <Link
+                  {/* <Link
                     className="flex justify-center md:justify-start focus:outline-none"
                     href="/"
                   >
@@ -23,7 +23,7 @@ const Footer = () => {
                       alt="App logo"
                       className="h-[24px] inline-block"
                     />
-                  </Link>
+                  </Link> */}
                 </div>
                 <div className="">
                   <ul className="list-disc footer-list md:text-left text-center space-x-3">
@@ -47,15 +47,15 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="py-[30px] px-0 border-t border-gray-800 dark:border-gray-700">
+      <div className="py-6 px-0 border-t border-gray-800 dark:border-gray-700">
         <div className="container text-center">
-          <div className="flex items-center justify-between md:flex-row flex-col md:space-y-0 space-y-4">
-            <div className="md:text-left text-center">
+          <div className="flex items-center justify-center">
+            <div className="text-center">
               <p className="text-gray-300 font-medium ">
-                ©{new Date().getFullYear()} Jobstack
+                ©{new Date().getFullYear()} Kormi
               </p>
             </div>
-            <ul className="list-none md:text-right text-center flex space-x-3">
+            {/* <ul className="list-none md:text-right text-center flex space-x-3">
               <li className="inline">
                 <a
                   className="text-white"
@@ -94,7 +94,7 @@ const Footer = () => {
                   </svg>
                 </a>
               </li>
-            </ul>
+            </ul> */}
           </div>
         </div>
       </div>

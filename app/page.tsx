@@ -231,7 +231,7 @@ export default function Home() {
                   />
                   <div className="absolute lg:bottom-20 -bottom-24 xl:-end-20 lg:-end-10 end-2 p-4 rounded-lg shadow-md dark:shadow-gray-800 bg-white dark:bg-slate-900 w-60 z-2">
                     <h5 className="text-lg font-semibold mb-3">
-                      5k+ candidates get job
+                      ৫ হাজারেরও বেশি প্রার্থী চাকরি পেয়েছেন।
                     </h5>
                   </div>
                 </div>
@@ -255,7 +255,7 @@ export default function Home() {
                       <path d="M172,228a12,12,0,0,1-12,12H96a12,12,0,0,1,0-24h64A12,12,0,0,1,172,228ZM230.94,58.48A115.25,115.25,0,0,0,190.4,13.86a12,12,0,1,0-12.8,20.29,90.1,90.1,0,0,1,32,35.38A12,12,0,0,0,220.3,76a11.86,11.86,0,0,0,5.51-1.35A12,12,0,0,0,230.94,58.48ZM46.37,69.53a90.1,90.1,0,0,1,32-35.38A12,12,0,1,0,65.6,13.86,115.25,115.25,0,0,0,25.06,58.48a12,12,0,0,0,5.13,16.17A11.86,11.86,0,0,0,35.7,76,12,12,0,0,0,46.37,69.53Zm173.51,98.35A20,20,0,0,1,204,200H52a20,20,0,0,1-15.91-32.12c7.17-9.33,15.73-26.62,15.88-55.94A76,76,0,0,1,204,112C204.15,141.26,212.71,158.55,219.88,167.88ZM196.34,176c-8.16-13-16.19-33.57-16.34-63.94A52,52,0,1,0,76,112c-.15,30.42-8.18,51-16.34,64Z" />
                     </svg>
                     <p className="text-lg font-semibold mb-0 ms-2">
-                      Job Alert Subscribe
+                      জব অ্যালার্ট সাবস্ক্রাইব
                     </p>
                   </div>
                 </div>
@@ -266,10 +266,10 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="relative md:py-8 py-8">
+      <section className="relative">
         <div className="container">
           <div className="grid grid-cols-1 pb-8 text-center">
-            <h3 className="mb-4 md:text-[26px] md:leading-normal text-2xl leading-normal font-semibold">
+            <h3 className="md:text-[26px] md:leading-normal text-2xl leading-normal font-semibold">
               জব্‌স
             </h3>
           </div>
@@ -279,8 +279,11 @@ export default function Home() {
             <div className="container z-1">
               <div className="flex justify-end">
                 <Link href="/">
-                  <Button className="bg-emerald-600/5 border-emerald-100 border hover:bg-emerald-600 hover:border-emerald-600 font-semibold text-emerald-600 hover:text-white rounded-md ms-2">
-                    Create New Job
+                  <Button
+                    size="lg"
+                    className="bg-emerald-600/5 border-emerald-100 border hover:bg-emerald-600 hover:border-emerald-600 font-semibold text-emerald-600 hover:text-white rounded-md ms-2"
+                  >
+                    নতুন চাকরি তৈরি করুন
                   </Button>
                 </Link>
               </div>
@@ -325,10 +328,10 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="relative md:py-24 py-16">
+      <section className="relative md:py-28 py-16">
         <div className="container">
           <div className="grid grid-cols-1 pb-8 text-center">
-            <h3 className="mb-4 md:text-[26px] md:leading-normal text-2xl leading-normal font-semibold">
+            <h3 className="mb-1 md:text-[26px] md:leading-normal text-2xl leading-normal font-semibold">
               কিভাবে এটি কাজ করে?
             </h3>
             {/* <p className="text-slate-400 max-w-xl mx-auto">
@@ -337,7 +340,7 @@ export default function Home() {
               companies worldwide.
             </p> */}
           </div>
-          <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 mt-1 gap-[30px]">
+          <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-6">
             {howItWorksItems.map((item) => {
               return <HowItWorks key={item.id} {...item} />;
             })}
