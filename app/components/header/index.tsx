@@ -18,7 +18,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Avatar } from "../common/Avatar";
-import { ModeToggle } from "../common/ModeToggle";
 import { Navigation } from "./Navigation";
 
 const Header = () => {
@@ -65,7 +64,7 @@ const Header = () => {
 
           <div className="flex space-x-3">
             <ProfileMenu />
-            <ModeToggle />
+            {/* <ModeToggle /> */}
           </div>
         </div>
       </div>
