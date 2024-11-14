@@ -11,35 +11,13 @@ import {
   navigationMenuTriggerStyle
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
-
-export const NAV_ITEMS = [
-  {
-    id: 1,
-    title: "আমাদের সম্পর্কে",
-    link: "/about"
-  },
-  {
-    id: 2,
-    title: "যোগাযোগ",
-    link: "/contact"
-  },
-  {
-    id: 3,
-    title: "প্রাইভেসি পলিসি",
-    link: "/privacy-policy"
-  },
-  {
-    id: 4,
-    title: "শর্তাবলী এবং নীতিমালা",
-    link: "/terms-of-services"
-  }
-];
+import { HEADER_NAV_ITEMS } from "@/app/assets/resources";
 
 export function Navigation() {
   return (
     <NavigationMenu>
       <NavigationMenuList>
-        {NAV_ITEMS.map((item) => {
+        {HEADER_NAV_ITEMS.map((item) => {
           return (
             <NavigationMenuItem key={item.id}>
               <Link href={item.link} legacyBehavior passHref>

@@ -35,7 +35,7 @@ export function HowItWorks(props: HowItWorksProps) {
             className="btn btn-link text-emerald-600 hover:text-emerald-600 after:bg-emerald-600 duration-500 ease-in-out inline-flex items-center"
             href="/index-three"
           >
-            Read More{" "}
+            আর পড়ুন{" "}
             <svg
               stroke="currentColor"
               fill="currentColor"
@@ -59,32 +59,32 @@ export function HowItWorks(props: HowItWorksProps) {
 export const howItWorksItems = [
   {
     id: 1,
-    title: "Select Account Type (Individual/Company)",
-    text: "Pick 'Individual' if signing up alone or 'Company' if for a business.",
+    title: "অ্যাকাউন্টের ধরন (ব্যক্তিগত/প্রতিষ্ঠান)",
+    text: "ব্যক্তিগতভাবে সাইন আপ করলে 'ব্যক্তিগত' এবং ব্যবসার জন্য নিবন্ধন করলে 'প্রতিষ্ঠান' নির্বাচন করুন।",
     Icon: CircleUser
   },
   {
     id: 2,
-    title: "Complete Your Profile",
-    text: "Enter all required information to complete your profile setup.",
+    title: "আপনার প্রোফাইল সম্পূর্ণ করুন",
+    text: "আপনার অ্যাকাউন্ট সেট আপ সম্পন্ন করতে এবং সম্পূর্ণ অ্যাক্সেস আনলক করতে প্রয়োজনীয় সমস্ত তথ্য পূরণ করুন।",
     Icon: UserPen
   },
   {
     id: 3,
-    title: "Post a Job Advertisement",
-    text: "List job information, skills, and criteria to find ideal candidates.",
+    title: "চাকরির বিজ্ঞাপন পোস্ট করুন",
+    text: "উপযুক্ত প্রার্থীদের আকৃষ্ট করতে চাকরির বিবরণ, প্রয়োজনীয়তা এবং যোগ্যতা প্রদান করুন।",
     Icon: Megaphone
   },
   {
     id: 4,
-    title: "View Applicants",
-    text: "See all candidates who applied for the job with profiles and resumes.",
+    title: "প্রার্থীদের দেখুন",
+    text: "যারা চাকরির জন্য আবেদন করেছে তাদের তালিকা পর্যালোচনা করুন, পাশাপাশি তাদের প্রোফাইল এবং জমা দেওয়া জীবনবৃত্তান্ত দেখুন।",
     Icon: FileUser
   },
   {
     id: 5,
-    title: "Hire Employee",
-    text: "Choose and confirm the candidate to hire for the listed role.",
+    title: "কর্মচারী নিয়োগ করুন",
+    text: "যাকে পদের জন্য নিয়োগ করতে চান তাকে নির্বাচন করুন এবং নিশ্চিত করুন।",
     Icon: UserPlus
   }
 ];

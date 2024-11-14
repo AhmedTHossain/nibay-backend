@@ -1,22 +1,29 @@
 "use client";
 
+import { JOB_ITEMS } from "@/app/assets/resources";
+import { HeroSection } from "@/app/components/common/HeroSection";
 import Header from "@/app/components/header";
 import Footer from "@/components/sections/Footer";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 import { useState } from "react";
 import { ApplicantListModal } from "../components/ApplicantListModal";
-import { HeroSection } from "@/app/components/common/HeroSection";
-import Link from "next/link";
 
-export default function JobDetailsRoute() {
+export default function JobDetailsRoute({
+  params
+}: {
+  params: { jobId: string };
+}) {
   const [open, setIsOpen] = useState(false);
+
+  const findJob = JOB_ITEMS.find((item) => item.id === Number(params.jobId));
 
   return (
     <>
       <ApplicantListModal open={open} setIsOpen={setIsOpen} />
 
       <Header />
-      <HeroSection title="Shohag Paribahan (PVT) Ltd. চাকরির বিজ্ঞপ্তি" />
+      <HeroSection title={findJob?.title as string} />
 
       <section className="relative md:py-24 py-16">
         <div className="container">

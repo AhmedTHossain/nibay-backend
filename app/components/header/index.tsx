@@ -47,7 +47,7 @@ const Header = () => {
       )}
     >
       <div className="container">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between w-full">
           <Link href="/">
             <Image
               src={app_logo_black}
@@ -63,7 +63,7 @@ const Header = () => {
 
           <Navigation />
 
-          <div className="flex items-center">
+          <div className="flex space-x-3">
             <ProfileMenu />
             <ModeToggle />
           </div>
