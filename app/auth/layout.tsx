@@ -1,8 +1,5 @@
 import type { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
-import app_logo_black from "@/app/assets/logo-black.png";
-import app_logo_white from "@/app/assets/logo-white.png";
+import { AppLogo } from "../assets/AppLogo";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,18 +15,7 @@ export default function AuthLayout({
     <section className="h-screen">
       <div className="w-full max-w-7xl mx-auto p-6">
         <div>
-          <Link href="/">
-            <Image
-              src={app_logo_black}
-              alt="App logo"
-              className="h-[24px] inline-block dark:hidden"
-            />
-            <Image
-              src={app_logo_white}
-              alt="App logo"
-              className="h-[24px] hidden dark:inline-block"
-            />
-          </Link>
+          <AppLogo />
         </div>
         {children}
       </div>

@@ -1,24 +1,11 @@
 "use client";
 
-import Feature3 from "@/app/assets/images/feature-3.jpg";
-import HeroSub2 from "@/app/assets/images/hero-sub-2.jpg";
 import Footer from "@/components/sections/Footer";
 import {
   HowItWorks,
   howItWorksItems
 } from "@/components/sections/home/how-it-works";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
-} from "@/components/ui/select";
-import { Briefcase, MapPin } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -148,125 +135,7 @@ export default function Home() {
         </div>
       </section> */}
 
-      <section
-        className="py-36 md:h-screen h-auto items-center flex relative overflow-hidden"
-        id="home"
-      >
-        <div className="container relative">
-          <div className="grid md:grid-cols-12 grid-cols-1 items-center gap-[30px]">
-            <div className="lg:col-span-7 md:col-span-6 mt-14 md:mt-0">
-              <div className="lg:me-8">
-                <h4 className="lg:leading-loose leading-normal text-4xl lg:text-5xl mb-5 font-bold">
-                  আপনার
-                  <span className="before:block before:absolute before:-inset-2 before:-skew-y-6 before:bg-emerald-600 relative inline-block">
-                    <span className="relative text-white font-bold">
-                      প্রত্যাশিত
-                    </span>
-                  </span>{" "}
-                  <br /> চাকরি খুঁজুন
-                </h4>
-                <p className="text-slate-400 text-lg max-w-xl">
-                  চাকরি, কর্মসংস্থান এবং ক্যারিয়ারের সুযোগ খুঁজুন। আমরা বছরের
-                  পর বছর ধরে চমৎকার আবেদনকারীদের নিয়োগ করতে সাহায্য করেছি এমন
-                  কিছু কোম্পানি।
-                </p>
-                <div className="bg-white dark:bg-slate-900 border-0 shadow rounded p-3 mt-4">
-                  <form action="#">
-                    <div className="registration-form text-dark text-start">
-                      <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 lg:gap-0 gap-6">
-                        <div className="filter-search-form relative filter-border">
-                          <div className="relative mt-2 flex items-center px-4 py-2 bg-gray-50 dark:bg-slate-800">
-                            <span className="">
-                              <Briefcase size={18} color="#10b981" />
-                            </span>
-                            <Input
-                              name="name"
-                              type="text"
-                              id="job-keyword"
-                              className="border-0 bg-transparent dark:bg-transparent"
-                              placeholder="সঠিক চাকরি খুঁজে নিন"
-                            />
-                          </div>
-                        </div>
-
-                        <div className="filter-search-form relative filter-border">
-                          <div className="relative mt-2 flex items-center px-4 py-2 bg-gray-50 dark:bg-slate-800">
-                            <span className="">
-                              <MapPin size={18} color="#10b981" />
-                            </span>
-                            <Select>
-                              <SelectTrigger className="w-full bg-transparent dark:bg-transparent border-0 focus:ring-0 focus:ring-offset-0">
-                                <SelectValue placeholder="জেলা নির্বাচন" />
-                              </SelectTrigger>
-                              <SelectContent>
-                                <SelectGroup>
-                                  <SelectItem value="dhaka">ঢাকা</SelectItem>
-                                  <SelectItem value="chattogram">
-                                    চট্টগ্রাম
-                                  </SelectItem>
-                                </SelectGroup>
-                              </SelectContent>
-                            </Select>
-                          </div>
-                        </div>
-
-                        <div>
-                          <Button className="bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 w-full h-full">
-                            অনুসন্ধান
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-            <div className="lg:col-span-5 md:col-span-6">
-              <div className="relative">
-                <div className="relative flex justify-end">
-                  <Image
-                    src={Feature3}
-                    className="lg:w-[400px] w-[280px] rounded-xl shadow dark:shadow-gray-700"
-                    alt=""
-                  />
-                  <div className="absolute lg:bottom-20 -bottom-24 xl:-end-20 lg:-end-10 end-2 p-4 rounded-lg shadow-md dark:shadow-gray-800 bg-white dark:bg-slate-900 w-60 z-2">
-                    <h5 className="text-lg font-semibold mb-3">
-                      ৫ হাজারেরও বেশি প্রার্থী চাকরি পেয়েছেন।
-                    </h5>
-                  </div>
-                </div>
-                <div className="absolute md:-start-5 start-0 -bottom-16">
-                  <Image
-                    src={HeroSub2}
-                    className="lg:w-[280px] w-[200px] border-8 border-white dark:border-slate-900 rounded-xl"
-                    alt=""
-                  />
-                  <div className="absolute flex justify-between items-center -top-6 md:-start-10 start-2 p-4 rounded-lg shadow-md dark:shadow-gray-800 bg-white dark:bg-slate-900 w-max">
-                    <svg
-                      stroke="currentColor"
-                      fill="currentColor"
-                      strokeWidth={0}
-                      viewBox="0 0 256 256"
-                      className="text-[24px] text-amber-500"
-                      height="1em"
-                      width="1em"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M172,228a12,12,0,0,1-12,12H96a12,12,0,0,1,0-24h64A12,12,0,0,1,172,228ZM230.94,58.48A115.25,115.25,0,0,0,190.4,13.86a12,12,0,1,0-12.8,20.29,90.1,90.1,0,0,1,32,35.38A12,12,0,0,0,220.3,76a11.86,11.86,0,0,0,5.51-1.35A12,12,0,0,0,230.94,58.48ZM46.37,69.53a90.1,90.1,0,0,1,32-35.38A12,12,0,1,0,65.6,13.86,115.25,115.25,0,0,0,25.06,58.48a12,12,0,0,0,5.13,16.17A11.86,11.86,0,0,0,35.7,76,12,12,0,0,0,46.37,69.53Zm173.51,98.35A20,20,0,0,1,204,200H52a20,20,0,0,1-15.91-32.12c7.17-9.33,15.73-26.62,15.88-55.94A76,76,0,0,1,204,112C204.15,141.26,212.71,158.55,219.88,167.88ZM196.34,176c-8.16-13-16.19-33.57-16.34-63.94A52,52,0,1,0,76,112c-.15,30.42-8.18,51-16.34,64Z" />
-                    </svg>
-                    <p className="text-lg font-semibold mb-0 ms-2">
-                      জব অ্যালার্ট সাবস্ক্রাইব
-                    </p>
-                  </div>
-                </div>
-                {/* <div className="overflow-hidden absolute md:h-[500px] h-[400px] md:w-[500px] w-[400px] bg-gradient-to-tl to-emerald-600/5 via-emerald-600/50 from-emerald-600 bottom-1/2 translate-y-1/2 start-0 z-0 rounded-full" /> */}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="relative">
+      <section className="relative pt-36 ">
         <div className="container">
           <div className="grid grid-cols-1 pb-8 text-center">
             <h3 className="md:text-[26px] md:leading-normal text-2xl leading-normal font-semibold">
@@ -281,7 +150,7 @@ export default function Home() {
                 <Link href="/">
                   <Button
                     size="lg"
-                    className="bg-emerald-600/5 border-emerald-100 border hover:bg-emerald-600 hover:border-emerald-600 font-semibold text-emerald-600 hover:text-white rounded-md ms-2"
+                    className="bg-emerald-600/5 border-emerald-500 border hover:bg-emerald-600 hover:border-emerald-600 font-semibold text-emerald-600 hover:text-white rounded-md ms-2"
                   >
                     নতুন চাকরি তৈরি করুন
                   </Button>

@@ -1,7 +1,6 @@
 "use client";
 
-import app_logo_black from "@/app/assets/logo-black.png";
-import app_logo_white from "@/app/assets/logo-white.png";
+import { AppLogo } from "@/app/assets/AppLogo";
 import {
   Menubar,
   MenubarContent,
@@ -13,8 +12,6 @@ import {
 import { cn } from "@/lib/utils";
 import { useMotionValue, useScroll } from "framer-motion";
 import { LogOutIcon, SettingsIcon, UserIcon } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Avatar } from "../common/Avatar";
@@ -47,18 +44,7 @@ const Header = () => {
     >
       <div className="container">
         <div className="flex items-center justify-between w-full">
-          <Link href="/">
-            <Image
-              src={app_logo_black}
-              alt="App logo"
-              className="h-[24px] inline-block dark:hidden"
-            />
-            <Image
-              src={app_logo_white}
-              alt="App logo"
-              className="h-[24px] hidden dark:inline-block"
-            />
-          </Link>
+          <AppLogo />
 
           <div className="flex space-x-3">
             <Navigation />

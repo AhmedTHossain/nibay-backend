@@ -1,9 +1,5 @@
 "use client";
-import app_logo_white from "@/app/assets/logo-white.png";
 import { FOOTER_NAV_ITEMS } from "@/app/assets/resources";
-
-import Image from "next/image";
-import Link from "next/link";
 
 const Footer = () => {
   return (
@@ -13,18 +9,7 @@ const Footer = () => {
           <div className="relative py-6">
             <div className="relative w-full">
               <div className="flex items-center justify-center md:flex-row flex-col md:space-y-0 space-y-3">
-                <div className="">
-                  {/* <Link
-                    className="flex justify-center md:justify-start focus:outline-none"
-                    href="/"
-                  >
-                    <Image
-                      src={app_logo_white}
-                      alt="App logo"
-                      className="h-[24px] inline-block"
-                    />
-                  </Link> */}
-                </div>
+                <div className=""></div>
                 <div className="">
                   <ul className="list-disc footer-list md:text-left text-center space-x-3">
                     {FOOTER_NAV_ITEMS.map((item) => {
@@ -52,7 +37,7 @@ const Footer = () => {
           <div className="flex items-center justify-center">
             <div className="text-center">
               <p className="text-gray-300 font-medium ">
-                ©{new Date().getFullYear()} Kormi
+                ©{new Date().getFullYear()} NIBAY
               </p>
             </div>
             {/* <ul className="list-none md:text-right text-center flex space-x-3">

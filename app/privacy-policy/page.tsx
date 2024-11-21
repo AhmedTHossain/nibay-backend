@@ -14,7 +14,7 @@ export default function PrivacyPolicyRoute() {
               <div className="p-6 bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md">
                 <div>
                   <p className="text-slate-400">
-                    Kormi (&quot;অ্যাপ&quot;) আপনার গোপনীয়তা রক্ষা করতে
+                    NIBAY (&quot;অ্যাপ&quot;) আপনার গোপনীয়তা রক্ষা করতে
                     প্রতিশ্রুতিবদ্ধ। এই গোপনীয়তা নীতি ব্যাখ্যা করে যে কীভাবে
                     আমরা আপনার তথ্য সংগ্রহ, ব্যবহার এবং সুরক্ষিত করি যখন আপনি
                     অ্যাপটি ব্যবহার করেন | অ্যাপটি ব্যবহার করে, আপনি এই নীতিতে
