@@ -93,7 +93,7 @@ export default function LoginRoute() {
       </div>
       <div className="px-6 py-2 bg-slate-50 dark:bg-slate-800 text-center">
         <p className="mb-0 text-gray-400 font-medium">
-          ©{new Date().getFullYear()} Jobstack
+          ©{new Date().getFullYear()} NIBAY
         </p>
       </div>
     </div>
