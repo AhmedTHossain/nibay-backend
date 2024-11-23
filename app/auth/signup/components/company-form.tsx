@@ -16,32 +16,43 @@ export function CompanyRegisterForm(props: CompanyRegisterFormProps) {
 
   return (
     <form className="text-left">
-      <div className="grid grid-cols-1">
+      <div className="grid grid-cols-1 gap-3">
         <div className="mb-4 text-left">
           <label className="font-semibold" htmlFor="companyname">
             প্রতিষ্ঠানের নাম
           </label>
-          <Input id="companyname" type="text" placeholder="Harry" />
+          <Input id="companyname" type="text" placeholder="প্রতিষ্ঠানের নাম" />
         </div>
         <div className="mb-4 text-left">
           <label className="font-semibold" htmlFor="companytype">
             প্রতিষ্ঠানের ধরন
           </label>
-          <Input id="companytype" type="text" placeholder="Harry" />
+          <Input id="companytype" type="text" placeholder="প্রতিষ্ঠানের ধরন" />
         </div>
 
         <div className="mb-4 text-left">
           <label className="font-semibold" htmlFor="companyphone">
             ফোন নাম্বার
           </label>
-          <Input id="companyphone" type="text" placeholder="Harry" />
+          <Input id="companyphone" type="text" placeholder="ফোন নাম্বার" />
         </div>
 
         <div className="mb-4 text-left">
           <label className="font-semibold" htmlFor="companyaddress">
             প্রতিষ্ঠানের ঠিকানা
           </label>
-          <Input id="companyaddress" type="text" placeholder="Harry" />
+          <Input
+            id="companyaddress"
+            type="text"
+            placeholder="প্রতিষ্ঠানের ঠিকানা"
+          />
+        </div>
+
+        <div className="mb-4 text-left">
+          <label className="font-semibold" htmlFor="companytype">
+            প্রতিষ্ঠানের ছবি
+          </label>
+          <Input id="companytype" type="file" placeholder="প্রতিষ্ঠানের ছবি" />
         </div>
 
         <div className="mb-4 text-left">
