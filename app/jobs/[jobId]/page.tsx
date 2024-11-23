@@ -170,10 +170,11 @@ export default function JobDetailsRoute({
                   </Button>
                 </Link>
               </div>
-
               <h5 className="text-lg font-semibold">কাজের বিবরণ</h5>
               <p className="text-slate-400 mt-4">{findJob?.description}</p>
-
+              <p className="text-slate-400 mt-4">{findJob?.description}</p>{" "}
+              <p className="text-slate-400 mt-4">{findJob?.description}</p>{" "}
+              <p className="text-slate-400 mt-4">{findJob?.description}</p>
               {/* <h5 className="text-lg font-semibold mt-6">
                 কম্পেন্সেশন এবং অন্যান্য সুবিধাসমূহ :{" "}
               </h5>

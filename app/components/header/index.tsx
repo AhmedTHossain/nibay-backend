@@ -16,6 +16,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Avatar } from "../common/Avatar";
 import { Navigation } from "./Navigation";
+import { Switch } from "@/components/ui/switch";
 
 const Header = () => {
   const { scrollY } = useScroll();
@@ -46,10 +47,13 @@ const Header = () => {
         <div className="flex items-center justify-between w-full">
           <AppLogo />
 
-          <div className="flex space-x-3">
+          <div className="flex space-x-3 items-center">
             <Navigation />
             <ProfileMenu />
             {/* <ModeToggle /> */}
+            <div>
+              <Switch id="switch-lang" color="green" />
+            </div>
           </div>
         </div>
       </div>
