@@ -146,7 +146,8 @@ export default function Home() {
 
           <div className="mt-6">
             <div className="container z-1">
-              <div className="flex justify-end">
+              <div className="flex items-center justify-between">
+                <JobFilter />
                 <Link href="/">
                   <Button
                     size="lg"
@@ -155,10 +156,6 @@ export default function Home() {
                     নতুন চাকরি তৈরি করুন
                   </Button>
                 </Link>
-              </div>
-
-              <div className="md:w-5/6 mt-10 mx-auto">
-                <JobFilter />
               </div>
 
               <div className="mt-6">

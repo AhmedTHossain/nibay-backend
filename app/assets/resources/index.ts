@@ -46,7 +46,8 @@ export const JOB_ITEMS = [
     deadline: "২৮-১০-২৪",
     location: "ময়মনসিংহ",
     type: "ফুল টাইম",
-    salary: "12000"
+    salary: "12000",
+    jobPostTime: "২৮-০৯-২৪"
   },
   {
     id: 2,
@@ -59,7 +60,8 @@ export const JOB_ITEMS = [
     deadline: "২৮-১০-২৪",
     location: "ঢাকা",
     type: "ফুল টাইম",
-    salary: "12000"
+    salary: "12000",
+    jobPostTime: "২৮-০৯-২৪"
   },
   {
     id: 3,
@@ -72,7 +74,8 @@ export const JOB_ITEMS = [
     deadline: "২৮-১০-২৪",
     location: "ঢাকা",
     type: "ফুল টাইম",
-    salary: "12000"
+    salary: "12000",
+    jobPostTime: "২৮-০৯-২৪"
   },
   {
     id: 4,
@@ -85,7 +88,8 @@ export const JOB_ITEMS = [
     deadline: "২৮-১০-২৪",
     location: "ঢাকা",
     type: "ফুল টাইম",
-    salary: "12000"
+    salary: "12000",
+    jobPostTime: "২৮-০৯-২৪"
   },
   {
     id: 5,
@@ -98,6 +102,7 @@ export const JOB_ITEMS = [
     deadline: "২৮-১০-২৪",
     location: "ঢাকা",
     type: "ফুল টাইম",
-    salary: "12000"
+    salary: "12000",
+    jobPostTime: "২৮-০৯-২৪"
   }
 ];

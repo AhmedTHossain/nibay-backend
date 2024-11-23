@@ -1,13 +1,12 @@
-import { Button } from "@/components/ui/button";
-import { HeroSection } from "../components/common/HeroSection";
-import Header from "../components/header";
+import Footer from "@/components/sections/Footer";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger
 } from "@/components/ui/accordion";
-import Footer from "@/components/sections/Footer";
+import { HeroSection } from "../components/common/HeroSection";
+import Header from "../components/header";
 
 const FAQ_ITEMS = [
   {
@@ -191,15 +190,6 @@ export default function TermsOfServicesRoute() {
                       );
                     })}
                   </Accordion>
-                </div>
-
-                <div className="mt-6">
-                  <Button className="bg-emerald-600 hover:bg-emerald-700 text-white rounded-md">
-                    Accept
-                  </Button>
-                  <Button className="bg-transparent hover:bg-emerald-600 border border-emerald-600 text-emerald-600 hover:text-white rounded-md ms-2">
-                    Decline
-                  </Button>
                 </div>
               </div>
             </div>

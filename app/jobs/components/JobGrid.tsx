@@ -17,7 +17,7 @@ interface JobGridProps {
 }
 
 export function JobGrid(props: JobGridProps) {
-  const { company, location, title, salary, type } = props;
+  const { company, location, title, salary } = props;
 
   return (
     <div className="group p-6 rounded-lg border border-emerald-600/20 dark:border-emerald-600/40 bg-white dark:bg-slate-900 hover:bg-emerald-600/[0.02] hover:dark:bg-emerald-600/5 hover:shadow-md hover:shadow-emerald-600/5 transition-all duration-500">
@@ -50,12 +50,7 @@ export function JobGrid(props: JobGridProps) {
           {company} চাকরির বিজ্ঞপ্তি
         </Link>
         <p className="text-slate-400 mt-2">{title}</p>
-        <div className="mt-3 flex items-center flex-wrap gap-2">
-          <p>
-            <span className="bg-orange-500/5 hover:bg-orange-500/20 dark:bg-orange-500/10 hover:dark:bg-orange-500/30 inline-block text-orange-500 px-4 text-[14px] font-medium rounded-full mt-2 me-1 transition-all duration-500">
-              {type}
-            </span>
-          </p>
+        <div className="mt-3 flex items-center justify-between flex-wrap gap-2">
           <p>
             <span className="bg-purple-600/5 hover:bg-purple-600/20 dark:bg-purple-600/10 hover:dark:bg-purple-600/30 text-purple-600 px-4 text-[14px] inline-flex space-x-1 font-medium rounded-full mt-2 me-1 transition-all duration-500">
               <Image src={taka_svg} alt="Taka SVG" width={10} />
