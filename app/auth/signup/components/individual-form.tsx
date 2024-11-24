@@ -1,5 +1,6 @@
 "use client";
 
+import { DIVISIONS } from "@/app/assets/resources";
 import { InputPassword } from "@/app/components/forms";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -15,51 +16,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { Dispatch, SetStateAction, useState } from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { toast } from "sonner";
 import { TRegisterAs } from "../page";
-
-const formSchema = z.object({
-  name: z.string().min(3),
-  phone: z.string().min(11),
-  address: z.string().min(1),
-  division: z.string().min(1),
-  district: z.string().min(1),
-  email: z.string().email({ message: "Invalid email address" }),
-  password: z
-    .string()
-    .min(8, { message: "Password must be at least 8 characters" }),
-  confirmPassword: z
-    .string()
-    .min(8, { message: "Password must be at least 8 characters" })
-});
-
-const DIVISIONS = [
-  {
-    id: 1,
-    division: "ঢাকা",
-    districts: [
-      "ঢাকা",
-      "ফরিদপুর",
-      "গাজীপুর",
-      "গোপালগঞ্জ",
-      "কিশোরগঞ্জ",
-      "মাদারীপুর"
-    ]
-  },
-  {
-    id: 2,
-    division: "চট্টগ্রাম",
-    districts: [
-      "বান্দরবান",
-      "ব্রাহ্মণবাড়িয়া",
-      "চাঁদপুর",
-      "চট্টগ্রাম",
-      "কক্স বাজার",
-      "কুমিল্লা",
-      "ফেনী"
-    ]
-  }
-];
+import {
+  individualFormSchema,
+  individualFormValues,
+  InvidualFormType
+} from "./forms";
 
 interface IndividualFormProps {
   setRegisterAsBtn: Dispatch<SetStateAction<TRegisterAs | null>>;
@@ -69,24 +32,22 @@ export function IndividualRegisterForm(props: IndividualFormProps) {
   const { setRegisterAsBtn } = props;
   const [districts, setDistricts] = useState([]);
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: "",
-      phone: "",
-      address: "",
-      division: "",
-      district: "",
-      email: "",
-      password: "",
-      confirmPassword: ""
-    }
+  const form = useForm<InvidualFormType>({
+    resolver: zodResolver(individualFormSchema),
+    defaultValues: individualFormValues
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  function onSubmit(values: InvidualFormType) {
+    const { confirmPassword, ...rest } = values;
+    if (rest.password !== confirmPassword) {
+      return toast.error("Password doesn't matched!");
+    }
 
-    console.log("-------------", form.formState.defaultValues);
+    // api_client.post("/signup", rest).then((res) => {
+    //   console.log("------------- response", res);
+    // });
+
+    console.log("------------- values", values);
   }
 
   return (

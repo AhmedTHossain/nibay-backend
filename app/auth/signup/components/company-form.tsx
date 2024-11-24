@@ -3,9 +3,12 @@
 import { InputPassword } from "@/app/components/forms";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { Dispatch, SetStateAction } from "react";
+import { useForm } from "react-hook-form";
 import { TRegisterAs } from "../page";
+import { companyFormSchema, CompanyFormType, companyFormValues } from "./forms";
 
 interface CompanyRegisterFormProps {
   setRegisterAsBtn: Dispatch<SetStateAction<TRegisterAs | null>>;
@@ -14,8 +17,17 @@ interface CompanyRegisterFormProps {
 export function CompanyRegisterForm(props: CompanyRegisterFormProps) {
   const { setRegisterAsBtn } = props;
 
+  const form = useForm<CompanyFormType>({
+    resolver: zodResolver(companyFormSchema),
+    defaultValues: companyFormValues
+  });
+
+  function onSubmit(values: CompanyFormType) {
+    console.log("------------- values", values);
+  }
+
   return (
-    <form className="text-left">
+    <form className="text-left" onSubmit={form.handleSubmit(onSubmit)}>
       <div className="grid grid-cols-1 gap-3">
         <div className="mb-4 text-left">
           <label className="font-semibold" htmlFor="companyname">

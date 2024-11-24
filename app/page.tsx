@@ -139,7 +139,7 @@ export default function Home() {
         <div className="container">
           <div className="grid grid-cols-1 pb-8 text-center">
             <h3 className="md:text-[26px] md:leading-normal text-2xl leading-normal font-semibold">
-              এক্টিভ জব্‌স
+              একটিভ জব্‌স
             </h3>
           </div>
           <div className="flex justify-end"></div>

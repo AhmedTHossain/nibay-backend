@@ -1,5 +1,6 @@
 import { USER_ROLE } from "@/lib/constant";
 import mongoose, { Document, Model } from "mongoose";
+import bcrypt from "bcryptjs";
 
 export interface TUser {
   name: string;
@@ -16,7 +17,11 @@ export interface TUserDocument extends TUser, Document {
   updatedAt: Date;
 }
 
-const userSchema = new mongoose.Schema<TUserDocument>(
+interface IUserMethods {
+  checkPasswordCorrect(candidatePassword: string): Promise<boolean>;
+}
+
+const userSchema = new mongoose.Schema<TUser, object, IUserMethods>(
   {
     name: {
       type: String,
@@ -60,5 +65,19 @@ const userSchema = new mongoose.Schema<TUserDocument>(
 
 const User: Model<TUserDocument> =
   mongoose.models?.User || mongoose.model("User", userSchema);
+
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) return next();
+
+  this.password = await bcrypt.hash(this.password, 12);
+
+  next();
+});
+
+userSchema.methods.checkPasswordCorrect = async function (
+  candidatePassword: string
+) {
+  return await bcrypt.compare(candidatePassword, this.password);
+};
 
 export default User;
