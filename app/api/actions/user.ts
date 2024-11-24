@@ -2,7 +2,7 @@
 
 import { connectToMongoDB } from "@/lib/database";
 import { revalidatePath } from "next/cache";
-import User from "@/api/models/user";
+import User from "../models/user";
 
 export const createUser = async (formData: FormData) => {
   await connectToMongoDB();
