@@ -1,10 +1,9 @@
 import Footer from "@/components/sections/Footer";
-import { JOB_ITEMS } from "../assets/resources";
 import { HeroSection } from "../components/common/HeroSection";
 import { WhySection } from "../components/common/WhySection";
 import Header from "../components/header";
+import { JobBox } from "./components/JobBox";
 import { JobFilter } from "./components/JobFilter";
-import { JobGrid } from "./components/JobGrid";
 
 export default function JobsRoute() {
   return (
@@ -20,9 +19,7 @@ export default function JobsRoute() {
           </div>
 
           <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 mt-8 gap-[30px]">
-            {JOB_ITEMS.map((item) => {
-              return <JobGrid key={item.id} {...item} />;
-            })}
+            <JobBox />
           </div>
 
           <div className="grid md:grid-cols-12 grid-cols-1 mt-8">

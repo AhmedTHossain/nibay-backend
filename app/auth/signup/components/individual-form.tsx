@@ -12,11 +12,11 @@ import {
   SelectTrigger,
   SelectValue
 } from "@/components/ui/select";
+import { api_client } from "@/lib/axios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { Dispatch, SetStateAction, useState } from "react";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
 import { TRegisterAs } from "../page";
 import {
   individualFormSchema,
@@ -37,32 +37,40 @@ export function IndividualRegisterForm(props: IndividualFormProps) {
     defaultValues: individualFormValues
   });
 
+  console.log("ffffffffffffffffffform", form.formState.errors);
+
   function onSubmit(values: InvidualFormType) {
-    const { confirmPassword, ...rest } = values;
-    if (rest.password !== confirmPassword) {
-      return toast.error("Password doesn't matched!");
-    }
-
-    // api_client.post("/signup", rest).then((res) => {
-    //   console.log("------------- response", res);
-    // });
-
-    console.log("------------- values", values);
+    // const { confirmPassword, ...rest } = values;
+    // if (rest.password !== confirmPassword) {
+    //   return toast.error("Password doesn't matched!");
+    // }
+    api_client.post("auth/register", values).then((res) => {
+      console.log("------------- response", res);
+    });
   }
+
+  const error = (field: keyof InvidualFormType): string | undefined => {
+    return form.formState.errors[field]?.message as string | undefined;
+  };
 
   return (
     <form className="text-left" onSubmit={form.handleSubmit(onSubmit)}>
       <div className="grid grid-cols-1">
         <div className="mb-4 text-left">
-          <label className="font-semibold" htmlFor="username">
+          <label className="font-semibold" htmlFor="name">
             আপনার নাম
           </label>
           <Input
-            id="username"
+            id="name"
             type="text"
             placeholder="নাম"
             {...form.register("name")}
           />
+          {error("name") ? (
+            <p className="text-red-500 font-semibold text-sm">
+              {error("name")}
+            </p>
+          ) : null}
         </div>
         <div className="mb-4 text-left">
           <label className="font-semibold" htmlFor="userphone">
@@ -74,6 +82,11 @@ export function IndividualRegisterForm(props: IndividualFormProps) {
             placeholder="ফোন নাম্বার"
             {...form.register("phone")}
           />
+          {error("phone") ? (
+            <p className="text-red-500 font-semibold text-sm">
+              {error("phone")}
+            </p>
+          ) : null}
         </div>
 
         <div className="mb-4 text-left">
@@ -86,6 +99,11 @@ export function IndividualRegisterForm(props: IndividualFormProps) {
             placeholder="ঠিকানা"
             {...form.register("address")}
           />
+          {error("address") ? (
+            <p className="text-red-500 font-semibold text-sm">
+              {error("address")}
+            </p>
+          ) : null}
         </div>
 
         <div className="mb-4 text-left">
@@ -118,6 +136,11 @@ export function IndividualRegisterForm(props: IndividualFormProps) {
               </SelectGroup>
             </SelectContent>
           </Select>
+          {error("division") ? (
+            <p className="text-red-500 font-semibold text-sm">
+              {error("division")}
+            </p>
+          ) : null}
         </div>
 
         {districts.length > 0 && (
@@ -141,6 +164,11 @@ export function IndividualRegisterForm(props: IndividualFormProps) {
                 </SelectGroup>
               </SelectContent>
             </Select>
+            {error("district") ? (
+              <p className="text-red-500 font-semibold text-sm">
+                {error("district")}
+              </p>
+            ) : null}
           </div>
         )}
 
@@ -154,11 +182,21 @@ export function IndividualRegisterForm(props: IndividualFormProps) {
             placeholder="name@example.com"
             {...form.register("email")}
           />
+          {error("email") ? (
+            <p className="text-red-500 font-semibold text-sm">
+              {error("email")}
+            </p>
+          ) : null}
         </div>
-        <InputPassword label="পাসওয়ার্ড" {...form.register("password")} />
+        <InputPassword
+          label="পাসওয়ার্ড"
+          {...form.register("password")}
+          errorMessage={error("password")}
+        />
         <InputPassword
           label="পাসওয়ার্ড পুনরায় দিন"
           {...form.register("confirmPassword")}
+          errorMessage={error("confirmPassword")}
         />
 
         <div className="mb-4">

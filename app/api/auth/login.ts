@@ -1,6 +1,12 @@
 import { connectToMongoDB } from "@/lib/database";
+import { handleError } from "@/lib/handleErrors";
+import bcrypt from "bcryptjs";
+import JWT from "jsonwebtoken";
 import { NextResponse } from "next/server";
 import User from "../models/user";
+
+const JWT_SECRET = process.env.JWT_SECRET as string;
+const JWT_SECRET_EXPIRES_IN = process.env.JWT_SECRET_EXPIRES_IN as string;
 
 export async function login(request: Request) {
   try {
@@ -8,25 +14,28 @@ export async function login(request: Request) {
 
     await connectToMongoDB();
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email }).select("+password");
     if (!user) {
-      return NextResponse.json({ error: "Invalid Email!" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Invalid Credentials!" },
+        { status: 400 }
+      );
     }
 
-    // eslint-disable-next-line
-    // @ts-ignore
-    if (!user || !(await user.checkPasswordCorrect(password)))
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
       return NextResponse.json(
-        { error: "Password doesn't matched!" },
-        { status: 401 }
+        { error: "Invalid Credentials!" },
+        { status: 400 }
       );
+    }
 
-    return NextResponse.json({ user });
+    const token = JWT.sign({ userId: user._id }, JWT_SECRET, {
+      expiresIn: JWT_SECRET_EXPIRES_IN
+    });
+
+    return NextResponse.json({ token });
   } catch (error) {
-    console.log(error);
-    return NextResponse.json(
-      { error: "Something went wrong" },
-      { status: 500 }
-    );
+    handleError(error);
   }
 }

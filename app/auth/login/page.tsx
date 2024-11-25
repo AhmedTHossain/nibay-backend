@@ -3,9 +3,14 @@
 import { InputPassword } from "@/app/components/forms";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { api_client } from "@/lib/axios";
+import storage from "@/lib/storage";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { AxiosResponse } from "axios";
+import { Loader } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -19,6 +24,7 @@ const formSchema = z.object({
 
 export default function LoginRoute() {
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -28,20 +34,22 @@ export default function LoginRoute() {
     }
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
 
-    const { email, password } = values;
+    setIsLoading(true);
 
-    if (email === "test@kormi.com" && password === "kormi1234") {
-      localStorage.setItem("isLoggedIn", "1");
-      toast.success("Successfully logged in");
-      router.push("/");
-
-      return;
-    }
-
-    toast.error("Invalid credentials");
+    api_client
+      .post("auth/login", values)
+      .then((res: AxiosResponse<{ token: string }>) => {
+        storage.setToken({ token: res.data.token });
+        router.push("/");
+        toast.success("Welcome back! You are now logged in");
+      })
+      .catch(() => {})
+      .finally(() => {
+        setIsLoading(false);
+      });
   }
 
   return (
@@ -76,7 +84,7 @@ export default function LoginRoute() {
                 type="submit"
                 className="bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white rounded-md w-full"
               >
-                সাইন ইন
+                {isLoading && <Loader className="animate-spin" />} সাইন ইন
               </Button>
             </div>
             <div className="text-center">

@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Bolt } from "lucide-react";
 
-export function JobFilter() {
+export function ApplicantFilter() {
   return (
     <div className="bg-white dark:bg-slate-900 border-0 shadow rounded-md p-3 relative max-w-lg">
       <form action="#">
@@ -13,14 +13,9 @@ export function JobFilter() {
               </span>
               <select className="w-full text-sm bg-transparent dark:bg-transparent border-0 focus:ring- focus:outline-none">
                 <option selected>Filter by</option>
-                <option value="counter-master">Counter Master</option>
-                <option value="driver">Driver</option>
-                <option value="foreman">Foreman</option>
-                <option value="GM">GM (General Manager)</option>
-                <option value="helper">Helper</option>
-                <option value="manager">Manager</option>
-                <option value="mechanic">Mechanic/Mistry</option>
-                <option value="Supervisor">Supervison/Passenger Guide</option>
+                <option value="accepted">Accepted</option>
+                <option value="rejected">Rejected</option>
+                <option value="short-listed">Short Listed</option>
               </select>
 
               {/* <Select>

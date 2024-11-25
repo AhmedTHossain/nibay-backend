@@ -4,6 +4,7 @@ import taka_svg from "@/app/assets/Icons/taka.svg";
 import { BusIcon, Edit, MapPin, Trash } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { Dispatch, SetStateAction } from "react";
 
 interface JobGridProps {
   id: number;
@@ -14,12 +15,12 @@ interface JobGridProps {
   experience: string;
   deadline: string;
   location: string;
-  type: string;
   salary: string;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 export function JobGrid(props: JobGridProps) {
-  const { company, location, title, salary } = props;
+  const { company, location, title, salary, setIsOpen } = props;
   const router = useRouter();
 
   return (
@@ -30,26 +31,27 @@ export function JobGrid(props: JobGridProps) {
       }}
     >
       <div className="flex justify-between items-start">
-        <div>
-          <div className="size-14 flex items-center justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-full mb-2">
-            <BusIcon size={26} />
-          </div>
-          <p className="text-lg font-semibold transition-all duration-500">
-            {company}
-          </p>
+        <div className="size-14 flex items-center justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-full mb-2">
+          <BusIcon size={26} />
         </div>
         <div className="flex items-center space-x-2">
           <span
-            className="rounded-full bg-emerald-600/5 hover:bg-emerald-500 border-emerald-600/10 hover:border-emerald-600 text-emerald-600 hover:text-white md:relative absolute top-0 end-0 md:m-0 m-3 w-10 h-10 flex items-center justify-center"
-            onClick={(event) => event.stopPropagation()}
+            className="rounded-full bg-emerald-600/5 hover:bg-emerald-500 border-emerald-600/10 hover:border-emerald-600 text-emerald-600 hover:text-white md:relative absolute top-0 end-0 md:m-0 m-3 w-8 h-8 flex items-center justify-center"
+            onClick={(event) => {
+              event.stopPropagation();
+              router.push("/jobs/1/edit");
+            }}
           >
-            <Edit strokeWidth={1.5} size={18} />
+            <Edit strokeWidth={1.5} size={16} />
           </span>
           <span
-            className="rounded-full bg-emerald-600/5 hover:bg-emerald-500 border-emerald-600/10 hover:border-emerald-600 text-emerald-600 hover:text-white md:relative absolute top-0 end-0 md:m-0 m-3 w-10 h-10 flex items-center justify-center"
-            onClick={(event) => event.stopPropagation()}
+            className="rounded-full bg-red-600/5 hover:bg-red-500 border-red-600/10 hover:border-red-600 text-red-600 hover:text-white md:relative absolute top-0 end-0 md:m-0 m-3 w-8 h-8 flex items-center justify-center"
+            onClick={(event) => {
+              event.stopPropagation();
+              setIsOpen(true);
+            }}
           >
-            <Trash strokeWidth={1.5} size={18} />
+            <Trash strokeWidth={1.5} size={16} />
           </span>
         </div>
       </div>

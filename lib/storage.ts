@@ -1,15 +1,15 @@
 const storagePrefix = "nibay__";
 
 type Token = {
-  accessToken: string;
+  token: string;
 };
 
 const storage = {
   getToken: () => {
     return JSON.parse(localStorage.getItem(`${storagePrefix}token`) as string);
   },
-  setToken: ({ accessToken }: Token) => {
-    localStorage.setItem(`${storagePrefix}token`, JSON.stringify(accessToken));
+  setToken: ({ token }: Token) => {
+    localStorage.setItem(`${storagePrefix}token`, JSON.stringify(token));
   },
   clearToken: () => {
     localStorage.removeItem(`${storagePrefix}token`);

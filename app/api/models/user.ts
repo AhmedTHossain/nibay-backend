@@ -1,6 +1,5 @@
 import { USER_ROLE } from "@/lib/constant";
 import mongoose, { Document, Model } from "mongoose";
-import bcrypt from "bcryptjs";
 
 export interface TUser {
   name: string;
@@ -11,6 +10,9 @@ export interface TUser {
   address: string;
   division: string;
   district: string;
+  file: string;
+  organizationType: string;
+  organizationContactPerson: string;
 }
 export interface TUserDocument extends TUser, Document {
   createdAt: Date;
@@ -51,11 +53,23 @@ const userSchema = new mongoose.Schema<TUser, object, IUserMethods>(
     },
     division: {
       type: String,
-      required: true
+      required: false
     },
     district: {
       type: String,
-      required: true
+      required: false
+    },
+    file: {
+      type: String,
+      required: false
+    },
+    organizationType: {
+      type: String,
+      required: false
+    },
+    organizationContactPerson: {
+      type: String,
+      required: false
     }
   },
   {
@@ -65,19 +79,5 @@ const userSchema = new mongoose.Schema<TUser, object, IUserMethods>(
 
 const User: Model<TUserDocument> =
   mongoose.models?.User || mongoose.model("User", userSchema);
-
-userSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) return next();
-
-  this.password = await bcrypt.hash(this.password, 12);
-
-  next();
-});
-
-userSchema.methods.checkPasswordCorrect = async function (
-  candidatePassword: string
-) {
-  return await bcrypt.compare(candidatePassword, this.password);
-};
 
 export default User;

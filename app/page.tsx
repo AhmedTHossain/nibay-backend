@@ -7,23 +7,13 @@ import {
 } from "@/components/sections/home/how-it-works";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
-import { JOB_ITEMS } from "./assets/resources";
 import Header from "./components/header";
+import { useAuth } from "./hooks/useAuth";
+import { JobBox } from "./jobs/components/JobBox";
 import { JobFilter } from "./jobs/components/JobFilter";
-import { JobGrid } from "./jobs/components/JobGrid";
 
 export default function Home() {
-  const router = useRouter();
-
-  useEffect(() => {
-    const isLoggedIn = !!localStorage.getItem("isLoggedIn");
-    if (!isLoggedIn) {
-      router.push("/auth/login");
-    }
-    // eslint-disable-next-line
-  }, []);
+  useAuth();
 
   return (
     <div>
@@ -147,8 +137,10 @@ export default function Home() {
           <div className="mt-6">
             <div className="container z-1">
               <div className="flex items-center justify-between">
-                <JobFilter />
-                <Link href="/">
+                <div className="flex-1">
+                  <JobFilter />
+                </div>
+                <Link href="/jobs/new">
                   <Button
                     size="lg"
                     className="bg-emerald-600/5 border-emerald-500 border hover:bg-emerald-600 hover:border-emerald-600 font-semibold text-emerald-600 hover:text-white rounded-md ms-2"
@@ -160,9 +152,7 @@ export default function Home() {
 
               <div className="mt-6">
                 <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 mt-4 gap-[30px]">
-                  {JOB_ITEMS.map((item) => {
-                    return <JobGrid key={item.id} {...item} />;
-                  })}
+                  <JobBox />
                 </div>
 
                 <div className="grid md:grid-cols-12 grid-cols-1 mt-8">

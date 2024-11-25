@@ -9,7 +9,6 @@ export const JOB_ITEMS = [
     experience: "৫ - ৮",
     deadline: "২৮-১০-২৪",
     location: "ময়মনসিংহ",
-    type: "ফুল টাইম",
     salary: "12000",
     jobPostTime: "২৮-০৯-২৪"
   },
@@ -23,7 +22,6 @@ export const JOB_ITEMS = [
     experience: "৫ - ৮",
     deadline: "২৮-১০-২৪",
     location: "ঢাকা",
-    type: "ফুল টাইম",
     salary: "12000",
     jobPostTime: "২৮-০৯-২৪"
   },
@@ -37,7 +35,6 @@ export const JOB_ITEMS = [
     experience: "৫ - ৮",
     deadline: "২৮-১০-২৪",
     location: "ঢাকা",
-    type: "ফুল টাইম",
     salary: "12000",
     jobPostTime: "২৮-০৯-২৪"
   },
@@ -51,7 +48,6 @@ export const JOB_ITEMS = [
     experience: "৫ - ৮",
     deadline: "২৮-১০-২৪",
     location: "ঢাকা",
-    type: "ফুল টাইম",
     salary: "12000",
     jobPostTime: "২৮-০৯-২৪"
   },
@@ -65,7 +61,6 @@ export const JOB_ITEMS = [
     experience: "৫ - ৮",
     deadline: "২৮-১০-২৪",
     location: "ঢাকা",
-    type: "ফুল টাইম",
     salary: "12000",
     jobPostTime: "২৮-০৯-২৪"
   }

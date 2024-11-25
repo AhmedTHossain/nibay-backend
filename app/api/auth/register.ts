@@ -1,6 +1,8 @@
-import { NextResponse } from "next/server";
-import bcrypt from "bcryptjs";
 import { connectToMongoDB } from "@/lib/database";
+import { handleError } from "@/lib/handleErrors";
+import { uploadFile, uploadFileMiddleware } from "@/lib/upload";
+import bcrypt from "bcryptjs";
+import { NextResponse } from "next/server";
 import User from "../models/user";
 
 export async function register(request: Request) {
@@ -10,6 +12,8 @@ export async function register(request: Request) {
 
     await connectToMongoDB();
 
+    console.log("-------- fahim", await request.json());
+
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return NextResponse.json(
@@ -17,6 +21,21 @@ export async function register(request: Request) {
         { status: 400 }
       );
     }
+
+    const req: any = request as any;
+    const res: any = {};
+    await uploadFileMiddleware(req, res, uploadFile.single("image"));
+
+    const image = req.file;
+    if (!image) {
+      return NextResponse.json(
+        { success: false, error: "No file provided." },
+        { status: 400 }
+      );
+    }
+
+    // Convert the file buffer to a base64 string
+    const base64Image = `data:${image.mimetype};base64,${image.buffer.toString("base64")}`;
 
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = await User.create({
@@ -27,15 +46,12 @@ export async function register(request: Request) {
       phone,
       address,
       division,
-      district
+      district,
+      file: base64Image
     });
 
     return NextResponse.json({ user: newUser });
   } catch (error) {
-    console.log(error);
-    return NextResponse.json(
-      { error: "Something went wrong" },
-      { status: 500 }
-    );
+    handleError(error);
   }
 }

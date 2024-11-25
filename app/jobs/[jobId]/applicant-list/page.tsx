@@ -2,6 +2,7 @@ import { HeroSection } from "@/app/components/common/HeroSection";
 import Header from "@/app/components/header";
 import Footer from "@/components/sections/Footer";
 import { ApplicantCard } from "../../components/ApplicantCard";
+import { ApplicantFilter } from "../../components/ApplicantFilter";
 
 export default function ApplicantListRoute() {
   return (
@@ -10,7 +11,11 @@ export default function ApplicantListRoute() {
       <HeroSection title="Applicants" />
       <section className="relative md:my-24 my-16">
         <div className="container">
-          <div className="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-[30px]">
+          <div className="">
+            <ApplicantFilter />
+          </div>
+
+          <div className="mt-8 grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-[30px]">
             <ApplicantCard />
             <ApplicantCard />
             <ApplicantCard />
@@ -50,6 +55,7 @@ export default function ApplicantListRoute() {
                   </li>
                   <li>
                     <a
+                      aria-current="page"
                       className="size-[40px] inline-flex justify-center items-center text-slate-400 hover:text-white bg-white dark:bg-slate-900 border border-gray-100 dark:border-gray-800 hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600"
                       href="/candidate-list"
                     >
@@ -58,7 +64,6 @@ export default function ApplicantListRoute() {
                   </li>
                   <li>
                     <a
-                      aria-current="page"
                       className="z-10 size-[40px] inline-flex justify-center items-center text-white bg-emerald-600 border border-emerald-600"
                       href="/candidate-list"
                     >

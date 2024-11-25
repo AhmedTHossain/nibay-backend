@@ -7,10 +7,11 @@ import { useState } from "react";
 interface PasswordInputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
+  errorMessage?: string;
 }
 
 const InputPassword = React.forwardRef<HTMLInputElement, PasswordInputProps>(
-  ({ ...props }, ref) => {
+  ({ errorMessage, ...props }, ref) => {
     const [isHidden, setIsHidden] = useState(true);
 
     return (
@@ -33,6 +34,9 @@ const InputPassword = React.forwardRef<HTMLInputElement, PasswordInputProps>(
             {isHidden ? <Eye size={18} /> : <EyeOff size={18} />}
           </button>
         </div>
+        {errorMessage ? (
+          <p className="text-red-500 font-semibold text-sm">{errorMessage}</p>
+        ) : null}
       </div>
     );
   }

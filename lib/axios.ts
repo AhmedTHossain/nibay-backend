@@ -3,14 +3,14 @@ import storage from "./storage";
 import { toast } from "sonner";
 
 export const api_client = Axios.create({
-  baseURL: "http://loclhost:3000/api"
+  baseURL: "http://localhost:3000/api"
 });
 
 api_client.interceptors.request.use(
   async (config: InternalAxiosRequestConfig) => {
     const token = storage.getToken();
     if (token) {
-      config.headers.authorization = `Bearer ${token}`;
+      config.headers.Authorization = `Bearer ${token}`;
     }
     config.headers.Accept = "application/json";
     return config;
@@ -22,7 +22,7 @@ api_client.interceptors.response.use(
     return response;
   },
   (error) => {
-    const messageData = error.response?.data?.message;
+    const messageData = error.response?.data?.error;
     const status = error.response?.status;
 
     if (status === 401) {
