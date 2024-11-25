@@ -8,12 +8,12 @@ import {
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Header from "./components/header";
-import { useAuth } from "./hooks/useAuth";
+// import { useAuth } from "./hooks/useAuth";
 import { JobBox } from "./jobs/components/JobBox";
 import { JobFilter } from "./jobs/components/JobFilter";
 
 export default function Home() {
-  useAuth();
+  // useAuth();
 
   return (
     <div>
