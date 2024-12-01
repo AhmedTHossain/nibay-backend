@@ -2,4 +2,6 @@ export const USER_ROLE = {
   INSTITUTION: "INSTITUTION",
   INDIVIDUAL: "INDIVIDUAL",
   USER: "USER"
-} as const;
+};
+
+export type ROLE = "INSTITUTION" | "INDIVIDUAL" | "USER";

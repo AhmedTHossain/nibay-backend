@@ -3,18 +3,16 @@
 import { InputPassword } from "@/app/components/forms";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { api_client } from "@/lib/axios";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Dispatch, SetStateAction, useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { TRegisterAs } from "../page";
 import { companyFormSchema, CompanyFormType, companyFormValues } from "./forms";
-import { api_client } from "@/lib/axios";
-import { AxiosResponse } from "axios";
-import storage from "@/lib/storage";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
-import { Loader } from "lucide-react";
 
 interface CompanyRegisterFormProps {
   setRegisterAsBtn: Dispatch<SetStateAction<TRegisterAs | null>>;
@@ -31,15 +29,26 @@ export function CompanyRegisterForm(props: CompanyRegisterFormProps) {
   });
 
   function onSubmit(values: CompanyFormType) {
-    console.log("------------- values", values);
-
     setIsLoading(true);
 
+    const formData = new FormData();
+    Object.entries(values).forEach(([key, value]) => {
+      if (key === "image" && value instanceof File) {
+        formData.append(key, value || null);
+      } else {
+        formData.append(key, value as string);
+      }
+    });
+    formData.append("role", "INSTITUTION");
+
     api_client
-      .post("auth/register", values)
-      .then((res: AxiosResponse<{ token: string }>) => {
-        storage.setToken({ token: res.data.token });
-        router.push("/");
+      .post("auth/register", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      })
+      .then(() => {
+        router.push("/auth/login");
         toast.success("অ্যাকাউন্ট সফলভাবে তৈরি করা হয়েছে");
       })
       .catch(() => {})
@@ -50,6 +59,13 @@ export function CompanyRegisterForm(props: CompanyRegisterFormProps) {
 
   const error = (field: keyof CompanyFormType): string | undefined => {
     return form.formState.errors[field]?.message as string | undefined;
+  };
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      form.setValue("image", file); // Use setValue to update the form state
+    }
   };
 
   return (
@@ -147,7 +163,7 @@ export function CompanyRegisterForm(props: CompanyRegisterFormProps) {
             id="companyImage"
             type="file"
             placeholder="প্রতিষ্ঠানের ছবি"
-            {...form.register("image")}
+            onChange={handleFileChange}
           />
           {error("image") ? (
             <p className="text-red-500 font-semibold text-sm">

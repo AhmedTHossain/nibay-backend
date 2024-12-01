@@ -1,23 +1,6 @@
 import { USER_ROLE } from "@/lib/constant";
-import mongoose, { Document, Model } from "mongoose";
-
-export interface TUser {
-  name: string;
-  email: string;
-  role: typeof USER_ROLE;
-  password: string;
-  phone: string;
-  address: string;
-  division: string;
-  district: string;
-  file: string;
-  organizationType: string;
-  organizationContactPerson: string;
-}
-export interface TUserDocument extends TUser, Document {
-  createdAt: Date;
-  updatedAt: Date;
-}
+import { TUser } from "@/utils/types/user";
+import mongoose, { Model } from "mongoose";
 
 interface IUserMethods {
   checkPasswordCorrect(candidatePassword: string): Promise<boolean>;
@@ -77,7 +60,7 @@ const userSchema = new mongoose.Schema<TUser, object, IUserMethods>(
   }
 );
 
-const User: Model<TUserDocument> =
+const User: Model<TUser> =
   mongoose.models?.User || mongoose.model("User", userSchema);
 
 export default User;

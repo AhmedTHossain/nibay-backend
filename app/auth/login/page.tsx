@@ -74,7 +74,7 @@ export default function LoginRoute() {
 
             <div className="flex justify-between mb-4">
               <p className="text-slate-400 mb-0">
-                <a className="text-slate-400" href="/reset-password">
+                <a className="text-slate-400" href="/auth/forgot">
                   পাসওয়ার্ড ভুলে গেছেন ?
                 </a>
               </p>

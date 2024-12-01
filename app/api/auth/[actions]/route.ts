@@ -1,8 +1,9 @@
+import { NextRequest } from "next/server";
 import { login } from "../login";
 import { register } from "../register";
 
 export async function POST(
-  request: Request,
+  request: NextRequest,
   { params }: { params: { actions: string } }
 ) {
   const action = params.actions;

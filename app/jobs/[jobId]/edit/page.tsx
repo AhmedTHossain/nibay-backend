@@ -1,24 +1,28 @@
 "use client";
 
 import Header from "@/app/components/header";
+import useJobById from "@/app/hooks/jobs/useJobById";
 import Footer from "@/components/sections/Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { api_client } from "@/lib/axios";
 import { REQUIRED_ERROR } from "@/lib/error";
+import { TJob } from "@/utils/types/job";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 
 const jobSchema = z.object({
   title: z.string().min(1, REQUIRED_ERROR),
-  company: z.string().min(1, REQUIRED_ERROR),
+  companyName: z.string().min(1, REQUIRED_ERROR),
   description: z.string().min(1, REQUIRED_ERROR),
   qualification: z.string().min(1, REQUIRED_ERROR),
   experience: z.string().min(1, REQUIRED_ERROR),
-  deadline: z
+  applicationDeadline: z
     .string()
     .min(1, REQUIRED_ERROR)
     .refine((date) => !isNaN(Date.parse(date)), {
@@ -34,19 +38,28 @@ const jobSchema = z.object({
     })
 });
 
-export default function EditJobRoute() {
-  //   const router = useRouter();
+export type TJobProps = Omit<
+  TJob,
+  "_id" | "__v" | "createdAt" | "updatedAt" | "user"
+>;
+
+export default function EditJobRoute({
+  params
+}: {
+  params: { jobId: string };
+}) {
+  const { job } = useJobById({ jobId: params.jobId });
   const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<z.infer<typeof jobSchema>>({
     resolver: zodResolver(jobSchema),
     defaultValues: {
       title: "",
-      company: "",
+      companyName: "",
       description: "",
       qualification: "",
       experience: "",
-      deadline: "",
+      applicationDeadline: "",
       location: "",
       salary: "",
       jobPostTime: ""
@@ -54,9 +67,56 @@ export default function EditJobRoute() {
   });
 
   async function onSubmit(values: z.infer<typeof jobSchema>) {
-    setIsLoading(false);
-    console.log(values);
+    setIsLoading(true);
+    const deadline = values.applicationDeadline + ".000Z";
+    const postTime = values.jobPostTime + ".000Z";
+
+    const body = {
+      ...values,
+      applicationDeadline: new Date(deadline),
+      jobPostTime: new Date(postTime)
+    };
+
+    api_client
+      .patch(`jobs/${job?._id}`, body)
+      .then((res) => {
+        if (res.data.status === "success") {
+          toast.success(res.data.message);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }
+
+  useEffect(() => {
+    if (job) {
+      Object.keys(form.getValues()).forEach((key) => {
+        if (key === "applicationDeadline" || key === "jobPostTime") {
+          const deadline = new Date(job?.applicationDeadline)
+            .toISOString()
+            .split(".")[0]
+            .toString();
+          const jobPostTime = new Date(job?.jobPostTime)
+            .toISOString()
+            .split(".")[0]
+            .toString();
+
+          form.setValue("applicationDeadline", deadline);
+          form.setValue("jobPostTime", jobPostTime);
+        } else {
+          // eslint-disable-next-line
+          // @ts-ignore
+          form.setValue(key as keyof TJobProps, job[key]);
+        }
+      });
+    }
+
+    // eslint-disable-next-line
+  }, [job]);
 
   return (
     <>
@@ -91,7 +151,7 @@ export default function EditJobRoute() {
                   id="companyName"
                   className="mt-3"
                   placeholder="জব টাইটেল"
-                  {...form.register("company")}
+                  {...form.register("companyName")}
                 />
               </div>
 
@@ -133,15 +193,22 @@ export default function EditJobRoute() {
               </div>
 
               <div className="mb-4 text-left">
-                <label className="font-semibold" htmlFor="deadline">
+                <label className="font-semibold" htmlFor="applicationDeadline">
                   আবেদনের শেষ তারিখ
                 </label>
                 <Input
-                  id="deadline"
+                  id="applicationDeadline"
                   className="mt-3"
-                  type="date"
+                  type="datetime-local"
                   placeholder="আবেদনের শেষ তারিখ"
-                  {...form.register("deadline")}
+                  defaultValue={form.getValues("applicationDeadline")}
+                  onChange={(event) => {
+                    form.setValue(
+                      "applicationDeadline",
+                      event.target.value + ":00"
+                    );
+                  }}
+                  // {...form.register("applicationDeadline")}
                 />
               </div>
 
@@ -174,10 +241,15 @@ export default function EditJobRoute() {
                   প্রকাশ তারিখ:
                 </label>
                 <Input
+                  type="datetime-local"
                   id="jobPostTime"
                   className="mt-3"
                   placeholder="প্রকাশ তারিখ"
-                  {...form.register("jobPostTime")}
+                  defaultValue={form.getValues("jobPostTime")}
+                  onChange={(event) => {
+                    form.setValue("jobPostTime", event.target.value + ":00");
+                  }}
+                  // {...form.register("jobPostTime")}
                 />
               </div>
 

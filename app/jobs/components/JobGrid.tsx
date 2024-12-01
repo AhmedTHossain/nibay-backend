@@ -1,33 +1,25 @@
 "use client";
 
 import taka_svg from "@/app/assets/Icons/taka.svg";
+import { TJob } from "@/utils/types/job";
 import { BusIcon, Edit, MapPin, Trash } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Dispatch, SetStateAction } from "react";
 
-interface JobGridProps {
-  id: number;
-  title: string;
-  company: string;
-  description: string;
-  qualification: string;
-  experience: string;
-  deadline: string;
-  location: string;
-  salary: string;
+interface JobGridProps extends TJob {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 export function JobGrid(props: JobGridProps) {
-  const { company, location, title, salary, setIsOpen } = props;
+  const { companyName, location, title, salary, setIsOpen, _id } = props;
   const router = useRouter();
 
   return (
     <div
       className="group p-6 rounded-lg border border-emerald-600/20 dark:border-emerald-600/40 bg-white dark:bg-slate-900 hover:bg-emerald-600/[0.02] hover:dark:bg-emerald-600/5 hover:shadow-md hover:shadow-emerald-600/5 transition-all duration-500 cursor-pointer"
       onClick={() => {
-        router.push("/jobs/1");
+        router.push(`/jobs/${_id}`);
       }}
     >
       <div className="flex justify-between items-start">
@@ -39,7 +31,7 @@ export function JobGrid(props: JobGridProps) {
             className="rounded-full bg-emerald-600/5 hover:bg-emerald-500 border-emerald-600/10 hover:border-emerald-600 text-emerald-600 hover:text-white md:relative absolute top-0 end-0 md:m-0 m-3 w-8 h-8 flex items-center justify-center"
             onClick={(event) => {
               event.stopPropagation();
-              router.push("/jobs/1/edit");
+              router.push(`/jobs/${_id}/edit`);
             }}
           >
             <Edit strokeWidth={1.5} size={16} />
@@ -57,7 +49,7 @@ export function JobGrid(props: JobGridProps) {
       </div>
       <div className="mt-3">
         <p className="text-xl font-semibold transition-all duration-500">
-          {company} চাকরির বিজ্ঞপ্তি
+          {companyName} চাকরির বিজ্ঞপ্তি
         </p>
         <p className="text-slate-400 mt-2">{title}</p>
         <div className="mt-3 flex items-center justify-between flex-wrap gap-2">

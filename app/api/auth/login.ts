@@ -30,12 +30,21 @@ export async function login(request: Request) {
       );
     }
 
-    const token = JWT.sign({ userId: user._id }, JWT_SECRET, {
-      expiresIn: JWT_SECRET_EXPIRES_IN
-    });
+    const token = JWT.sign(
+      {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role
+      },
+      JWT_SECRET,
+      {
+        expiresIn: JWT_SECRET_EXPIRES_IN
+      }
+    );
 
     return NextResponse.json({ token });
   } catch (error) {
-    handleError(error);
+    return handleError(error);
   }
 }

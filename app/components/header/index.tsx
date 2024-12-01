@@ -9,14 +9,14 @@ import {
   MenubarSeparator,
   MenubarTrigger
 } from "@/components/ui/menubar";
+import { Switch } from "@/components/ui/switch";
 import { cn } from "@/lib/utils";
 import { useMotionValue, useScroll } from "framer-motion";
-import { LogOutIcon, SettingsIcon, UserIcon } from "lucide-react";
+import { LogOutIcon, SettingsIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Avatar } from "../common/Avatar";
 import { Navigation } from "./Navigation";
-import { Switch } from "@/components/ui/switch";
 
 const Header = () => {
   const { scrollY } = useScroll();
@@ -73,10 +73,12 @@ function ProfileMenu() {
           <Avatar title="FS" />
         </MenubarTrigger>
         <MenubarContent>
-          <MenubarItem className="gap-2">
-            <UserIcon size={18} strokeWidth={1.5} /> <span>আপনার প্রোফাইল</span>
-          </MenubarItem>
-          <MenubarItem className="gap-2">
+          <MenubarItem
+            className="gap-2"
+            onClick={() => {
+              router.push("/settings");
+            }}
+          >
             <SettingsIcon size={18} strokeWidth={1.5} /> <span>সেটিংস</span>
           </MenubarItem>
           <MenubarSeparator />

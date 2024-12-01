@@ -1,13 +1,14 @@
 "use client";
 
-import { JOB_ITEMS } from "@/app/assets/resources";
 import { HeroSection } from "@/app/components/common/HeroSection";
 import Header from "@/app/components/header";
+import useJobById from "@/app/hooks/jobs/useJobById";
 import Footer from "@/components/sections/Footer";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useState } from "react";
 import { ApplicantListModal } from "../components/ApplicantListModal";
+import moment from "moment";
 
 export default function JobDetailsRoute({
   params
@@ -16,14 +17,14 @@ export default function JobDetailsRoute({
 }) {
   const [open, setIsOpen] = useState(false);
 
-  const findJob = JOB_ITEMS.find((item) => item.id === Number(params.jobId));
+  const { job } = useJobById({ jobId: params.jobId });
 
   return (
     <>
       <ApplicantListModal open={open} setIsOpen={setIsOpen} />
 
       <Header />
-      <HeroSection title={findJob?.title as string} />
+      <HeroSection title={job?.title as string} />
 
       <section className="relative md:py-24 py-16">
         <div className="container">
@@ -54,7 +55,7 @@ export default function JobDetailsRoute({
                       <div className="ms-4">
                         <p className="font-medium">কর্মস্হল:</p>
                         <span className="text-emerald-600 font-medium text-sm">
-                          {findJob?.location}
+                          {job?.location}
                         </span>
                       </div>
                     </li>
@@ -85,7 +86,7 @@ export default function JobDetailsRoute({
                       <div className="ms-4">
                         <p className="font-medium">অভিজ্ঞতা:</p>
                         <span className="text-emerald-600 font-medium text-sm">
-                          {findJob?.experience} বছর
+                          {job?.experience} বছর
                         </span>
                       </div>
                     </li>
@@ -108,7 +109,7 @@ export default function JobDetailsRoute({
                       <div className="ms-4">
                         <p className="font-medium">শিক্ষাগত যোগ্যতা:</p>
                         <span className="text-emerald-600 font-medium text-sm">
-                          {findJob?.qualification}
+                          {job?.qualification}
                         </span>
                       </div>
                     </li>
@@ -131,7 +132,7 @@ export default function JobDetailsRoute({
                       <div className="ms-4">
                         <p className="font-medium">বেতন:</p>
                         <span className="text-emerald-600 font-medium text-sm">
-                          {findJob?.salary}
+                          {job?.salary}
                         </span>
                       </div>
                     </li>
@@ -154,7 +155,7 @@ export default function JobDetailsRoute({
                       <div className="ms-4">
                         <p className="font-medium">প্রকাশ তারিখ:</p>
                         <span className="text-emerald-600 font-medium text-sm">
-                          {findJob?.jobPostTime}
+                          {moment(job?.jobPostTime).format("DD-MM-YYYY")}
                         </span>
                       </div>
                     </li>
@@ -171,10 +172,8 @@ export default function JobDetailsRoute({
                 </Link>
               </div>
               <h5 className="text-lg font-semibold">কাজের বিবরণ</h5>
-              <p className="text-slate-400 mt-4">{findJob?.description}</p>
-              <p className="text-slate-400 mt-4">{findJob?.description}</p>{" "}
-              <p className="text-slate-400 mt-4">{findJob?.description}</p>{" "}
-              <p className="text-slate-400 mt-4">{findJob?.description}</p>
+              <p className="text-slate-400 mt-4">{job?.description}</p>
+
               {/* <h5 className="text-lg font-semibold mt-6">
                 কম্পেন্সেশন এবং অন্যান্য সুবিধাসমূহ :{" "}
               </h5>

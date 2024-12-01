@@ -5,20 +5,23 @@ import Footer from "@/components/sections/Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { api_client } from "@/lib/axios";
 import { REQUIRED_ERROR } from "@/lib/error";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 
 const jobSchema = z.object({
   title: z.string().min(1, REQUIRED_ERROR),
-  company: z.string().min(1, REQUIRED_ERROR),
+  companyName: z.string().min(1, REQUIRED_ERROR),
   description: z.string().min(1, REQUIRED_ERROR),
   qualification: z.string().min(1, REQUIRED_ERROR),
   experience: z.string().min(1, REQUIRED_ERROR),
-  deadline: z
+  applicationDeadline: z
     .string()
     .min(1, REQUIRED_ERROR)
     .refine((date) => !isNaN(Date.parse(date)), {
@@ -35,18 +38,18 @@ const jobSchema = z.object({
 });
 
 export default function NewJobRoute() {
-  //   const router = useRouter();
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<z.infer<typeof jobSchema>>({
     resolver: zodResolver(jobSchema),
     defaultValues: {
       title: "",
-      company: "",
+      companyName: "",
       description: "",
       qualification: "",
       experience: "",
-      deadline: "",
+      applicationDeadline: "",
       location: "",
       salary: "",
       jobPostTime: ""
@@ -54,8 +57,23 @@ export default function NewJobRoute() {
   });
 
   async function onSubmit(values: z.infer<typeof jobSchema>) {
-    setIsLoading(false);
-    console.log(values);
+    setIsLoading(true);
+
+    api_client
+      .post("jobs", values)
+      .then((res) => {
+        if (res.data.status === "success") {
+          toast.success(res.data.message);
+          form.reset();
+          router.push("/");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }
 
   return (
@@ -91,7 +109,7 @@ export default function NewJobRoute() {
                   id="companyName"
                   className="mt-3"
                   placeholder="জব টাইটেল"
-                  {...form.register("company")}
+                  {...form.register("companyName")}
                 />
               </div>
 
@@ -139,9 +157,9 @@ export default function NewJobRoute() {
                 <Input
                   id="deadline"
                   className="mt-3"
-                  type="date"
+                  type="datetime-local"
                   placeholder="আবেদনের শেষ তারিখ"
-                  {...form.register("deadline")}
+                  {...form.register("applicationDeadline")}
                 />
               </div>
 
@@ -174,9 +192,10 @@ export default function NewJobRoute() {
                   প্রকাশ তারিখ:
                 </label>
                 <Input
-                  id="jobPostTime"
+                  id="deadline"
                   className="mt-3"
-                  placeholder="প্রকাশ তারিখ"
+                  type="datetime-local"
+                  placeholder=" প্রকাশ তারিখ"
                   {...form.register("jobPostTime")}
                 />
               </div>

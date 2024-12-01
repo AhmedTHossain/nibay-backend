@@ -22,7 +22,8 @@ api_client.interceptors.response.use(
     return response;
   },
   (error) => {
-    const messageData = error.response?.data?.error;
+    const messageData =
+      error.response?.data?.error || error.response?.data?.message;
     const status = error.response?.status;
 
     if (status === 401) {

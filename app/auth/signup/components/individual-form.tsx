@@ -17,12 +17,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { Dispatch, SetStateAction, useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { TRegisterAs } from "../page";
 import {
   individualFormSchema,
   individualFormValues,
   InvidualFormType
 } from "./forms";
+import { Loader } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 interface IndividualFormProps {
   setRegisterAsBtn: Dispatch<SetStateAction<TRegisterAs | null>>;
@@ -31,22 +34,42 @@ interface IndividualFormProps {
 export function IndividualRegisterForm(props: IndividualFormProps) {
   const { setRegisterAsBtn } = props;
   const [districts, setDistricts] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const form = useForm<InvidualFormType>({
     resolver: zodResolver(individualFormSchema),
     defaultValues: individualFormValues
   });
 
-  console.log("ffffffffffffffffffform", form.formState.errors);
-
   function onSubmit(values: InvidualFormType) {
-    // const { confirmPassword, ...rest } = values;
-    // if (rest.password !== confirmPassword) {
-    //   return toast.error("Password doesn't matched!");
-    // }
-    api_client.post("auth/register", values).then((res) => {
-      console.log("------------- response", res);
+    const { confirmPassword, ...rest } = values;
+    if (rest.password !== confirmPassword) {
+      return toast.error("Password doesn't matched!");
+    }
+
+    setIsLoading(true);
+
+    const formData = new FormData();
+    Object.entries(values).forEach(([key, value]) => {
+      formData.append(key, value as string);
     });
+    formData.append("role", "INDIVIDUAL");
+
+    api_client
+      .post("auth/register", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      })
+      .then(() => {
+        router.push("/auth/login");
+        toast.success("অ্যাকাউন্ট সফলভাবে তৈরি করা হয়েছে");
+      })
+      .catch(() => {})
+      .finally(() => {
+        setIsLoading(false);
+      });
   }
 
   const error = (field: keyof InvidualFormType): string | undefined => {
@@ -201,7 +224,7 @@ export function IndividualRegisterForm(props: IndividualFormProps) {
 
         <div className="mb-4">
           <Button className="bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white rounded-md w-full">
-            অ্যাকাউন্ট তৈরি
+            {isLoading && <Loader className="animate-spin" />} অ্যাকাউন্ট তৈরি
           </Button>
         </div>
 

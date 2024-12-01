@@ -8,7 +8,7 @@ import { NextResponse } from "next/server";
 const JWT_SECRET = process.env.JWT_SECRET as string;
 
 interface DecodedToken extends JwtPayload {
-  userId: string;
+  id: string;
 }
 
 export function authMiddleware(
@@ -24,13 +24,15 @@ export function authMiddleware(
   }
 
   const token = header.split(" ")[1];
+
   if (!token) {
     return NextResponse.json({ error: "Token not provided" }, { status: 401 });
   }
 
   try {
     const decoded = jwt.verify(token, JWT_SECRET) as DecodedToken;
-    return { userId: decoded.userId };
+
+    return { userId: decoded.id };
   } catch (error) {
     if (error instanceof TokenExpiredError) {
       return NextResponse.json({ error: "Token expired" }, { status: 401 });
