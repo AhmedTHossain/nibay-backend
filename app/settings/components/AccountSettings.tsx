@@ -103,6 +103,7 @@ export function AccountSettings() {
         form.setValue(`${key as keyof TUser}`, body[key as keyof TUser]);
       });
     }
+     // eslint-disable-next-line
   }, [currentUser]);
 
   useEffect(() => {

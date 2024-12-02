@@ -21,6 +21,7 @@ const useJobById = ({ jobId }: { jobId: string }) => {
     }
 
     fetchJobs();
+    // eslint-disable-next-line
   }, []);
 
   return { job, isLoading };
