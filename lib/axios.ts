@@ -3,7 +3,7 @@ import storage from "./storage";
 import { toast } from "sonner";
 
 export const api_client = Axios.create({
-  baseURL: "http://localhost:3000/api"
+  baseURL: process.env.NODE_ENV === "development" ? "http://localhost:3000/api" : "https://kormi-wine.vercel.app/api"
 });
 
 api_client.interceptors.request.use(
