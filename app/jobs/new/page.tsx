@@ -143,24 +143,20 @@ export default function NewJobRoute() {
                       }}
                     >
                       <option value="No Formal Education">
-                        No Formal Education
+                        প্রাতিষ্ঠানিক শিক্ষা নেই
                       </option>
                       <option value="Primary [Class 1-5]">
-                        Primary [Class 1-5]
+                        প্রাথমিক [শ্রেণি ১ম-৫ম]
                       </option>
                       <option value="Junior Secondary [Class 6-8]">
-                        Junior Secondary [Class 6-8]
+                        জুনিয়র সেকেন্ডারি [ক্লাস ৬ষ্ঠ-৮ম]
                       </option>
-                      <option value="Secondary (SSC)">Secondary (SSC)</option>
+                      <option value="Secondary (SSC)">মাধ্যমিক (এসএসসি)</option>
                       <option value="Higher Secondary (HSC)">
-                        Higher Secondary (HSC)
+                        উচ্চ মাধ্যমিক (এইচএসসি)
                       </option>
-                      <option value="Bachelor's Degree">
-                        Bachelor&apos;s Degree
-                      </option>
-                      <option value="Master's Degree">
-                        Master&apos;s Degree
-                      </option>
+                      <option value="Bachelor's Degree">ব্যাচেলর ডিগ্রী</option>
+                      <option value="Master's Degree">মাস্টার্স ডিগ্রী</option>
                     </select>
 
                     {/* <Input
@@ -184,14 +180,14 @@ export default function NewJobRoute() {
                         form.setValue("experience", event.target.value);
                       }}
                     >
-                      <option value="0-1">0 — 1 year</option>
-                      <option value="1-2">1 — 2 years</option>
-                      <option value="2-3">2 — 3 years</option>
-                      <option value="3-4">3 — 4 years</option>
-                      <option value="4-5">4 — 5 years</option>
-                      <option value="5-7">5 — 7 years</option>
-                      <option value="7-10">7 — 10 years</option>
-                      <option value="10+">10+ years</option>
+                      <option value="0-1">০ — ১ বছর</option>
+                      <option value="1-2">১ — ২ বছর</option>
+                      <option value="2-3">২ — ৩ বছর</option>
+                      <option value="3-4">৩ — ৪ বছর</option>
+                      <option value="4-5">৪ — ৫ বছর</option>
+                      <option value="5-7">৫ — ৭ বছর</option>
+                      <option value="7-10">৭ — ১০ বছর</option>
+                      <option value="10+">১০+ বছর</option>
                     </select>
                     {/* <Input
                       id="experience"

@@ -11,6 +11,7 @@ import Header from "./components/header";
 import { useAuth } from "./hooks/useAuth";
 import { JobBox } from "./jobs/components/JobBox";
 import { JobFilter } from "./jobs/components/JobFilter";
+import { Hero } from "@/components/sections/home/hero";
 
 export default function Home() {
   useAuth();
@@ -18,6 +19,12 @@ export default function Home() {
   return (
     <div>
       <Header />
+
+      <section className="relative py-36">
+        <div className="container">
+          <Hero />
+        </div>
+      </section>
 
       {/* <section className="relative py-36 table w-full bg-gradient-to-b from-emerald-600/20 dark:from-emerald-600/40 via-emerald-600/10 dark:via-emerald-600/20 to-transparent">
         <div className="container">
@@ -125,7 +132,7 @@ export default function Home() {
         </div>
       </section> */}
 
-      <section className="relative pt-36 ">
+      <section className="relative pt-20">
         <div className="container">
           <div className="grid grid-cols-1 pb-8 text-center">
             <h3 className="md:text-[26px] md:leading-normal text-2xl leading-normal font-semibold">
@@ -141,7 +148,10 @@ export default function Home() {
                   <JobFilter />
                 </div>
                 <Link href="/jobs/new">
-                  <Button size="lg" className="bg-[#10b981] hover:bg-[rgb(29,128,95)]">
+                  <Button
+                    size="lg"
+                    className="bg-[#10b981] hover:bg-[rgb(29,128,95)]"
+                  >
                     নতুন চাকরি তৈরি করুন
                   </Button>
                 </Link>
