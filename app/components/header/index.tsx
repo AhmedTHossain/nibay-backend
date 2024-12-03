@@ -12,11 +12,12 @@ import {
 import { Switch } from "@/components/ui/switch";
 import { cn } from "@/lib/utils";
 import { useMotionValue, useScroll } from "framer-motion";
-import { LogOutIcon, SettingsIcon } from "lucide-react";
+import { Loader, LogOutIcon, SettingsIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Avatar } from "../common/Avatar";
 import { Navigation } from "./Navigation";
+import { useUserInfo } from "@/app/hooks/useUserInfo";
 
 const Header = () => {
   const { scrollY } = useScroll();
@@ -65,12 +66,13 @@ export default Header;
 
 function ProfileMenu() {
   const router = useRouter();
+  const { user, isLoading } = useUserInfo();
 
   return (
     <Menubar className="border-0 bg-transparent dark:bg-transparent dark:border-0">
       <MenubarMenu>
         <MenubarTrigger className="focus:bg-transparent dark:bg-transparent data-[state=open]:bg-transparent dark:data-[state=open]:bg-transparent">
-          <Avatar title="FS" />
+          <Avatar title="FS" image={user?.file} />
         </MenubarTrigger>
         <MenubarContent>
           <MenubarItem

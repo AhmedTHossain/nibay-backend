@@ -3,7 +3,10 @@ import storage from "./storage";
 import { toast } from "sonner";
 
 export const api_client = Axios.create({
-  baseURL: process.env.NODE_ENV === "development" ? "http://localhost:3000/api" : "https://kormi-wine.vercel.app/api"
+  baseURL:
+    process.env.NODE_ENV === "development"
+      ? "http://localhost:3000/api"
+      : "https://kormi-wine.vercel.app/api"
 });
 
 api_client.interceptors.request.use(
@@ -26,7 +29,7 @@ api_client.interceptors.response.use(
       error.response?.data?.error || error.response?.data?.message;
     const status = error.response?.status;
 
-    if (status === 401) {
+    if (status === 401 || status === 404) {
       localStorage.clear();
     } else if (status === 500) toast.error("Something went wrong!");
     else toast.error(messageData);

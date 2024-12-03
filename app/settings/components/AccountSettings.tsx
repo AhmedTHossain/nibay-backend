@@ -19,10 +19,11 @@ import Image from "next/image";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import {
-  settingsFormSchema,
-  SettingsFormType,
-  settingsFormValues
+  accountSettingsFormSchema,
+  AccountSettingsFormType,
+  accountSettingsFormValues
 } from "./form";
+import { toast } from "sonner";
 
 export function AccountSettings() {
   const [districts, setDistricts] = useState([]);
@@ -30,12 +31,15 @@ export function AccountSettings() {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const { user: currentUser, isLoading: userLoading } = useUserInfo();
 
-  const form = useForm<SettingsFormType>({
-    resolver: zodResolver(settingsFormSchema),
-    defaultValues: settingsFormValues
+  const form = useForm<AccountSettingsFormType>({
+    resolver: zodResolver(accountSettingsFormSchema),
+    defaultValues: {
+      ...accountSettingsFormValues,
+      key: "account"
+    }
   });
 
-  function onSubmit(values: SettingsFormType) {
+  function onSubmit(values: AccountSettingsFormType) {
     setIsLoading(true);
 
     const formData = new FormData();
@@ -54,13 +58,15 @@ export function AccountSettings() {
         }
       })
       .then((res) => {
-        console.log("----------", res);
+        if (res.data.status === "success") {
+          toast.success(res.data.message);
+        }
       })
       .catch((err) => console.log(err))
       .finally(() => setIsLoading(false));
   }
 
-  const error = (field: keyof SettingsFormType): string | undefined => {
+  const error = (field: keyof AccountSettingsFormType): string | undefined => {
     return form.formState.errors[field]?.message as string | undefined;
   };
 
@@ -103,7 +109,7 @@ export function AccountSettings() {
         form.setValue(`${key as keyof TUser}`, body[key as keyof TUser]);
       });
     }
-     // eslint-disable-next-line
+    // eslint-disable-next-line
   }, [currentUser]);
 
   useEffect(() => {
@@ -151,14 +157,10 @@ export function AccountSettings() {
                 <Input
                   id="email"
                   type="email"
+                  readOnly
                   placeholder="name@example.com"
                   {...form.register("email")}
                 />
-                {error("email") ? (
-                  <p className="text-red-500 font-semibold text-sm">
-                    {error("email")}
-                  </p>
-                ) : null}
               </div>
 
               <div className="mb-4 text-left">
@@ -338,7 +340,10 @@ export function AccountSettings() {
             </div>
 
             <div className="mt-3">
-              <Button className="bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white rounded-md">
+              <Button
+                className="bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white rounded-md"
+                disabled={isLoading}
+              >
                 {isLoading && <Loader className="animate-spin" />} Save Changes
               </Button>
             </div>

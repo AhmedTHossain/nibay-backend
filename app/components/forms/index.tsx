@@ -23,7 +23,7 @@ const InputPassword = React.forwardRef<HTMLInputElement, PasswordInputProps>(
           <Input
             id={props.label}
             type={isHidden ? "password" : "text"}
-            className="mt-3"
+            className="mt-3 flex"
             {...props}
           />
           <button

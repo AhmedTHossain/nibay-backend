@@ -1,5 +1,6 @@
 "use client";
 
+import useJobs from "@/app/hooks/jobs/useJobs";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -9,15 +10,42 @@ import {
   DialogHeader,
   DialogTitle
 } from "@/components/ui/dialog";
-import { Dispatch, SetStateAction } from "react";
+import { api_client } from "@/lib/axios";
+import { Loader } from "lucide-react";
+import { Dispatch, SetStateAction, useState } from "react";
+import { toast } from "sonner";
 
 interface JobDeleteModalProps {
   open: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
+  jobId: string | undefined;
 }
 
 export function JobDeleteModal(props: JobDeleteModalProps) {
-  const { open, setIsOpen } = props;
+  const { open, setIsOpen, jobId } = props;
+  const [isLoading, setIsLoading] = useState(false);
+  const { setJobs, refetch } = useJobs();
+
+  const handleDelete = () => {
+    api_client
+      .delete(`jobs/${jobId}`)
+      .then((res) => {
+        setJobs((prevJobs) => prevJobs.filter((job) => job._id !== jobId));
+
+        if (res.data.status === "success") {
+          toast.success(res.data.message);
+          refetch();
+
+          setIsOpen(false);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
 
   return (
     <Dialog open={open} onOpenChange={setIsOpen}>
@@ -38,8 +66,15 @@ export function JobDeleteModal(props: JobDeleteModalProps) {
             >
               না
             </Button>
-            <Button type="button" variant="destructive">
-              হ্যাঁ
+            <Button
+              type="button"
+              variant="destructive"
+              disabled={isLoading}
+              onClick={() => {
+                handleDelete();
+              }}
+            >
+              {isLoading && <Loader className="animate-spin" />} হ্যাঁ
             </Button>
           </div>
         </DialogFooter>

@@ -41,8 +41,6 @@ export async function POST(request: NextRequest) {
     //   });
     // }
   } catch (error) {
-    console.log("-0000000000000", error);
-
     return NextResponse.json({ error: "Invalid mail!" }, { status: 404 });
   }
 }

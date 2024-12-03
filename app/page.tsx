@@ -141,10 +141,7 @@ export default function Home() {
                   <JobFilter />
                 </div>
                 <Link href="/jobs/new">
-                  <Button
-                    size="lg"
-                    className="bg-emerald-600/5 border-emerald-500 border hover:bg-emerald-600 hover:border-emerald-600 font-semibold text-emerald-600 hover:text-white rounded-md ms-2"
-                  >
+                  <Button size="lg" className="bg-[#10b981] hover:bg-[#10b981]">
                     নতুন চাকরি তৈরি করুন
                   </Button>
                 </Link>

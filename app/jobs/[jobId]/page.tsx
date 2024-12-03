@@ -136,29 +136,6 @@ export default function JobDetailsRoute({
                         </span>
                       </div>
                     </li>
-                    <li className="flex items-center mt-3">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width={24}
-                        height={24}
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth={2}
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="size-5"
-                      >
-                        <circle cx={12} cy={12} r={10} />
-                        <polyline points="12 6 12 12 16 14" />
-                      </svg>
-                      <div className="ms-4">
-                        <p className="font-medium">প্রকাশ তারিখ:</p>
-                        <span className="text-emerald-600 font-medium text-sm">
-                          {moment(job?.jobPostTime).format("DD-MM-YYYY")}
-                        </span>
-                      </div>
-                    </li>
                   </ul>
                 </div>
               </div>
@@ -172,7 +149,8 @@ export default function JobDetailsRoute({
                 </Link>
               </div>
               <h5 className="text-lg font-semibold">কাজের বিবরণ</h5>
-              <p className="text-slate-400 mt-4">{job?.description}</p>
+              <pre className="text-slate-400 mt-4">{job?.shortDescription}</pre>
+              <pre className="text-slate-400 mt-2">{job?.longDescription}</pre>
 
               {/* <h5 className="text-lg font-semibold mt-6">
                 কম্পেন্সেশন এবং অন্যান্য সুবিধাসমূহ :{" "}

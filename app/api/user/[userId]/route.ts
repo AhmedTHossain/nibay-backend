@@ -3,6 +3,9 @@ import { handleError } from "@/lib/handleErrors";
 import { NextRequest, NextResponse } from "next/server";
 import User from "../../models/user";
 import { uploadFile, uploadFileMiddleware } from "@/lib/upload";
+import { TUser } from "@/utils/types/user";
+import bcrypt from "bcryptjs";
+import { updateUserAccount, updateUserPassword } from "../settings";
 
 interface TUserParams {
   params: { userId: string };
@@ -14,57 +17,23 @@ export async function PATCH(request: NextRequest, { params }: TUserParams) {
 
     await connectToMongoDB();
 
-    const user = await User.findById(userId);
+    const user = await User.findById(userId).select("+password");
 
     if (!user) {
       return NextResponse.json({ error: "User not found!" }, { status: 404 });
     }
 
     const formData = await request.formData();
+    const key = formData.get("key") as string;
 
-    const name = (formData.get("name") as string) || null;
-    const division = (formData.get("division") as string) || null;
-    const district = (formData.get("district") as string) || null;
-    const organizationType =
-      (formData.get("organizationType") as string) || null;
-    const phone = (formData.get("phone") as string) || null;
-    const organizationContactPerson =
-      (formData.get("organizationContactPerson") as string) || null;
-    const address = (formData.get("address") as string) || null;
-    const email = (formData.get("email") as string) || null;
-    let file = (formData.get("image") as File | string | null) || null;
-
-    if (file === "null") file = null;
-
-    let image = user.file;
-    if (file !== null) {
-      // eslint-disable-next-line
-      // @ts-ignore
-      await uploadFileMiddleware(request, {}, uploadFile.single("image"));
-      const buffer = await (file as File).arrayBuffer();
-      image = `data:${(file as File).type};base64,${Buffer.from(buffer).toString("base64")}`;
+    switch (key) {
+      case "account":
+        return updateUserAccount(user, formData, userId);
+      case "password":
+        return updateUserPassword(user, formData, userId);
+      default:
+        return NextResponse.json({ message: "Invalid key" }, { status: 400 });
     }
-
-    await User.findOneAndUpdate(
-      { _id: userId },
-      {
-        name,
-        division,
-        district,
-        organizationContactPerson,
-        organizationType,
-        phone,
-        address,
-        email,
-        file: image
-      },
-      { new: true, runValidators: true }
-    );
-
-    return NextResponse.json({
-      success: true,
-      message: "User updated successfully"
-    });
   } catch (error) {
     return handleError(error);
   }

@@ -83,6 +83,7 @@ export default function LoginRoute() {
               <Button
                 type="submit"
                 className="bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white rounded-md w-full"
+                disabled={isLoading}
               >
                 {isLoading && <Loader className="animate-spin" />} সাইন ইন
               </Button>

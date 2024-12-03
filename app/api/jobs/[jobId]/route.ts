@@ -4,6 +4,7 @@ import { handleError } from "@/lib/handleErrors";
 import { authMiddleware } from "../../middleware/auth";
 import User from "../../models/user";
 import Job from "../../models/job";
+import { successResponse } from "@/lib/response";
 
 export async function GET(
   request: NextRequest,
@@ -61,33 +62,30 @@ export async function PATCH(request: NextRequest, { params }: TUserParams) {
 
     const {
       title,
-      companyName,
-      description,
+      shortDescription,
+      longDescription,
       qualification,
       experience,
       applicationDeadline,
       location,
-      salary,
-      jobPostTime
+      salary
     } = await request.json();
 
     await Job.findOneAndUpdate(
       { _id: jobId },
       {
         title,
-        companyName,
-        description,
+        shortDescription,
+        longDescription,
         qualification,
         experience,
         applicationDeadline,
         location,
-        salary,
-        jobPostTime
+        salary
       },
       { new: true, runValidators: true }
     );
-
-    return NextResponse.json({ status: "success", message: "Job updated" });
+    return successResponse({ message: "Job updated" });
   } catch (error) {
     return handleError(error);
   }

@@ -1,3 +1,4 @@
+import { errorResponse } from "@/lib/response";
 import jwt, {
   JsonWebTokenError,
   JwtPayload,
@@ -17,16 +18,19 @@ export function authMiddleware(
   const header = req.headers.get("Authorization");
 
   if (!header) {
-    return NextResponse.json(
-      { error: "Authentication required" },
-      { status: 401 }
-    );
+    return errorResponse({
+      message: "Authentication required",
+      statusCode: 401
+    });
   }
 
   const token = header.split(" ")[1];
 
   if (!token) {
-    return NextResponse.json({ error: "Token not provided" }, { status: 401 });
+    return errorResponse({
+      message: "Token not provided",
+      statusCode: 401
+    });
   }
 
   try {
@@ -35,14 +39,21 @@ export function authMiddleware(
     return { userId: decoded.id };
   } catch (error) {
     if (error instanceof TokenExpiredError) {
-      return NextResponse.json({ error: "Token expired" }, { status: 401 });
+      return errorResponse({
+        message: "Token expired",
+        statusCode: 401
+      });
     }
     if (error instanceof JsonWebTokenError) {
-      return NextResponse.json({ error: "Invalid token" }, { status: 401 });
+      return errorResponse({
+        message: "Invalid token",
+        statusCode: 401
+      });
     }
-    return NextResponse.json(
-      { error: "Authentication failed" },
-      { status: 500 }
-    );
+
+    return errorResponse({
+      message: "Authentication failed",
+      statusCode: 500
+    });
   }
 }

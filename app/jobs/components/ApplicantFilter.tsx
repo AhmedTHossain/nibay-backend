@@ -12,7 +12,7 @@ export function ApplicantFilter() {
                 <Bolt size={18} color="#10b981" />
               </span>
               <select className="w-full text-sm bg-transparent dark:bg-transparent border-0 focus:ring- focus:outline-none">
-                <option selected>Filter by</option>
+                {/* <option selected>Filter by</option> */}
                 <option value="accepted">Accepted</option>
                 <option value="rejected">Rejected</option>
                 <option value="short-listed">Short Listed</option>

@@ -223,7 +223,10 @@ export function IndividualRegisterForm(props: IndividualFormProps) {
         />
 
         <div className="mb-4">
-          <Button className="bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white rounded-md w-full">
+          <Button
+            className="bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white rounded-md w-full"
+            disabled={isLoading}
+          >
             {isLoading && <Loader className="animate-spin" />} অ্যাকাউন্ট তৈরি
           </Button>
         </div>

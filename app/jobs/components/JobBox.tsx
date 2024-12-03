@@ -7,33 +7,86 @@ import { useState } from "react";
 import { JobDeleteModal } from "./JobDeleteModal";
 import { JobGrid } from "./JobGrid";
 import { Loader } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 
 export function JobBox() {
   const [open, setIsOpen] = useState(false);
   const { jobs, isLoading } = useJobs();
   const pathname = usePathname();
+  const [jobId, setJobId] = useState<string | undefined>(undefined);
 
   return (
     <>
-      <JobDeleteModal open={open} setIsOpen={setIsOpen} />
+      <JobDeleteModal open={open} setIsOpen={setIsOpen} jobId={jobId} />
       <div className="mt-10 ">
         {isLoading ? (
-          <div className="flex items-center justify-center">
-            <Loader size={22} />
-          </div>
+          <AnimatePresence>
+            <motion.div
+              initial={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center"
+              }}
+            >
+              <Loader size={22} />
+            </motion.div>
+          </AnimatePresence>
         ) : (
-          <>
-            {!jobs && <p className="text-center text-md">No jobs found!</p>}
-            <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-[30px]">
-              {jobs !== null &&
-                jobs.map((item) => {
-                  return (
-                    <JobGrid key={item._id} {...item} setIsOpen={setIsOpen} />
-                  );
-                })}
-            </div>
-          </>
+          <AnimatePresence>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+              {jobs?.length === 0 && (
+                <p className="text-center text-md">No jobs found!</p>
+              )}
+              <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-[30px]">
+                {jobs !== null &&
+                  jobs.map((item) => {
+                    return (
+                      <JobGrid
+                        key={item._id}
+                        {...item}
+                        setIsOpen={setIsOpen}
+                        setJobId={setJobId}
+                      />
+                    );
+                  })}
+              </div>
+            </motion.div>
+          </AnimatePresence>
         )}
+
+        {/* <AnimatePresence>
+          {isLoading ? (
+            <motion.div
+              initial={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center"
+              }}
+            >
+              <Loader size={22} />
+            </motion.div>
+          ) : (
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+              {jobs?.length === 0 && (
+                <p className="text-center text-md">No jobs found!</p>
+              )}
+              <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-[30px]">
+                {jobs !== null &&
+                  jobs.map((item) => {
+                    return (
+                      <JobGrid key={item._id} {...item} setIsOpen={setIsOpen} />
+                    );
+                  })}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence> */}
       </div>
 
       {jobs !== null && jobs?.length > 0 && (
@@ -42,7 +95,7 @@ export function JobBox() {
         </div>
       )}
 
-      {pathname === "/" && (
+      {pathname === "/" && jobs?.length > 0 && (
         <div className="justify-center flex mt-6">
           <a
             className="btn btn-link text-slate-400 hover:text-emerald-600 after:bg-emerald-600 duration-500 ease-in-out inline-flex items-center"

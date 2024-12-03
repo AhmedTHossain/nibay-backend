@@ -9,10 +9,19 @@ import { Dispatch, SetStateAction } from "react";
 
 interface JobGridProps extends TJob {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
+  setJobId: Dispatch<SetStateAction<string | undefined>>;
 }
 
 export function JobGrid(props: JobGridProps) {
-  const { companyName, location, title, salary, setIsOpen, _id } = props;
+  const {
+    location,
+    title,
+    shortDescription,
+    salary,
+    setIsOpen,
+    setJobId,
+    _id
+  } = props;
   const router = useRouter();
 
   return (
@@ -41,6 +50,7 @@ export function JobGrid(props: JobGridProps) {
             onClick={(event) => {
               event.stopPropagation();
               setIsOpen(true);
+              setJobId(_id);
             }}
           >
             <Trash strokeWidth={1.5} size={16} />
@@ -49,9 +59,9 @@ export function JobGrid(props: JobGridProps) {
       </div>
       <div className="mt-3">
         <p className="text-xl font-semibold transition-all duration-500">
-          {companyName} চাকরির বিজ্ঞপ্তি
+          {title}
         </p>
-        <p className="text-slate-400 mt-2">{title}</p>
+        <p className="text-slate-400 mt-2">{shortDescription}</p>
         <div className="mt-3 flex items-center justify-between flex-wrap gap-2">
           <p>
             <span className="bg-purple-600/5 hover:bg-purple-600/20 dark:bg-purple-600/10 hover:dark:bg-purple-600/30 text-purple-600 px-4 text-[14px] inline-flex space-x-1 font-medium rounded-full mt-2 me-1 transition-all duration-500">

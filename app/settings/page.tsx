@@ -2,6 +2,7 @@ import Footer from "@/components/sections/Footer";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Header from "../components/header";
 import { AccountSettings } from "./components/AccountSettings";
+import { PasswordSettings } from "./components/PasswordSettings";
 
 export default function SettingsRoute() {
   return (
@@ -28,7 +29,7 @@ export default function SettingsRoute() {
               <AccountSettings />
             </TabsContent>
             <TabsContent value="password">
-              Change your password here.
+              <PasswordSettings />
             </TabsContent>
           </Tabs>
         </div>

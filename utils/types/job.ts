@@ -4,10 +4,9 @@ export interface TJob {
   _id: string;
   user: string | TUser;
   applicationDeadline: Date | string;
-  jobPostTime: Date | string;
-  companyName: string;
   createdAt: string;
-  description: string;
+  shortDescription: string;
+  longDescription: string;
   experience: string;
   location: string;
   qualification: string;

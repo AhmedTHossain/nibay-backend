@@ -9,8 +9,7 @@ export const JOB_ITEMS = [
     experience: "৫ - ৮",
     deadline: "২৮-১০-২৪",
     location: "ময়মনসিংহ",
-    salary: "12000",
-    jobPostTime: "২৮-০৯-২৪"
+    salary: "12000"
   },
   {
     id: 2,
@@ -22,8 +21,7 @@ export const JOB_ITEMS = [
     experience: "৫ - ৮",
     deadline: "২৮-১০-২৪",
     location: "ঢাকা",
-    salary: "12000",
-    jobPostTime: "২৮-০৯-২৪"
+    salary: "12000"
   },
   {
     id: 3,
@@ -35,8 +33,7 @@ export const JOB_ITEMS = [
     experience: "৫ - ৮",
     deadline: "২৮-১০-২৪",
     location: "ঢাকা",
-    salary: "12000",
-    jobPostTime: "২৮-০৯-২৪"
+    salary: "12000"
   },
   {
     id: 4,
@@ -48,8 +45,7 @@ export const JOB_ITEMS = [
     experience: "৫ - ৮",
     deadline: "২৮-১০-২৪",
     location: "ঢাকা",
-    salary: "12000",
-    jobPostTime: "২৮-০৯-২৪"
+    salary: "12000"
   },
   {
     id: 5,
@@ -61,7 +57,6 @@ export const JOB_ITEMS = [
     experience: "৫ - ৮",
     deadline: "২৮-১০-২৪",
     location: "ঢাকা",
-    salary: "12000",
-    jobPostTime: "২৮-০৯-২৪"
+    salary: "12000"
   }
 ];

@@ -12,9 +12,9 @@ export default function JobsRoute() {
 
       <HeroSection title="জব্‌স" />
 
-      <section className="relative -mt-[42px] md:pb-24 pb-16">
+      <section className="md:pb-24 pb-16">
         <div className="container z-1">
-          <div className="md:w-5/6 mx-auto">
+          <div className="md:w-5/6 mt-6">
             <JobFilter />
           </div>
           <JobBox />

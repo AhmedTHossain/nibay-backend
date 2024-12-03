@@ -21,26 +21,24 @@ export async function createJob(request: NextRequest) {
 
     const {
       title,
-      companyName,
-      description,
+      shortDescription,
+      longDescription,
       experience,
       qualification,
       applicationDeadline,
       location,
-      salary,
-      jobPostTime
+      salary
     } = await request.json();
 
     await Job.create({
       title,
-      companyName,
-      description,
+      shortDescription,
+      longDescription,
       experience,
       qualification,
       applicationDeadline,
       location,
       salary,
-      jobPostTime,
       user: user._id
     });
 
