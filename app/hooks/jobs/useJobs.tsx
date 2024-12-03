@@ -1,12 +1,12 @@
 import { api_client } from "@/lib/axios";
 import { TJob } from "@/utils/types/job";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const useJobs = () => {
   const [jobs, setJobs] = useState<TJob[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const fetchJobs = useCallback(async () => {
+  const fetchJobs = async () => {
     setIsLoading(true);
     try {
       const res = await api_client.get("jobs");
@@ -16,11 +16,11 @@ const useJobs = () => {
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  };
 
   useEffect(() => {
     fetchJobs();
-  }, [fetchJobs]);
+  }, []);
 
   return { jobs, setJobs, isLoading, refetch: fetchJobs };
 };
