@@ -132,7 +132,7 @@ export default function Home() {
         </div>
       </section> */}
 
-      <section className="relative pt-20">
+      <section className="relative pt-12">
         <div className="container">
           <div className="grid grid-cols-1 pb-8 text-center">
             <h3 className="md:text-[26px] md:leading-normal text-2xl leading-normal font-semibold">
