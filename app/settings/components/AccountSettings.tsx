@@ -157,7 +157,7 @@ export function AccountSettings() {
                 <Input
                   id="email"
                   type="email"
-                  readOnly
+                  disabled
                   placeholder="name@example.com"
                   {...form.register("email")}
                 />

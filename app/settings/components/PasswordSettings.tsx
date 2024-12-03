@@ -33,6 +33,7 @@ export function PasswordSettings() {
     const { newPassword, confirmPassword } = values;
 
     if (newPassword !== confirmPassword) {
+      setIsLoading(false)
       return toast.error("Password doesn't matched!");
     }
 

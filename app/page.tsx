@@ -141,7 +141,7 @@ export default function Home() {
                   <JobFilter />
                 </div>
                 <Link href="/jobs/new">
-                  <Button size="lg" className="bg-[#10b981] hover:bg-[#10b981]">
+                  <Button size="lg" className="bg-[#10b981] hover:bg-[rgb(29,128,95)]">
                     নতুন চাকরি তৈরি করুন
                   </Button>
                 </Link>
