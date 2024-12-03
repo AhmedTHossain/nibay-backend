@@ -9,7 +9,10 @@ export async function connectToMongoDB() {
     return cachedConnection;
   }
   try {
-    const cnx = await mongoose.connect(MONGO_URI!);
+    const cnx = await mongoose.connect(MONGO_URI!, {
+      socketTimeoutMS: 30000,
+      serverSelectionTimeoutMS: 30000
+    });
     cachedConnection = cnx.connection;
     console.log("New mongodb connection established");
     return cachedConnection;
