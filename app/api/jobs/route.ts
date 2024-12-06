@@ -12,12 +12,12 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   try {
+    await connectToMongoDB();
+
     const authUser = authMiddleware(request);
     if (authUser instanceof NextResponse) {
       return authUser;
     }
-
-    await connectToMongoDB();
 
     const user = await User.findById(authUser.userId);
     if (!user) {

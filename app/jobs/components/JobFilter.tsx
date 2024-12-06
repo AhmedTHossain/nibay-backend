@@ -3,24 +3,36 @@ import { Bolt } from "lucide-react";
 
 export function JobFilter() {
   return (
-    <div className="bg-white dark:bg-slate-900 border-0 shadow rounded-md p-3 relative max-w-lg">
+    <div className="bg-white dark:bg-slate-900 border-0 shadow rounded-md px-3 py-1 relative">
       <form action="#">
         <div className="text-dark text-start">
           <div className="flex items-center gap-3">
-            <div className="w-full relative flex items-center px-4 py-2 bg-gray-50 h-h-full dark:bg-slate-800">
-              <span className="">
+            <div className="w-full relative flex items-center px-4 py-1 h-full">
+              <span>
                 <Bolt size={18} color="#10b981" />
               </span>
-              <select className="w-full text-sm bg-transparent dark:bg-transparent border-0 focus:outline-none px-4 py-1">
-                <option value="filter-by">Filter by</option>
-                <option value="counter-master">Counter Master</option>
-                <option value="driver">Driver</option>
-                <option value="foreman">Foreman</option>
-                <option value="GM">GM (General Manager)</option>
-                <option value="helper">Helper</option>
-                <option value="manager">Manager</option>
-                <option value="mechanic">Mechanic/Mistry</option>
-                <option value="Supervisor">Supervison/Passenger Guide</option>
+              <select className="w-full text-sm bg-transparent dark:bg-transparent border-0 focus:outline-none px-4 py-0">
+                <option value="all">সব</option>
+                <option value="checker">চেকার</option>
+                <option value="counter-master">কাউন্টার মাস্টারr</option>
+                <option value="driver">ড্রাইভার</option>
+                <option value="foreman">ফোরম্যান</option>
+                <option value="GM">জিএম (জেনারেল ম্যানেজার)</option>
+                <option value="helper">হেল্পার</option>
+                <option value="manager">ম্যানেজার</option>
+                <option value="mechanic">মেকানিক/মিস্ত্রি</option>
+                <option value="Supervisor">সুপারভাইজার/প্যাসেঞ্জার গাইড</option>
+              </select>
+            </div>
+
+            <div className="w-full relative flex items-center px-4 py-1 h-full">
+              <span>
+                <Bolt size={18} color="#10b981" />
+              </span>
+              <select className="w-full text-sm bg-transparent dark:bg-transparent border-0 focus:outline-none px-4 py-0">
+                <option value="all">সব</option>
+                <option value="active-jobs">এক্টিভ</option>
+                <option value="past-jobs">পুরাতন চাকরি</option>
               </select>
             </div>
 

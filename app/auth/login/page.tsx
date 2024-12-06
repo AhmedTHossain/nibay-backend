@@ -73,8 +73,8 @@ export default function LoginRoute() {
             <InputPassword label="পাসওয়ার্ড" {...form.register("password")} />
 
             <div className="flex justify-between mb-4">
-              <p className="text-slate-400 mb-0">
-                <a className="text-slate-400" href="/auth/forgot">
+              <p className="text-slate-800 mb-0">
+                <a className="text-slate-800" href="/auth/forgot">
                   পাসওয়ার্ড ভুলে গেছেন ?
                 </a>
               </p>
@@ -89,7 +89,7 @@ export default function LoginRoute() {
               </Button>
             </div>
             <div className="text-center">
-              <span className="text-slate-400 me-2">অ্যাকাউন্ট নেই ?</span>{" "}
+              <span className="text-slate-800 me-2">অ্যাকাউন্ট নেই ?</span>{" "}
               <Link
                 className="text-black dark:text-white font-bold"
                 href="/auth/signup"

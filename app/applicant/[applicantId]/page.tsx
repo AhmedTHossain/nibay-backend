@@ -26,7 +26,7 @@ export default function ApplicantProfileRoute() {
                   /> */}
                   <div className="ms-4">
                     <h5 className="text-lg font-semibold">Steven Townsend</h5>
-                    <p className="text-slate-400">Web Designer</p>
+                    <p className="text-slate-800">Web Designer</p>
                   </div>
                 </div>
                 <div className="">

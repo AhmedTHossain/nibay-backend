@@ -10,8 +10,10 @@ export interface TJob {
   experience: string;
   location: string;
   qualification: string;
-  salary: string;
+  salary: string | null;
   title: string;
   updatedAt: string;
+  jobRole: string;
+  jobType: string;
   __v: number;
 }

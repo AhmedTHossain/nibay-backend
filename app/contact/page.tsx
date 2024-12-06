@@ -1,3 +1,5 @@
+"use client";
+
 import contact_bg from "@/app/assets/contact-bg.svg";
 import Image from "next/image";
 import Header from "../components/header";
@@ -100,7 +102,7 @@ function ContactBox(props: ContactItemsProps) {
       </div>
       <div className="content mt-7">
         <h5 className="title h5 text-lg font-semibold">{title}</h5>
-        <p className="text-slate-400 mt-3">{description}</p>
+        <p className="text-slate-800 mt-3">{description}</p>
         <div className="mt-5">
           <a
             className="btn btn-link text-emerald-600 hover:text-emerald-600 after:bg-emerald-600 transition duration-500"

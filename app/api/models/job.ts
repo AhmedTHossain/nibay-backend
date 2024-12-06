@@ -10,7 +10,9 @@ const jobSchema = new mongoose.Schema<TJob, object>(
     qualification: { type: String, required: true },
     applicationDeadline: { type: Date, required: true },
     location: { type: String, required: true },
-    salary: { type: String, required: true },
+    salary: { type: String, required: false, default: null },
+    jobRole: { type: String, required: true },
+    jobType: { type: String, required: true },
     user: {
       type: mongoose.Schema.Types.String,
       ref: "User"

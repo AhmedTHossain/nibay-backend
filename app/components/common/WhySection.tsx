@@ -24,7 +24,7 @@ function WhyBox({ description, link, title, Icon }: WhyItemsProps) {
         >
           {title}
         </a>
-        <p className="text-slate-400 mt-3 mb-2">{description}</p>
+        <p className="text-slate-800 mt-3 mb-2">{description}</p>
         <Link
           className="hover:text-emerald-600 font-medium transition-all duration-500 inline-flex items-center"
           href={link}
@@ -152,7 +152,7 @@ export function WhySection() {
         <h3 className="mb-4 md:text-[26px] md:leading-normal text-2xl leading-normal font-semibold">
           আপনি NIBAY পছন্দ করবেন কেন ?
         </h3>
-        <p className="text-slate-400 max-w-xl mx-auto">
+        <p className="text-slate-800 max-w-xl mx-auto">
           ওয়েবে সব খোলা অবস্থান অনুসন্ধান করুন. আপনার নিজের পান ব্যক্তিগতকৃত
           বেতন অনুমান। 30000+ এর উপর রিভিউ পড়ুন বিশ্বব্যাপী কোম্পানি।
         </p>

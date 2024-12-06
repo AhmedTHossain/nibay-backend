@@ -1,3 +1,5 @@
+"use client";
+
 import Footer from "@/components/sections/Footer";
 import { HeroSection } from "../components/common/HeroSection";
 import { WhySection } from "../components/common/WhySection";
@@ -14,7 +16,7 @@ export default function JobsRoute() {
 
       <section className="md:pb-24 pb-16">
         <div className="container z-1">
-          <div className="md:w-5/6 mt-6">
+          <div className="mt-6 max-w-2xl">
             <JobFilter />
           </div>
           <JobBox />

@@ -52,12 +52,12 @@ export default function AboutRoute() {
                   লক্ষ লক্ষ কাজ।
                   <br /> আপনার জন্য সঠিক যে একটি খুঁজুন.
                 </h3>
-                <p className="text-slate-400 max-w-xl">
+                <p className="text-slate-800 max-w-xl">
                   ওয়েবে সব খোলা অবস্থান অনুসন্ধান করুন. আপনার নিজের পান
                   ব্যক্তিগতকৃত বেতন অনুমান। 30000+ এর উপর রিভিউ পড়ুন
                   বিশ্বব্যাপী কোম্পানি।
                 </p>
-                <ul className="list-none text-slate-400 mt-4">
+                <ul className="list-none text-slate-800 mt-4">
                   <li className="mb-1 flex items-center">
                     <svg
                       stroke="currentColor"
@@ -221,7 +221,7 @@ export default function AboutRoute() {
                 <h1 className="lg:text-5xl text-4xl font-semibold mb-2 dark:text-white">
                   <span>১৫৫৮</span>হাজার+
                 </h1>
-                <h5 className="counter-head text-sm font-semibold text-slate-400 uppercase">
+                <h5 className="counter-head text-sm font-semibold text-slate-800 uppercase">
                   চাকরি পেয়েছেন
                 </h5>
               </div>
@@ -229,7 +229,7 @@ export default function AboutRoute() {
                 <h1 className="lg:text-5xl text-4xl font-semibold mb-2 dark:text-white">
                   <span>২৫</span>+
                 </h1>
-                <h5 className="counter-head text-sm font-semibold text-slate-400 uppercase">
+                <h5 className="counter-head text-sm font-semibold text-slate-800 uppercase">
                   শাখা
                 </h5>
               </div>
@@ -237,7 +237,7 @@ export default function AboutRoute() {
                 <h1 className="lg:text-5xl text-4xl font-semibold mb-2 dark:text-white">
                   <span>৯</span>+
                 </h1>
-                <h5 className="counter-head text-sm font-semibold text-slate-400 uppercase">
+                <h5 className="counter-head text-sm font-semibold text-slate-800 uppercase">
                   বছরের অভিজ্ঞতা
                 </h5>
               </div>
@@ -249,7 +249,7 @@ export default function AboutRoute() {
             <h3 className="mb-4 md:text-[26px] md:leading-normal text-2xl leading-normal font-semibold">
               প্রশ্ন ও উত্তর
             </h3>
-            <p className="text-slate-400 max-w-xl mx-auto">
+            <p className="text-slate-800 max-w-xl mx-auto">
               ওয়েবে সব খোলা অবস্থান অনুসন্ধান করুন. আপনার নিজের পান
               ব্যক্তিগতকৃত বেতন অনুমান। 30000+ এর উপর রিভিউ পড়ুন বিশ্বব্যাপী
               কোম্পানি।
@@ -277,7 +277,7 @@ export default function AboutRoute() {
                 <h5 className="mb-2 text-lg font-semibold">
                   কিভাবে আমি চাকরির জন্য আবেদন করব?
                 </h5>
-                <p className="text-slate-400">
+                <p className="text-slate-800">
                   আবেদনের জন্য, প্রথমে চাকরির বিবরণ স্ক্রীনে যান চাকরির তালিকায়
                   ট্যাপ করে। তারপর, &quot;আবেদন করুন&quot; বোতামে ট্যাপ করুন এবং
                   আপনার আবেদন সম্পূর্ণ করতে সমস্ত প্রয়োজনীয় নথি আপলোড করুন।
@@ -306,7 +306,7 @@ export default function AboutRoute() {
                   বিভিন্ন আবেদন স্ট্যাটাসের অর্থ কী?
                   <span className="text-emerald-600" />{" "}
                 </h5>
-                <p className="text-slate-400">
+                <p className="text-slate-800">
                   আমি কি চাকরির আপডেটের জন্য কোম্পানিগুলোকে অনুসরণ করতে পারি?
                   আমি কিভাবে আমার প্রোফাইল রেটিং এবং নিয়োগকর্তাদের মন্তব্য
                   দেখতে পারি যদি আমাকে অ্যাপটি ব্যবহার করতে সাহায্য প্রয়োজন

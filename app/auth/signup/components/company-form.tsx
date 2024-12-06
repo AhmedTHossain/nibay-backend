@@ -163,6 +163,7 @@ export function CompanyRegisterForm(props: CompanyRegisterFormProps) {
             id="companyImage"
             type="file"
             placeholder="প্রতিষ্ঠানের ছবি"
+            accept="image/png, image/jpeg"
             onChange={handleFileChange}
           />
           {error("image") ? (
@@ -220,7 +221,7 @@ export function CompanyRegisterForm(props: CompanyRegisterFormProps) {
         </div>
 
         <div className="text-center">
-          <span className="text-slate-400 me-2">
+          <span className="text-slate-800 me-2">
             ইতিমধ্যেই রেজিস্ট্রেশন করা আছে ?{" "}
           </span>{" "}
           <Link

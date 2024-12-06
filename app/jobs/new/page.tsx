@@ -17,6 +17,7 @@ import { toast } from "sonner";
 import { z } from "zod";
 import { AnimatePresence, motion } from "framer-motion";
 import moment from "moment";
+import { JOB_ROLES, JOB_TYPES } from "@/app/assets/resources";
 
 const jobSchema = z.object({
   title: z.string().min(1, REQUIRED_ERROR),
@@ -31,13 +32,21 @@ const jobSchema = z.object({
       message: "Deadline must be a valid date."
     }),
   location: z.string().min(1, REQUIRED_ERROR),
-  salary: z.string().min(1, REQUIRED_ERROR)
+  salary: z.string().nullable(),
+  jobType: z.enum(JOB_TYPES, {
+    errorMap: () => ({ message: REQUIRED_ERROR })
+  }),
+  jobRole: z.enum(JOB_ROLES, {
+    errorMap: () => ({ message: REQUIRED_ERROR })
+  })
 });
 
 export default function NewJobRoute() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [date, setDate] = useState<Date | undefined>(new Date());
+  const [jobRole, setJobRole] = useState<string>();
+  const [jobType, setJobType] = useState<string>();
 
   const form = useForm<z.infer<typeof jobSchema>>({
     resolver: zodResolver(jobSchema),
@@ -49,7 +58,9 @@ export default function NewJobRoute() {
       experience: "0-1",
       applicationDeadline: moment().format("YYYY-MM-DDTHH:mm"),
       location: "",
-      salary: ""
+      salary: null,
+      jobRole: "চেকার",
+      jobType: "ফুল টাইম"
     }
   });
 
@@ -135,7 +146,6 @@ export default function NewJobRoute() {
                     </label>
                     <select
                       id="experience"
-                      className="mt-1 h-10 w-full rounded-md border border-neutral-200 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:text-sm file:font-medium file:text-neutral-950 placeholder:text-neutral-500 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-800 dark:bg-neutral-950 dark:ring-offset-neutral-950 appearance-none"
                       defaultValue="No Formal Education"
                       onChange={(event) => {
                         console.log(event.target.value);
@@ -195,6 +205,52 @@ export default function NewJobRoute() {
                       placeholder="অভিজ্ঞতা"
                       {...form.register("experience")}
                     /> */}
+                  </div>
+
+                  <div className="mb-4 text-left">
+                    <label className="font-semibold" htmlFor="jobRole">
+                      চাকরির ভূমিকা
+                    </label>
+                    <select
+                      id="jobRole"
+                      value={jobRole}
+                      onChange={(event) => {
+                        const value = event.target.value;
+                        setJobRole(value);
+                        form.setValue("jobRole", value);
+                      }}
+                    >
+                      {JOB_ROLES.map((item, idx) => {
+                        return (
+                          <option key={idx} value={item}>
+                            {item}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  </div>
+
+                  <div className="mb-4 text-left">
+                    <label className="font-semibold" htmlFor="jobType">
+                      চাকরির ধরন
+                    </label>
+                    <select
+                      id="jobType"
+                      value={jobType}
+                      onChange={(event) => {
+                        const value = event.target.value;
+                        setJobType(value);
+                        form.setValue("jobType", value);
+                      }}
+                    >
+                      {JOB_TYPES.map((item, idx) => {
+                        return (
+                          <option key={idx} value={item}>
+                            {item}
+                          </option>
+                        );
+                      })}
+                    </select>
                   </div>
 
                   <div className="text-left">

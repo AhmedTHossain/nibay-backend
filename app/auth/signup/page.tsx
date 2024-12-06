@@ -10,7 +10,7 @@ import { IndividualRegisterForm } from "./components/individual-form";
 export type TRegisterAs = "individual" | "company";
 
 export default function SignupRoute() {
-  const [registerAs, setRegisterAs] = useState<TRegisterAs | null>(null);
+  const [registerAs, setRegisterAs] = useState<TRegisterAs | null>("company");
   const [registerAsBtn, setRegisterAsBtn] = useState<TRegisterAs | null>(null);
 
   return (
@@ -27,6 +27,7 @@ export default function SignupRoute() {
         {!registerAsBtn && (
           <>
             <RadioGroup
+              defaultValue={registerAs as TRegisterAs}
               className="grid grid-cols-2 gap-4"
               onValueChange={(value) => setRegisterAs(value as TRegisterAs)}
             >

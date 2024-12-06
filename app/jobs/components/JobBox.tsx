@@ -98,7 +98,7 @@ export function JobBox() {
       {pathname === "/" && jobs?.length > 0 && (
         <div className="justify-center flex mt-6">
           <a
-            className="btn btn-link text-slate-400 hover:text-emerald-600 after:bg-emerald-600 duration-500 ease-in-out inline-flex items-center"
+            className="btn btn-link text-slate-800 hover:text-emerald-600 after:bg-emerald-600 duration-500 ease-in-out inline-flex items-center"
             href="/jobs"
           >
             See all Jobs{" "}

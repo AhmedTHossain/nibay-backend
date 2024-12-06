@@ -21,16 +21,16 @@ export function ApplicantCard() {
       />
       <div className="mt-2">
         <p className="font-semibold text-lg">আব্দুল কালাম</p>
-        <p className="text-sm text-slate-400">ড্রাইভার</p>
+        <p className="text-sm text-slate-800">ড্রাইভার</p>
       </div>
 
       <div className="mt-6 text-left space-y-1">
         <div className="flex items-center gap-2">
-          <span className="text-slate-400 text-sm">শিক্ষাগত যোগ্যতা:</span>
+          <span className="text-slate-800 text-sm">শিক্ষাগত যোগ্যতা:</span>
           <span className="text-sm font-semibold">অনার্স</span>
         </div>
         <div className="flex items-center gap-2">
-          <span className="text-slate-400 text-sm ">অভিজ্ঞতা:</span>
+          <span className="text-slate-800 text-sm ">অভিজ্ঞতা:</span>
           <span className="text-sm font-semibold">৫ থেকে ৮ বছর</span>
         </div>
       </div>

@@ -1,3 +1,5 @@
+"use client";
+
 interface HeroSectionProps {
   title: string;
 }

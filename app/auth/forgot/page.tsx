@@ -83,7 +83,7 @@ export default function ForgotPasswordRoute() {
             href="/auth/login"
             className="text-sky-700 text-sm font-semibold hover:bg-sky-50 inline rounded-md p-3 transition-all duration-150"
           >
-            Logg inn
+            লগ ইন
           </a>
         </div>
       </div>

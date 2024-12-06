@@ -29,7 +29,7 @@ export function HowItWorks(props: HowItWorksProps) {
         >
           {title}
         </a>
-        <p className="text-slate-400 mt-3">{text}</p>
+        <p className="text-slate-800 mt-3">{text}</p>
         <div className="mt-5">
           <Link
             className="btn btn-link text-emerald-600 hover:text-emerald-600 after:bg-emerald-600 duration-500 ease-in-out inline-flex items-center"

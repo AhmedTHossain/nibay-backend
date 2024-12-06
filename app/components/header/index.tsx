@@ -1,6 +1,7 @@
 "use client";
 
 import { AppLogo } from "@/app/assets/AppLogo";
+import { useUserInfo } from "@/app/hooks/useUserInfo";
 import {
   Menubar,
   MenubarContent,
@@ -12,12 +13,11 @@ import {
 import { Switch } from "@/components/ui/switch";
 import { cn } from "@/lib/utils";
 import { useMotionValue, useScroll } from "framer-motion";
-import { Loader, LogOutIcon, SettingsIcon } from "lucide-react";
+import { LogOutIcon, SettingsIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Avatar } from "../common/Avatar";
 import { Navigation } from "./Navigation";
-import { useUserInfo } from "@/app/hooks/useUserInfo";
 
 const Header = () => {
   const { scrollY } = useScroll();

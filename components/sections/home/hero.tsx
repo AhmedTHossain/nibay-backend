@@ -14,7 +14,7 @@ export function Hero() {
           <CarouselItem key={index}>
             <div className=" relative overflow-hidden md:py-32 py-16 rounded-3xl shadow dark:shadow-gray-700 m-3 bg-[url('./assets/images/bg-feature-job.jpg')] bg-top bg-no-repeat bg-cover">
               <div className="absolute inset-0 bg-slate-950/70" />
-              <div className="container relative">
+              <div className="max-w-7xl mx-auto lg:px-0 px-6 relative">
                 <div className="md:flex">
                   <div className="lg:w-2/3 md:w-1/2">
                     <h4 className="text-white lg:leading-normal leading-normal text-4xl lg:text-5xl mb-5 font-bold">
