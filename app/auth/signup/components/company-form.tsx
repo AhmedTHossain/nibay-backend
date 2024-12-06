@@ -8,11 +8,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Dispatch, SetStateAction, useState } from "react";
+import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { TRegisterAs } from "../page";
 import { companyFormSchema, CompanyFormType, companyFormValues } from "./forms";
+import Image from "next/image";
 
 interface CompanyRegisterFormProps {
   setRegisterAsBtn: Dispatch<SetStateAction<TRegisterAs | null>>;
@@ -22,6 +23,14 @@ export function CompanyRegisterForm(props: CompanyRegisterFormProps) {
   const { setRegisterAsBtn } = props;
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const [preview, setPreview] = useState<string | null>(null);
+  const [file, setFile] = useState<File | null>(null);
+
+  const clearImage = () => {
+    setPreview(null);
+    setFile(null);
+    form.setValue("image", null);
+  };
 
   const form = useForm<CompanyFormType>({
     resolver: zodResolver(companyFormSchema),
@@ -64,7 +73,9 @@ export function CompanyRegisterForm(props: CompanyRegisterFormProps) {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      form.setValue("image", file); // Use setValue to update the form state
+      setFile(file);
+      setPreview(URL.createObjectURL(file));
+      form.setValue("image", file);
     }
   };
 
@@ -156,6 +167,24 @@ export function CompanyRegisterForm(props: CompanyRegisterFormProps) {
         </div>
 
         <div className="mb-4 text-left">
+          {preview && (
+            <div className="mb-6">
+              <Image
+                src={preview}
+                alt="Preview"
+                width={300}
+                height={300}
+                className="w-[300px] h-[300px] object-cover rounded border mb-2"
+              />
+              <button
+                onClick={clearImage}
+                className="px-2 py-1 bg-red-500 text-sm text-white rounded"
+              >
+                Remove
+              </button>
+            </div>
+          )}
+
           <label className="font-semibold" htmlFor="companyImage">
             প্রতিষ্ঠানের ছবি
           </label>
