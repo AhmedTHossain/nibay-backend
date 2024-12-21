@@ -148,7 +148,7 @@ export default function EditJobRoute({
                   justifyContent: "center"
                 }}
               >
-                <Loader size={22} />
+                <Loader size={22} className="animate-spin" />
               </motion.div>
             </AnimatePresence>
           ) : (

@@ -65,7 +65,7 @@ export function PasswordSettings() {
     <div className="grid grid-cols-1">
       {userLoading && (
         <div className="flex items-center justify-center h-full">
-          <Loader size={20} />
+          <Loader size={20} className="animate-spin" />
         </div>
       )}
       {!userLoading && currentUser && (

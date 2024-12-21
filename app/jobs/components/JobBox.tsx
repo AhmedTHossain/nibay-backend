@@ -31,7 +31,7 @@ export function JobBox() {
                 justifyContent: "center"
               }}
             >
-              <Loader size={22} />
+              <Loader size={22} className="animate-spin" />
             </motion.div>
           </AnimatePresence>
         ) : (
@@ -69,7 +69,7 @@ export function JobBox() {
                 justifyContent: "center"
               }}
             >
-              <Loader size={22} />
+              <Loader size={22} className="animate-spin" />
             </motion.div>
           ) : (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
