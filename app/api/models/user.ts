@@ -86,6 +86,16 @@ const userSchema = new mongoose.Schema<TUser, object, IUserMethods>(
     maxEducationLevelCertificateCopy: {
       type: String,
       required: false
+    },
+    otpCode: {
+      type: String,
+      required: false,
+      default: null
+    },
+    deviceID: {
+      type: String,
+      required: false,
+      default: null
     }
   },
   {

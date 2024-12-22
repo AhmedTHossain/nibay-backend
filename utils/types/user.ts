@@ -20,6 +20,8 @@ export interface TUser {
   profilePhoto: string;
   organizationType: string;
   organizationContactPerson: string;
+  otpCode: string;
+  deviceID: string;
   createdAt: Date;
   updatedAt: Date;
 }

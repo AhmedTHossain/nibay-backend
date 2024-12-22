@@ -71,12 +71,6 @@ export async function mobileLogin(request: Request) {
       );
     }
 
-    /**
-     * TODO:
-     * 1. Send OTP to phone number
-     * 2. Validate the OTP
-     */
-
     const token = JWT.sign(
       {
         id: user.id,
