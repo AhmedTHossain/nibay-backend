@@ -1,4 +1,4 @@
-import { USER_ROLE } from "@/lib/constant";
+import { MAX_EDUCATION_LEVEL, USER_ROLE } from "@/lib/constant";
 import { TUser } from "@/utils/types/user";
 import mongoose, { Model } from "mongoose";
 
@@ -80,6 +80,7 @@ const userSchema = new mongoose.Schema<TUser, object, IUserMethods>(
     },
     maxEducationLevel: {
       type: String,
+      enum: Object.keys(MAX_EDUCATION_LEVEL),
       required: false
     },
     maxEducationLevelCertificateCopy: {

@@ -22,7 +22,7 @@ export async function updateUserAccount(
 
   if (file === "null") file = null;
 
-  let image = user.file;
+  let image = user.profilePhoto;
   if (file !== null) {
     // eslint-disable-next-line
     // @ts-ignore

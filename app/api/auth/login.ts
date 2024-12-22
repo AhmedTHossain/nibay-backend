@@ -51,7 +51,7 @@ export async function login(request: Request) {
 
 export async function mobileLogin(request: Request) {
   try {
-    const { phone, password } = await request.json();
+    const { phone, pin } = await request.json();
 
     await connectToMongoDB();
 
@@ -63,7 +63,7 @@ export async function mobileLogin(request: Request) {
       );
     }
 
-    const isMatch = await bcrypt.compare(password, user.password);
+    const isMatch = await bcrypt.compare(pin, user.password);
     if (!isMatch) {
       return NextResponse.json(
         { error: "Invalid Credentials!" },

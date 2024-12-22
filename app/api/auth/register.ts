@@ -51,7 +51,7 @@ export async function register(request: NextRequest) {
       name,
       email,
       password: hashedPassword,
-      role,
+      role: Number(role),
       phone,
       address,
       division,
@@ -160,15 +160,15 @@ export async function mobileRegister(request: NextRequest) {
       maxEducationLevelCertificateCopyFile = `data:${(maxEducationLevelCertificateCopy as File).type};base64,${Buffer.from(buffer).toString("base64")}`;
     }
 
-    await User.create({
+    console.log("-------------- request", {
       name,
-      role,
+      role: Number(role),
       phone,
       division,
       district,
       profilePhoto: image,
       nidNumber,
-      maxEducationLevel,
+      maxEducationLevel: Number(maxEducationLevel),
       drivingLicense,
       yearsOfExperience,
       nidCopy: nidCopyFile,
@@ -176,7 +176,38 @@ export async function mobileRegister(request: NextRequest) {
       drivingLicenseCopy: drivingLicenseCopyFile
     });
 
-    return NextResponse.json({ status: "success" });
+    const newUser = await User.create({
+      name,
+      role: Number(role),
+      phone,
+      division,
+      district,
+      profilePhoto: image,
+      nidNumber,
+      maxEducationLevel: Number(maxEducationLevel),
+      drivingLicense,
+      yearsOfExperience,
+      nidCopy: nidCopyFile,
+      maxEducationLevelCertificateCopy: maxEducationLevelCertificateCopyFile,
+      drivingLicenseCopy: drivingLicenseCopyFile
+    });
+
+    return NextResponse.json({
+      status: "success",
+      user: {
+        id: newUser._id,
+        phone: newUser.phone,
+        name: newUser.name,
+        role: newUser.role,
+        nid_number: newUser.nidNumber,
+        nid_copy: newUser.nidCopy,
+        driving_license_number: newUser.drivingLicense,
+        driving_license_copy: newUser.drivingLicenseCopy,
+        max_education_level: newUser.maxEducationLevel,
+        max_education_level_certificate_copy:
+          newUser.maxEducationLevelCertificateCopy
+      }
+    });
   } catch (error) {
     return handleError(error);
   }

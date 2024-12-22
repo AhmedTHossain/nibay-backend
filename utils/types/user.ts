@@ -4,7 +4,7 @@ export interface TUser {
   _id: string;
   name: string;
   email: string;
-  role: ROLE;
+  role: string;
   password: string;
   phone: string;
   nidNumber: string;
