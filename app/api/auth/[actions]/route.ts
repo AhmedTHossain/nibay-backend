@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server";
-import { login } from "../login";
-import { register } from "../register";
+import { login, mobileLogin } from "../login";
+import { mobileRegister, register } from "../register";
 
 export async function POST(
   request: NextRequest,
@@ -8,6 +8,16 @@ export async function POST(
 ) {
   const action = params.actions;
 
-  if (action === "register") return register(request);
-  else if (action === "login") return login(request);
+  const url = new URL(request.url);
+  const mode = url.searchParams.get("mode");
+
+  if (action === "register") {
+    if (mode === "mobile") return mobileRegister(request);
+    else return register(request);
+  }
+
+  if (action === "login") {
+    if (mode === "mobile") return mobileLogin(request);
+    else return login(request);
+  }
 }

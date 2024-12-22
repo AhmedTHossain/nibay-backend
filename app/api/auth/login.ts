@@ -48,3 +48,50 @@ export async function login(request: Request) {
     return handleError(error);
   }
 }
+
+export async function mobileLogin(request: Request) {
+  try {
+    const { phone, password } = await request.json();
+
+    await connectToMongoDB();
+
+    const user = await User.findOne({ phone }).select("+password");
+    if (!user) {
+      return NextResponse.json(
+        { error: "Invalid Credentials!" },
+        { status: 400 }
+      );
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return NextResponse.json(
+        { error: "Invalid Credentials!" },
+        { status: 400 }
+      );
+    }
+
+    /**
+     * TODO:
+     * 1. Send OTP to phone number
+     * 2. Validate the OTP
+     */
+
+    const token = JWT.sign(
+      {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role
+      },
+      JWT_SECRET,
+      {
+        expiresIn: JWT_SECRET_EXPIRES_IN
+      }
+    );
+
+    return NextResponse.json({ token });
+  } catch (error) {
+    return handleError(error);
+  }
+}

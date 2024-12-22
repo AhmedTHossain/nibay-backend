@@ -14,7 +14,8 @@ const userSchema = new mongoose.Schema<TUser, object, IUserMethods>(
     },
     email: {
       type: String,
-      required: true,
+      required: false,
+      unique: true,
       match: [/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/, "Invalid Email!"]
     },
     role: {
@@ -28,11 +29,34 @@ const userSchema = new mongoose.Schema<TUser, object, IUserMethods>(
     },
     phone: {
       type: String,
+      unique: true,
       required: true
+    },
+    nidNumber: {
+      type: String,
+      minlength: 10,
+      maxlength: 14,
+      required: true
+    },
+    nidCopy: {
+      type: String,
+      required: false
+    },
+    drivingLicense: {
+      type: String,
+      required: false
+    },
+    drivingLicenseCopy: {
+      type: String,
+      required: false
+    },
+    yearsOfExperience: {
+      type: String,
+      required: false
     },
     address: {
       type: String,
-      required: true
+      required: false
     },
     division: {
       type: String,
@@ -42,7 +66,7 @@ const userSchema = new mongoose.Schema<TUser, object, IUserMethods>(
       type: String,
       required: false
     },
-    file: {
+    profilePhoto: {
       type: String,
       required: false
     },
@@ -51,6 +75,14 @@ const userSchema = new mongoose.Schema<TUser, object, IUserMethods>(
       required: false
     },
     organizationContactPerson: {
+      type: String,
+      required: false
+    },
+    maxEducationLevel: {
+      type: String,
+      required: false
+    },
+    maxEducationLevelCertificateCopy: {
       type: String,
       required: false
     }

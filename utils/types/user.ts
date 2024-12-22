@@ -7,10 +7,17 @@ export interface TUser {
   role: ROLE;
   password: string;
   phone: string;
+  nidNumber: string;
+  nidCopy: string;
+  drivingLicense: string;
+  drivingLicenseCopy: string;
+  maxEducationLevel: string;
+  maxEducationLevelCertificateCopy: string;
+  yearsOfExperience: string;
   address: string;
   division: string;
   district: string;
-  file: string;
+  profilePhoto: string;
   organizationType: string;
   organizationContactPerson: string;
   createdAt: Date;
