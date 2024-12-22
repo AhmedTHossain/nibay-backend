@@ -1,7 +1,7 @@
+import User from "@/app/api/models/user";
 import { connectToMongoDB } from "@/lib/database";
 import { generatePasswordResetToken } from "@/lib/generateToken";
 import { NextRequest, NextResponse } from "next/server";
-import User from "../../models/user";
 
 export async function POST(request: NextRequest) {
   try {

@@ -36,7 +36,7 @@ const userSchema = new mongoose.Schema<TUser, object, IUserMethods>(
       type: String,
       minlength: 10,
       maxlength: 14,
-      required: true
+      required: false
     },
     nidCopy: {
       type: String,

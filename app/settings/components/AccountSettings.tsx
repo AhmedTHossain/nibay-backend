@@ -86,7 +86,7 @@ export function AccountSettings() {
         district,
         division,
         email,
-        file,
+        profilePhoto,
         organizationContactPerson,
         organizationType,
         phone
@@ -97,7 +97,7 @@ export function AccountSettings() {
         district,
         division,
         email,
-        file,
+        profilePhoto,
         organizationContactPerson,
         organizationType,
         phone
@@ -323,10 +323,10 @@ export function AccountSettings() {
                         width={100}
                         height={100}
                       />
-                    ) : currentUser?.file ? (
+                    ) : currentUser?.profilePhoto ? (
                       <Image
                         alt="user image"
-                        src={currentUser?.file}
+                        src={currentUser?.profilePhoto}
                         className="rounded-md w-auto h-auto"
                         width={100}
                         height={100}

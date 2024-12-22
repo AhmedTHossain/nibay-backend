@@ -3,52 +3,7 @@ import { handleError } from "@/lib/handleErrors";
 import { uploadFile, uploadFileMiddleware } from "@/lib/upload";
 import bcrypt from "bcryptjs";
 import { NextRequest, NextResponse } from "next/server";
-import User from "../models/user";
-import { NextApiRequest, NextApiResponse } from "next";
-
-/**
- * @swagger
- * /register:
- *   post:
- *     summary: User Registration
- *     description: Register a new user.
- *     tags:
- *       - Users
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               name:
- *                 type: string
- *                 description: The user's name.
- *               email:
- *                 type: string
- *                 format: email
- *                 description: The user's email.
- *               password:
- *                 type: string
- *                 description: The user's password.
- *     responses:
- *       200:
- *         description: User registered successfully.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 id:
- *                   type: string
- *                   description: The user ID.
- *                 name:
- *                   type: string
- *                 email:
- *                   type: string
- *       400:
- *         description: Bad Request.
- */
+import User from "../../models/user";
 
 export async function register(request: NextRequest) {
   try {

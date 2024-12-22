@@ -2,7 +2,7 @@ import { uploadFile, uploadFileMiddleware } from "@/lib/upload";
 import { TUser } from "@/utils/types/user";
 import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
-import User from "../models/user";
+import User from "../../models/user";
 
 export async function updateUserAccount(
   user: TUser,

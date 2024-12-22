@@ -1,14 +1,14 @@
 import { connectToMongoDB } from "@/lib/database";
 import { NextResponse } from "next/server";
-import User from "../models/user";
+import User from "../../models/user";
 
-export async function verifyOTP(request: Request) {
+export async function getOTP(request: Request) {
   try {
-    const { phone_number, otpCode, deviceID } = await request.json();
+    const { phone, deviceID } = await request.json();
 
     await connectToMongoDB();
 
-    const user = await User.findOne({ phone: phone_number });
+    const user = await User.findOne({ phone: phone });
     if (!user) {
       return NextResponse.json(
         { error: "Invalid Credentials!" },
@@ -16,12 +16,18 @@ export async function verifyOTP(request: Request) {
       );
     }
 
-    // TODO: verify otp
+    // TODO: send otp
+
+    await User.findOneAndUpdate(
+      { _id: user._id },
+      { $set: { deviceID, otpCode: 1234 } },
+      { new: true }
+    );
 
     return NextResponse.json(
       {
         status: "success",
-        message: "Phone number verified successfully"
+        message: "Otp sent successfully"
       },
       { status: 200 }
     );
@@ -29,7 +35,7 @@ export async function verifyOTP(request: Request) {
     return NextResponse.json(
       {
         status: "error",
-        message: "Otp mismatch | User not found or other error message"
+        message: "User not found or other error message"
       },
       { status: 400 }
     );

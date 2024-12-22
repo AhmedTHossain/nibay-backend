@@ -3,7 +3,7 @@ import { handleError } from "@/lib/handleErrors";
 import bcrypt from "bcryptjs";
 import JWT from "jsonwebtoken";
 import { NextResponse } from "next/server";
-import User from "../models/user";
+import User from "../../models/user";
 
 const JWT_SECRET = process.env.JWT_SECRET as string;
 const JWT_SECRET_EXPIRES_IN = process.env.JWT_SECRET_EXPIRES_IN as string;

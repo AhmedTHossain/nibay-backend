@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { connectToMongoDB } from "@/lib/database";
 import { handleError } from "@/lib/handleErrors";
-import { authMiddleware } from "../../middleware/auth";
-import User from "../../models/user";
-import Job from "../../models/job";
 import { successResponse } from "@/lib/response";
+import { authMiddleware } from "@/app/api/middleware/auth";
+import User from "@/app/api/models/user";
+import Job from "@/app/api/models/job";
 
 export async function GET(
   request: NextRequest,

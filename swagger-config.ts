@@ -5,18 +5,18 @@ const swaggerDefinition = {
   info: {
     title: "Next.js API Documentation",
     version: "1.0.0",
-    description: "API documentation for the Next.js app",
+    description: "API documentation for the Next.js app"
   },
   servers: [
     {
-      url: "http://localhost:3000/api", // Update this to match your API base URL
-    },
-  ],
+      url: "http://localhost:3000/api/v1" // Update this to match your API base URL
+    }
+  ]
 };
 
 const options: Options = {
   swaggerDefinition,
-  apis: ["./src/pages/api/**/*.ts"], // Update this path to match your Next.js API route folder
+  apis: ["./app/api/**/*.ts"] // Update this path to match your Next.js API route folder
 };
 
 const swaggerSpec = swaggerJSDoc(options);

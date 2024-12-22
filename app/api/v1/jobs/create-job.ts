@@ -1,9 +1,9 @@
 import { connectToMongoDB } from "@/lib/database";
 import { handleError } from "@/lib/handleErrors";
 import { NextRequest, NextResponse } from "next/server";
-import { authMiddleware } from "../middleware/auth";
-import User from "../models/user";
-import Job from "../models/job";
+import { authMiddleware } from "../../middleware/auth";
+import User from "../../models/user";
+import Job from "../../models/job";
 
 export async function createJob(request: NextRequest) {
   try {

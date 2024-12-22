@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createJob } from "./create-job";
-import { authMiddleware } from "../middleware/auth";
 import { connectToMongoDB } from "@/lib/database";
-import User from "../models/user";
+import User from "../../models/user";
 import { handleError } from "@/lib/handleErrors";
-import Job from "../models/job";
+import { authMiddleware } from "../../middleware/auth";
+import Job from "../../models/job";
 
 export async function POST(request: NextRequest) {
   return createJob(request);

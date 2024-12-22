@@ -1,8 +1,8 @@
+import { authMiddleware } from "@/app/api/middleware/auth";
+import User from "@/app/api/models/user";
+import { connectToMongoDB } from "@/lib/database";
 import { handleError } from "@/lib/handleErrors";
 import { NextRequest, NextResponse } from "next/server";
-import { authMiddleware } from "../../middleware/auth";
-import { connectToMongoDB } from "@/lib/database";
-import User from "../../models/user";
 
 export async function GET(request: NextRequest) {
   try {
