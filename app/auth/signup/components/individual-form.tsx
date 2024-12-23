@@ -54,7 +54,7 @@ export function IndividualRegisterForm(props: IndividualFormProps) {
     Object.entries(values).forEach(([key, value]) => {
       formData.append(key, value as string);
     });
-    formData.append("role", "INDIVIDUAL");
+    formData.append("role", "11");
 
     api_client
       .post("auth/register", formData, {

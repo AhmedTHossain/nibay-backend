@@ -21,8 +21,6 @@ export async function POST(request: NextRequest) {
     const resetUrl = `${url.origin}/auth/reset-password?token=${token}`;
     const html = `একটি নতুন পাসওয়ার্ড তৈরি করতে লিঙ্কটিতে ক্লিক করুন: ${resetUrl}. লিঙ্কটি ১০ ​​মিনিটের জন্য কাজ করবে।`;
 
-    console.log(html);
-
     return NextResponse.json({
       status: "success",
       message: "Mail sent successfully"

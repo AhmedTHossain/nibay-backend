@@ -24,20 +24,14 @@ export async function getOTP(request: Request) {
       { new: true }
     );
 
-    return NextResponse.json(
-      {
-        status: "success",
-        message: "Otp sent successfully"
-      },
-      { status: 200 }
-    );
+    return NextResponse.json({
+      status: "success",
+      message: "Otp sent successfully"
+    });
   } catch (error) {
-    return NextResponse.json(
-      {
-        status: "error",
-        message: "User not found or other error message"
-      },
-      { status: 400 }
-    );
+    return NextResponse.json({
+      status: "error",
+      message: "User not found or other error message"
+    });
   }
 }

@@ -47,7 +47,7 @@ export async function register(request: NextRequest) {
     }
 
     const hashedPassword = await bcrypt.hash(password as string, 10);
-    await User.create({
+    const newUser = await User.create({
       name,
       email,
       password: hashedPassword,
@@ -61,7 +61,7 @@ export async function register(request: NextRequest) {
       organizationContactPerson
     });
 
-    return NextResponse.json({ status: "success" });
+    return NextResponse.json({ status: "success", data: { user: newUser } });
   } catch (error) {
     return handleError(error);
   }
@@ -160,22 +160,6 @@ export async function mobileRegister(request: NextRequest) {
       maxEducationLevelCertificateCopyFile = `data:${(maxEducationLevelCertificateCopy as File).type};base64,${Buffer.from(buffer).toString("base64")}`;
     }
 
-    console.log("-------------- request", {
-      name,
-      role: Number(role),
-      phone,
-      division,
-      district,
-      profilePhoto: image,
-      nidNumber,
-      maxEducationLevel: Number(maxEducationLevel),
-      drivingLicense,
-      yearsOfExperience,
-      nidCopy: nidCopyFile,
-      maxEducationLevelCertificateCopy: maxEducationLevelCertificateCopyFile,
-      drivingLicenseCopy: drivingLicenseCopyFile
-    });
-
     const newUser = await User.create({
       name,
       role: Number(role),
@@ -194,18 +178,20 @@ export async function mobileRegister(request: NextRequest) {
 
     return NextResponse.json({
       status: "success",
-      user: {
-        id: newUser._id,
-        phone: newUser.phone,
-        name: newUser.name,
-        role: newUser.role,
-        nid_number: newUser.nidNumber,
-        nid_copy: newUser.nidCopy,
-        driving_license_number: newUser.drivingLicense,
-        driving_license_copy: newUser.drivingLicenseCopy,
-        max_education_level: newUser.maxEducationLevel,
-        max_education_level_certificate_copy:
-          newUser.maxEducationLevelCertificateCopy
+      data: {
+        user: {
+          id: newUser._id,
+          phone: newUser.phone,
+          name: newUser.name,
+          role: newUser.role,
+          nid_number: newUser.nidNumber,
+          nid_copy: newUser.nidCopy,
+          driving_license_number: newUser.drivingLicense,
+          driving_license_copy: newUser.drivingLicenseCopy,
+          max_education_level: newUser.maxEducationLevel,
+          max_education_level_certificate_copy:
+            newUser.maxEducationLevelCertificateCopy
+        }
       }
     });
   } catch (error) {

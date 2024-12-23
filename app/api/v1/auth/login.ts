@@ -84,7 +84,11 @@ export async function mobileLogin(request: Request) {
       }
     );
 
-    return NextResponse.json({ token });
+    return NextResponse.json({
+      status: "success",
+      message: "Successfully logged in",
+      token
+    });
   } catch (error) {
     return handleError(error);
   }

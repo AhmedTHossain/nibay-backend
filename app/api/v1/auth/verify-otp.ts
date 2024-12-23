@@ -44,14 +44,11 @@ export async function verifyOTP(request: Request) {
       }
     );
 
-    return NextResponse.json(
-      {
-        status: "success",
-        message: "Phone number verified successfully",
-        token
-      },
-      { status: 200 }
-    );
+    return NextResponse.json({
+      status: "success",
+      message: "Phone number verified successfully",
+      token
+    });
 
     // return NextResponse.json({ token });
   } catch (error) {

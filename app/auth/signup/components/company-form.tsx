@@ -48,7 +48,7 @@ export function CompanyRegisterForm(props: CompanyRegisterFormProps) {
         formData.append(key, value as string);
       }
     });
-    formData.append("role", "INSTITUTION");
+    formData.append("role", "10");
 
     api_client
       .post("auth/register", formData, {
