@@ -1,10 +1,11 @@
 import { uploadFile, uploadFileMiddleware } from "@/lib/upload";
 import { TUser } from "@/utils/types/user";
 import bcrypt from "bcryptjs";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import User from "../../models/user";
 
 export async function updateUserAccount(
+  request: NextRequest,
   user: TUser,
   formData: FormData,
   userId: string
@@ -42,7 +43,7 @@ export async function updateUserAccount(
       phone,
       address,
       email,
-      file: image
+      profilePhoto: image
     },
     { new: true, runValidators: true }
   );

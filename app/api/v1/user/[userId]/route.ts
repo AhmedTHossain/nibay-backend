@@ -25,7 +25,7 @@ export async function PATCH(request: NextRequest, { params }: TUserParams) {
 
     switch (key) {
       case "account":
-        return updateUserAccount(user, formData, userId);
+        return updateUserAccount(request, user, formData, userId);
       case "password":
         return updateUserPassword(user, formData, userId);
       default:

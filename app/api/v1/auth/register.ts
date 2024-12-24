@@ -22,7 +22,7 @@ export async function register(request: NextRequest) {
     const email = (formData.get("email") as string) || null;
     const password = (formData.get("password") as string) || null;
     let profilePhoto =
-      (formData.get("profilePhoto") as File | string | null) || null;
+      (formData.get("image") as File | string | null) || null;
 
     if (profilePhoto === "null") profilePhoto = null;
 

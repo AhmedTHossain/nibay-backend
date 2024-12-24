@@ -112,11 +112,13 @@ export function AccountSettings() {
     // eslint-disable-next-line
   }, [currentUser]);
 
+  console.log("-------------------", currentUser)
+
   useEffect(() => {
     if (currentUser) {
       setDistricts(
         DIVISIONS.find((item) => item.division === currentUser.division)
-          ?.districts as []
+          ?.districts as [] || []
       );
     }
   }, [currentUser]);
@@ -197,7 +199,7 @@ export function AccountSettings() {
                 ) : null}
               </div>
 
-              {currentUser?.role === "INDIVIDUAL" && (
+              {currentUser?.role === "11" && (
                 <>
                   <div className="mb-4 text-left">
                     <label className="font-semibold" htmlFor="division">
@@ -211,7 +213,7 @@ export function AccountSettings() {
 
                         setDistricts(
                           DIVISIONS.find((item) => item.division === value)
-                            ?.districts as []
+                            ?.districts as [] || []
                         );
                       }}
                     >
@@ -275,7 +277,7 @@ export function AccountSettings() {
                 </>
               )}
 
-              {currentUser?.role === "INSTITUTION" && (
+              {currentUser?.role === "10" && (
                 <>
                   <div className="mb-4 text-left">
                     <label
