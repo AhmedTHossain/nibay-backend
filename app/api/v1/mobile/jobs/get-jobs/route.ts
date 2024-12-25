@@ -25,12 +25,6 @@ import { handleError } from "@/lib/handleErrors";
  *         schema:
  *           type: string
  *           example: PartTime
- *        - name: employerId
- *         in: query
- *         description: Filter jobs by employer id.
- *         required: false
- *         schema:
- *           type: string
  *       - name: orderBy
  *         in: query
  *         description: |
