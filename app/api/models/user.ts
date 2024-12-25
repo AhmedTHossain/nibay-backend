@@ -87,6 +87,10 @@ const userSchema = new mongoose.Schema<TUser, object, IUserMethods>(
       type: String,
       required: false
     },
+    jobsApplied: {
+      type: [String],
+      required: false
+    },
     otpCode: {
       type: String,
       required: false,

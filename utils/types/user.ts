@@ -24,4 +24,5 @@ export interface TUser {
   deviceID: string;
   createdAt: Date;
   updatedAt: Date;
+  jobsApplied: string[];
 }

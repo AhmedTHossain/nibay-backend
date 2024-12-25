@@ -40,3 +40,14 @@ export const MAX_EDUCATION_LEVEL = {
   7: "PRIMARY",
   8: "SECONDARY"
 };
+
+
+export const EDUCATION_PRECEDENCE : any= {
+  5: "BACHELOR",
+  4: "HIGHER_SECONDARY",
+  2: "JUNIOR_SECONDARY",
+  6: "MASTER",
+  0: "NO_FORMAL_EDUCATION",
+  1: "PRIMARY",
+  3: "SECONDARY"
+};
