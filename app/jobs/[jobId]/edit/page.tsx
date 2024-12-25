@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { api_client } from "@/lib/axios";
+import { EDUCATION_PRECEDENCE, EDUCTATION_LEVELS } from "@/lib/constant";
 import { REQUIRED_ERROR } from "@/lib/error";
 import { TJob } from "@/utils/types/job";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -67,7 +68,7 @@ export default function EditJobRoute({
       title: "",
       shortDescription: "",
       longDescription: "",
-      qualification: "No Formal Education",
+      qualification: "NO_FORMAL_EDUCATION",
       experience: "0-1",
       applicationDeadline: moment().format("YYYY-MM-DDTHH:mm"),
       location: "",
@@ -219,25 +220,13 @@ export default function EditJobRoute({
                           form.setValue("qualification", value);
                         }}
                       >
-                        <option value="No Formal Education">
-                          No Formal Education
-                        </option>
-                        <option value="Primary [Class 1-5]">
-                          Primary [Class 1-5]
-                        </option>
-                        <option value="Junior Secondary [Class 6-8]">
-                          Junior Secondary [Class 6-8]
-                        </option>
-                        <option value="Secondary (SSC)">Secondary (SSC)</option>
-                        <option value="Higher Secondary (HSC)">
-                          Higher Secondary (HSC)
-                        </option>
-                        <option value="Bachelor's Degree">
-                          Bachelor&apos;s Degree
-                        </option>
-                        <option value="Master's Degree">
-                          Master&apos;s Degree
-                        </option>
+                        {EDUCTATION_LEVELS.map((option) => {
+                          return (
+                            <option key={option.id} value={option.value}>
+                              {option.label}
+                            </option>
+                          );
+                        })}
                       </select>
 
                       {/* <Input

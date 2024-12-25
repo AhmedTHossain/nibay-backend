@@ -18,6 +18,7 @@ import { z } from "zod";
 import { AnimatePresence, motion } from "framer-motion";
 import moment from "moment";
 import { JOB_ROLES, JOB_TYPES } from "@/app/assets/resources";
+import { EDUCTATION_LEVELS } from "@/lib/constant";
 
 const jobSchema = z.object({
   title: z.string().min(1, REQUIRED_ERROR),
@@ -54,7 +55,7 @@ export default function NewJobRoute() {
       title: "",
       shortDescription: "",
       longDescription: "",
-      qualification: "No Formal Education",
+      qualification: "NO_FORMAL_EDUCATION",
       experience: "0-1",
       applicationDeadline: moment().format("YYYY-MM-DDTHH:mm"),
       location: "",
@@ -152,21 +153,13 @@ export default function NewJobRoute() {
                         form.setValue("qualification", event.target.value);
                       }}
                     >
-                      <option value="No Formal Education">
-                        প্রাতিষ্ঠানিক শিক্ষা নেই
-                      </option>
-                      <option value="Primary [Class 1-5]">
-                        প্রাথমিক [শ্রেণি ১ম-৫ম]
-                      </option>
-                      <option value="Junior Secondary [Class 6-8]">
-                        জুনিয়র সেকেন্ডারি [ক্লাস ৬ষ্ঠ-৮ম]
-                      </option>
-                      <option value="Secondary (SSC)">মাধ্যমিক (এসএসসি)</option>
-                      <option value="Higher Secondary (HSC)">
-                        উচ্চ মাধ্যমিক (এইচএসসি)
-                      </option>
-                      <option value="Bachelor's Degree">ব্যাচেলর ডিগ্রী</option>
-                      <option value="Master's Degree">মাস্টার্স ডিগ্রী</option>
+                      {EDUCTATION_LEVELS.map((option) => {
+                        return (
+                          <option key={option.id} value={option.value}>
+                            {option.label}
+                          </option>
+                        );
+                      })}
                     </select>
 
                     {/* <Input

@@ -41,13 +41,26 @@ export const MAX_EDUCATION_LEVEL = {
   8: "SECONDARY"
 };
 
-
-export const EDUCATION_PRECEDENCE : any= {
-  5: "BACHELOR",
-  4: "HIGHER_SECONDARY",
-  2: "JUNIOR_SECONDARY",
-  6: "MASTER",
+export const EDUCATION_PRECEDENCE: any = {
   0: "NO_FORMAL_EDUCATION",
   1: "PRIMARY",
-  3: "SECONDARY"
+  2: "JUNIOR_SECONDARY",
+  3: "SECONDARY",
+  4: "HIGHER_SECONDARY",
+  5: "BACHELOR",
+  6: "MASTER"
 };
+
+export const EDUCTATION_LEVELS = [
+  { id: 0, label: "প্রাতিষ্ঠানিক শিক্ষা নেই", value: "NO_FORMAL_EDUCATION" },
+  { id: 1, label: "প্রাথমিক [শ্রেণি ১ম-৫ম]", value: "PRIMARY" },
+  {
+    id: 2,
+    label: "জুনিয়র সেকেন্ডারি [ক্লাস ৬ষ্ঠ-৮ম]",
+    value: "JUNIOR_SECONDARY"
+  },
+  { id: 3, label: "মাধ্যমিক (এসএসসি)", value: "SECONDARY" },
+  { id: 4, label: "উচ্চ মাধ্যমিক (এইচএসসি)", value: "HIGHER_SECONDARY" },
+  { id: 5, label: "ব্যাচেলর ডিগ্রী", value: "BACHELOR" },
+  { id: 6, label: "মাস্টার্স ডিগ্রী", value: "MASTER" }
+];

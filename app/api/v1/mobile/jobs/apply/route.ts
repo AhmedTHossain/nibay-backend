@@ -87,7 +87,6 @@ import { EDUCATION_PRECEDENCE } from "../../../../../../lib/constant"; // Assumi
  *                   example: "Something went wrong."
  */
 
-
 export async function POST(request: NextRequest) {
   try {
     const { jobId, userId } = await request.json(); // Extract data from request body
@@ -104,18 +103,18 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "User not found!" }, { status: 404 });
     }
 
-    const jobData : any = await Job.findById(jobId);
+    const jobData: any = await Job.findById(jobId);
     if (!jobData) {
       return NextResponse.json({ error: "Job not found!" }, { status: 404 });
     }
 
     // Get precedence values for user and job qualifications
     const userEducationPrecedence = Object.keys(EDUCATION_PRECEDENCE).find(
-      key => EDUCATION_PRECEDENCE[key] === user.maxEducationLevel
+      (key) => Number(key) === Number(user.maxEducationLevel)
     );
 
     const jobQualificationPrecedence = Object.keys(EDUCATION_PRECEDENCE).find(
-      key => EDUCATION_PRECEDENCE[key] === jobData.qualification
+      (key) => EDUCATION_PRECEDENCE[key] === jobData.qualification
     );
 
     if (!userEducationPrecedence || !jobQualificationPrecedence) {
@@ -126,7 +125,9 @@ export async function POST(request: NextRequest) {
     }
 
     // Compare precedence (convert keys to numbers for comparison)
-    if (parseInt(userEducationPrecedence) < parseInt(jobQualificationPrecedence)) {
+    if (
+      parseInt(userEducationPrecedence) < parseInt(jobQualificationPrecedence)
+    ) {
       return NextResponse.json(
         { error: "Your education level does not meet the job qualification!" },
         { status: 403 }

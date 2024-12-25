@@ -1,10 +1,9 @@
 import { TUser } from "./user";
 
-export interface TJob {
+export interface TAdvertisement {
   _id: string;
   user: string | TUser;
   applicationDeadline: Date | string;
-  createdAt: string;
   shortDescription: string;
   longDescription: string;
   experience: string;
@@ -12,9 +11,9 @@ export interface TJob {
   qualification: string;
   salary: string | null;
   title: string;
-  updatedAt: string;
   jobRole: string;
   jobType: string;
-  applicants: [string];
+  createdAt: string;
+  updatedAt: string;
   __v: number;
 }

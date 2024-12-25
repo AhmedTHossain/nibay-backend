@@ -1,7 +1,7 @@
 import { TJob } from "@/utils/types/job";
 import mongoose, { Model } from "mongoose";
 
-const jobSchema = new mongoose.Schema<TJob, object>(
+const advertisementSchema = new mongoose.Schema<TJob, object>(
   {
     title: { type: String, required: true },
     shortDescription: { type: String, required: true },
@@ -13,7 +13,6 @@ const jobSchema = new mongoose.Schema<TJob, object>(
     salary: { type: String, required: false, default: null },
     jobRole: { type: String, required: true },
     jobType: { type: String, required: true },
-    applicants: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
     user: {
       type: mongoose.Schema.Types.String,
       ref: "User"
@@ -22,7 +21,7 @@ const jobSchema = new mongoose.Schema<TJob, object>(
   { timestamps: true }
 );
 
-const Job: Model<TJob> =
-  mongoose.models?.Job || mongoose.model("Job", jobSchema);
+const Advertisement: Model<TJob> =
+  mongoose.models?.Advertisement || mongoose.model("Advertisement", advertisementSchema);
 
-export default Job;
+export default Advertisement;
