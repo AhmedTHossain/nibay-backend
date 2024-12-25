@@ -21,7 +21,7 @@ export function JobGrid(props: JobGridProps) {
     setIsOpen,
     setJobId,
     _id,
-    jobType
+    jobRole
   } = props;
   const router = useRouter();
 
@@ -60,8 +60,8 @@ export function JobGrid(props: JobGridProps) {
       </div>
       <div className="mt-3">
         <p>
-          <span className="bg-emerald-600/5 hover:bg-emerald-600/20 dark:bg-emerald-600/10 hover:dark:bg-emerald-600/30 inline-flex items-center text-emerald-600 px-4 text-[14px] font-medium rounded-full mt-2 transition-all duration-500">
-            {jobType}
+          <span className="bg-orange-600/5 hover:bg-orange-600/20 dark:bg-orange-600/10 hover:dark:bg-orange-600/30 inline-flex items-center text-orange-600 px-4 text-[14px] font-medium rounded-full mt-2 transition-all duration-500">
+            {jobRole}
           </span>
         </p>
 

@@ -64,3 +64,18 @@ export const EDUCTATION_LEVELS = [
   { id: 5, label: "ব্যাচেলর ডিগ্রী", value: "BACHELOR" },
   { id: 6, label: "মাস্টার্স ডিগ্রী", value: "MASTER" }
 ];
+
+export const JOB_ROLES = [
+  { label: "সব", value: "all" },
+  { label: "চেকার", value: "checker" },
+  { label: "কাউন্টার মাস্টারr", value: "counter-master" },
+  { label: "ড্রাইভার", value: "driver" },
+
+  { label: "ফোরম্যান", value: "foreman" },
+  { label: "জিএম (জেনারেল ম্যানেজার)", value: "GM" },
+  { label: "হেল্পার", value: "helper" },
+  { label: "ম্যানেজার", value: "manager" },
+  { label: "মেকানিক/মিস্ত্রি", value: "mechanic" },
+  { label: "সুপারভাইজার/প্যাসেঞ্জার গাইড", value: "Supervisor" },
+  { label: "ট্রাক ড্রাইভার", value: "truck-driver" }
+];

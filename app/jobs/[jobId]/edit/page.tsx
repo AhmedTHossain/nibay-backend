@@ -1,6 +1,6 @@
 "use client";
 
-import { JOB_ROLES, JOB_TYPES } from "@/app/assets/resources";
+import { JOB_ROLES_ENUMS, JOB_TYPES } from "@/app/assets/resources";
 import Header from "@/app/components/header";
 import useJobById from "@/app/hooks/jobs/useJobById";
 import Footer from "@/components/sections/Footer";
@@ -8,7 +8,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { api_client } from "@/lib/axios";
-import { EDUCATION_PRECEDENCE, EDUCTATION_LEVELS } from "@/lib/constant";
+import {
+  EDUCATION_PRECEDENCE,
+  EDUCTATION_LEVELS,
+  JOB_ROLES
+} from "@/lib/constant";
 import { REQUIRED_ERROR } from "@/lib/error";
 import { TJob } from "@/utils/types/job";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -38,9 +42,11 @@ const jobSchema = z.object({
   jobType: z.enum(JOB_TYPES, {
     errorMap: () => ({ message: REQUIRED_ERROR })
   }),
-  jobRole: z.enum(JOB_ROLES, {
+  jobRole: z.enum(JOB_ROLES_ENUMS, {
     errorMap: () => ({ message: REQUIRED_ERROR })
-  })
+  }),
+  birthCertificate: z.string().nullable(),
+  portEntryPermit: z.string().nullable()
 });
 
 export type TJobProps = Omit<
@@ -74,7 +80,9 @@ export default function EditJobRoute({
       location: "",
       salary: "",
       jobRole: "চেকার",
-      jobType: "ফুল টাইম"
+      jobType: "ফুল টাইম",
+      birthCertificate: "",
+      portEntryPermit: ""
     }
   });
 
@@ -282,13 +290,41 @@ export default function EditJobRoute({
                       >
                         {JOB_ROLES.map((item, idx) => {
                           return (
-                            <option key={idx} value={item}>
-                              {item}
+                            <option key={idx} value={item.value}>
+                              {item.label}
                             </option>
                           );
                         })}
                       </select>
                     </div>
+
+                    {form.getValues("jobRole") === "truck-driver" && (
+                      <div className="mb-4 text-left flex items-center gap-8">
+                        <div>
+                          <input
+                            type="checkbox"
+                            id="chairman-birth-certificate"
+                            {...form.register("birthCertificate")}
+                          />
+                          <label
+                            htmlFor="chairman-birth-certificate"
+                            className="ml-1"
+                          >
+                            Chairman signed birth certificate
+                          </label>
+                        </div>
+                        <div>
+                          <input
+                            type="checkbox"
+                            id="port-entry-permit"
+                            {...form.register("portEntryPermit")}
+                          />
+                          <label htmlFor="port-entry-permit" className="ml-1">
+                            Port entry permit
+                          </label>
+                        </div>
+                      </div>
+                    )}
 
                     <div className="mb-4 text-left">
                       <label className="font-semibold" htmlFor="jobType">

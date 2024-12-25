@@ -23,6 +23,8 @@ export interface TUser {
   otpCode: string;
   deviceID: string;
   createdAt: Date;
+  birthCertificate: string;
+  portEntryPermit: string;
   updatedAt: Date;
   jobsApplied: string[];
 }

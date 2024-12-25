@@ -17,8 +17,8 @@ import { toast } from "sonner";
 import { z } from "zod";
 import { AnimatePresence, motion } from "framer-motion";
 import moment from "moment";
-import { JOB_ROLES, JOB_TYPES } from "@/app/assets/resources";
-import { EDUCTATION_LEVELS } from "@/lib/constant";
+import { JOB_ROLES_ENUMS, JOB_TYPES } from "@/app/assets/resources";
+import { EDUCTATION_LEVELS, JOB_ROLES } from "@/lib/constant";
 
 const jobSchema = z.object({
   title: z.string().min(1, REQUIRED_ERROR),
@@ -26,6 +26,8 @@ const jobSchema = z.object({
   longDescription: z.string().min(1, REQUIRED_ERROR),
   qualification: z.string().min(1, REQUIRED_ERROR),
   experience: z.string().min(1, REQUIRED_ERROR),
+  birthCertificate: z.string().nullable(),
+  portEntryPermit: z.string().nullable(),
   applicationDeadline: z
     .string()
     .min(1, REQUIRED_ERROR)
@@ -37,7 +39,7 @@ const jobSchema = z.object({
   jobType: z.enum(JOB_TYPES, {
     errorMap: () => ({ message: REQUIRED_ERROR })
   }),
-  jobRole: z.enum(JOB_ROLES, {
+  jobRole: z.enum(JOB_ROLES_ENUMS, {
     errorMap: () => ({ message: REQUIRED_ERROR })
   })
 });
@@ -61,7 +63,9 @@ export default function NewJobRoute() {
       location: "",
       salary: null,
       jobRole: "চেকার",
-      jobType: "ফুল টাইম"
+      jobType: "ফুল টাইম",
+      birthCertificate: "",
+      portEntryPermit: ""
     }
   });
 
@@ -215,13 +219,36 @@ export default function NewJobRoute() {
                     >
                       {JOB_ROLES.map((item, idx) => {
                         return (
-                          <option key={idx} value={item}>
-                            {item}
+                          <option key={idx} value={item.value}>
+                            {item.label}
                           </option>
                         );
                       })}
                     </select>
                   </div>
+
+                  {form.getValues("jobRole") === "truck-driver" && (
+                    <div className="mb-4 text-left flex items-center gap-8">
+                      <div>
+                        <input
+                          type="checkbox"
+                          id="chairman-birth-certificate"
+                        />
+                        <label
+                          htmlFor="chairman-birth-certificate"
+                          className="ml-1"
+                        >
+                          Chairman signed birth certificate
+                        </label>
+                      </div>
+                      <div>
+                        <input type="checkbox" id="port-entry-permit" />
+                        <label htmlFor="port-entry-permit" className="ml-1">
+                          Port entry permit
+                        </label>
+                      </div>
+                    </div>
+                  )}
 
                   <div className="mb-4 text-left">
                     <label className="font-semibold" htmlFor="jobType">

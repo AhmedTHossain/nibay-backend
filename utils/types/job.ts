@@ -16,5 +16,7 @@ export interface TJob {
   jobRole: string;
   jobType: string;
   applicants: [string];
+  birthCertificate: string;
+  portEntryPermit: string;
   __v: number;
 }

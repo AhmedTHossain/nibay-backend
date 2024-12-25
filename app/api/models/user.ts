@@ -97,7 +97,9 @@ const userSchema = new mongoose.Schema<TUser, object, IUserMethods>(
       type: String,
       required: false,
       default: null
-    }
+    },
+    birthCertificate: { type: String, required: false },
+    portEntryPermit: { type: String, required: false }
   },
   {
     timestamps: true

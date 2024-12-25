@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { JOB_ROLES } from "@/lib/constant";
 import { Bolt } from "lucide-react";
 
 export function JobFilter() {
@@ -12,16 +13,24 @@ export function JobFilter() {
                 <Bolt size={18} color="#10b981" />
               </span>
               <select className="w-full text-sm bg-transparent dark:bg-transparent border-0 focus:outline-none px-4 py-0">
-                <option value="all">সব</option>
+                {JOB_ROLES.map((item, idx) => {
+                  return (
+                    <option key={idx} value={item.value}>
+                      {item.label}
+                    </option>
+                  );
+                })}
+                {/* <option value="all">সব</option>
                 <option value="checker">চেকার</option>
                 <option value="counter-master">কাউন্টার মাস্টারr</option>
                 <option value="driver">ড্রাইভার</option>
+                <option value="truck-driver">ট্রাক ড্রাইভার</option>
                 <option value="foreman">ফোরম্যান</option>
                 <option value="GM">জিএম (জেনারেল ম্যানেজার)</option>
                 <option value="helper">হেল্পার</option>
                 <option value="manager">ম্যানেজার</option>
                 <option value="mechanic">মেকানিক/মিস্ত্রি</option>
-                <option value="Supervisor">সুপারভাইজার/প্যাসেঞ্জার গাইড</option>
+                <option value="Supervisor">সুপারভাইজার/প্যাসেঞ্জার গাইড</option> */}
               </select>
             </div>
 

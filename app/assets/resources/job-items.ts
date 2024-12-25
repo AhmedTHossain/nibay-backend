@@ -67,7 +67,7 @@ export const JOB_TYPES: [string, ...string[]] = [
   "রিমোট"
 ];
 
-export const JOB_ROLES: [string, ...string[]] = [
+export const JOB_ROLES_ENUMS: [string, ...string[]] = [
   "চেকার",
   "কাউন্টার মাস্টার",
   "ড্রাইভার",

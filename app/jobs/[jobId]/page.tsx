@@ -166,7 +166,7 @@ export default function JobDetailsRoute({
                 </div>
                 <div className="lg:col-span-8 md:col-span-6">
                   <div className="pt-6 flex items-start justify-between">
-                    <h5 className="text-lg font-semibold">কাজের বিবরণ</h5>
+                    <div></div>
                     <div className="mb-5 flex justify-end">
                       <Link href={`/jobs/1/applicant-list`}>
                         <Button className="bg-emerald-600/5 border-emerald-100 border hover:bg-emerald-600 hover:border-emerald-600 text-emerald-600 hover:text-white rounded-md ms-2">
@@ -175,12 +175,24 @@ export default function JobDetailsRoute({
                       </Link>
                     </div>
                   </div>
-                  <pre className="text-slate-800 mt-4">
-                    {job?.shortDescription}
-                  </pre>
-                  <pre className="text-slate-800 mt-8">
-                    {job?.longDescription}
-                  </pre>
+
+                  {job?.shortDescription && (
+                    <div className="mt-4">
+                      <h5 className="text-lg font-semibold">সারসংক্ষেপ</h5>
+                      <pre className="text-slate-800">
+                        {job?.shortDescription}
+                      </pre>
+                    </div>
+                  )}
+
+                  {job?.longDescription && (
+                    <div className="mt-8">
+                      <h5 className="text-lg font-semibold">বিস্তারিত</h5>
+                      <pre className="text-slate-800">
+                        {job?.longDescription}
+                      </pre>
+                    </div>
+                  )}
 
                   {/* <h5 className="text-lg font-semibold mt-6">
                 কম্পেন্সেশন এবং অন্যান্য সুবিধাসমূহ :{" "}

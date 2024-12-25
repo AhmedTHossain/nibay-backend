@@ -13,6 +13,8 @@ const jobSchema = new mongoose.Schema<TJob, object>(
     salary: { type: String, required: false, default: null },
     jobRole: { type: String, required: true },
     jobType: { type: String, required: true },
+    birthCertificate: { type: String, required: false },
+    portEntryPermit: { type: String, required: false },
     applicants: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
     user: {
       type: mongoose.Schema.Types.String,

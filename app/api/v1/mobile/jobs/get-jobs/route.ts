@@ -20,11 +20,17 @@ import { handleError } from "@/lib/handleErrors";
  *           example: Software
  *       - name: employerType
  *         in: query
- *         description: Filter jobs by employer type (e.g., "PartTime", "FullTime", "Institutional").
+ *         description: Filter jobs by employer type (e.g., "Institutional", "Individual").
  *         required: false
  *         schema:
  *           type: string
  *           example: PartTime
+ *        - name: employerId
+ *         in: query
+ *         description: Filter jobs by employer id.
+ *         required: false
+ *         schema:
+ *           type: string
  *       - name: orderBy
  *         in: query
  *         description: |
@@ -147,10 +153,6 @@ import { handleError } from "@/lib/handleErrors";
  *                   example: Database connection failed
  */
 
-
-
-
-
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
@@ -158,10 +160,9 @@ export async function GET(request: Request) {
     const orderBy = searchParams.get("orderBy") || "-createdAt";
     const title = searchParams.get("title");
     const employerType = searchParams.get("employerType");
+    const employerId = searchParams.get("employer_id");
     const pageSize = parseInt(searchParams.get("pageSize") || "10", 10);
     const page = parseInt(searchParams.get("page") || "1", 10);
-
-    console.log(orderBy, title, employerType, pageSize, page);
 
     await connectToMongoDB();
 
@@ -175,6 +176,10 @@ export async function GET(request: Request) {
       query = query.where("employerType").equals(employerType);
     }
 
+    if (employerId) {
+      query = query.where("employerId").equals(employerId);
+    }
+
     const jobs = await query
       .sort(orderBy) // Sorting
       .limit(pageSize) // Pagination: Limit
@@ -185,7 +190,7 @@ export async function GET(request: Request) {
     return NextResponse.json({
       status: true,
       message: "Jobs fetched successfully",
-      data: jobs,
+      data: jobs
     });
   } catch (error) {
     return handleError(error);
