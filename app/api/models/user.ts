@@ -98,12 +98,21 @@ const userSchema = new mongoose.Schema<TUser, object, IUserMethods>(
       required: false,
       default: null
     },
+    following: {
+      type: [],
+      required: false
+    },
+    followers: {
+      type: [],
+      required: false
+    },
     birthCertificate: { type: String, required: false },
     portEntryPermit: { type: String, required: false }
   },
   {
     timestamps: true
-  }
+  },
+
 );
 
 const User: Model<TUser> =
