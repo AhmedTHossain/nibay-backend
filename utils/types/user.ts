@@ -27,4 +27,6 @@ export interface TUser {
   portEntryPermit: string;
   updatedAt: Date;
   jobsApplied: string[];
+  following: Array<string>;
+  followers: Array<string>;
 }

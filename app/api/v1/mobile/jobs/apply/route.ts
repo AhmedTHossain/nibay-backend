@@ -3,7 +3,7 @@ import { handleError } from "@/lib/handleErrors";
 import { NextRequest, NextResponse } from "next/server";
 import User from "@/app/api/models/user";
 import Job from "@/app/api/models/job";
-// import { authMiddleware } from "@/lib/auth";
+import { authMiddleware } from "@/app/api/middleware/auth";
 import { EDUCATION_PRECEDENCE } from "../../../../../../lib/constant"; // Assuming the constant is in this file.
 /**
  * @swagger
@@ -91,10 +91,10 @@ export async function POST(request: NextRequest) {
   try {
     const { jobId, userId } = await request.json(); // Extract data from request body
 
-    // const authUser = await authMiddleware(request);
-    // if (authUser instanceof NextResponse) {
-    //   return authUser;
-    // }
+    const authUser = await authMiddleware(request);
+    if (authUser instanceof NextResponse) {
+      return authUser;
+    }
 
     await connectToMongoDB();
 
