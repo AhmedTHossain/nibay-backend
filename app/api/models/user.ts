@@ -106,6 +106,14 @@ const userSchema = new mongoose.Schema<TUser, object, IUserMethods>(
       type: [],
       required: false
     },
+    reviews_for_employees: {
+      type: [],
+      required:false
+    },
+    reviews_from_employers: {
+      type: [],
+      required:false
+    },
     birthCertificate: { type: String, required: false },
     portEntryPermit: { type: String, required: false }
   },

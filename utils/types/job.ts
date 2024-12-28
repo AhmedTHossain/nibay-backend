@@ -18,5 +18,8 @@ export interface TJob {
   applicants: [string];
   birthCertificate: string;
   portEntryPermit: string;
+  division: string;
+  district: string;
+  name: string | TUser;
   __v: number;
 }
