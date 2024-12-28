@@ -50,7 +50,7 @@ export async function updateUserAccount(
 
   return NextResponse.json({
     status: "success",
-    message: "User updated successfully"
+    message: "ইউজার আপডেট সফল হয়েছে!"
   });
 }
 

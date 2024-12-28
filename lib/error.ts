@@ -1,3 +1,3 @@
-export const REQUIRED_ERROR = "Field is required!";
-export const INVALID_PHONE = "Invalid phone number!";
-export const INVALID_EMAIL = "Invalid email!";
+export const REQUIRED_ERROR = "বাধ্যতামূলক";
+export const INVALID_PHONE = "ফোন নাম্বারটি সঠিক নয়!";
+export const INVALID_EMAIL = "ইমেইলটি সঠিক নয়!";

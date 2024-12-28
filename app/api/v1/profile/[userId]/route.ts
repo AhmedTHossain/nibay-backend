@@ -105,7 +105,7 @@ export async function DELETE(request: NextRequest, { params }: TUserParams) {
 
     return NextResponse.json({
       status: "success",
-      message: "User profile deleted"
+      message: "এই চাকরিটি বাতিল করে দেওয়া হয়েছে!"
     });
   } catch (error) {
     return handleError(error);

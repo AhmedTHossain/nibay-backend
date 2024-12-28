@@ -11,6 +11,7 @@ import { ApplicantListModal } from "../components/ApplicantListModal";
 import moment from "moment";
 import { TimerOff } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
+import { formatEnglishToBangalNum } from "@/utils/formatEtoBLang";
 
 export default function JobDetailsRoute({
   params
@@ -72,7 +73,11 @@ export default function JobDetailsRoute({
                           <div className="ms-4">
                             <p className="font-medium">অভিজ্ঞতা:</p>
                             <span className="text-emerald-600 font-medium text-sm">
-                              {job?.experience} বছর
+                              {job?.experience
+                                ?.split("-")
+                                .map((item) => formatEnglishToBangalNum(item))
+                                .join("-")}{" "}
+                              বছর
                             </span>
                           </div>
                         </li>
@@ -119,7 +124,7 @@ export default function JobDetailsRoute({
                             <div className="ms-4">
                               <p className="font-medium">বেতন:</p>
                               <span className="text-emerald-600 font-medium text-sm">
-                                {job?.salary}
+                                {formatEnglishToBangalNum(job?.salary)}
                               </span>
                             </div>
                           </li>

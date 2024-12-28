@@ -15,7 +15,10 @@ export async function GET(request: NextRequest) {
 
     const user = await User.findById(authUser.userId);
     if (!user) {
-      return NextResponse.json({ error: "User not found!" }, { status: 404 });
+      return NextResponse.json(
+        { error: "ইমেইলটি রেজিস্টার্ড নয়!" },
+        { status: 404 }
+      );
     }
 
     return NextResponse.json({ status: "success", user });

@@ -33,8 +33,8 @@ export function PasswordSettings() {
     const { newPassword, confirmPassword } = values;
 
     if (newPassword !== confirmPassword) {
-      setIsLoading(false)
-      return toast.error("Password doesn't matched!");
+      setIsLoading(false);
+      return toast.error("পাসওয়ার্ড অনুরূপ হয় নি!");
     }
 
     const formData = new FormData();

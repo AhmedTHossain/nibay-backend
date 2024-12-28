@@ -1,8 +1,10 @@
 "use client";
 
 import taka_svg from "@/app/assets/Icons/taka.svg";
+import { useJobContext } from "@/app/contexts/JobContext";
+import { formatEnglishToBangalNum } from "@/utils/formatEtoBLang";
 import { TJob } from "@/utils/types/job";
-import { BusIcon, Edit, MapPin, Trash } from "lucide-react";
+import { BusIcon, Copy, Edit, Trash } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Dispatch, SetStateAction } from "react";
@@ -13,16 +15,9 @@ interface JobGridProps extends TJob {
 }
 
 export function JobGrid(props: JobGridProps) {
-  const {
-    location,
-    title,
-    shortDescription,
-    salary,
-    setIsOpen,
-    setJobId,
-    _id,
-    jobRole
-  } = props;
+  const { setIsOpen, setJobId, ...restJob } = props;
+  const { title, shortDescription, salary, _id, jobRole } = restJob;
+  const { setCopyJob } = useJobContext();
   const router = useRouter();
 
   return (
@@ -38,7 +33,20 @@ export function JobGrid(props: JobGridProps) {
         </div>
         <div className="flex items-center space-x-2">
           <p
+            className="rounded-full bg-gray-600/5 hover:bg-gray-500 border-gray-600/10 hover:border-gray-600 text-gray-600 hover:text-white md:relative w-8 h-8 flex items-center justify-center"
+            title="চাকরিটি ডুপ্লিকেট করুন"
+            onClick={(event) => {
+              event.stopPropagation();
+              setCopyJob(restJob);
+              router.push(`/jobs/new`);
+            }}
+          >
+            <Copy strokeWidth={1.5} size={16} />
+          </p>
+
+          <p
             className="rounded-full bg-emerald-600/5 hover:bg-emerald-500 border-emerald-600/10 hover:border-emerald-600 text-emerald-600 hover:text-white md:relative w-8 h-8 flex items-center justify-center"
+            title="চাকরিটি এডিট করুন"
             onClick={(event) => {
               event.stopPropagation();
               router.push(`/jobs/${_id}/edit`);
@@ -48,6 +56,7 @@ export function JobGrid(props: JobGridProps) {
           </p>
           <p
             className="rounded-full bg-red-600/5 hover:bg-red-500 border-red-600/10 hover:border-red-600 text-red-600 hover:text-white md:relative w-8 h-8 flex items-center justify-center"
+            title="চাকরিটি ডিলিট করুন"
             onClick={(event) => {
               event.stopPropagation();
               setIsOpen(true);
@@ -76,17 +85,10 @@ export function JobGrid(props: JobGridProps) {
             <p>
               <span className="bg-purple-600/5 hover:bg-purple-600/20 dark:bg-purple-600/10 hover:dark:bg-purple-600/30 text-purple-600 px-4 text-[14px] inline-flex space-x-1 font-medium rounded-full mt-2 me-1 transition-all duration-500">
                 <Image src={taka_svg} alt="Taka SVG" width={10} />
-                <span>{salary}</span>
+                <span>{formatEnglishToBangalNum(salary)}</span>
               </span>
             </p>
           )}
-
-          <p>
-            <span className="bg-emerald-600/5 hover:bg-emerald-600/20 dark:bg-emerald-600/10 hover:dark:bg-emerald-600/30 inline-flex items-center text-emerald-600 px-4 text-[14px] font-medium rounded-full mt-2 transition-all duration-500">
-              <MapPin size={14} />
-              {location}
-            </span>
-          </p>
         </div>
       </div>
     </div>

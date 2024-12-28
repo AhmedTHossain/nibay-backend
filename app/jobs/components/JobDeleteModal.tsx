@@ -1,5 +1,6 @@
 "use client";
 
+import { useJobContext } from "@/app/contexts/JobContext";
 import useJobs from "@/app/hooks/jobs/useJobs";
 import { Button } from "@/components/ui/button";
 import {
@@ -24,29 +25,22 @@ interface JobDeleteModalProps {
 export function JobDeleteModal(props: JobDeleteModalProps) {
   const { open, setIsOpen, jobId } = props;
   const [isLoading, setIsLoading] = useState(false);
-  const { jobs, setJobs, refetch } = useJobs();
+  const { setJobs } = useJobContext();
 
-  const handleDelete = () => {
-    const updatedJobs = jobs.filter((item) => item._id !== jobId);
-    console.log("-----------", updatedJobs);
-    setJobs(updatedJobs);
-    setIsOpen(false);
-
-    // api_client
-    //   .delete(`jobs/${jobId}`)
-    //   .then((res) => {
-    //     if (res.data.status === "success") {
-    //       toast.success(res.data.message);
-
-    //       setIsOpen(false);
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   })
-    //   .finally(() => {
-    //     setIsLoading(false);
-    //   });
+  const handleDelete = async () => {
+    setIsLoading(true);
+    try {
+      const res = await api_client.delete(`jobs/${jobId}`);
+      if (res.data.status === "success") {
+        setJobs((prevJobs) => prevJobs.filter((item) => item._id !== jobId));
+        toast.success(res.data.message);
+        setIsOpen(false);
+      }
+    } catch (err) {
+      console.error("Failed to delete the job:", err);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (

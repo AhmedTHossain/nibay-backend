@@ -29,8 +29,25 @@ export async function createJob(request: NextRequest) {
       salary,
       jobRole,
       division,
-      district
+      district,
+      isBirthCertificateRequired,
+      isPortEntryPermitRequired
     } = await request.json();
+
+    console.log({
+      title,
+      shortDescription,
+      longDescription,
+      experience,
+      qualification,
+      applicationDeadline,
+      salary,
+      jobRole,
+      division,
+      district,
+      isBirthCertificateRequired,
+      isPortEntryPermitRequired
+    });
 
     await Job.create({
       title,
@@ -43,12 +60,14 @@ export async function createJob(request: NextRequest) {
       jobRole,
       district,
       division,
-      user: user._id
+      user: user._id,
+      isBirthCertificateRequired,
+      isPortEntryPermitRequired
     });
 
     return NextResponse.json({
       status: "success",
-      message: "New job created successfully..."
+      message: "নতুন চাকরি তৈরি সফল হয়েছে!"
     });
   } catch (error) {
     return handleError(error);

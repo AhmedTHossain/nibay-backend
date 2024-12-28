@@ -29,6 +29,7 @@ import {
   SelectValue
 } from "@/components/ui/select";
 import { useUserInfo } from "@/app/hooks/useUserInfo";
+import { useJobContext } from "@/app/contexts/JobContext";
 
 const jobSchema = z.object({
   title: z.string().min(1, REQUIRED_ERROR),
@@ -73,6 +74,7 @@ export default function EditJobRoute({
   const [experience, setExperience] = useState<string>();
   const [jobRole, setJobRole] = useState<string>();
   const [districts, setDistricts] = useState([]);
+  const { refetch } = useJobContext();
 
   const form = useForm<z.infer<typeof jobSchema>>({
     resolver: zodResolver(jobSchema),
@@ -104,6 +106,7 @@ export default function EditJobRoute({
       .patch(`jobs/${job?._id}`, body)
       .then((res) => {
         if (res.data.status === "success") {
+          refetch();
           router.push(`/jobs/${job?._id}`);
           toast.success(res.data.message);
         }

@@ -45,7 +45,7 @@ export default function ForgotPasswordRoute() {
           পাসওয়ার্ড ভুলে গেছেন ?
         </h4>
 
-        <h2 className="text-md mt-4 font-semibold tracking-tight text-gray-900">
+        <h2 className="text-md mt-4 font-medium tracking-tight text-gray-900">
           আপনার ইমেল ঠিকানা লিখুন এবং আমরা আপনাকে একটি রিসেট লিঙ্ক পাঠাব
         </h2>
 

@@ -37,7 +37,7 @@ export default function Home() {
 
           <div className="mt-6">
             <div className="container z-1">
-              <div className="flex items-center justify-between">
+              <div className="flex md:items-center justify-between md:flex-row flex-col md:space-y-0 space-y-4">
                 <div className="flex-1 max-w-3xl">
                   <JobFilter />
                 </div>

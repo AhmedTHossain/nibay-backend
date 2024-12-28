@@ -1,17 +1,17 @@
 "use client";
 
 import { CustomPagination } from "@/app/components/common/Pagination";
-import useJobs from "@/app/hooks/jobs/useJobs";
+import { useJobContext } from "@/app/contexts/JobContext";
+import { AnimatePresence, motion } from "framer-motion";
+import { Loader } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { JobDeleteModal } from "./JobDeleteModal";
 import { JobGrid } from "./JobGrid";
-import { Loader } from "lucide-react";
-import { AnimatePresence, motion } from "framer-motion";
 
 export function JobBox() {
   const [open, setIsOpen] = useState(false);
-  const { jobs, isLoading } = useJobs();
+  const { jobs, isLoading } = useJobContext();
   const pathname = usePathname();
   const [jobId, setJobId] = useState<string | undefined>(undefined);
 

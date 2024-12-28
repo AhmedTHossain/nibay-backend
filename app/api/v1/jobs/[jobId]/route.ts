@@ -57,7 +57,10 @@ export async function PATCH(request: NextRequest, { params }: TUserParams) {
 
     const job = await Job.findById(jobId);
     if (!job) {
-      return NextResponse.json({ error: "Job not found!" }, { status: 404 });
+      return NextResponse.json(
+        { error: "চাকরিটি পাওয়া যায়নি!" },
+        { status: 404 }
+      );
     }
 
     const {
@@ -87,7 +90,7 @@ export async function PATCH(request: NextRequest, { params }: TUserParams) {
       },
       { new: true, runValidators: true }
     );
-    return successResponse({ message: "Job updated" });
+    return successResponse({ message: "চাকরি আপডেট সফল হয়েছে!" });
   } catch (error) {
     return handleError(error);
   }
@@ -116,7 +119,10 @@ export async function DELETE(request: NextRequest, { params }: TUserParams) {
 
     await Job.deleteOne({ _id: job._id });
 
-    return NextResponse.json({ status: "success", message: "Job deleted" });
+    return NextResponse.json({
+      status: "success",
+      message: "এই চাকরিটি বাতিল করে দেওয়া হয়েছে!"
+    });
   } catch (error) {
     return handleError(error);
   }

@@ -87,7 +87,6 @@ const userSchema = new mongoose.Schema<TUser, object, IUserMethods>(
       type: String,
       required: false
     },
-    jobsApplied: [{ type: mongoose.Schema.Types.ObjectId, ref: "Job" }],
     otpCode: {
       type: String,
       required: false,
@@ -115,12 +114,13 @@ const userSchema = new mongoose.Schema<TUser, object, IUserMethods>(
       required:false
     },
     birthCertificate: { type: String, required: false },
-    portEntryPermit: { type: String, required: false }
+    portEntryPermit: { type: String, required: false },
+
+    jobsApplied: [{ type: mongoose.Schema.Types.ObjectId, ref: "Job" }]
   },
   {
     timestamps: true
-  },
-
+  }
 );
 
 const User: Model<TUser> =

@@ -1,24 +1,11 @@
 "use client";
 
+import { DIVISIONS, JOB_ROLES_ENUMS } from "@/app/assets/resources";
 import Header from "@/app/components/header";
+import { useJobContext } from "@/app/contexts/JobContext";
 import Footer from "@/components/sections/Footer";
 import { Button } from "@/components/ui/button";
-import { DatePicker } from "@/components/ui/DatePicker";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { api_client } from "@/lib/axios";
-import { REQUIRED_ERROR } from "@/lib/error";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { toast } from "sonner";
-import { z } from "zod";
-import { AnimatePresence, motion } from "framer-motion";
-import moment from "moment";
-import { DIVISIONS, JOB_ROLES_ENUMS } from "@/app/assets/resources";
-import { EDUCTATION_LEVELS, JOB_ROLES } from "@/lib/constant";
 import {
   Select,
   SelectContent,
@@ -27,15 +14,37 @@ import {
   SelectTrigger,
   SelectValue
 } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+import { api_client } from "@/lib/axios";
+import { EDUCTATION_LEVELS, JOB_ROLES } from "@/lib/constant";
+import { REQUIRED_ERROR } from "@/lib/error";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { AnimatePresence, motion } from "framer-motion";
+import { Loader } from "lucide-react";
+import moment from "moment";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { z } from "zod";
 
 const jobSchema = z.object({
-  title: z.string().max(40),
-  shortDescription: z.string().min(1, REQUIRED_ERROR),
-  longDescription: z.string().min(1, REQUIRED_ERROR),
+  title: z
+    .string()
+    .min(1, REQUIRED_ERROR)
+    .max(40, "সর্বোচ্চ ৪০ টি শব্দ গ্রহনযোগ্য"),
+  shortDescription: z
+    .string()
+    .min(1, REQUIRED_ERROR)
+    .max(80, "সর্বোচ্চ ৮০ টি শব্দ গ্রহনযোগ্য"),
+  longDescription: z
+    .string()
+    .min(1, REQUIRED_ERROR)
+    .max(200, "সর্বোচ্চ ২০০ টি শব্দ গ্রহনযোগ্য"),
   qualification: z.string().min(1, REQUIRED_ERROR),
   experience: z.string().min(1, REQUIRED_ERROR),
-  birthCertificate: z.string().optional(),
-  portEntryPermit: z.string().optional(),
+  isBirthCertificateRequired: z.boolean().optional(),
+  isPortEntryPermitRequired: z.boolean().optional(),
   division: z.string().min(1, REQUIRED_ERROR),
   district: z.string().min(1, REQUIRED_ERROR),
   applicationDeadline: z
@@ -55,14 +64,17 @@ const jobSchema = z.object({
   })
 });
 
+export type JobCreateType = z.infer<typeof jobSchema>;
+
 export default function NewJobRoute() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [date, setDate] = useState<Date | undefined>(new Date());
   const [jobRole, setJobRole] = useState<string>();
   const [districts, setDistricts] = useState([]);
+  const { refetch, copyJob, setCopyJob } = useJobContext();
 
-  const form = useForm<z.infer<typeof jobSchema>>({
+  const form = useForm<JobCreateType>({
     resolver: zodResolver(jobSchema),
     defaultValues: {
       title: "",
@@ -73,14 +85,14 @@ export default function NewJobRoute() {
       applicationDeadline: moment().format("YYYY-MM-DDTHH:mm"),
       salary: "0",
       jobRole: "চেকার",
-      birthCertificate: "",
       division: "",
       district: "",
-      portEntryPermit: ""
+      isBirthCertificateRequired: false,
+      isPortEntryPermitRequired: false
     }
   });
 
-  async function onSubmit(values: z.infer<typeof jobSchema>) {
+  async function onSubmit(values: JobCreateType) {
     setIsLoading(true);
 
     api_client
@@ -90,6 +102,7 @@ export default function NewJobRoute() {
       })
       .then((res) => {
         if (res.data.status === "success") {
+          refetch();
           router.push("/");
           toast.success(res.data.message);
         }
@@ -99,8 +112,43 @@ export default function NewJobRoute() {
       })
       .finally(() => {
         setIsLoading(false);
+        setCopyJob(null);
       });
   }
+
+  useEffect(() => {
+    if (copyJob) {
+      Object.keys(form.getValues()).forEach((key) => {
+        if (key === "applicationDeadline") {
+          const deadline = new Date(copyJob?.applicationDeadline)
+            .toISOString()
+            .split(".")[0]
+            .toString();
+          setDate(new Date(copyJob?.applicationDeadline));
+          form.setValue("applicationDeadline", deadline);
+        } else {
+          // eslint-disable-next-line
+          // @ts-ignore
+          form.setValue(key as keyof TJobProps, copyJob[key]);
+        }
+      });
+    }
+
+    // eslint-disable-next-line
+  }, [copyJob]);
+
+  useEffect(() => {
+    if (copyJob) {
+      setDistricts(
+        (DIVISIONS.find((item) => item.division === copyJob.division)
+          ?.districts as []) || []
+      );
+    }
+  }, [copyJob]);
+
+  const error = (field: keyof JobCreateType): string | undefined => {
+    return form.formState.errors[field]?.message as string | undefined;
+  };
 
   return (
     <>
@@ -125,9 +173,14 @@ export default function NewJobRoute() {
                     <Input
                       id="title"
                       className="mt-1"
-                      placeholder="চাকরির শিরোনাম"
+                      placeholder="চাকরির শিরোনাম - সর্বোচ্চ ৪০ টি শব্দ গ্রহনযোগ্য"
                       {...form.register("title")}
                     />
+                    {error("title") ? (
+                      <p className="text-red-500 font-semibold text-sm">
+                        {error("title")}
+                      </p>
+                    ) : null}
                   </div>
 
                   <div className="text-left">
@@ -137,10 +190,15 @@ export default function NewJobRoute() {
                     <Textarea
                       id="shortDescription"
                       className="mt-1"
-                      placeholder="কাজের সারসংক্ষেপ"
+                      placeholder="কাজের সারসংক্ষেপ - সর্বোচ্চ ৮০ টি শব্দ গ্রহনযোগ্য"
                       rows={4}
                       {...form.register("shortDescription")}
                     />
+                    {error("shortDescription") ? (
+                      <p className="text-red-500 font-semibold text-sm">
+                        {error("shortDescription")}
+                      </p>
+                    ) : null}
                   </div>
 
                   <div className="text-left">
@@ -150,10 +208,15 @@ export default function NewJobRoute() {
                     <Textarea
                       id="longDescription"
                       className="mt-1"
-                      placeholder="কাজের বিবরণ"
+                      placeholder="কাজের বিবরণ - সর্বোচ্চ ২০০ টি শব্দ গ্রহনযোগ্য"
                       rows={4}
                       {...form.register("longDescription")}
                     />
+                    {error("longDescription") ? (
+                      <p className="text-red-500 font-semibold text-sm">
+                        {error("longDescription")}
+                      </p>
+                    ) : null}
                   </div>
 
                   <div className="text-left">
@@ -175,6 +238,11 @@ export default function NewJobRoute() {
                           </option>
                         );
                       })}
+                      {error("qualification") ? (
+                        <p className="text-red-500 font-semibold text-sm">
+                          {error("qualification")}
+                        </p>
+                      ) : null}
                     </select>
 
                     {/* <Input
@@ -213,6 +281,11 @@ export default function NewJobRoute() {
                       placeholder="অভিজ্ঞতা"
                       {...form.register("experience")}
                     /> */}
+                    {error("experience") ? (
+                      <p className="text-red-500 font-semibold text-sm">
+                        {error("experience")}
+                      </p>
+                    ) : null}
                   </div>
 
                   <div className="mb-4 text-left">
@@ -220,6 +293,7 @@ export default function NewJobRoute() {
                       বিভাগ
                     </label>
                     <Select
+                      defaultValue={copyJob ? copyJob?.division : undefined}
                       onValueChange={(value) => {
                         form.setValue("division", value);
                         form.setValue("district", "");
@@ -245,6 +319,11 @@ export default function NewJobRoute() {
                         </SelectGroup>
                       </SelectContent>
                     </Select>
+                    {error("division") ? (
+                      <p className="text-red-500 font-semibold text-sm">
+                        {error("division")}
+                      </p>
+                    ) : null}
                   </div>
 
                   {districts.length > 0 && (
@@ -253,6 +332,7 @@ export default function NewJobRoute() {
                         জেলা
                       </label>
                       <Select
+                        defaultValue={copyJob ? copyJob?.district : undefined}
                         onValueChange={(value) =>
                           form.setValue("district", value)
                         }
@@ -272,6 +352,11 @@ export default function NewJobRoute() {
                           </SelectGroup>
                         </SelectContent>
                       </Select>
+                      {error("district") ? (
+                        <p className="text-red-500 font-semibold text-sm">
+                          {error("district")}
+                        </p>
+                      ) : null}
                     </div>
                   )}
 
@@ -296,27 +381,43 @@ export default function NewJobRoute() {
                         );
                       })}
                     </select>
+                    {error("jobRole") ? (
+                      <p className="text-red-500 font-semibold text-sm">
+                        {error("jobRole")}
+                      </p>
+                    ) : null}
                   </div>
 
-                  {form.getValues("jobRole") === "truck-driver" && (
-                    <div className="mb-4 text-left flex items-center gap-8">
-                      <div>
-                        <input
-                          type="checkbox"
-                          id="chairman-birth-certificate"
-                        />
-                        <label
-                          htmlFor="chairman-birth-certificate"
-                          className="ml-1"
-                        >
-                          Chairman signed birth certificate
-                        </label>
-                      </div>
-                      <div>
-                        <input type="checkbox" id="port-entry-permit" />
-                        <label htmlFor="port-entry-permit" className="ml-1">
-                          Port entry permit
-                        </label>
+                  {form.getValues("jobRole") === "ট্রাক ড্রাইভার" && (
+                    <div className="mb-4 ">
+                      <label className="font-semibold">
+                        অতিরিক্ত দরকারি নথি সমূহ
+                      </label>
+
+                      <div className="mt-2 text-left flex items-center gap-8">
+                        <div>
+                          <input
+                            type="checkbox"
+                            id="chairman-birth-certificate"
+                            {...form.register("isBirthCertificateRequired")}
+                          />
+                          <label
+                            htmlFor="chairman-birth-certificate"
+                            className="ml-1"
+                          >
+                            চেয়ারম্যান এর সত্যায়িত জন্ম নিবন্ধন
+                          </label>
+                        </div>
+                        <div>
+                          <input
+                            type="checkbox"
+                            id="port-entry-permit"
+                            {...form.register("isPortEntryPermitRequired")}
+                          />
+                          <label htmlFor="port-entry-permit" className="ml-1">
+                            পোর্ট এন্ট্রি পার্মিট
+                          </label>
+                        </div>
                       </div>
                     </div>
                   )}
@@ -339,6 +440,11 @@ export default function NewJobRoute() {
                         );
                       }}
                     />
+                    {error("applicationDeadline") ? (
+                      <p className="text-red-500 font-semibold text-sm">
+                        {error("applicationDeadline")}
+                      </p>
+                    ) : null}
                     {/* <DatePicker
                       date={date}
                       setDate={(date) => {
@@ -363,6 +469,11 @@ export default function NewJobRoute() {
                       placeholder="বেতন"
                       {...form.register("salary")}
                     />
+                    {error("salary") ? (
+                      <p className="text-red-500 font-semibold text-sm">
+                        {error("salary")}
+                      </p>
+                    ) : null}
                   </div>
 
                   <div className="">

@@ -17,7 +17,7 @@ export async function login(request: Request) {
     const user = await User.findOne({ email }).select("+password");
     if (!user) {
       return NextResponse.json(
-        { error: "Invalid Credentials!" },
+        { error: "ইমেইল/পাসওয়ার্ড অনুরূপ হয়নি" },
         { status: 400 }
       );
     }
@@ -25,7 +25,7 @@ export async function login(request: Request) {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return NextResponse.json(
-        { error: "Invalid Credentials!" },
+        { error: "ইমেইল/পাসওয়ার্ড অনুরূপ হয়নি" },
         { status: 400 }
       );
     }

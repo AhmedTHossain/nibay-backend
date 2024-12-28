@@ -44,7 +44,7 @@ export default function LoginRoute() {
       .then((res: AxiosResponse<{ token: string }>) => {
         storage.setToken({ token: res.data.token });
         router.push("/");
-        toast.success("Welcome back! You are now logged in");
+        toast.success("অভ্যর্থনা জানাচ্ছি! আপনি এখন লগ ইন করেছেন");
       })
       .catch(() => {})
       .finally(() => {

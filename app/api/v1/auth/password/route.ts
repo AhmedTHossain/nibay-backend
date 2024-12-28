@@ -13,7 +13,10 @@ export async function POST(request: NextRequest) {
 
     const user = await User.findOne({ email });
     if (!user) {
-      return NextResponse.json({ error: "User not found!" }, { status: 404 });
+      return NextResponse.json(
+        { error: "ইমেইল/পাসওয়ার্ড অনুরূপ হয়নি" },
+        { status: 404 }
+      );
     }
 
     const token = generatePasswordResetToken(user.id, user.email);
@@ -23,7 +26,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       status: "success",
-      message: "Mail sent successfully"
+      message: "একটি ইমেইল পাঠানো হয়েছে"
     });
 
     // const mail = await sendEmail({
@@ -39,6 +42,9 @@ export async function POST(request: NextRequest) {
     //   });
     // }
   } catch (error) {
-    return NextResponse.json({ error: "Invalid mail!" }, { status: 404 });
+    return NextResponse.json(
+      { error: "ইমেইলটি রেজিস্টার্ড নয়!" },
+      { status: 404 }
+    );
   }
 }

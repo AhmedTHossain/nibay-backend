@@ -31,7 +31,7 @@ api_client.interceptors.response.use(
 
     if (status === 401 || status === 404) {
       localStorage.clear();
-    } else if (status === 500) toast.error("Something went wrong!");
+    } else if (status === 500) toast.error("দুঃখিত! কোনো একটা সমস্যা হয়েছে।");
     else toast.error(messageData);
 
     return Promise.reject(error);

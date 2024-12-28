@@ -16,10 +16,7 @@ export interface TJob {
   updatedAt: string;
   jobRole: string;
   applicants: [string];
-  birthCertificate: string;
-  portEntryPermit: string;
-  division: string;
-  district: string;
-  name: string | TUser;
+  isBirthCertificateRequired: boolean;
+  isPortEntryPermitRequired: boolean;
   __v: number;
 }

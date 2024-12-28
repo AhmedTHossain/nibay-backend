@@ -11,8 +11,16 @@ const jobSchema = new mongoose.Schema<TJob, object>(
     applicationDeadline: { type: Date, required: true },
     salary: { type: String, required: false, default: null },
     jobRole: { type: String, required: true },
-    birthCertificate: { type: String, required: false },
-    portEntryPermit: { type: String, required: false },
+    isBirthCertificateRequired: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    isPortEntryPermitRequired: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
     division: {
       type: String,
       required: false

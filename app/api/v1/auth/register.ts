@@ -21,8 +21,7 @@ export async function register(request: NextRequest) {
     const address = (formData.get("address") as string) || null;
     const email = (formData.get("email") as string) || null;
     const password = (formData.get("password") as string) || null;
-    let profilePhoto =
-      (formData.get("image") as File | string | null) || null;
+    let profilePhoto = (formData.get("image") as File | string | null) || null;
 
     if (profilePhoto === "null") profilePhoto = null;
 
@@ -31,7 +30,7 @@ export async function register(request: NextRequest) {
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return NextResponse.json(
-        { error: "Invalid credentials!" },
+        { error: "ইমেইল/পাসওয়ার্ড অনুরূপ হয়নি" },
         { status: 400 }
       );
     }

@@ -9,7 +9,6 @@ const advertisementSchema = new mongoose.Schema<TJob, object>(
     experience: { type: String, required: true },
     qualification: { type: String, required: true },
     applicationDeadline: { type: Date, required: true },
-    location: { type: String, required: true },
     salary: { type: String, required: false, default: null },
     jobRole: { type: String, required: true },
     user: {
