@@ -6,7 +6,7 @@ import mongoose  from 'mongoose';
 
 /**
  * @swagger
- * /api/v1/reviews/user-reviews/{userId}:
+ * /api/v1/mobile/get-reviews/{id}:
  *   get:
  *     summary: Get user reviews
  *     description: Fetches reviews for a specific user, including details of all employers who provided reviews.
@@ -59,17 +59,16 @@ import mongoose  from 'mongoose';
  *         description: Server error.
  */
 
-export async function GET(request: NextRequest, { params }: { params: { userId: string } }) {
+export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
   try {
-    let { userId } = params;
-
-    if (!userId) {
+    const { id } = params;
+    if (!id) {
       return NextResponse.json({ error: "Invalid input!" }, { status: 400 });
     }
 
     await connectToMongoDB();
-    userId = new mongoose.Types.ObjectId(userId);
-
+    
+    const userId = new mongoose.Types.ObjectId(id);
 
     const user = await User.findById(userId).populate({
       path: "reviews_from_employers._id", 
@@ -84,7 +83,7 @@ export async function GET(request: NextRequest, { params }: { params: { userId: 
 
     const reviews = user.reviews_from_employers.map((review: any) => ({
       _id: review._id?._id, 
-      name: review._id?.name, 
+      company_name: review._id?.name, 
       profilePhoto: review._id?.profilePhoto, 
       rating: review.rating, 
       review: review.review, 

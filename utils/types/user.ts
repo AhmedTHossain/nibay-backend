@@ -31,4 +31,6 @@ export interface TUser {
   followers: Array<string>;
   reviews_for_employees: Array<string>;
   reviews_from_employers: Array<string>;
+  id: string;
+  job: string;
 }
