@@ -66,16 +66,17 @@ export const EDUCTATION_LEVELS = [
 ];
 
 export const JOB_ROLES = [
-  { label: "সব", value: "all" },
-  { label: "চেকার", value: "checker" },
-  { label: "কাউন্টার মাস্টারr", value: "counter-master" },
-  { label: "ড্রাইভার", value: "driver" },
-
-  { label: "ফোরম্যান", value: "foreman" },
-  { label: "জিএম (জেনারেল ম্যানেজার)", value: "GM" },
-  { label: "হেল্পার", value: "helper" },
-  { label: "ম্যানেজার", value: "manager" },
-  { label: "মেকানিক/মিস্ত্রি", value: "mechanic" },
-  { label: "সুপারভাইজার/প্যাসেঞ্জার গাইড", value: "Supervisor" },
-  { label: "ট্রাক ড্রাইভার", value: "truck-driver" }
+  { label: "চেকার", value: "চেকার" },
+  { label: "কাউন্টার মাস্টার", value: "কাউন্টার মাস্টার" },
+  { label: "ড্রাইভার", value: "ড্রাইভার" },
+  { label: "ফোরম্যান", value: "ফোরম্যান" },
+  { label: "জিএম (জেনারেল ম্যানেজার)", value: "জিএম (জেনারেল ম্যানেজার)" },
+  { label: "হেল্পার", value: "হেল্পার" },
+  { label: "ম্যানেজার", value: "ম্যানেজার" },
+  { label: "মেকানিক/মিস্ত্রি", value: "মেকানিক/মিস্ত্রি" },
+  {
+    label: "সুপারভাইজার/প্যাসেঞ্জার গাইড",
+    value: "সুপারভাইজার/প্যাসেঞ্জার গাইড"
+  },
+  { label: "ট্রাক ড্রাইভার", value: "ট্রাক ড্রাইভার" }
 ];

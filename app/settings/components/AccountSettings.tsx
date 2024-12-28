@@ -112,13 +112,11 @@ export function AccountSettings() {
     // eslint-disable-next-line
   }, [currentUser]);
 
-  console.log("-------------------", currentUser)
-
   useEffect(() => {
     if (currentUser) {
       setDistricts(
-        DIVISIONS.find((item) => item.division === currentUser.division)
-          ?.districts as [] || []
+        (DIVISIONS.find((item) => item.division === currentUser.division)
+          ?.districts as []) || []
       );
     }
   }, [currentUser]);
@@ -212,8 +210,8 @@ export function AccountSettings() {
                         form.setValue("district", "");
 
                         setDistricts(
-                          DIVISIONS.find((item) => item.division === value)
-                            ?.districts as [] || []
+                          (DIVISIONS.find((item) => item.division === value)
+                            ?.districts as []) || []
                         );
                       }}
                     >

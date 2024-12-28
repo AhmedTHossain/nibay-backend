@@ -61,12 +61,6 @@ export const JOB_ITEMS = [
   }
 ];
 
-export const JOB_TYPES: [string, ...string[]] = [
-  "ফুল টাইম",
-  "পার্ট টাইম",
-  "রিমোট"
-];
-
 export const JOB_ROLES_ENUMS: [string, ...string[]] = [
   "চেকার",
   "কাউন্টার মাস্টার",
@@ -76,5 +70,6 @@ export const JOB_ROLES_ENUMS: [string, ...string[]] = [
   "হেল্পার",
   "ম্যানেজার",
   "মেকানিক/মিস্ত্রি",
-  "সুপারভাইজার/প্যাসেঞ্জার গাইড"
+  "সুপারভাইজার/প্যাসেঞ্জার গাইড",
+  "ট্রাক ড্রাইভার"
 ];

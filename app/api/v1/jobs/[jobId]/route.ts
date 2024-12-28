@@ -67,8 +67,9 @@ export async function PATCH(request: NextRequest, { params }: TUserParams) {
       qualification,
       experience,
       applicationDeadline,
-      location,
-      salary
+      salary,
+      division,
+      district
     } = await request.json();
 
     await Job.findOneAndUpdate(
@@ -80,8 +81,9 @@ export async function PATCH(request: NextRequest, { params }: TUserParams) {
         qualification,
         experience,
         applicationDeadline,
-        location,
-        salary
+        salary,
+        division,
+        district
       },
       { new: true, runValidators: true }
     );

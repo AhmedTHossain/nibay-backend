@@ -24,27 +24,29 @@ interface JobDeleteModalProps {
 export function JobDeleteModal(props: JobDeleteModalProps) {
   const { open, setIsOpen, jobId } = props;
   const [isLoading, setIsLoading] = useState(false);
-  const { setJobs, refetch } = useJobs();
+  const { jobs, setJobs, refetch } = useJobs();
 
   const handleDelete = () => {
-    api_client
-      .delete(`jobs/${jobId}`)
-      .then((res) => {
-        setJobs((prevJobs) => prevJobs.filter((job) => job._id !== jobId));
+    const updatedJobs = jobs.filter((item) => item._id !== jobId);
+    console.log("-----------", updatedJobs);
+    setJobs(updatedJobs);
+    setIsOpen(false);
 
-        if (res.data.status === "success") {
-          toast.success(res.data.message);
-          refetch();
+    // api_client
+    //   .delete(`jobs/${jobId}`)
+    //   .then((res) => {
+    //     if (res.data.status === "success") {
+    //       toast.success(res.data.message);
 
-          setIsOpen(false);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+    //       setIsOpen(false);
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   })
+    //   .finally(() => {
+    //     setIsLoading(false);
+    //   });
   };
 
   return (

@@ -8,13 +8,13 @@ export interface TJob {
   shortDescription: string;
   longDescription: string;
   experience: string;
-  location: string;
+  division: string;
+  district: string;
   qualification: string;
   salary: string | null;
   title: string;
   updatedAt: string;
   jobRole: string;
-  jobType: string;
   applicants: [string];
   birthCertificate: string;
   portEntryPermit: string;

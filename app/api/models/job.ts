@@ -9,12 +9,18 @@ const jobSchema = new mongoose.Schema<TJob, object>(
     experience: { type: String, required: true },
     qualification: { type: String, required: true },
     applicationDeadline: { type: Date, required: true },
-    location: { type: String, required: true },
     salary: { type: String, required: false, default: null },
     jobRole: { type: String, required: true },
-    jobType: { type: String, required: true },
     birthCertificate: { type: String, required: false },
     portEntryPermit: { type: String, required: false },
+    division: {
+      type: String,
+      required: false
+    },
+    district: {
+      type: String,
+      required: false
+    },
     applicants: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
     user: {
       type: mongoose.Schema.Types.String,

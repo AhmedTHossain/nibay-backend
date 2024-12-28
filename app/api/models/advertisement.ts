@@ -12,7 +12,6 @@ const advertisementSchema = new mongoose.Schema<TJob, object>(
     location: { type: String, required: true },
     salary: { type: String, required: false, default: null },
     jobRole: { type: String, required: true },
-    jobType: { type: String, required: true },
     user: {
       type: mongoose.Schema.Types.String,
       ref: "User"
@@ -22,6 +21,7 @@ const advertisementSchema = new mongoose.Schema<TJob, object>(
 );
 
 const Advertisement: Model<TJob> =
-  mongoose.models?.Advertisement || mongoose.model("Advertisement", advertisementSchema);
+  mongoose.models?.Advertisement ||
+  mongoose.model("Advertisement", advertisementSchema);
 
 export default Advertisement;

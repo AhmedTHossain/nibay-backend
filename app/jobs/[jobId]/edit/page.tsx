@@ -1,6 +1,6 @@
 "use client";
 
-import { JOB_ROLES_ENUMS, JOB_TYPES } from "@/app/assets/resources";
+import { DIVISIONS, JOB_ROLES_ENUMS } from "@/app/assets/resources";
 import Header from "@/app/components/header";
 import useJobById from "@/app/hooks/jobs/useJobById";
 import Footer from "@/components/sections/Footer";
@@ -8,11 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { api_client } from "@/lib/axios";
-import {
-  EDUCATION_PRECEDENCE,
-  EDUCTATION_LEVELS,
-  JOB_ROLES
-} from "@/lib/constant";
+import { EDUCTATION_LEVELS, JOB_ROLES } from "@/lib/constant";
 import { REQUIRED_ERROR } from "@/lib/error";
 import { TJob } from "@/utils/types/job";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -24,6 +20,15 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from "@/components/ui/select";
+import { useUserInfo } from "@/app/hooks/useUserInfo";
 
 const jobSchema = z.object({
   title: z.string().min(1, REQUIRED_ERROR),
@@ -37,16 +42,17 @@ const jobSchema = z.object({
     .refine((date) => !isNaN(Date.parse(date)), {
       message: "Deadline must be a valid date."
     }),
-  location: z.string().min(1, REQUIRED_ERROR),
-  salary: z.string().nullable(),
-  jobType: z.enum(JOB_TYPES, {
-    errorMap: () => ({ message: REQUIRED_ERROR })
-  }),
-  jobRole: z.enum(JOB_ROLES_ENUMS, {
-    errorMap: () => ({ message: REQUIRED_ERROR })
-  }),
-  birthCertificate: z.string().nullable(),
-  portEntryPermit: z.string().nullable()
+  salary: z
+    .string()
+    .refine((val) => !Number.isNaN(parseInt(val, 10)), {
+      message: "Expected number, received a string"
+    })
+    .optional(),
+  jobRole: z.enum(JOB_ROLES_ENUMS),
+  birthCertificate: z.string().optional(),
+  portEntryPermit: z.string().optional(),
+  division: z.string().min(1, REQUIRED_ERROR),
+  district: z.string().min(1, REQUIRED_ERROR)
 });
 
 export type TJobProps = Omit<
@@ -66,7 +72,7 @@ export default function EditJobRoute({
   const [qualification, setQualification] = useState<string>();
   const [experience, setExperience] = useState<string>();
   const [jobRole, setJobRole] = useState<string>();
-  const [jobType, setJobType] = useState<string>();
+  const [districts, setDistricts] = useState([]);
 
   const form = useForm<z.infer<typeof jobSchema>>({
     resolver: zodResolver(jobSchema),
@@ -77,12 +83,12 @@ export default function EditJobRoute({
       qualification: "NO_FORMAL_EDUCATION",
       experience: "0-1",
       applicationDeadline: moment().format("YYYY-MM-DDTHH:mm"),
-      location: "",
-      salary: "",
+      salary: "0",
       jobRole: "চেকার",
-      jobType: "ফুল টাইম",
       birthCertificate: "",
-      portEntryPermit: ""
+      portEntryPermit: "",
+      division: "",
+      district: ""
     }
   });
 
@@ -132,6 +138,15 @@ export default function EditJobRoute({
     }
 
     // eslint-disable-next-line
+  }, [job]);
+
+  useEffect(() => {
+    if (job) {
+      setDistricts(
+        (DIVISIONS.find((item) => item.division === job.division)
+          ?.districts as []) || []
+      );
+    }
   }, [job]);
 
   return (
@@ -327,27 +342,68 @@ export default function EditJobRoute({
                     )}
 
                     <div className="mb-4 text-left">
-                      <label className="font-semibold" htmlFor="jobType">
-                        চাকরির ধরন
+                      <label className="font-semibold" htmlFor="division">
+                        বিভাগ
                       </label>
-                      <select
-                        id="jobType"
-                        value={jobType}
-                        onChange={(event) => {
-                          const value = event.target.value;
-                          setJobType(value);
-                          form.setValue("jobType", value);
+                      <Select
+                        defaultValue={job?.division}
+                        onValueChange={(value) => {
+                          form.setValue("division", value);
+                          form.setValue("district", "");
+
+                          setDistricts(
+                            (DIVISIONS.find((item) => item.division === value)
+                              ?.districts as []) || []
+                          );
                         }}
                       >
-                        {JOB_TYPES.map((item, idx) => {
-                          return (
-                            <option key={idx} value={item}>
-                              {item}
-                            </option>
-                          );
-                        })}
-                      </select>
+                        <SelectTrigger className="">
+                          <SelectValue placeholder="বিভাগ" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup>
+                            {DIVISIONS.map((item) => {
+                              return (
+                                <SelectItem key={item.id} value={item.division}>
+                                  {item.division}
+                                </SelectItem>
+                              );
+                            })}
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
                     </div>
+
+                    {districts.length > 0 ? (
+                      <div className="mb-4 text-left">
+                        <label className="font-semibold" htmlFor="division">
+                          জেলা
+                        </label>
+                        <Select
+                          defaultValue={job?.district}
+                          onValueChange={(value) =>
+                            form.setValue("district", value)
+                          }
+                        >
+                          <SelectTrigger className="">
+                            <SelectValue placeholder="জেলা" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectGroup>
+                              {districts.map((item, idx) => {
+                                return (
+                                  <SelectItem key={idx} value={item}>
+                                    {item}
+                                  </SelectItem>
+                                );
+                              })}
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    ) : (
+                      <div></div>
+                    )}
 
                     <div className="mb-4 text-left">
                       <label
@@ -384,23 +440,12 @@ export default function EditJobRoute({
                     </div>
 
                     <div className="mb-4 text-left">
-                      <label className="font-semibold" htmlFor="location">
-                        কর্মস্থল
-                      </label>
-                      <Input
-                        id="location"
-                        className="mt-3"
-                        placeholder="কর্মস্থল"
-                        {...form.register("location")}
-                      />
-                    </div>
-
-                    <div className="mb-4 text-left">
                       <label className="font-semibold" htmlFor="salary">
                         বেতন
                       </label>
                       <Input
                         id="salary"
+                        type="number"
                         className="mt-3"
                         placeholder="বেতন"
                         {...form.register("salary")}

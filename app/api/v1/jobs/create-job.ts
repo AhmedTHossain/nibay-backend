@@ -26,10 +26,10 @@ export async function createJob(request: NextRequest) {
       experience,
       qualification,
       applicationDeadline,
-      location,
       salary,
-      jobType,
-      jobRole
+      jobRole,
+      division,
+      district
     } = await request.json();
 
     await Job.create({
@@ -39,10 +39,10 @@ export async function createJob(request: NextRequest) {
       experience,
       qualification,
       applicationDeadline,
-      location,
       salary,
-      jobType,
       jobRole,
+      district,
+      division,
       user: user._id
     });
 
