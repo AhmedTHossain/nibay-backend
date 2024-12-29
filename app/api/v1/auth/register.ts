@@ -37,7 +37,7 @@ export async function register(request: NextRequest) {
     }
     let profilePhotoPath: string | null = null;
     if (profilePhoto) {
-      profilePhotoPath = await processFile(profilePhoto as File, "uploads");
+      profilePhotoPath = await processFile(profilePhoto as File);
     }
 
     const hashedPassword = await bcrypt.hash(password as string, 10);
@@ -111,24 +111,20 @@ export async function mobileRegister(request: NextRequest) {
       maxEducationLevelCertificateCopyPath = null;
 
     if (profilePhoto !== null) {
-      profilePhotoPath = await processFile(profilePhoto as File, "uploads");
+      profilePhotoPath = await processFile(profilePhoto as File);
     }
 
     if (nidCopy !== null) {
-      nidCopyPath = await processFile(nidCopy as File, "uploads");
+      nidCopyPath = await processFile(nidCopy as File);
     }
 
     if (drivingLicenseCopy !== null) {
-      drivingLicenseCopyPath = await processFile(
-        drivingLicenseCopy as File,
-        "uploads"
-      );
+      drivingLicenseCopyPath = await processFile(drivingLicenseCopy as File);
     }
 
     if (maxEducationLevelCertificateCopy !== null) {
       maxEducationLevelCertificateCopyPath = await processFile(
-        maxEducationLevelCertificateCopy as File,
-        "uploads"
+        maxEducationLevelCertificateCopy as File
       );
     }
 

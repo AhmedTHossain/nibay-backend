@@ -72,7 +72,7 @@ function ProfileMenu() {
     <Menubar className="border-0 bg-transparent dark:bg-transparent dark:border-0">
       <MenubarMenu>
         <MenubarTrigger className="focus:bg-transparent dark:bg-transparent data-[state=open]:bg-transparent dark:data-[state=open]:bg-transparent">
-          <Avatar title="FS" image={user?.profilePhoto} />
+          <Avatar title="FS" image={`/uploads/${user?.profilePhoto}`} />
         </MenubarTrigger>
         <MenubarContent>
           <MenubarItem

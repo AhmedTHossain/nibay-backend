@@ -26,7 +26,7 @@ export async function updateUserAccount(
 
   let image = user.profilePhoto;
   if (file) {
-    image = await processFile(file as File, "uploads");
+    image = await processFile(file as File);
   }
 
   await User.findOneAndUpdate(

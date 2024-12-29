@@ -57,7 +57,7 @@ export default function ApplicantProfileRoute({
                         {user?.profilePhoto && (
                           <Image
                             alt={user?.name as string}
-                            src={user?.profilePhoto as string}
+                            src={`/uploads/${user?.profilePhoto}`}
                             className="size-28 rounded-full shadow dark:shadow-gray-800 ring-4 ring-slate-50 dark:ring-slate-800"
                             width={100}
                             height={100}
