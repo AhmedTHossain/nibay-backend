@@ -9,9 +9,11 @@ import Link from "next/link";
 import { useState } from "react";
 import { ApplicantListModal } from "../components/ApplicantListModal";
 import moment from "moment";
-import { TimerOff } from "lucide-react";
+import { Edit, TimerOff, Trash } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { formatEnglishToBangalNum } from "@/utils/formatEtoBLang";
+import { useRouter } from "next/navigation";
+import { JobDeleteModal } from "../components/JobDeleteModal";
 
 export default function JobDetailsRoute({
   params
@@ -19,12 +21,18 @@ export default function JobDetailsRoute({
   params: { jobId: string };
 }) {
   const [open, setIsOpen] = useState(false);
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
   const { job } = useJobById({ jobId: params.jobId });
 
   return (
     <>
       <ApplicantListModal open={open} setIsOpen={setIsOpen} />
+      <JobDeleteModal
+        open={isDeleteOpen}
+        setIsOpen={setIsDeleteOpen}
+        jobId={params.jobId}
+      />
 
       <Header />
       <HeroSection title={job?.title as string} />
@@ -141,6 +149,35 @@ export default function JobDetailsRoute({
                             </span>
                           </div>
                         </li>
+
+                        <li className="mt-10 flex items-center gap-4">
+                          <p
+                            className="rounded-md bg-emerald-600/5 hover:bg-emerald-500 border-emerald-600/10 hover:border-emerald-600 text-emerald-600 duration-200 transition-all hover:text-white md:relative flex items-center justify-center px-4 py-2 space-x-1 cursor-pointer text-sm font-medium"
+                            title="চাকরিটি এডিট করুন"
+                            onClick={(event) => {
+                              event.stopPropagation();
+                              // router.push(`/jobs/${_id}/edit`);
+                            }}
+                          >
+                            <span>
+                              <Edit strokeWidth={1.7} size={16} />
+                            </span>
+                            <span>Edit</span>
+                          </p>
+                          <p
+                            className="rounded-md bg-red-600/5 hover:bg-red-500 border-red-600/10 hover:border-red-600 text-red-600 duration-200 transition-all hover:text-white md:relative flex items-center justify-center px-4 py-2 space-x-1 cursor-pointer text-sm font-medium"
+                            title="চাকরিটি ডিলিট করুন"
+                            onClick={(event) => {
+                              event.stopPropagation();
+                              setIsDeleteOpen(true);
+                            }}
+                          >
+                            <span>
+                              <Trash strokeWidth={1.7} size={16} />
+                            </span>
+                            <span>Delete</span>
+                          </p>
+                        </li>
                       </ul>
                     </div>
                   </div>
@@ -148,13 +185,15 @@ export default function JobDetailsRoute({
                 <div className="lg:col-span-8 md:col-span-6">
                   <div className="pt-6 flex items-start justify-between">
                     <div></div>
-                    <div className="mb-5 flex justify-end">
-                      <Link href={`/jobs/1/applicant-list`}>
-                        <Button className="bg-emerald-600/5 border-emerald-100 border hover:bg-emerald-600 hover:border-emerald-600 text-emerald-600 hover:text-white rounded-md ms-2">
-                          আবেদনকারীর তালিকা (১০)
-                        </Button>
-                      </Link>
-                    </div>
+                    {job && job?.applicants?.length > 0 && (
+                      <div className="mb-5 flex justify-end">
+                        <Link href={`/jobs/${params.jobId}/applicant-list`}>
+                          <Button className="bg-emerald-600/5 border-emerald-100 border hover:bg-emerald-600 hover:border-emerald-600 text-emerald-600 hover:text-white rounded-md ms-2">
+                            আবেদনকারীর তালিকা ({job?.applicants?.length})
+                          </Button>
+                        </Link>
+                      </div>
+                    )}
                   </div>
 
                   {job?.shortDescription && (

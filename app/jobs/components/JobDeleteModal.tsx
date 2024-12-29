@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/dialog";
 import { api_client } from "@/lib/axios";
 import { Loader } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
 import { Dispatch, SetStateAction, useState } from "react";
 import { toast } from "sonner";
 
@@ -26,6 +27,8 @@ export function JobDeleteModal(props: JobDeleteModalProps) {
   const { open, setIsOpen, jobId } = props;
   const [isLoading, setIsLoading] = useState(false);
   const { setJobs } = useJobContext();
+  const pathname = usePathname();
+  const router = useRouter();
 
   const handleDelete = async () => {
     setIsLoading(true);
@@ -34,6 +37,9 @@ export function JobDeleteModal(props: JobDeleteModalProps) {
       if (res.data.status === "success") {
         setJobs((prevJobs) => prevJobs.filter((item) => item._id !== jobId));
         toast.success(res.data.message);
+        if (pathname.includes("jobs")) {
+          router.push("/jobs");
+        }
         setIsOpen(false);
       }
     } catch (err) {

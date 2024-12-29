@@ -4,6 +4,7 @@ import { uploadFile, uploadFileMiddleware } from "@/lib/upload";
 import bcrypt from "bcryptjs";
 import { NextRequest, NextResponse } from "next/server";
 import User from "../../models/user";
+import { processFile } from "@/lib/processFile";
 
 export async function register(request: NextRequest) {
   try {
@@ -34,15 +35,9 @@ export async function register(request: NextRequest) {
         { status: 400 }
       );
     }
-
-    let image = null;
-
-    if (profilePhoto !== null) {
-      // eslint-disable-next-line
-      // @ts-ignore
-      await uploadFileMiddleware(request, {}, uploadFile.single("image"));
-      const buffer = await (profilePhoto as File).arrayBuffer();
-      image = `data:${(profilePhoto as File).type};base64,${Buffer.from(buffer).toString("base64")}`;
+    let profilePhotoPath: string | null = null;
+    if (profilePhoto) {
+      profilePhotoPath = await processFile(profilePhoto as File, "uploads");
     }
 
     const hashedPassword = await bcrypt.hash(password as string, 10);
@@ -55,7 +50,7 @@ export async function register(request: NextRequest) {
       address,
       division,
       district,
-      profilePhoto: image,
+      profilePhoto: profilePhotoPath,
       organizationType,
       organizationContactPerson
     });
@@ -72,6 +67,7 @@ export async function mobileRegister(request: NextRequest) {
 
     const name = (formData.get("name") as string) || null;
     const role = (formData.get("role") as string) || null;
+    const email = (formData.get("email") as string) || null;
     const phone = (formData.get("phone") as string) || null;
     const nidNumber = (formData.get("nidNumber") as string) || null;
     const division = (formData.get("division") as string) || null;
@@ -82,7 +78,8 @@ export async function mobileRegister(request: NextRequest) {
     const yearsOfExperience =
       (formData.get("yearsOfExperience") as string) || null;
 
-    let profilePhoto = (formData.get("image") as File | string | null) || null;
+    let profilePhoto =
+      (formData.get("profilePhoto") as File | string | null) || null;
     let nidCopy = (formData.get("nidCopy") as File | string | null) || null;
     let drivingLicenseCopy =
       (formData.get("drivingLicenseCopy") as File | string | null) || null;
@@ -108,71 +105,48 @@ export async function mobileRegister(request: NextRequest) {
       );
     }
 
-    let image = null,
-      nidCopyFile = null,
-      drivingLicenseCopyFile = null,
-      maxEducationLevelCertificateCopyFile = null;
+    let profilePhotoPath = null,
+      nidCopyPath = null,
+      drivingLicenseCopyPath = null,
+      maxEducationLevelCertificateCopyPath = null;
 
     if (profilePhoto !== null) {
-      // eslint-disable-next-line
-      // @ts-ignore
-      await uploadFileMiddleware(request, {}, uploadFile.single("image"));
-      const buffer = await (profilePhoto as File).arrayBuffer();
-      image = `data:${(profilePhoto as File).type};base64,${Buffer.from(buffer).toString("base64")}`;
+      profilePhotoPath = await processFile(profilePhoto as File, "uploads");
     }
 
     if (nidCopy !== null) {
-      // eslint-disable-next-line
-      // @ts-ignore
-      await uploadFileMiddleware(request, {}, uploadFile.single("nidCopy"));
-      const buffer = await (nidCopy as File).arrayBuffer();
-      nidCopyFile = `data:${(nidCopy as File).type};base64,${Buffer.from(buffer).toString("base64")}`;
+      nidCopyPath = await processFile(nidCopy as File, "uploads");
     }
 
     if (drivingLicenseCopy !== null) {
-      // eslint-disable-next-line
-      // @ts-ignore
-      await uploadFileMiddleware(
-        request,
-        // eslint-disable-next-line
-        // @ts-ignore
-        {},
-        uploadFile.single("drivingLicenseCopy")
+      drivingLicenseCopyPath = await processFile(
+        drivingLicenseCopy as File,
+        "uploads"
       );
-      const buffer = await (drivingLicenseCopy as File).arrayBuffer();
-      drivingLicenseCopyFile = `data:${(drivingLicenseCopy as File).type};base64,${Buffer.from(buffer).toString("base64")}`;
     }
 
     if (maxEducationLevelCertificateCopy !== null) {
-      // eslint-disable-next-line
-      // @ts-ignore
-      await uploadFileMiddleware(
-        request,
-        // eslint-disable-next-line
-        // @ts-ignore
-        {},
-        uploadFile.single("maxEducationLevelCertificateCopy")
+      maxEducationLevelCertificateCopyPath = await processFile(
+        maxEducationLevelCertificateCopy as File,
+        "uploads"
       );
-      const buffer = await (
-        maxEducationLevelCertificateCopy as File
-      ).arrayBuffer();
-      maxEducationLevelCertificateCopyFile = `data:${(maxEducationLevelCertificateCopy as File).type};base64,${Buffer.from(buffer).toString("base64")}`;
     }
 
     const newUser = await User.create({
       name,
       role: Number(role),
+      email,
       phone,
       division,
       district,
-      profilePhoto: image,
+      profilePhoto: profilePhotoPath,
       nidNumber,
       maxEducationLevel: Number(maxEducationLevel),
       drivingLicense,
       yearsOfExperience,
-      nidCopy: nidCopyFile,
-      maxEducationLevelCertificateCopy: maxEducationLevelCertificateCopyFile,
-      drivingLicenseCopy: drivingLicenseCopyFile
+      nidCopy: nidCopyPath,
+      maxEducationLevelCertificateCopy: maxEducationLevelCertificateCopyPath,
+      drivingLicenseCopy: drivingLicenseCopyPath
     });
 
     return NextResponse.json({

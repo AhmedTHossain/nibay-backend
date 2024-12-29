@@ -40,7 +40,7 @@ const jobSchema = z.object({
   longDescription: z
     .string()
     .min(1, REQUIRED_ERROR)
-    .max(200, "সর্বোচ্চ ২০০ টি শব্দ গ্রহনযোগ্য"),
+    .max(500, "সর্বোচ্চ ৫০০ টি শব্দ গ্রহনযোগ্য"),
   qualification: z.string().min(1, REQUIRED_ERROR),
   experience: z.string().min(1, REQUIRED_ERROR),
   isBirthCertificateRequired: z.boolean().optional(),
@@ -208,7 +208,7 @@ export default function NewJobRoute() {
                     <Textarea
                       id="longDescription"
                       className="mt-1"
-                      placeholder="কাজের বিবরণ - সর্বোচ্চ ২০০ টি শব্দ গ্রহনযোগ্য"
+                      placeholder="কাজের বিবরণ - সর্বোচ্চ ৫০০ টি শব্দ গ্রহনযোগ্য"
                       rows={4}
                       {...form.register("longDescription")}
                     />

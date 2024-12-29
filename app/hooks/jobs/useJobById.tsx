@@ -6,25 +6,25 @@ const useJobById = ({ jobId }: { jobId: string }) => {
   const [job, setJob] = useState<TJob>();
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    async function fetchJobs() {
-      setIsLoading(true);
-      api_client
-        .get(`jobs/${jobId}`)
-        .then((res) => {
-          setJob(res.data.data);
-        })
-        .catch(() => {})
-        .finally(() => {
-          setIsLoading(false);
-        });
-    }
+  async function fetchJob() {
+    setIsLoading(true);
+    api_client
+      .get(`jobs/${jobId}`)
+      .then((res) => {
+        setJob(res.data.data);
+      })
+      .catch(() => {})
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }
 
-    fetchJobs();
+  useEffect(() => {
+    fetchJob();
     // eslint-disable-next-line
   }, []);
 
-  return { job, isLoading };
+  return { job, isLoading, refetch: fetchJob };
 };
 
 export default useJobById;

@@ -3,6 +3,7 @@ import { TUser } from "@/utils/types/user";
 import bcrypt from "bcryptjs";
 import { NextRequest, NextResponse } from "next/server";
 import User from "../../models/user";
+import { processFile } from "@/lib/processFile";
 
 export async function updateUserAccount(
   request: NextRequest,
@@ -24,12 +25,8 @@ export async function updateUserAccount(
   if (file === "null") file = null;
 
   let image = user.profilePhoto;
-  if (file !== null) {
-    // eslint-disable-next-line
-    // @ts-ignore
-    await uploadFileMiddleware(request, {}, uploadFile.single("image"));
-    const buffer = await (file as File).arrayBuffer();
-    image = `data:${(file as File).type};base64,${Buffer.from(buffer).toString("base64")}`;
+  if (file) {
+    image = await processFile(file as File, "uploads");
   }
 
   await User.findOneAndUpdate(

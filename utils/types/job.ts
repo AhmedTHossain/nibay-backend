@@ -15,7 +15,7 @@ export interface TJob {
   title: string;
   updatedAt: string;
   jobRole: string;
-  applicants: [string];
+  applicants: TUser[];
   isBirthCertificateRequired: boolean;
   isPortEntryPermitRequired: boolean;
   __v: number;

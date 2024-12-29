@@ -3,13 +3,49 @@ import { handleError } from "@/lib/handleErrors";
 import { NextRequest, NextResponse } from "next/server";
 import { updateUserAccount, updateUserPassword } from "../settings";
 import User from "@/app/api/models/user";
+import { authMiddleware } from "@/app/api/middleware/auth";
 
 interface TUserParams {
   params: { userId: string };
 }
+
+export async function GET(request: NextRequest, { params }: TUserParams) {
+  try {
+    const auth = authMiddleware(request);
+    if (auth instanceof NextResponse) {
+      return auth;
+    }
+
+    await connectToMongoDB();
+
+    const authUser = await User.findById(auth.userId);
+    if (!authUser) {
+      return NextResponse.json(
+        { error: "You are not authenticated" },
+        { status: 404 }
+      );
+    }
+
+    const userId = params.userId;
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return NextResponse.json({ error: "User not found!" }, { status: 404 });
+    }
+
+    return NextResponse.json({
+      status: "success",
+      message: "User fetched",
+      data: user
+    });
+  } catch (error) {
+    return handleError(error);
+  }
+}
+
 /**
  * @swagger
- * /users/{userId}:
+ * /user/{userId}:
  *   patch:
  *     summary: Update user account information
  *     description: Updates the account details for a specific user. Requires authentication.
@@ -115,7 +151,6 @@ interface TUserParams {
  *                   type: string
  *                   example: Internal server error.
  */
-
 export async function PATCH(request: NextRequest, { params }: TUserParams) {
   try {
     const userId = params.userId;

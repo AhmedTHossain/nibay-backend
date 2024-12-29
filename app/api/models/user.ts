@@ -1,4 +1,8 @@
-import { MAX_EDUCATION_LEVEL, USER_ROLE } from "@/lib/constant";
+import {
+  APPLICATION_STATUS,
+  MAX_EDUCATION_LEVEL,
+  USER_ROLE
+} from "@/lib/constant";
 import { TUser } from "@/utils/types/user";
 import mongoose, { Model } from "mongoose";
 
@@ -107,14 +111,20 @@ const userSchema = new mongoose.Schema<TUser, object, IUserMethods>(
     },
     reviews_for_employees: {
       type: [],
-      required:false
+      required: false
     },
     reviews_from_employers: {
       type: [],
-      required:false
+      required: false
     },
     birthCertificate: { type: String, required: false },
     portEntryPermit: { type: String, required: false },
+    applicationStatus: {
+      type: String,
+      enum: Object.keys(APPLICATION_STATUS),
+      default: "PENDING",
+      required: false
+    },
 
     jobsApplied: [{ type: mongoose.Schema.Types.ObjectId, ref: "Job" }]
   },

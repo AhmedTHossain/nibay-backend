@@ -1,10 +1,11 @@
-import { ROLE } from "@/lib/constant";
+import { APPLICATION_STATUS } from "@/lib/constant";
 
 export interface TUser {
   _id: string;
   name: string;
   email: string;
   role: string;
+  applicationStatus: keyof typeof APPLICATION_STATUS;
   password: string;
   phone: string;
   nidNumber: string;

@@ -32,9 +32,18 @@ import { useUserInfo } from "@/app/hooks/useUserInfo";
 import { useJobContext } from "@/app/contexts/JobContext";
 
 const jobSchema = z.object({
-  title: z.string().min(1, REQUIRED_ERROR),
-  shortDescription: z.string().min(1, REQUIRED_ERROR),
-  longDescription: z.string().min(1, REQUIRED_ERROR),
+  title: z
+    .string()
+    .min(1, REQUIRED_ERROR)
+    .max(40, "সর্বোচ্চ ৪০ টি শব্দ গ্রহনযোগ্য"),
+  shortDescription: z
+    .string()
+    .min(1, REQUIRED_ERROR)
+    .max(80, "সর্বোচ্চ ৮০ টি শব্দ গ্রহনযোগ্য"),
+  longDescription: z
+    .string()
+    .min(1, REQUIRED_ERROR)
+    .max(500, "সর্বোচ্চ ৫০০ টি শব্দ গ্রহনযোগ্য"),
   qualification: z.string().min(1, REQUIRED_ERROR),
   experience: z.string().min(1, REQUIRED_ERROR),
   applicationDeadline: z
@@ -50,8 +59,8 @@ const jobSchema = z.object({
     })
     .optional(),
   jobRole: z.enum(JOB_ROLES_ENUMS),
-  birthCertificate: z.string().optional(),
-  portEntryPermit: z.string().optional(),
+  isBirthCertificateRequired: z.boolean().optional(),
+  isPortEntryPermitRequired: z.boolean().optional(),
   division: z.string().min(1, REQUIRED_ERROR),
   district: z.string().min(1, REQUIRED_ERROR)
 });
@@ -87,8 +96,8 @@ export default function EditJobRoute({
       applicationDeadline: moment().format("YYYY-MM-DDTHH:mm"),
       salary: "0",
       jobRole: "চেকার",
-      birthCertificate: "",
-      portEntryPermit: "",
+      isBirthCertificateRequired: false,
+      isPortEntryPermitRequired: false,
       division: "",
       district: ""
     }
@@ -197,7 +206,7 @@ export default function EditJobRoute({
                       <Input
                         id="title"
                         className="mt-3"
-                        placeholder="চাকরির শিরোনাম"
+                        placeholder="চাকরির শিরোনাম - সর্বোচ্চ ৪০ টি শব্দ গ্রহনযোগ্য"
                         {...form.register("title")}
                       />
                     </div>
@@ -211,7 +220,7 @@ export default function EditJobRoute({
                       <Textarea
                         id="shortDescription"
                         className="mt-3"
-                        placeholder="কাজের সারসংক্ষেপ"
+                        placeholder="কাজের সারসংক্ষেপ - সর্বোচ্চ ৮০ টি শব্দ গ্রহনযোগ্য"
                         rows={4}
                         {...form.register("shortDescription")}
                       />
@@ -227,7 +236,7 @@ export default function EditJobRoute({
                       <Textarea
                         id="longDescription"
                         className="mt-3"
-                        placeholder="কাজের বিবরণ"
+                        placeholder="কাজের বিবরণ - সর্বোচ্চ ৫০০ টি শব্দ গ্রহনযোগ্য"
                         rows={4}
                         {...form.register("longDescription")}
                       />
@@ -299,6 +308,7 @@ export default function EditJobRoute({
                       </label>
                       <select
                         id="jobRole"
+                        defaultValue={job?.jobRole}
                         value={jobRole}
                         onChange={(event) => {
                           const value = event.target.value;
@@ -316,13 +326,13 @@ export default function EditJobRoute({
                       </select>
                     </div>
 
-                    {form.getValues("jobRole") === "truck-driver" && (
+                    {form.getValues("jobRole") === "ট্রাক ড্রাইভার" && (
                       <div className="mb-4 text-left flex items-center gap-8">
                         <div>
                           <input
                             type="checkbox"
                             id="chairman-birth-certificate"
-                            {...form.register("birthCertificate")}
+                            {...form.register("isBirthCertificateRequired")}
                           />
                           <label
                             htmlFor="chairman-birth-certificate"
@@ -335,7 +345,7 @@ export default function EditJobRoute({
                           <input
                             type="checkbox"
                             id="port-entry-permit"
-                            {...form.register("portEntryPermit")}
+                            {...form.register("isPortEntryPermitRequired")}
                           />
                           <label htmlFor="port-entry-permit" className="ml-1">
                             Port entry permit

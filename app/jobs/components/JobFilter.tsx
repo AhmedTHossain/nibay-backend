@@ -13,6 +13,7 @@ export function JobFilter() {
                 <Bolt size={18} color="#10b981" />
               </span>
               <select className="w-full text-sm bg-transparent dark:bg-transparent border-0 focus:outline-none px-4 py-0">
+                <option value="all">সব পেশা</option>
                 {JOB_ROLES.map((item, idx) => {
                   return (
                     <option key={idx} value={item.value}>

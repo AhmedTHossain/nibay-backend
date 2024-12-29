@@ -326,7 +326,7 @@ export function AccountSettings() {
                     ) : currentUser?.profilePhoto ? (
                       <Image
                         alt="user image"
-                        src={currentUser?.profilePhoto}
+                        src={`/uploads/${currentUser?.profilePhoto}`}
                         className="rounded-md w-auto h-auto"
                         width={100}
                         height={100}

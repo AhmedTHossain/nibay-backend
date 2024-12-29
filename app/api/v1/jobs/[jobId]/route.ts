@@ -23,7 +23,7 @@ export async function GET(
       return NextResponse.json({ error: "User not found!" }, { status: 404 });
     }
 
-    const job = await Job.findById(params.jobId);
+    const job = await Job.findById(params.jobId).populate("applicants");
 
     return NextResponse.json({
       status: "success",

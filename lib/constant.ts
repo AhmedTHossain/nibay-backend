@@ -14,6 +14,13 @@ export const USER_ROLE = {
   12: "USER"
 };
 
+export const APPLICATION_STATUS = {
+  PENDING: "PENDING",
+  ACCEPTED: "ACCEPTED",
+  REJECTED: "REJECTED",
+  SHORT_LISTED: "SHORT_LISTED"
+};
+
 export type ROLE =
   | "INSTITUTION"
   | "INDIVIDUAL"
