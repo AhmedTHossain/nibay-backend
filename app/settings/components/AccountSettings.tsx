@@ -29,7 +29,11 @@ export function AccountSettings() {
   const [districts, setDistricts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
-  const { user: currentUser, isLoading: userLoading } = useUserInfo();
+  const {
+    user: currentUser,
+    isLoading: userLoading,
+    setIsRefetch
+  } = useUserInfo();
 
   const form = useForm<AccountSettingsFormType>({
     resolver: zodResolver(accountSettingsFormSchema),
@@ -58,6 +62,8 @@ export function AccountSettings() {
         }
       })
       .then((res) => {
+        setIsRefetch(true);
+
         if (res.data.status === "success") {
           toast.success(res.data.message);
         }

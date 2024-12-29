@@ -66,7 +66,7 @@ export default Header;
 
 function ProfileMenu() {
   const router = useRouter();
-  const { user, isLoading } = useUserInfo();
+  const { user } = useUserInfo();
 
   return (
     <Menubar className="border-0 bg-transparent dark:bg-transparent dark:border-0">

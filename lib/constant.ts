@@ -1,3 +1,5 @@
+export const isProduction = process.env.NODE_ENV === "production";
+
 export const USER_ROLE = {
   0: "CHECKER",
   1: "COUNTER_MASTER",

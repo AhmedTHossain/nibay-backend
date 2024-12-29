@@ -8,6 +8,7 @@ export const useUserInfo = () => {
   const router = useRouter();
   const [user, setUser] = useState<TUser>();
   const [isLoading, setIsLoading] = useState(false);
+  const [isRefetch, setIsRefetch] = useState(false);
 
   useEffect(() => {
     const token = storage.getToken();
@@ -16,8 +17,7 @@ export const useUserInfo = () => {
     }
   }, [router]);
 
-  useEffect(() => {
-    setIsLoading(true);
+  const fetchCurrentUser = () => {
     api_client("auth/me")
       .then((res) => {
         if (res.data.status === "success") {
@@ -28,7 +28,12 @@ export const useUserInfo = () => {
       .finally(() => {
         setIsLoading(false);
       });
-  }, []);
+  };
 
-  return { user, setUser, isLoading };
+  useEffect(() => {
+    setIsLoading(true);
+    fetchCurrentUser();
+  }, [isRefetch]);
+
+  return { user, setUser, isLoading, setIsRefetch };
 };
