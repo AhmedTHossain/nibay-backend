@@ -31,7 +31,7 @@ export async function register(request: NextRequest) {
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return NextResponse.json(
-        { error: "ইমেইল/পাসওয়ার্ড অনুরূপ হয়নি" },
+        { error: "আপনার ইমেইলটি রেজিস্টার্ড আছে!" },
         { status: 400 }
       );
     }

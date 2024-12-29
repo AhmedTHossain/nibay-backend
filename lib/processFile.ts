@@ -2,7 +2,7 @@ import fs from "fs/promises";
 import path from "path";
 
 export async function processFile(file: File): Promise<string> {
-  const uploadPath = path.join(process.cwd(), "public/uploads");
+  const uploadPath = "public/uploads";
 
   await fs.mkdir(uploadPath, { recursive: true });
 
