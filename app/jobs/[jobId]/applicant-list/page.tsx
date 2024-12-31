@@ -25,7 +25,7 @@ export default function ApplicantListRoute({
 
   function handleApplicantStatus(status: keyof typeof APPLICATION_STATUS) {
     api_client
-      .patch(`/jobs/${job?._id}/676c33e6373c777f97bb2032`, {
+      .patch(`/jobs/${job?._id}/${applicantId}`, {
         status
       })
       .then((res) => {
@@ -77,8 +77,10 @@ export default function ApplicantListRoute({
                 <div className="mt-8 grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-[30px]">
                   {job?.applicants?.map((applicant) => {
                     return (
+                      //eslint-disable-next-line
+                      // @ts-ignore
                       <ApplicantCard
-                        key={applicant?._id}
+                        key={applicant?.applicant?.id}
                         setApplicantId={setApplicantId}
                         handleApplicantStatus={handleApplicantStatus}
                         {...applicant}

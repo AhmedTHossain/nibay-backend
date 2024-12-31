@@ -103,7 +103,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "User not found!" }, { status: 404 });
     }
 
-    const jobData: any = await Job.findById(jobId);
+    const jobData = await Job.findById(jobId);
     if (!jobData) {
       return NextResponse.json({ error: "Job not found!" }, { status: 404 });
     }
@@ -134,12 +134,36 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const isAlreadyApplied = jobData.applicants.find(
+      (item: any) => item.applicantId === user.id && item.jobId === jobData.id
+    );
+
+    if (isAlreadyApplied) {
+      return NextResponse.json(
+        { error: "Already applied to this job!" },
+        { status: 400 }
+      );
+    }
+
+    jobData.applicants.push({
+      applicant: {
+        name: user.name,
+        id: user.id
+      },
+      job: {
+        id: jobData.id,
+        title: jobData.title
+      },
+      applicationStatus: "PENDING",
+      statusChangeDate: new Date(),
+      review: null,
+      reviewCreatedDate: null
+    });
+    await jobData.save();
+
     // Update user and job data
     user.jobsApplied.push(jobData);
     await user.save();
-
-    jobData.applicants.push(user);
-    await jobData.save();
 
     return NextResponse.json({
       status: true,

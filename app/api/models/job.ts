@@ -29,7 +29,10 @@ const jobSchema = new mongoose.Schema<TJob, object>(
       type: String,
       required: false
     },
-    applicants: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+    applicants: {
+      type: [],
+      required: false
+    },
     user: {
       type: mongoose.Schema.Types.String,
       ref: "User"

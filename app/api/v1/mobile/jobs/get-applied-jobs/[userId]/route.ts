@@ -88,7 +88,10 @@ import mongoose from "mongoose";
  *         description: Server error.
  */
 
-export async function GET(request: NextRequest, { params }: { params: { userId: string } }) {
+export async function GET(
+  request: NextRequest,
+  { params }: { params: { userId: string } }
+) {
   try {
     const { userId } = params;
 
@@ -98,29 +101,29 @@ export async function GET(request: NextRequest, { params }: { params: { userId: 
 
     await connectToMongoDB();
 
-
     const user = await User.findById(userId);
     if (!user) {
-      return NextResponse.json({ status: "error", message: "User not found!" }, { status: 404 });
+      return NextResponse.json(
+        { status: "error", message: "User not found!" },
+        { status: 404 }
+      );
     }
 
-
-    const jobIds = user.jobsApplied.map((jobId: string) => new mongoose.Types.ObjectId(jobId));
-
-    console.log(jobIds)
-
+    const jobIds = user.jobsApplied.map(
+      (jobId: any) => new mongoose.Types.ObjectId(jobId)
+    );
 
     const jobs = await Job.find({ _id: { $in: jobIds } }).populate({
-      path: "user", 
-      model: "User", 
-      select: "name", 
+      path: "user",
+      model: "User",
+      select: "name"
     });
 
-    console.log(jobs)
-
-
     if (!jobs.length) {
-      return NextResponse.json({ status: "error", message: "No jobs found for the applied IDs." }, { status: 404 });
+      return NextResponse.json(
+        { status: "error", message: "No jobs found for the applied IDs." },
+        { status: 404 }
+      );
     }
 
     const formattedJobs = jobs.map((job) => ({
@@ -137,13 +140,16 @@ export async function GET(request: NextRequest, { params }: { params: { userId: 
       applicationDeadline: job.applicationDeadline,
       createdAt: job.createdAt,
       updatedAt: job.updatedAt,
-      company_name: typeof job.user === "object" && "name" in job.user ? job.user.name : "Unknown Company",
+      company_name:
+        typeof job.user === "object" && "name" in job.user
+          ? job.user.name
+          : "Unknown Company"
     }));
 
     return NextResponse.json({
       status: true,
       message: "Applied jobs fetched successfully.",
-      data: formattedJobs,
+      data: formattedJobs
     });
   } catch (error) {
     return handleError(error);

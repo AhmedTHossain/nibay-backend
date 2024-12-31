@@ -12,12 +12,20 @@ import { useAuth } from "./hooks/useAuth";
 import { JobBox } from "./jobs/components/JobBox";
 import { JobFilter } from "./jobs/components/JobFilter";
 import { Hero } from "@/components/sections/home/hero";
+import { useEffect, useState } from "react";
+import { PendingReviewModal } from "./jobs/components/PendingReviewModal";
 
 export default function Home() {
   useAuth();
+  const [reviewOpen, setIsReviewOpen] = useState(false);
+
+  useEffect(() => {
+    setIsReviewOpen(true);
+  }, []);
 
   return (
     <div>
+      <PendingReviewModal open={reviewOpen} setIsOpen={setIsReviewOpen} />
       <Header />
 
       <section className="relative py-36">

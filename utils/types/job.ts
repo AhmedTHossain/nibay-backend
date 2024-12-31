@@ -1,3 +1,4 @@
+import { APPLICATION_STATUS } from "@/lib/constant";
 import { TUser } from "./user";
 
 export interface TJob {
@@ -15,7 +16,20 @@ export interface TJob {
   title: string;
   updatedAt: string;
   jobRole: string;
-  applicants: TUser[];
+  applicants: Array<{
+    applicant: {
+      id: string;
+      name: string;
+    };
+    job: {
+      id: string;
+      title: string;
+    };
+    applicationStatus: keyof typeof APPLICATION_STATUS;
+    statusChangeDate: Date;
+    review: string | null;
+    reviewCreatedDate: Date | null;
+  }>;
   isBirthCertificateRequired: boolean;
   isPortEntryPermitRequired: boolean;
   __v: number;

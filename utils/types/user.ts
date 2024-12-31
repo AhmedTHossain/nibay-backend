@@ -1,4 +1,5 @@
 import { APPLICATION_STATUS } from "@/lib/constant";
+import { TJob } from "./job";
 
 export interface TUser {
   _id: string;
@@ -27,7 +28,7 @@ export interface TUser {
   birthCertificate: string;
   portEntryPermit: string;
   updatedAt: Date;
-  jobsApplied: string[];
+  jobsApplied: TJob[];
   following: Array<string>;
   followers: Array<string>;
   reviews_for_employees: Array<string>;

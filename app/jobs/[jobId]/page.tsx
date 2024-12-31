@@ -5,14 +5,13 @@ import Header from "@/app/components/header";
 import useJobById from "@/app/hooks/jobs/useJobById";
 import Footer from "@/components/sections/Footer";
 import { Button } from "@/components/ui/button";
+import { formatEnglishToBangalNum } from "@/utils/formatEtoBLang";
+import { AnimatePresence, motion } from "framer-motion";
+import { Edit, TimerOff, Trash } from "lucide-react";
+import moment from "moment";
 import Link from "next/link";
 import { useState } from "react";
 import { ApplicantListModal } from "../components/ApplicantListModal";
-import moment from "moment";
-import { Edit, TimerOff, Trash } from "lucide-react";
-import { AnimatePresence, motion } from "framer-motion";
-import { formatEnglishToBangalNum } from "@/utils/formatEtoBLang";
-import { useRouter } from "next/navigation";
 import { JobDeleteModal } from "../components/JobDeleteModal";
 
 export default function JobDetailsRoute({
