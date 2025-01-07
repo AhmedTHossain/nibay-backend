@@ -28,7 +28,9 @@ export function ApplicantCard(props: ApplicantCardProps) {
     <div
       className="relative group bg-white dark:bg-slate-900 overflow-hidden rounded-md shadow dark:shadow-gray-700 text-center p-6 hover:bg-emerald-600/[0.02] hover:dark:bg-emerald-600/5 transition-all duration-500 cursor-pointer"
       onClick={() => {
-        router.push(`/applicant/${applicant?._id}`);
+        console.log(applicant?.applicant)
+        //@ts-expect-error not necessary at this point
+        router.push(`/applicant/${applicant?.applicant.id}`);
       }}
     >
       <p className="text-[9px] font-semibold absolute top-3 right-2 bg-violet-800 text-violet-200 py-1 px-2 rounded-3xl">
@@ -99,7 +101,7 @@ export function ApplicantCard(props: ApplicantCardProps) {
               handleApplicantStatus("SHORT_LISTED");
             }}
           >
-            Short listed
+            Short list
           </button>
 
           {/* <Button className="bg-[#10b981] hover:bg-[#10b981] text-xs">

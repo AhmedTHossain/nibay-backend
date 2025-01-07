@@ -35,4 +35,5 @@ export interface TUser {
   reviews_from_employers: Array<string>;
   id: string;
   job: string;
+  applicant: string;
 }
