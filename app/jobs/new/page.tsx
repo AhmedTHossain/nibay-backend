@@ -32,15 +32,15 @@ const jobSchema = z.object({
   title: z
     .string()
     .min(1, REQUIRED_ERROR)
-    .max(40, "সর্বোচ্চ ৪০ টি শব্দ গ্রহনযোগ্য"),
+    .max(50, "সর্বোচ্চ ৫০ টি বর্ণ গ্রহনযোগ্য"),
   shortDescription: z
     .string()
     .min(1, REQUIRED_ERROR)
-    .max(80, "সর্বোচ্চ ৮০ টি শব্দ গ্রহনযোগ্য"),
+    .max(150, "সর্বোচ্চ ১৫০ টি বর্ণ গ্রহনযোগ্য"),
   longDescription: z
     .string()
     .min(1, REQUIRED_ERROR)
-    .max(500, "সর্বোচ্চ ৫০০ টি শব্দ গ্রহনযোগ্য"),
+    .max(500, "সর্বোচ্চ ৫০০ টি বর্ণ গ্রহনযোগ্য"),
   qualification: z.string().min(1, REQUIRED_ERROR),
   experience: z.string().min(1, REQUIRED_ERROR),
   isBirthCertificateRequired: z.boolean().optional(),
@@ -73,6 +73,9 @@ export default function NewJobRoute() {
   const [jobRole, setJobRole] = useState<string>();
   const [districts, setDistricts] = useState([]);
   const { refetch, copyJob, setCopyJob } = useJobContext();
+    const [titleCount, setTitleCount] = useState(0);
+  const [shortDescCount, setShortDescCount] = useState(0);
+  const [longDescCount, setLongDescCount] = useState(0);
 
   const form = useForm<JobCreateType>({
     resolver: zodResolver(jobSchema),
@@ -82,7 +85,7 @@ export default function NewJobRoute() {
       longDescription: "",
       qualification: "NO_FORMAL_EDUCATION",
       experience: "0-1",
-      applicationDeadline: moment().format("YYYY-MM-DDTHH:mm"),
+      applicationDeadline: moment().format("YYYY-MM-DD"),
       salary: "0",
       jobRole: "চেকার",
       division: "",
@@ -150,6 +153,8 @@ export default function NewJobRoute() {
     return form.formState.errors[field]?.message as string | undefined;
   };
 
+  
+
   return (
     <>
       <Header />
@@ -166,7 +171,7 @@ export default function NewJobRoute() {
                 onSubmit={form.handleSubmit(onSubmit)}
               >
                 <div className="grid grid-cols-1 gap-6">
-                  <div className="text-left">
+                  {/* <div className="text-left">
                     <label className="font-semibold" htmlFor="title">
                       চাকরির শিরোনাম
                     </label>
@@ -217,7 +222,102 @@ export default function NewJobRoute() {
                         {error("longDescription")}
                       </p>
                     ) : null}
-                  </div>
+                  </div> */}
+
+<div className="text-left">
+      <label className="font-semibold" htmlFor="title">
+        চাকরির শিরোনাম
+      </label>
+      <div className="relative">
+        <Input
+          id="title"
+          className="mt-1"
+          placeholder="চাকরির শিরোনাম - সর্বোচ্চ ৫০ টি শব্দ গ্রহনযোগ্য"
+          maxLength={50}
+          {...form.register("title")}
+          onChange={(e) => {
+            form.register("title").onChange(e);
+            setTitleCount(e.target.value.length);
+          }}
+        />
+        <span 
+          className={`absolute bottom-2 right-2 text-xs ${
+            titleCount > 50 ? 'text-red-500' : 'text-gray-500'
+          }`}
+        >
+          {titleCount}/50
+        </span>
+      </div>
+      {error("title") ? (
+        <p className="text-red-500 font-semibold text-sm">
+          {error("title")}
+        </p>
+      ) : null}
+    </div>
+
+    <div className="text-left">
+      <label className="font-semibold" htmlFor="shortDescription">
+        কাজের সারসংক্ষেপ
+      </label>
+      <div className="relative">
+        <Textarea
+          id="shortDescription"
+          className="mt-1"
+          placeholder="কাজের সারসংক্ষেপ - সর্বোচ্চ ১৫০ টি শব্দ গ্রহনযোগ্য"
+          maxLength={150}
+          rows={4}
+          {...form.register("shortDescription")}
+          onChange={(e) => {
+            form.register("shortDescription").onChange(e);
+            setShortDescCount(e.target.value.length);
+          }}
+        />
+        <span 
+          className={`absolute bottom-2 right-2 text-xs ${
+            shortDescCount > 150 ? 'text-red-500' : 'text-gray-500'
+          }`}
+        >
+          {shortDescCount}/150
+        </span>
+      </div>
+      {error("shortDescription") ? (
+        <p className="text-red-500 font-semibold text-sm">
+          {error("shortDescription")}
+        </p>
+      ) : null}
+    </div>
+
+    <div className="text-left">
+      <label className="font-semibold" htmlFor="longDescription">
+        কাজের বিবরণ
+      </label>
+      <div className="relative">
+        <Textarea
+          id="longDescription"
+          className="mt-1"
+          placeholder="কাজের বিবরণ - সর্বোচ্চ ৫০০ টি শব্দ গ্রহনযোগ্য"
+          maxLength={500}
+          rows={4}
+          {...form.register("longDescription")}
+          onChange={(e) => {
+            form.register("longDescription").onChange(e);
+            setLongDescCount(e.target.value.length);
+          }}
+        />
+        <span 
+          className={`absolute bottom-2 right-2 text-xs ${
+            longDescCount > 500 ? 'text-red-500' : 'text-gray-500'
+          }`}
+        >
+          {longDescCount}/500
+        </span>
+      </div>
+      {error("longDescription") ? (
+        <p className="text-red-500 font-semibold text-sm">
+          {error("longDescription")}
+        </p>
+      ) : null}
+    </div>
 
                   <div className="text-left">
                     <label className="font-semibold" htmlFor="qualification">
@@ -288,7 +388,7 @@ export default function NewJobRoute() {
                     ) : null}
                   </div>
 
-                  <div className="mb-4 text-left">
+                  {/* <div className="mb-4 text-left">
                     <label className="font-semibold" htmlFor="division">
                       বিভাগ
                     </label>
@@ -305,7 +405,7 @@ export default function NewJobRoute() {
                       }}
                     >
                       <SelectTrigger className="">
-                        <SelectValue placeholder="বিভাগ" />
+                        <SelectValue  placeholder="বিভাগ" />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectGroup>
@@ -358,7 +458,70 @@ export default function NewJobRoute() {
                         </p>
                       ) : null}
                     </div>
-                  )}
+                  )} */}
+
+                  {/* Replace the Division Select component with this */}
+                  <div className="mt-8 mb-4">
+  <h3 className="text-lg font-semibold mb-4">কর্মস্থল</h3>
+  <div className="grid grid-cols-1 gap-6 border rounded-lg p-4 bg-gray-50">
+    <div className="text-left">
+      <label className="font-semibold" htmlFor="division">
+        বিভাগ
+      </label>
+      <select
+        id="division"
+        className="mt-1 h-10 w-full rounded-md border border-neutral-200 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:text-sm file:font-medium file:text-neutral-950 placeholder:text-neutral-500 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-800 dark:bg-neutral-950 dark:ring-offset-neutral-950 appearance-none"
+        defaultValue={copyJob ? copyJob?.division : ""}
+        onChange={(event) => {
+          const value = event.target.value;
+          form.setValue("division", value);
+          form.setValue("district", "");
+          setDistricts(
+            DIVISIONS.find((item) => item.division === value)?.districts as []
+          );
+        }}
+      >
+        <option value="" disabled>বিভাগ</option>
+        {DIVISIONS.map((item) => (
+          <option key={item.id} value={item.division}>
+            {item.division}
+          </option>
+        ))}
+      </select>
+      {error("division") ? (
+        <p className="text-red-500 font-semibold text-sm">
+          {error("division")}
+        </p>
+      ) : null}
+    </div>
+
+    {districts.length > 0 && (
+      <div className="text-left">
+        <label className="font-semibold" htmlFor="district">
+          জেলা
+        </label>
+        <select
+          id="district"
+          className="mt-1 h-10 w-full rounded-md border border-neutral-200 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:text-sm file:font-medium file:text-neutral-950 placeholder:text-neutral-500 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-800 dark:bg-neutral-950 dark:ring-offset-neutral-950 appearance-none"
+          defaultValue={copyJob ? copyJob?.district : ""}
+          onChange={(event) => form.setValue("district", event.target.value)}
+        >
+          <option value="" disabled>জেলা</option>
+          {districts.map((item, idx) => (
+            <option key={idx} value={item}>
+              {item}
+            </option>
+          ))}
+        </select>
+        {error("district") ? (
+          <p className="text-red-500 font-semibold text-sm">
+            {error("district")}
+          </p>
+        ) : null}
+      </div>
+    )}
+  </div>
+</div>
 
                   <div className="mb-4 text-left">
                     <label className="font-semibold" htmlFor="jobRole">
@@ -405,7 +568,7 @@ export default function NewJobRoute() {
                             htmlFor="chairman-birth-certificate"
                             className="ml-1"
                           >
-                            চেয়ারম্যান এর সত্যায়িত জন্ম নিবন্ধন
+                            চেয়ারম্যান সার্টিফিকেট
                           </label>
                         </div>
                         <div>
@@ -422,6 +585,7 @@ export default function NewJobRoute() {
                     </div>
                   )}
 
+ 
                   <div className="text-left">
                     <label className="font-semibold" htmlFor="deadline">
                       আবেদনের শেষ তারিখ
@@ -429,14 +593,15 @@ export default function NewJobRoute() {
                     <Input
                       id="deadline"
                       className="mt-1"
-                      type="datetime-local"
+                      type="date"
                       placeholder="আবেদনের শেষ তারিখ"
-                      value={moment(date).format("YYYY-MM-DDTHH:mm")}
+                      min={moment().format("YYYY-MM-DD")}  // Add minimum date as today
+                      value={moment(date).format("YYYY-MM-DD")}
                       onChange={(event) => {
                         setDate(new Date(event.target.value));
                         form.setValue(
                           "applicationDeadline",
-                          event.target.value + ":00"
+                          event.target.value + "T00:00:00"
                         );
                       }}
                     />
@@ -445,17 +610,6 @@ export default function NewJobRoute() {
                         {error("applicationDeadline")}
                       </p>
                     ) : null}
-                    {/* <DatePicker
-                      date={date}
-                      setDate={(date) => {
-                        setDate(date);
-                        console.log("------------- for", date);
-                        form.setValue(
-                          "applicationDeadline",
-                          new Date(date as Date).toISOString()
-                        );
-                      }}
-                    /> */}
                   </div>
 
                   <div className="text-left">
