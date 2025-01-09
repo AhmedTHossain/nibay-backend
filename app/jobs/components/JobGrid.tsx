@@ -37,6 +37,7 @@ export function JobGrid(props: JobGridProps) {
             title="চাকরিটি ডুপ্লিকেট করুন"
             onClick={(event) => {
               event.stopPropagation();
+              console.log("restJob", restJob);
               setCopyJob(restJob);
               router.push(`/jobs/new`);
             }}
