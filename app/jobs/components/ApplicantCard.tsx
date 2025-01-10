@@ -78,7 +78,7 @@ export function ApplicantCard(props: ApplicantCardProps) {
       <div className="mt-2">
         <p className="font-semibold text-lg">{application?.applicant.name}</p>
         <p className="text-sm text-slate-800">
-          {USER_ROLE[Number(user?.role) as keyof typeof USER_ROLE]}
+          {USER_ROLE[Number(user?.role) as keyof typeof USER_ROLE]?.label}
         </p>
       </div>
 

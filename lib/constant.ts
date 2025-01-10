@@ -1,19 +1,19 @@
 export const isProduction = process.env.NODE_ENV === "production";
 
 export const USER_ROLE = {
-  0: "CHECKER",
-  1: "COUNTER_MASTER",
-  2: "DRIVER",
-  3: "FOREMAN",
-  4: "GM",
-  5: "HELPER",
-  6: "MANAGER",
-  7: "MECHANIC_MISTRY",
-  8: "SUPERVISOR_PASSENGER_GUIDE",
-  9: "TRUCK_DRIVER",
-  10: "INSTITUTION",
-  11: "INDIVIDUAL",
-  12: "USER"
+  0: { label: "চেকার", value: "CHECKER" },
+  1: { label: "কাউন্টার মাস্টার", value: "COUNTER_MASTER" },
+  2: { label: "ড্রাইভার", value: "DRIVER" },
+  3: { label: "ফোরম্যান", value: "FOREMAN" },
+  4: { label: "জিএম", value: "GM" },
+  5: { label: "হেল্পার", value: "HELPER" },
+  6: { label: "ম্যানেজার", value: "MANAGER" },
+  7: { label: "মেকানিক/মিস্ত্রি", value: "MECHANIC_MISTRY" },
+  8: {
+    label: "সুপারভাইজার/প্যাসেঞ্জার গাইড",
+    value: "SUPERVISOR_PASSENGER_GUIDE"
+  },
+  9: { label: "ট্রাক ড্রাইভার", value: "TRUCK_DRIVER" }
 };
 
 export const APPLICATION_STATUS = {
