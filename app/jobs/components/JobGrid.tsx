@@ -72,8 +72,8 @@ export function JobGrid(props: JobGridProps) {
         <p className="mt-4 text-xl font-semibold transition-all duration-500">
           {title}
         </p>
-        <p className="text-slate-800 mt-2">
-          {shortDescription?.substring(0, 70) + "..."}
+        <p className="text-slate-800 mt-2 break-words">
+          {shortDescription?.substring(0, 70) + (shortDescription.length > 70 ? "..." : "")}
         </p>
         <div className="mt-3 flex items-center justify-between gap-2">
           {/* Salary Section - Left Aligned */}
