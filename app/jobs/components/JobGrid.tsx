@@ -75,17 +75,20 @@ export function JobGrid(props: JobGridProps) {
         <p className="text-slate-800 mt-2">
           {shortDescription?.substring(0, 70) + "..."}
         </p>
-        <div className="mt-3 flex items-center justify-between flex-wrap gap-1">
-          <p>
+        <div className="mt-3 flex items-center justify-between gap-2">
+          {/* Salary Section - Left Aligned */}
+          <p className="shrink-0 flex items-center">
             {salary && parseInt(salary) > 0 && (
-              <span className="bg-purple-600/5 hover:bg-purple-600/20 dark:bg-purple-600/10 hover:dark:bg-purple-600/30 text-purple-600 px-3 text-[14px] inline-flex space-x-1 font-medium rounded-full mt-2 me-1 transition-all duration-500">
+              <span className="bg-purple-600/5 hover:bg-purple-600/20 dark:bg-purple-600/10 hover:dark:bg-purple-600/30 text-purple-600 px-3 text-[14px] inline-flex space-x-1 font-medium rounded-full transition-all duration-500">
                 <Image src={taka_svg} alt="Taka SVG" width={10} />
                 <span>{formatEnglishToBangalNum(salary)}</span>
               </span>
             )}
           </p>
-          <p>
-            <span className="bg-orange-600/5 hover:bg-orange-600/20 dark:bg-orange-600/10 hover:dark:bg-orange-600/30 inline-flex items-center text-orange-600 px-3 text-[14px] font-medium rounded-full transition-all duration-500">
+
+          {/* Job Role Section - Right Aligned */}
+          <p className="flex min-w-[20px]">
+            <span className="truncate bg-orange-600/5 hover:bg-orange-600/20 dark:bg-orange-600/10 hover:dark:bg-orange-600/30 text-orange-600 px-3 text-[14px] font-medium rounded-full transition-all duration-500">
               {jobRole}
             </span>
           </p>
