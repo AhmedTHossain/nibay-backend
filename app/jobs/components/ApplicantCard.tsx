@@ -67,8 +67,8 @@ export function ApplicantCard(props: ApplicantCardProps) {
         router.push(`/applicant/${application?.applicant.id}`);
       }}
     >
-      <p className="text-[9px] font-semibold absolute top-3 right-2 bg-violet-800 text-violet-200 py-1 px-2 rounded-3xl">
-        {application?.applicationStatus}
+      <p className="text-xs font-semibold absolute top-3 right-2 bg-violet-800 text-violet-200 py-1 px-2 rounded-3xl">
+        {APPLICATION_STATUS[application?.applicationStatus as keyof typeof APPLICATION_STATUS].label}
       </p>
       <Image
         src={applicant_img}
@@ -108,7 +108,7 @@ export function ApplicantCard(props: ApplicantCardProps) {
               handleApplicantStatus("ACCEPTED");
             }}
           >
-            Accept
+            গ্রহণ করুন
           </button>
           <button
             className="text-xs bg-red-700 p-[7px] text-white rounded-sm"
@@ -117,7 +117,7 @@ export function ApplicantCard(props: ApplicantCardProps) {
               handleApplicantStatus("REJECTED");
             }}
           >
-            Reject
+            বাতিল করুন
           </button>
           <button
             className="rounded-sm p-[7px] border transition-all duration-200 border-gray-600 hover:bg-gray-600 hover:text-white bg-transparent text-gray-800 text-xs"
@@ -126,7 +126,7 @@ export function ApplicantCard(props: ApplicantCardProps) {
               handleApplicantStatus("SHORT_LISTED");
             }}
           >
-            Short list
+            শর্টলিস্ট করুন
           </button>
 
           {/* <Button className="bg-[#10b981] hover:bg-[#10b981] text-xs">

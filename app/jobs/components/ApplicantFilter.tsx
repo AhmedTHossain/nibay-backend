@@ -24,11 +24,12 @@ export function ApplicantFilter({ onFilterChange }: ApplicantFilterProps) {
               </span>
               <select value={selectedStatus} onChange={handleChange} className="w-full text-sm bg-transparent dark:bg-transparent border-0 focus:ring- focus:outline-none">
                 {/* <option selected>Filter by</option> */}
-                <option value="ALL">All</option>
-                <option value="ACCEPTED">Accepted</option>
-                <option value="REJECTED">Rejected</option>
-                <option value="SHORT_LISTED">Short Listed</option>
-                <option value="PENDING">Pending</option>
+                <option value="ALL">সব</option>
+                {Object.keys(APPLICATION_STATUS).map((status) => (
+                  <option key={status} value={status}>
+                    {APPLICATION_STATUS[status as keyof typeof APPLICATION_STATUS].label}
+                  </option>
+                ))}
               </select>
 
               {/* <Select>
