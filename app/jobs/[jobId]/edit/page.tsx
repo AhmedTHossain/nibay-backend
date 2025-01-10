@@ -30,6 +30,7 @@ import {
 } from "@/components/ui/select";
 import { useUserInfo } from "@/app/hooks/useUserInfo";
 import { useJobContext } from "@/app/contexts/JobContext";
+import { JobCreateType } from "../../new/page";
 
 const jobSchema = z.object({
   title: z
@@ -84,6 +85,9 @@ export default function EditJobRoute({
   const [jobRole, setJobRole] = useState<string>();
   const [districts, setDistricts] = useState([]);
   const { refetch } = useJobContext();
+  const [titleCount, setTitleCount] = useState(0);
+  const [shortDescCount, setShortDescCount] = useState(0);
+  const [longDescCount, setLongDescCount] = useState(0);
 
   const form = useForm<z.infer<typeof jobSchema>>({
     resolver: zodResolver(jobSchema),
@@ -161,6 +165,10 @@ export default function EditJobRoute({
     }
   }, [job]);
 
+  const error = (field: keyof JobCreateType): string | undefined => {
+    return form.formState.errors[field]?.message as string | undefined;
+  };
+
   return (
     <>
       <Header />
@@ -198,48 +206,98 @@ export default function EditJobRoute({
                   className="text-left mt-20 max-w-2xl mx-auto"
                   onSubmit={form.handleSubmit(onSubmit)}
                 >
-                  <div className="grid grid-cols-1">
-                    <div className="mb-4 text-left">
+                  <div className="grid grid-cols-1 gap-6">
+                    <div className="text-left">
                       <label className="font-semibold" htmlFor="title">
                         চাকরির শিরোনাম
                       </label>
-                      <Input
-                        id="title"
-                        className="mt-3"
-                        placeholder="চাকরির শিরোনাম - সর্বোচ্চ ৪০ টি শব্দ গ্রহনযোগ্য"
-                        {...form.register("title")}
-                      />
+                      <div className="relative">
+                        <Input
+                          id="title"
+                          className="mt-1"
+                          placeholder="চাকরির শিরোনাম - সর্বোচ্চ ৫০ টি শব্দ গ্রহনযোগ্য"
+                          maxLength={50}
+                          {...form.register("title")}
+                          onChange={(e) => {
+                            form.register("title").onChange(e);
+                            setTitleCount(e.target.value.length);
+                          }}
+                        />
+                        <span
+                          className={`absolute bottom-2 right-2 text-xs ${titleCount > 50 ? "text-red-500" : "text-gray-500"
+                            }`}
+                        >
+                          {titleCount}/50
+                        </span>
+                      </div>
+                      {error("title") ? (
+                        <p className="text-red-500 font-semibold text-sm">
+                          {error("title")}
+                        </p>
+                      ) : null}
                     </div>
-                    <div className="mb-4 text-left">
-                      <label
-                        className="font-semibold"
-                        htmlFor="shortDescription"
-                      >
+                    <div className="text-left">
+                      <label className="font-semibold" htmlFor="shortDescription">
                         কাজের সারসংক্ষেপ
                       </label>
-                      <Textarea
-                        id="shortDescription"
-                        className="mt-3"
-                        placeholder="কাজের সারসংক্ষেপ - সর্বোচ্চ ৮০ টি শব্দ গ্রহনযোগ্য"
-                        rows={4}
-                        {...form.register("shortDescription")}
-                      />
+                      <div className="relative">
+                        <Textarea
+                          id="shortDescription"
+                          className="mt-1"
+                          placeholder="কাজের সারসংক্ষেপ - সর্বোচ্চ ১৫০ টি শব্দ গ্রহনযোগ্য"
+                          maxLength={150}
+                          rows={4}
+                          {...form.register("shortDescription")}
+                          onChange={(e) => {
+                            form.register("shortDescription").onChange(e);
+                            setShortDescCount(e.target.value.length);
+                          }}
+                        />
+                        <span
+                          className={`absolute bottom-2 right-2 text-xs ${shortDescCount > 150
+                            ? "text-red-500"
+                            : "text-gray-500"
+                            }`}
+                        >
+                          {shortDescCount}/150
+                        </span>
+                      </div>
+                      {error("shortDescription") ? (
+                        <p className="text-red-500 font-semibold text-sm">
+                          {error("shortDescription")}
+                        </p>
+                      ) : null}
                     </div>
 
-                    <div className="mb-4 text-left">
-                      <label
-                        className="font-semibold"
-                        htmlFor="longDescription"
-                      >
+                    <div className="text-left">
+                      <label className="font-semibold" htmlFor="longDescription">
                         কাজের বিবরণ
                       </label>
-                      <Textarea
-                        id="longDescription"
-                        className="mt-3"
-                        placeholder="কাজের বিবরণ - সর্বোচ্চ ৫০০ টি শব্দ গ্রহনযোগ্য"
-                        rows={4}
-                        {...form.register("longDescription")}
-                      />
+                      <div className="relative">
+                        <Textarea
+                          id="longDescription"
+                          className="mt-1"
+                          placeholder="কাজের বিবরণ - সর্বোচ্চ ৫০০ টি শব্দ গ্রহনযোগ্য"
+                          maxLength={500}
+                          rows={4}
+                          {...form.register("longDescription")}
+                          onChange={(e) => {
+                            form.register("longDescription").onChange(e);
+                            setLongDescCount(e.target.value.length);
+                          }}
+                        />
+                        <span
+                          className={`absolute bottom-2 right-2 text-xs ${longDescCount > 500 ? "text-red-500" : "text-gray-500"
+                            }`}
+                        >
+                          {longDescCount}/500
+                        </span>
+                      </div>
+                      {error("longDescription") ? (
+                        <p className="text-red-500 font-semibold text-sm">
+                          {error("longDescription")}
+                        </p>
+                      ) : null}
                     </div>
 
                     <div className="mb-4 text-left">
