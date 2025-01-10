@@ -36,11 +36,11 @@ const jobSchema = z.object({
   title: z
     .string()
     .min(1, REQUIRED_ERROR)
-    .max(40, "সর্বোচ্চ ৪০ টি শব্দ গ্রহনযোগ্য"),
+    .max(50, "সর্বোচ্চ ৫০ টি শব্দ গ্রহনযোগ্য"),
   shortDescription: z
     .string()
     .min(1, REQUIRED_ERROR)
-    .max(80, "সর্বোচ্চ ৮০ টি শব্দ গ্রহনযোগ্য"),
+    .max(150, "সর্বোচ্চ ১৫০ টি শব্দ গ্রহনযোগ্য"),
   longDescription: z
     .string()
     .min(1, REQUIRED_ERROR)
