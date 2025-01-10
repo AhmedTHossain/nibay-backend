@@ -23,10 +23,6 @@ export function JobBox({ jobs, isLoading }: JobBoxProps) {
 
   // const { jobs, isLoading } = useJobContext();
 
-  // console log jobs and isloading
-  console.log("JobBox: Jobs, isloading: ", jobs, isLoading);
-  // console.log("cjobs, cisLoading: ", cjobs, cisLoading);
-
   return (
     <>
       <JobDeleteModal open={open} setIsOpen={setIsOpen} jobId={jobId} />
