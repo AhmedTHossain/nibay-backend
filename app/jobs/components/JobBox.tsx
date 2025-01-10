@@ -8,12 +8,24 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { JobDeleteModal } from "./JobDeleteModal";
 import { JobGrid } from "./JobGrid";
+import { JobCreateType } from "../new/page";
+import { TJob } from "@/utils/types/job";
 
-export function JobBox() {
+type JobBoxProps = {
+  jobs: TJob[];
+  isLoading: boolean;
+};
+
+export function JobBox({ jobs, isLoading }: JobBoxProps) {
   const [open, setIsOpen] = useState(false);
-  const { jobs, isLoading } = useJobContext();
   const pathname = usePathname();
   const [jobId, setJobId] = useState<string | undefined>(undefined);
+
+  // const { jobs, isLoading } = useJobContext();
+
+  // console log jobs and isloading
+  console.log("JobBox: Jobs, isloading: ", jobs, isLoading);
+  // console.log("cjobs, cisLoading: ", cjobs, cisLoading);
 
   return (
     <>
@@ -41,7 +53,7 @@ export function JobBox() {
                 <p className="text-center text-md">No jobs found!</p>
               )}
               <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-[30px]">
-                {jobs !== null &&
+                {jobs &&
                   jobs.map((item) => {
                     return (
                       <JobGrid
