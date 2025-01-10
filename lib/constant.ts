@@ -17,10 +17,10 @@ export const USER_ROLE = {
 };
 
 export const APPLICATION_STATUS = {
-  PENDING: "PENDING",
-  ACCEPTED: "ACCEPTED",
-  REJECTED: "REJECTED",
-  SHORT_LISTED: "SHORT_LISTED"
+  PENDING: { label: "অপেক্ষমাণ", value: "PENDING" },
+  ACCEPTED: { label: "গৃহীত", value: "ACCEPTED" },
+  REJECTED: { label: "বাতিল", value: "REJECTED" },
+  SHORT_LISTED: { label: "শর্টলিস্টেড", value: "SHORT_LISTED" }
 };
 
 export type ROLE =
