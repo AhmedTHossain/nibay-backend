@@ -121,7 +121,6 @@ export default function NewJobRoute() {
 
   useEffect(() => {
     if (copyJob) {
-      console.log("copyJob", copyJob);
       Object.keys(form.getValues()).forEach((key) => {
         if (key === "applicationDeadline") {
           const deadline = new Date(copyJob?.applicationDeadline)
@@ -136,19 +135,23 @@ export default function NewJobRoute() {
           form.setValue(key as keyof TJobProps, copyJob[key]);
         }
       });
-    }
-
-    // eslint-disable-next-line
-  }, [copyJob]);
-
-  useEffect(() => {
-    if (copyJob) {
       setDistricts(
         (DIVISIONS.find((item) => item.division === copyJob.division)
           ?.districts as []) || []
       );
     }
+
+    // eslint-disable-next-line
   }, [copyJob]);
+
+  // useEffect(() => {
+  //   if (copyJob) {
+  //     setDistricts(
+  //       (DIVISIONS.find((item) => item.division === copyJob.division)
+  //         ?.districts as []) || []
+  //     );
+  //   }
+  // }, [copyJob]);
 
   const error = (field: keyof JobCreateType): string | undefined => {
     return form.formState.errors[field]?.message as string | undefined;
@@ -240,9 +243,8 @@ export default function NewJobRoute() {
                         }}
                       />
                       <span
-                        className={`absolute bottom-2 right-2 text-xs ${
-                          titleCount > 50 ? "text-red-500" : "text-gray-500"
-                        }`}
+                        className={`absolute bottom-2 right-2 text-xs ${titleCount > 50 ? "text-red-500" : "text-gray-500"
+                          }`}
                       >
                         {titleCount}/50
                       </span>
@@ -272,11 +274,10 @@ export default function NewJobRoute() {
                         }}
                       />
                       <span
-                        className={`absolute bottom-2 right-2 text-xs ${
-                          shortDescCount > 150
-                            ? "text-red-500"
-                            : "text-gray-500"
-                        }`}
+                        className={`absolute bottom-2 right-2 text-xs ${shortDescCount > 150
+                          ? "text-red-500"
+                          : "text-gray-500"
+                          }`}
                       >
                         {shortDescCount}/150
                       </span>
@@ -306,9 +307,8 @@ export default function NewJobRoute() {
                         }}
                       />
                       <span
-                        className={`absolute bottom-2 right-2 text-xs ${
-                          longDescCount > 500 ? "text-red-500" : "text-gray-500"
-                        }`}
+                        className={`absolute bottom-2 right-2 text-xs ${longDescCount > 500 ? "text-red-500" : "text-gray-500"
+                          }`}
                       >
                         {longDescCount}/500
                       </span>
@@ -327,6 +327,7 @@ export default function NewJobRoute() {
                     <select
                       id="experience"
                       defaultValue="No Formal Education"
+                      value={form.getValues("qualification")}
                       onChange={(event) => {
                         console.log(event.target.value);
                         form.setValue("qualification", event.target.value);
@@ -362,6 +363,7 @@ export default function NewJobRoute() {
                       id="experience"
                       className="mt-1 h-10 w-full rounded-md border border-neutral-200 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:text-sm file:font-medium file:text-neutral-950 placeholder:text-neutral-500 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-800 dark:bg-neutral-950 dark:ring-offset-neutral-950 appearance-none"
                       defaultValue="0-1"
+                      value={form.getValues("experience")}
                       onChange={(event) => {
                         console.log(event.target.value);
                         form.setValue("experience", event.target.value);
@@ -537,7 +539,7 @@ export default function NewJobRoute() {
                     </label>
                     <select
                       id="jobRole"
-                      value={jobRole}
+                      value={form.getValues("jobRole")}
                       onChange={(event) => {
                         const value = event.target.value;
                         setJobRole(value);
