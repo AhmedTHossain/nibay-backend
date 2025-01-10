@@ -1,7 +1,18 @@
 import { Button } from "@/components/ui/button";
+import { APPLICATION_STATUS } from "@/lib/constant";
 import { Bolt } from "lucide-react";
+import { useState } from "react";
 
-export function ApplicantFilter() {
+interface ApplicantFilterProps {
+  onFilterChange: (status: keyof typeof APPLICATION_STATUS) => void;
+}
+
+export function ApplicantFilter({ onFilterChange }: ApplicantFilterProps) {
+  const [selectedStatus, setSelectedStatus] = useState("all");
+  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedStatus(event.target.value);
+  };
+
   return (
     <div className="bg-white dark:bg-slate-900 border-0 shadow rounded-md p-3 relative max-w-lg">
       <form action="#">
@@ -11,11 +22,13 @@ export function ApplicantFilter() {
               <span className="">
                 <Bolt size={18} color="#10b981" />
               </span>
-              <select className="w-full text-sm bg-transparent dark:bg-transparent border-0 focus:ring- focus:outline-none">
+              <select value={selectedStatus} onChange={handleChange} className="w-full text-sm bg-transparent dark:bg-transparent border-0 focus:ring- focus:outline-none">
                 {/* <option selected>Filter by</option> */}
-                <option value="accepted">Accepted</option>
-                <option value="rejected">Rejected</option>
-                <option value="short-listed">Short Listed</option>
+                <option value="ALL">All</option>
+                <option value="ACCEPTED">Accepted</option>
+                <option value="REJECTED">Rejected</option>
+                <option value="SHORT_LISTED">Short Listed</option>
+                <option value="PENDING">Pending</option>
               </select>
 
               {/* <Select>
@@ -48,7 +61,8 @@ export function ApplicantFilter() {
               </Select> */}
             </div>
 
-            <Button className="bg-[#10b981] hover:bg-[#10b981] w-full h-full">
+            <Button className="bg-[#10b981] hover:bg-[#10b981] w-full h-full"
+              onClick={(e) => { e.preventDefault(); onFilterChange(selectedStatus as keyof typeof APPLICATION_STATUS); }}>
               অনুসন্ধান
             </Button>
           </div>

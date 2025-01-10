@@ -13,6 +13,8 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { APPLICATION_STATUS } from "@/lib/constant";
+
+type ApplicationStatus = keyof typeof APPLICATION_STATUS | "ALL";
 import { TJob } from "@/utils/types/job";
 
 interface Application {
@@ -43,25 +45,19 @@ export default function ApplicantListRoute({
     setFilteredApplicants(job?.applicants || []);
   }, [job]);
 
-  const handleFilterChange = (status: keyof typeof APPLICATION_STATUS) => {
+  const handleFilterChange = (status: ApplicationStatus) => {
     console.log("(Before) FilteredApplicants", filteredApplicants, " Status: ", status);
-    if (status === "ACCEPTED") {
-      setFilteredApplicants(job?.applicants?.filter(applicant => applicant.applicationStatus === "ACCEPTED") || []);
-    }
-    else if (status === "REJECTED") {
-      setFilteredApplicants(job?.applicants?.filter(applicant => applicant.applicationStatus === "REJECTED") || []);
-    }
-    else if (status === "PENDING") {
-      setFilteredApplicants(job?.applicants?.filter(applicant => applicant.applicationStatus === "PENDING") || []);
-    }
-    else if (status === "SHORT_LISTED") {
-      setFilteredApplicants(job?.applicants?.filter(applicant => applicant.applicationStatus === "SHORT_LISTED") || []);
+    console.log("Filtered: ", job?.applicants?.filter(applicant => applicant.applicationStatus === status));
+
+    if (status === "ALL") {
+      setFilteredApplicants(job?.applicants || []);
     }
     else {
-      setFilteredApplicants(job?.applicants || []);
+      setFilteredApplicants(job?.applicants?.filter(applicant => applicant.applicationStatus === status) || []);
     }
     console.log("(after) FilteredApplicants", filteredApplicants, " Status: ", status);
   };
+
 
   return (
     <>
