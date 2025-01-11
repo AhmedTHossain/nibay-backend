@@ -14,6 +14,7 @@ import { useState } from "react";
 import { ApplicantListModal } from "../components/ApplicantListModal";
 import { JobDeleteModal } from "../components/JobDeleteModal";
 import { useRouter } from "next/navigation";
+import { EDUCTATION_LEVELS, MAX_EDUCATION_LEVEL } from "@/lib/constant";
 
 export default function JobDetailsRoute({
   params
@@ -110,7 +111,11 @@ export default function JobDetailsRoute({
                           <div className="ms-4">
                             <p className="font-medium">শিক্ষাগত যোগ্যতা:</p>
                             <span className="text-emerald-600 font-medium text-sm">
-                              {job?.qualification}
+                              {
+                                EDUCTATION_LEVELS.find(
+                                  (level) => level.value === job?.qualification
+                                )?.label
+                              }
                             </span>
                           </div>
                         </li>
