@@ -15,6 +15,8 @@ export interface TUser {
   drivingLicenseCopy: string;
   maxEducationLevel: string;
   maxEducationLevelCertificateCopy: string;
+  chairmanCertificateCopy: string;
+  portEntryPermitCopy: string;
   yearsOfExperience: string;
   address: string;
   division: string;
