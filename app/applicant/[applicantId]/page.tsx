@@ -157,13 +157,17 @@ export default function ApplicantProfileRoute({
                     <div className="grid md:grid-cols-2 gap-6">
                       {/* Personal Information */}
                       <div className="bg-gray-50 rounded-lg p-6">
-                        <h2 className="text-xl font-semibold mb-4 pb-2 border-b">ব্যক্তিগত তথ্য</h2>
+                        <h2 className="text-xl font-semibold mb-4 pb-2 border-b">পেশাগত তথ্য</h2>
                         <div className="space-y-3">
                           <div className="flex items-center gap-2">
                             <span className="text-gray-600">শিক্ষাগত যোগ্যতা:</span>
                             <span>{EDUCTATION_LEVELS.find(
                               (level) => level.id === Number(user?.maxEducationLevel)
                             )?.label}</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <span className="text-gray-600">পেশা:</span>
+                            <span>{JOB_ROLES[user?.role as keyof typeof JOB_ROLES]?.label}</span>
                           </div>
                           <div className="flex items-center gap-2">
                             <span className="text-gray-600">অভিজ্ঞতা:</span>
@@ -204,25 +208,30 @@ export default function ApplicantProfileRoute({
                         <h2 className="text-xl font-semibold mb-4 pb-2 border-b">নথিপত্র</h2>
                         <div className="space-y-4">
                           <div>
-                            <p className="text-gray-600 mb-2">এন আইডি নং: {user?.nidNumber}</p>
+                            <div className="flex items-center gap-2">
+                              <span className="text-gray-600">এন আইডি নং:</span>
+                              <span>{user?.nidNumber}</span>
+                            </div>
                             {user?.nidCopy && (
                               <div className="mt-2">
                                 <p className="text-gray-600 mb-2">এন আইডি কপি:</p>
-                                <Image
-                                  alt="NID Copy"
-                                  src={`${user.nidCopy}`}
-                                  className="rounded-lg border"
-                                  width={200}
-                                  height={120}
-                                  objectFit="cover"
-                                />
-                                <a
-                                  href={`${user.nidCopy}`}
-                                  download
-                                  className="text-blue-500 hover:underline mt-2 block"
-                                >
-                                  ডাউনলোড করুন
-                                </a>
+                                <div className="flex flex-col items-start">
+                                  <Image
+                                    alt="NID Copy"
+                                    src={`${user.nidCopy}`}
+                                    className="rounded-lg border"
+                                    width={200}
+                                    height={120}
+                                    objectFit="cover"
+                                  />
+                                  <a
+                                    href={`${user.nidCopy}`}
+                                    download
+                                    className="text-blue-500 hover:underline mt-2 block"
+                                  >
+                                    ডাউনলোড করুন
+                                  </a>
+                                </div>
                               </div>
                             )}
                           </div>
@@ -232,21 +241,23 @@ export default function ApplicantProfileRoute({
                               {user?.maxEducationLevelCertificateCopy && (
                                 <div className="mt-2">
                                   <p className="text-gray-600 mb-2">সার্টিফিকেট কপি:</p>
-                                  <Image
-                                    alt="Driving License Copy"
-                                    src={user.maxEducationLevelCertificateCopy}
-                                    className="rounded-lg border"
-                                    width={200}
-                                    height={120}
-                                    objectFit="cover"
-                                  />
-                                  <a
-                                    href={`${user.maxEducationLevelCertificateCopy}`}
-                                    download
-                                    className="text-blue-500 hover:underline mt-2 block"
-                                  >
-                                    ডাউনলোড করুন
-                                  </a>
+                                  <div className="flex flex-col items-start">
+                                    <Image
+                                      alt="Driving License Copy"
+                                      src={user.maxEducationLevelCertificateCopy}
+                                      className="rounded-lg border"
+                                      width={200}
+                                      height={120}
+                                      objectFit="cover"
+                                    />
+                                    <a
+                                      href={`${user.maxEducationLevelCertificateCopy}`}
+                                      download
+                                      className="text-blue-500 hover:underline mt-2 block"
+                                    >
+                                      ডাউনলোড করুন
+                                    </a>
+                                  </div>
                                 </div>
                               )}
                             </div>
@@ -254,27 +265,30 @@ export default function ApplicantProfileRoute({
 
                           {user?.drivingLicense && (
                             <div>
-                              <p className="text-gray-600 mb-2">
-                                ড্রাইভিং লাইসেন্স: {user.drivingLicense}
-                              </p>
+                              <div className="flex items-center gap-2">
+                                <span className="text-gray-600">ড্রাইভিং লাইসেন্স:</span>
+                                <span>{user?.drivingLicense}</span>
+                              </div>
                               {user?.drivingLicenseCopy && (
                                 <div className="mt-2">
                                   <p className="text-gray-600 mb-2">ড্রাইভিং লাইসেন্স কপি:</p>
-                                  <Image
-                                    alt="Driving License Copy"
-                                    src={user.drivingLicenseCopy}
-                                    className="rounded-lg border"
-                                    width={200}
-                                    height={120}
-                                    objectFit="cover"
-                                  />
-                                  <a
-                                    href={`${user.drivingLicenseCopy}`}
-                                    download
-                                    className="text-blue-500 hover:underline mt-2 block"
-                                  >
-                                    ডাউনলোড করুন
-                                  </a>
+                                  <div className="flex flex-col items-start">
+                                    <Image
+                                      alt="Driving License Copy"
+                                      src={user.drivingLicenseCopy}
+                                      className="rounded-lg border"
+                                      width={200}
+                                      height={120}
+                                      objectFit="cover"
+                                    />
+                                    <a
+                                      href={`${user.drivingLicenseCopy}`}
+                                      download
+                                      className="text-blue-500 hover:underline mt-2 block"
+                                    >
+                                      ডাউনলোড করুন
+                                    </a>
+                                  </div>
                                 </div>
                               )}
                             </div>
@@ -286,48 +300,51 @@ export default function ApplicantProfileRoute({
                       <div className="bg-gray-50 rounded-lg p-6">
                         <h2 className="text-xl font-semibold mb-4 pb-2 border-b">অতিরিক্ত নথিপত্র</h2>
                         <div className="space-y-3">
-                          {console.log(user) && "asdf"}
                           {user?.chairmanCertificateCopy || user?.portEntryPermitCopy ? (
                             <>
                               {user?.chairmanCertificateCopy && (
                                 <div className="mt-2">
                                   <p className="text-gray-600 mb-2">চেয়ারম্যান সার্টিফিকেট কপি:</p>
-                                  <Image
-                                    alt="Driving License Copy"
-                                    src={user.chairmanCertificateCopy}
-                                    className="rounded-lg border"
-                                    width={200}
-                                    height={120}
-                                    objectFit="cover"
-                                  />
-                                  <a
-                                    href={`${user.chairmanCertificateCopy}`}
-                                    download
-                                    className="text-blue-500 hover:underline mt-2 block"
-                                  >
-                                    ডাউনলোড করুন
-                                  </a>
+                                  <div className="flex flex-col items-start">
+                                    <Image
+                                      alt="Driving License Copy"
+                                      src={user.chairmanCertificateCopy}
+                                      className="rounded-lg border"
+                                      width={200}
+                                      height={120}
+                                      objectFit="cover"
+                                    />
+                                    <a
+                                      href={`${user.chairmanCertificateCopy}`}
+                                      download
+                                      className="text-blue-500 hover:underline mt-2"
+                                    >
+                                      ডাউনলোড করুন
+                                    </a>
+                                  </div>
                                 </div>
                               )}
 
                               {user?.portEntryPermitCopy && (
                                 <div className="mt-2">
                                   <p className="text-gray-600 mb-2">পোর্ট এন্ট্রি পারমিট কপি:</p>
-                                  <Image
-                                    alt="Driving License Copy"
-                                    src={user.portEntryPermitCopy}
-                                    className="rounded-lg border"
-                                    width={200}
-                                    height={120}
-                                    objectFit="cover"
-                                  />
-                                  <a
-                                    href={`${user.portEntryPermitCopy}`}
-                                    download
-                                    className="text-blue-500 hover:underline mt-2 block"
-                                  >
-                                    ডাউনলোড করুন
-                                  </a>
+                                  <div className="flex flex-col items-start">
+                                    <Image
+                                      alt="Driving License Copy"
+                                      src={user.portEntryPermitCopy}
+                                      className="rounded-lg border"
+                                      width={200}
+                                      height={120}
+                                      objectFit="cover"
+                                    />
+                                    <a
+                                      href={`${user.portEntryPermitCopy}`}
+                                      download
+                                      className="text-blue-500 hover:underline mt-2"
+                                    >
+                                      ডাউনলোড করুন
+                                    </a>
+                                  </div>
                                 </div>
                               )}
                             </>
