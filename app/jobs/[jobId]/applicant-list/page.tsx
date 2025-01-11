@@ -46,16 +46,12 @@ export default function ApplicantListRoute({
   }, [job]);
 
   const handleFilterChange = (status: ApplicationStatus) => {
-    console.log("(Before) FilteredApplicants", filteredApplicants, " Status: ", status);
-    console.log("Filtered: ", job?.applicants?.filter(applicant => applicant.applicationStatus === status));
-
     if (status === "ALL") {
       setFilteredApplicants(job?.applicants || []);
     }
     else {
       setFilteredApplicants(job?.applicants?.filter(applicant => applicant.applicationStatus === status) || []);
     }
-    console.log("(after) FilteredApplicants", filteredApplicants, " Status: ", status);
   };
 
 
