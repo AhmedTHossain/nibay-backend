@@ -32,5 +32,6 @@ export interface TJob {
   }>;
   isBirthCertificateRequired: boolean;
   isPortEntryPermitRequired: boolean;
+  status: string;
   __v: number;
 }

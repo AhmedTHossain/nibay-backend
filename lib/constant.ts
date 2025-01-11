@@ -89,3 +89,9 @@ export const JOB_ROLES = [
   },
   { label: "ট্রাক ড্রাইভার", value: "ট্রাক ড্রাইভার" }
 ];
+
+export const JOB_STATUS = [
+  { label: "সক্রিয়", value: "ACTIVE" },
+  { label: "সম্পন্ন", value: "COMPLETED" },
+  { label: "মেয়াদোত্তীর্ণ", value: "EXPIRED" }
+];
