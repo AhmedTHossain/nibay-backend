@@ -64,7 +64,7 @@ export function ApplicantCard(props: ApplicantCardProps) {
       className="w-[290px] relative group bg-white dark:bg-slate-900 overflow-hidden rounded-md shadow dark:shadow-gray-700 text-center p-6 hover:bg-emerald-600/[0.02] hover:dark:bg-emerald-600/5 transition-all duration-500 cursor-pointer"
       onClick={() => {
         console.log(application?.applicant)
-        router.push(`/applicant/${application?.applicant.id}`);
+        router.push(`/applicant/${application?.applicant.id}?jobId=${application?.job.id}`);
       }}
     >
       <p className="text-xs font-semibold absolute top-3 right-2 bg-violet-800 text-violet-200 py-1 px-2 rounded-3xl">

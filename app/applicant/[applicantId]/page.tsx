@@ -13,25 +13,28 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 
+import { useSearchParams } from "next/navigation";
+
 export default function ApplicantProfileRoute({
   params
 }: {
   params: { applicantId: string };
 }) {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const jobId = searchParams.get("jobId") as string;
   const { user, isLoading } = useUserById({ userId: params.applicantId });
   const [isProcessing, setIsProcessing] = useState(false);
 
   const handleApplicantStatus = async (status: keyof typeof APPLICATION_STATUS) => {
     setIsProcessing(true);
     try {
-      const response = await api_client.patch(`/applications/${params.applicantId}`, {
-        applicationStatus: status
+      const response = await api_client.patch(`/jobs/${jobId}/${params.applicantId}`, {
+        status
       });
 
       if (response.data.status === "success") {
         toast.success(response.data.message);
-        router.push("/applicants");
       }
     } catch (error) {
       toast.error("Something went wrong!");
@@ -45,7 +48,7 @@ export default function ApplicantProfileRoute({
     <div className="relative">  {/* Added relative to parent */}
       <Header />
       <HeroSection title="Applicants" />
-      
+
       <section className="relative lg:mt-12 mt-[74px] mb-10">
         <div className="lg:container container-fluid">
           {isLoading ? (
@@ -65,8 +68,8 @@ export default function ApplicantProfileRoute({
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.05, duration: 0.5 }}
-                className="relative"  
-                // {/* Added relative */}
+                className="relative"
+              // {/* Added relative */}
               >
                 {/* Cover Photo */}
                 <div className="relative h-[200px] w-full rounded-t-lg bg-gradient-to-r from-blue-500 to-blue-700 overflow-hidden">
@@ -87,7 +90,7 @@ export default function ApplicantProfileRoute({
                     <Check className="h-4 w-4" />
                     গ্রহণ করুন
                   </button>
-                  
+
                   <button
                     className="text-gray-800 border border-gray-600 hover:bg-gray-600 hover:text-white px-4 py-2 rounded flex items-center gap-2 disabled:opacity-50 relative z-50"
                     onClick={(e) => {
@@ -100,7 +103,7 @@ export default function ApplicantProfileRoute({
                     <Star className="h-4 w-4" />
                     শর্টলিস্ট
                   </button>
-                  
+
                   <button
                     className="text-white bg-red-600 hover:bg-red-700 px-4 py-2 rounded flex items-center gap-2 disabled:opacity-50 relative z-50"
                     onClick={(e) => {
@@ -140,9 +143,9 @@ export default function ApplicantProfileRoute({
                             (item) =>
                               item.value ===
                               MAX_EDUCATION_LEVEL[
-                                Number(
-                                  user?.maxEducationLevel
-                                ) as keyof typeof MAX_EDUCATION_LEVEL
+                              Number(
+                                user?.maxEducationLevel
+                              ) as keyof typeof MAX_EDUCATION_LEVEL
                               ]
                           )?.label}
                         </p>
