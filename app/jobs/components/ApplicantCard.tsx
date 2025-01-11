@@ -61,7 +61,7 @@ export function ApplicantCard(props: ApplicantCardProps) {
 
   return (
     <div
-      className="min-w-[240px] max-w-[290px] relative group bg-white dark:bg-slate-900 overflow-hidden rounded-md shadow dark:shadow-gray-700 text-center p-6 hover:bg-emerald-600/[0.02] hover:dark:bg-emerald-600/5 transition-all duration-500 cursor-pointer"
+      className="w-[290px] relative group bg-white dark:bg-slate-900 overflow-hidden rounded-md shadow dark:shadow-gray-700 text-center p-6 hover:bg-emerald-600/[0.02] hover:dark:bg-emerald-600/5 transition-all duration-500 cursor-pointer"
       onClick={() => {
         console.log(application?.applicant)
         router.push(`/applicant/${application?.applicant.id}`);
