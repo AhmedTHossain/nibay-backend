@@ -8,24 +8,6 @@ import { DataTable } from "@/components/ui/data-table";
 import { jobColumns } from "./columns";
 import { useJobContext } from "@/app/contexts/JobContext";
 
-// This would typically come from your API
-const initialJobs = [
-  {
-    id: "1",
-    title: "Frontend Developer",
-    department: "Engineering",
-    location: "Remote",
-    status: "Open"
-  },
-  {
-    id: "2",
-    title: "Product Manager",
-    department: "Product",
-    location: "New York",
-    status: "Closed"
-  }
-];
-
 export default function JobsPage() {
   const { jobs, isLoading } = useJobContext();
 
