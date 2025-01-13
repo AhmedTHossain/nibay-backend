@@ -6,6 +6,7 @@ import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/ui/data-table";
 import { jobColumns } from "./columns";
+import { useJobContext } from "@/app/contexts/JobContext";
 
 // This would typically come from your API
 const initialJobs = [
@@ -26,7 +27,9 @@ const initialJobs = [
 ];
 
 export default function JobsPage() {
-  const [jobs, setJobs] = useState(initialJobs);
+  const { jobs, isLoading } = useJobContext();
+
+  console.log(jobs);
 
   return (
     <div className="flex-1 space-y-4 p-8 pt-6">
@@ -36,7 +39,12 @@ export default function JobsPage() {
           <Plus className="mr-2 h-4 w-4" /> নতুন চাকরি তৈরি করুন
         </Button>
       </div>
-      <DataTable columns={jobColumns} data={jobs} searchKey="title" />
+      <DataTable
+        columns={jobColumns}
+        data={jobs}
+        isLoading={isLoading}
+        searchKey="title"
+      />
     </div>
   );
 }

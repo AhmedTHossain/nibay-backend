@@ -1,7 +1,7 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { MoreHorizontal } from "lucide-react";
+import { Edit, MoreHorizontal, Trash } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -26,12 +26,12 @@ export const jobColumns: ColumnDef<Job>[] = [
     header: "শিরোনাম"
   },
   {
-    accessorKey: "department",
+    accessorKey: "shortDescription",
     header: "সারসংক্ষেপ"
   },
   {
-    accessorKey: "location",
-    header: "কর্মস্থল"
+    accessorKey: "division",
+    header: "বিভাগ"
   },
   {
     accessorKey: "status",
@@ -44,21 +44,19 @@ export const jobColumns: ColumnDef<Job>[] = [
       const job = row.original;
 
       return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem>Edit Job</DropdownMenuItem>
-            <DropdownMenuItem className="text-red-600">
-              Delete Job
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <div className="flex space-x-2">
+          <Button variant="ghost" className="h-8 w-8 p-0 flex items-center">
+            <Edit className="h-4 w-4" />
+            <span className="ml-2">এডিট করুন</span>
+          </Button>
+          <Button
+            variant="ghost"
+            className="h-8 w-8 p-0 text-red-600 flex items-center"
+          >
+            <Trash className="h-4 w-4" />
+            <span className="ml-2">ডিলিট করুন</span>
+          </Button>
+        </div>
       );
     }
   }
