@@ -11,6 +11,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
+import { TJob } from "@/utils/types/job";
 
 export type Job = {
   id: string;
@@ -20,7 +21,7 @@ export type Job = {
   status: string;
 };
 
-export const jobColumns: ColumnDef<Job>[] = [
+export const jobColumns: ColumnDef<TJob>[] = [
   {
     accessorKey: "title",
     header: "শিরোনাম"
