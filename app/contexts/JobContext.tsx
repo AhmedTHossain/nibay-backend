@@ -20,6 +20,9 @@ interface JobContextValue {
   setCopyJob: Dispatch<SetStateAction<TJob | null>>;
   isLoading: boolean;
   refetch: () => Promise<void>;
+  addJob: (job: TJob) => Promise<void>;
+  updateJob: (id: string, updatedJob: TJob) => Promise<void>;
+  deleteJob: (id: string) => Promise<void>;
 }
 
 const JobContext = createContext<JobContextValue | undefined>(undefined);
@@ -41,6 +44,33 @@ export const JobProvider: FC<{ children: ReactNode }> = ({ children }) => {
     }
   };
 
+  const addJob = async (job: TJob) => {
+    try {
+      const res = await api_client.post("/api/jobs", job);
+      setJobs([...jobs, res.data.data]);
+    } catch (error) {
+      console.error("Failed to add job:", error);
+    }
+  };
+
+  const updateJob = async (id: string, updatedJob: TJob) => {
+    try {
+      const res = await api_client.put(`/api/jobs/${id}`, updatedJob);
+      setJobs(jobs.map((job) => (job._id === id ? res.data.data : job)));
+    } catch (error) {
+      console.error("Failed to update job:", error);
+    }
+  };
+
+  const deleteJob = async (id: string) => {
+    try {
+      await api_client.delete(`/api/jobs/${id}`);
+      setJobs(jobs.filter((job) => job._id !== id));
+    } catch (error) {
+      console.error("Failed to delete job:", error);
+    }
+  };
+
   useEffect(() => {
     fetchJobs();
   }, []);
@@ -53,7 +83,10 @@ export const JobProvider: FC<{ children: ReactNode }> = ({ children }) => {
         isLoading,
         refetch: fetchJobs,
         setCopyJob,
-        copyJob
+        copyJob,
+        addJob,
+        updateJob,
+        deleteJob
       }}
     >
       {children}
