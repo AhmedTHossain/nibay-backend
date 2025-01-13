@@ -13,11 +13,17 @@ import {
 import { Switch } from "@/components/ui/switch";
 import { cn } from "@/lib/utils";
 import { useMotionValue, useScroll } from "framer-motion";
-import { LogOutIcon, SettingsIcon } from "lucide-react";
+import {
+  LogOutIcon,
+  MonitorCog,
+  MonitorCogIcon,
+  SettingsIcon
+} from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Avatar } from "../common/Avatar";
 import { Navigation } from "./Navigation";
+import AdminPanel from "@/app/admin/page";
 
 const Header = () => {
   const { scrollY } = useScroll();
@@ -82,6 +88,15 @@ function ProfileMenu() {
             }}
           >
             <SettingsIcon size={18} strokeWidth={1.5} /> <span>সেটিংস</span>
+          </MenubarItem>
+          <MenubarSeparator />
+          <MenubarItem
+            className="gap-2"
+            onClick={() => {
+              router.push("/admin");
+            }}
+          >
+            <MonitorCogIcon size={18} strokeWidth={1.5} /> <span>অ্যাডমিন</span>
           </MenubarItem>
           <MenubarSeparator />
           <MenubarItem
