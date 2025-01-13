@@ -45,17 +45,20 @@ export const jobColumns: ColumnDef<TJob>[] = [
       const job = row.original;
 
       return (
-        <div className="flex space-x-2">
-          <Button variant="ghost" className="h-8 w-8 p-0 flex items-center">
+        <div className="flex justify-center space-x-2">
+          <Button
+            variant="ghost"
+            className="h-8 px-3 flex items-center border border-emerald-800 rounded-md text-emerald-800 hover:bg-emerald-50 transition"
+          >
             <Edit className="h-4 w-4" />
-            <span className="ml-2">এডিট করুন</span>
+            <span>এডিট</span>
           </Button>
           <Button
             variant="ghost"
-            className="h-8 w-8 p-0 text-red-600 flex items-center"
+            className="h-8 px-3 flex items-center border border-red-600 rounded-md text-red-600 hover:bg-red-50 hover:text-red-600 transition"
           >
             <Trash className="h-4 w-4" />
-            <span className="ml-2">ডিলিট করুন</span>
+            <span>ডিলিট</span>
           </Button>
         </div>
       );
