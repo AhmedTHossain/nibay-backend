@@ -9,17 +9,17 @@ import { Button } from "@/components/ui/button";
 
 const links = [
   {
-    title: "Dashboard",
+    title: "ড্যাশবোর্ড",
     href: "/admin",
     icon: LayoutDashboard
   },
   {
-    title: "Jobs",
+    title: "চাকরি ম্যানেজমেন্ট",
     href: "/admin/jobs",
     icon: Briefcase
   },
   {
-    title: "Users",
+    title: "ইউজার ম্যানেজমেন্ট",
     href: "/admin/users",
     icon: Users
   }
