@@ -51,20 +51,25 @@ export async function login(request: Request) {
 
 export async function mobileLogin(request: Request) {
   try {
-    const { phone, pin } = await request.json();
+    const { phone, otpCode } = await request.json();
+
+    if (!phone || !otpCode) {
+      return NextResponse.json(
+        { error: "Phone and PIN are required!" },
+        { status: 400 }
+      );
+    }
 
     await connectToMongoDB();
 
-    const user = await User.findOne({ phone }).select("+password");
-    if (!user) {
+    const user = await User.findOne({ phone }).select("otpCode");
+    if (!user || !user.otpCode) {
       return NextResponse.json(
         { error: "Invalid Credentials!" },
         { status: 400 }
       );
     }
-
-    const isMatch = await bcrypt.compare(pin, user.password);
-    if (!isMatch) {
+    if (otpCode !== user.otpCode) {
       return NextResponse.json(
         { error: "Invalid Credentials!" },
         { status: 400 }
