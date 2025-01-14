@@ -37,8 +37,8 @@ export const UserProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const fetchUsers = async () => {
     setIsLoading(true);
     try {
-      const res = await api_client.get("/api/users");
-      setUsers(res.data.data);
+      // const res = await api_client.get("/api/users");
+      // setUsers(res.data.data);
     } catch (error) {
       console.error("Failed to fetch users:", error);
     } finally {
@@ -48,8 +48,8 @@ export const UserProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
   const addUser = async (user: TUser) => {
     try {
-      const res = await api_client.post("/api/users", user);
-      setUsers([...users, res.data.data]);
+      //   const res = await api_client.post("/api/users", user);
+      //   setUsers([...users, res.data.data]);
     } catch (error) {
       console.error("Failed to add user:", error);
     }
@@ -57,8 +57,8 @@ export const UserProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
   const updateUser = async (id: string, updatedUser: TUser) => {
     try {
-      const res = await api_client.put(`/api/users/${id}`, updatedUser);
-      setUsers(users.map((user) => (user.id === id ? res.data.data : user)));
+      // const res = await api_client.put(`/api/users/${id}`, updatedUser);
+      // setUsers(users.map((user) => (user.id === id ? res.data.data : user)));
     } catch (error) {
       console.error("Failed to update user:", error);
     }
@@ -66,8 +66,8 @@ export const UserProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
   const deleteUser = async (id: string) => {
     try {
-      await api_client.delete(`/api/users/${id}`);
-      setUsers(users.filter((user) => user.id !== id));
+      // await api_client.delete(`/api/users/${id}`);
+      // setUsers(users.filter((user) => user.id !== id));
     } catch (error) {
       console.error("Failed to delete user:", error);
     }

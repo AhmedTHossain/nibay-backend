@@ -24,6 +24,7 @@ import { useEffect, useState } from "react";
 import { Avatar } from "../common/Avatar";
 import { Navigation } from "./Navigation";
 import AdminPanel from "@/app/admin/page";
+import { ModeToggle } from "../common/ModeToggle";
 
 const Header = () => {
   const { scrollY } = useScroll();
@@ -57,9 +58,9 @@ const Header = () => {
           <div className="flex space-x-3 items-center">
             <Navigation />
             <ProfileMenu />
-            {/* <ModeToggle /> */}
             <div>
-              <Switch id="switch-lang" color="green" />
+              <ModeToggle />
+              {/* <Switch id="switch-lang" color="green" /> */}
             </div>
           </div>
         </div>
