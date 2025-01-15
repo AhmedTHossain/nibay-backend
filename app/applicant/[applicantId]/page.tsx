@@ -74,7 +74,7 @@ export default function ApplicantProfileRoute({
                   duration: 0.5,
                   ease: "easeOut", // Smooth easing
                 }}
-                className="relative mt-[50px] text-white p-6 rounded-lg"
+                className="relative mt-[50px] dark:text-white p-6 rounded-lg"
               >
 
                 {/* Cover Photo */}
