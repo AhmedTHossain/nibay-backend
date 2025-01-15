@@ -1,26 +1,26 @@
 export const isProduction = process.env.NODE_ENV === "production";
 
 export const USER_ROLE = {
-  0: "CHECKER",
-  1: "COUNTER_MASTER",
-  2: "DRIVER",
-  3: "FOREMAN",
-  4: "GM",
-  5: "HELPER",
-  6: "MANAGER",
-  7: "MECHANIC_MISTRY",
-  8: "SUPERVISOR_PASSENGER_GUIDE",
-  9: "TRUCK_DRIVER",
-  10: "INSTITUTION",
-  11: "INDIVIDUAL",
-  12: "USER"
+  0: { label: "চেকার", value: "CHECKER" },
+  1: { label: "কাউন্টার মাস্টার", value: "COUNTER_MASTER" },
+  2: { label: "ড্রাইভার", value: "DRIVER" },
+  3: { label: "ফোরম্যান", value: "FOREMAN" },
+  4: { label: "জিএম", value: "GM" },
+  5: { label: "হেল্পার", value: "HELPER" },
+  6: { label: "ম্যানেজার", value: "MANAGER" },
+  7: { label: "মেকানিক/মিস্ত্রি", value: "MECHANIC_MISTRY" },
+  8: {
+    label: "সুপারভাইজার/প্যাসেঞ্জার গাইড",
+    value: "SUPERVISOR_PASSENGER_GUIDE"
+  },
+  9: { label: "ট্রাক ড্রাইভার", value: "TRUCK_DRIVER" }
 };
 
 export const APPLICATION_STATUS = {
-  PENDING: "PENDING",
-  ACCEPTED: "ACCEPTED",
-  REJECTED: "REJECTED",
-  SHORT_LISTED: "SHORT_LISTED"
+  PENDING: { label: "অপেক্ষমাণ", value: "PENDING" },
+  ACCEPTED: { label: "গৃহীত", value: "ACCEPTED" },
+  REJECTED: { label: "বাতিল", value: "REJECTED" },
+  SHORT_LISTED: { label: "শর্টলিস্টেড", value: "SHORT_LISTED" }
 };
 
 export type ROLE =
@@ -88,4 +88,10 @@ export const JOB_ROLES = [
     value: "সুপারভাইজার/প্যাসেঞ্জার গাইড"
   },
   { label: "ট্রাক ড্রাইভার", value: "ট্রাক ড্রাইভার" }
+];
+
+export const JOB_STATUS = [
+  { label: "সক্রিয়", value: "ACTIVE" },
+  { label: "সম্পন্ন", value: "COMPLETED" },
+  { label: "মেয়াদোত্তীর্ণ", value: "EXPIRED" }
 ];

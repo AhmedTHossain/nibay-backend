@@ -1,7 +1,8 @@
 "use client";
 
-import applicant_img from "@/app/assets/images/applicant-1.jpg";
+import useUserById from "@/app/hooks/users/useUserById";
 import { Button } from "@/components/ui/button";
+import { api_client } from "@/lib/axios";
 import {
   APPLICATION_STATUS,
   EDUCTATION_LEVELS,
@@ -10,111 +11,150 @@ import {
 } from "@/lib/constant";
 import { formatEnglishToBangalNum } from "@/utils/formatEtoBLang";
 import { TUser } from "@/utils/types/user";
+import { AnimatePresence, motion } from "framer-motion";
+import { Loader } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
+import { toast } from "sonner";
 
 interface ApplicantCardProps extends TUser {
-  setApplicantId: Dispatch<SetStateAction<string | null>>;
-  handleApplicantStatus: (status: keyof typeof APPLICATION_STATUS) => void;
+  application: {
+    applicant: {
+      id: string;
+      name: string;
+    };
+    job: {
+      id: string;
+      title: string;
+    };
+    applicationStatus: keyof typeof APPLICATION_STATUS;
+    statusChangeDate: Date;
+    review: string | null;
+    reviewCreatedDate: Date | null;
+  };
 }
 
 export function ApplicantCard(props: ApplicantCardProps) {
   const router = useRouter();
 
-  const { handleApplicantStatus, setApplicantId, ...applicant } = props;
+  const { application } = props;
+  const { user, isLoading } = useUserById({ userId: application?.applicant.id });
+
+  if (!isLoading) {
+    console.log(user?.profilePhoto);
+  }
+
+  function handleApplicantStatus(status: keyof typeof APPLICATION_STATUS) {
+    api_client
+      .patch(`/jobs/${application?.job.id}/${application?.applicant.id}`, {
+        status
+      })
+      .then((res) => {
+        if (res.data.status === "success") {
+          router.push(`/jobs/${application?.job.id}`);
+          toast.success(res.data.message);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => { });
+  }
 
   return (
     <div
-      className="relative group bg-white dark:bg-slate-900 overflow-hidden rounded-md shadow dark:shadow-gray-700 text-center p-6 hover:bg-emerald-600/[0.02] hover:dark:bg-emerald-600/5 transition-all duration-500 cursor-pointer"
+      className="w-[290px] relative group bg-white dark:bg-slate-900 overflow-hidden rounded-md shadow dark:shadow-gray-700 text-center p-6 hover:bg-emerald-600/[0.02] hover:dark:bg-emerald-600/5 transition-all duration-500 cursor-pointer"
       onClick={() => {
-        console.log(applicant?.applicant)
-        //@ts-expect-error not necessary at this point
-        router.push(`/applicant/${applicant?.applicant.id}`);
+        console.log(application?.applicant)
+        router.push(`/applicant/${application?.applicant.id}?jobId=${application?.job.id}`);
       }}
     >
-      <p className="text-[9px] font-semibold absolute top-3 right-2 bg-violet-800 text-violet-200 py-1 px-2 rounded-3xl">
-        {applicant?.applicationStatus}
+      <p className="text-xs font-semibold absolute top-3 right-2 bg-violet-800 text-violet-200 py-1 px-2 rounded-3xl">
+        {APPLICATION_STATUS[application?.applicationStatus as keyof typeof APPLICATION_STATUS].label}
       </p>
-      <Image
-        src={applicant_img}
-        className=" size-20 rounded-full shadow dark:shadow-gray-700 mx-auto"
-        alt=""
-      />
-      <div className="mt-2">
-        <p className="font-semibold text-lg">{applicant?.name}</p>
-        <p className="text-sm text-slate-800">
-          {USER_ROLE[Number(applicant?.role) as keyof typeof USER_ROLE]}
-        </p>
-      </div>
-
-      <div className="mt-6 text-left space-y-1">
-        <div className="flex items-center gap-2">
-          <span className="text-slate-800 text-sm">শিক্ষাগত যোগ্যতা:</span>
-          <span className="text-sm font-semibold">
-            {
-              EDUCTATION_LEVELS.find(
-                (item) =>
-                  item.value ===
-                  MAX_EDUCATION_LEVEL[
-                    Number(
-                      applicant?.maxEducationLevel
-                    ) as keyof typeof MAX_EDUCATION_LEVEL
-                  ]
-              )?.label
-            }
-          </span>
-        </div>
-        <div className="flex items-center gap-2">
-          <span className="text-slate-800 text-sm ">অভিজ্ঞতা:</span>
-          <span className="text-sm font-semibold">
-            {formatEnglishToBangalNum(applicant.yearsOfExperience)} বছর
-          </span>
-        </div>
-
-        <div className="flex items-center justify-between pt-5">
-          <button
-            className="text-xs bg-[#10b981] p-[7px] text-white rounded-sm"
-            onClick={(event) => {
-              event.stopPropagation();
-              setApplicantId(applicant?._id);
-              handleApplicantStatus("ACCEPTED");
+      {isLoading ? (
+        <AnimatePresence>
+          <motion.div
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            style={{
+              marginTop: 10,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center"
             }}
           >
-            Accept
-          </button>
-          <button
-            className="text-xs bg-red-700 p-[7px] text-white rounded-sm"
-            onClick={(event) => {
-              event.stopPropagation();
-              setApplicantId(applicant?._id);
-              handleApplicantStatus("REJECTED");
-            }}
-          >
-            Reject
-          </button>
-          <button
-            className="rounded-sm p-[7px] border transition-all duration-200 border-gray-600 hover:bg-gray-600 hover:text-white bg-transparent text-gray-800 text-xs"
-            onClick={(event) => {
-              event.stopPropagation();
-              setApplicantId(applicant?._id);
-              handleApplicantStatus("SHORT_LISTED");
-            }}
-          >
-            Short list
-          </button>
+            <Loader size={22} className="animate-spin" />
+          </motion.div>
+        </AnimatePresence>
+      ) : (
+        <>
+          <Image
+            src={`${user?.profilePhoto || "/"}`}
+            width={60}
+            height={60}
+            className="size-20 rounded-full shadow dark:shadow-gray-700 mx-auto"
+            alt="Profile Photo"
+          />
+          <div className="mt-2">
+            <p className="font-semibold text-lg">{application?.applicant.name}</p>
+            <p className="text-sm text-slate-800">
+              {USER_ROLE[Number(user?.role) as keyof typeof USER_ROLE]?.label}
+            </p>
+          </div>
 
-          {/* <Button className="bg-[#10b981] hover:bg-[#10b981] text-xs">
-            Accept
-          </Button>
-          <Button className="bg-red-600 hover:bg-red-600 text-xs">
-            Reject
-          </Button>
-          <Button className="border border-gray-600 hover:bg-gray-600 hover:text-white bg-transparent text-gray-800 text-xs">
-            Short listed
-          </Button> */}
-        </div>
-      </div>
+          <div className="mt-6 text-left space-y-1">
+            <div className="flex items-center gap-2">
+              <span className="text-slate-800 text-sm min-w-[100px] shrink-0 pr-0 mr-0">শিক্ষাগত যোগ্যতা</span>
+              <span className="p-0 m-0">:</span>
+              <span className="text-sm font-semibold truncate">
+                {
+                  EDUCTATION_LEVELS.find(level => level.id === Number(user?.maxEducationLevel))?.label
+                }
+              </span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-slate-800 text-sm min-w-[100px]">অভিজ্ঞতা</span>
+              <span className="p-0 m-0">:</span>
+              <span className="text-sm font-semibold">
+                {formatEnglishToBangalNum(user?.yearsOfExperience)} বছর
+              </span>
+            </div>
+
+            <div className="flex items-center justify-between pt-5">
+              <button
+                className="text-xs bg-[#10b981] p-[7px] text-white rounded-sm"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  handleApplicantStatus("ACCEPTED");
+                }}
+              >
+                গ্রহণ করুন
+              </button>
+              <button
+                className="text-xs bg-red-700 p-[7px] text-white rounded-sm"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  handleApplicantStatus("REJECTED");
+                }}
+              >
+                বাতিল করুন
+              </button>
+              <button
+                className="rounded-sm p-[7px] border transition-all duration-200 border-gray-600 hover:bg-gray-600 hover:text-white bg-transparent text-gray-800 text-xs"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  handleApplicantStatus("SHORT_LISTED");
+                }}
+              >
+                শর্টলিস্ট করুন
+              </button>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }

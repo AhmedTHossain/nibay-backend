@@ -3,7 +3,7 @@ import path from "path";
 
 export async function processFile(file: File): Promise<string> {
   // Reference the system's /tmp directory
-  const uploadPath = "/tmp/uploads";
+  const uploadPath = "public/uploads";
 
   // Create the uploads directory inside /tmp if it doesn't already exist
   await fs.mkdir(uploadPath, { recursive: true });
@@ -16,5 +16,5 @@ export async function processFile(file: File): Promise<string> {
   await fs.writeFile(path.join(uploadPath, filePath), Buffer.from(buffer));
 
   // Return the full file path
-  return path.join(uploadPath, filePath);
+  return path.join("/uploads", filePath);
 }

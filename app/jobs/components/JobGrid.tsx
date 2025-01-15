@@ -22,7 +22,7 @@ export function JobGrid(props: JobGridProps) {
 
   return (
     <div
-      className="group relative p-6 rounded-lg border border-emerald-600/20 dark:border-emerald-600/40 bg-white dark:bg-slate-900 hover:bg-emerald-600/[0.02] hover:dark:bg-emerald-600/5 hover:shadow-md hover:shadow-emerald-600/5 transition-all duration-500 cursor-pointer"
+      className="group relative p-5 rounded-lg border border-emerald-600/20 dark:border-emerald-600/40 bg-white dark:bg-slate-900 hover:bg-emerald-600/[0.02] hover:dark:bg-emerald-600/5 hover:shadow-md hover:shadow-emerald-600/5 transition-all duration-500 cursor-pointer"
       onClick={() => {
         router.push(`/jobs/${_id}`);
       }}
@@ -37,6 +37,7 @@ export function JobGrid(props: JobGridProps) {
             title="চাকরিটি ডুপ্লিকেট করুন"
             onClick={(event) => {
               event.stopPropagation();
+              console.log("restJob", restJob);
               setCopyJob(restJob);
               router.push(`/jobs/new`);
             }}
@@ -68,27 +69,29 @@ export function JobGrid(props: JobGridProps) {
         </div>
       </div>
       <div className="mt-3">
-        <p>
-          <span className="bg-orange-600/5 hover:bg-orange-600/20 dark:bg-orange-600/10 hover:dark:bg-orange-600/30 inline-flex items-center text-orange-600 px-4 text-[14px] font-medium rounded-full mt-2 transition-all duration-500">
-            {jobRole}
-          </span>
-        </p>
-
         <p className="mt-4 text-xl font-semibold transition-all duration-500">
           {title}
         </p>
-        <p className="text-slate-800 mt-2">
-          {shortDescription?.substring(0, 70) + "..."}
+        <p className="text-slate-800 mt-2 break-words">
+          {shortDescription?.substring(0, 70) + (shortDescription.length > 70 ? "..." : "")}
         </p>
-        <div className="mt-3 flex items-center justify-between flex-wrap gap-2">
-          {salary && (
-            <p>
-              <span className="bg-purple-600/5 hover:bg-purple-600/20 dark:bg-purple-600/10 hover:dark:bg-purple-600/30 text-purple-600 px-4 text-[14px] inline-flex space-x-1 font-medium rounded-full mt-2 me-1 transition-all duration-500">
+        <div className="mt-3 flex items-center justify-between gap-2">
+          {/* Salary Section - Left Aligned */}
+          <p className="shrink-0 flex items-center">
+            {salary && parseInt(salary) > 0 && (
+              <span className="bg-purple-600/5 hover:bg-purple-600/20 dark:bg-purple-600/10 hover:dark:bg-purple-600/30 text-purple-600 px-3 text-[14px] inline-flex space-x-1 font-medium rounded-full transition-all duration-500">
                 <Image src={taka_svg} alt="Taka SVG" width={10} />
                 <span>{formatEnglishToBangalNum(salary)}</span>
               </span>
-            </p>
-          )}
+            )}
+          </p>
+
+          {/* Job Role Section - Right Aligned */}
+          <p className="flex min-w-[20px]">
+            <span className="truncate bg-orange-600/5 hover:bg-orange-600/20 dark:bg-orange-600/10 hover:dark:bg-orange-600/30 text-orange-600 px-3 text-[14px] font-medium rounded-full transition-all duration-500">
+              {jobRole}
+            </span>
+          </p>
         </div>
       </div>
     </div>

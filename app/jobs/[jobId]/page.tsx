@@ -13,12 +13,16 @@ import Link from "next/link";
 import { useState } from "react";
 import { ApplicantListModal } from "../components/ApplicantListModal";
 import { JobDeleteModal } from "../components/JobDeleteModal";
+import { useRouter } from "next/navigation";
+import { EDUCTATION_LEVELS, MAX_EDUCATION_LEVEL } from "@/lib/constant";
 
 export default function JobDetailsRoute({
   params
 }: {
   params: { jobId: string };
 }) {
+  const router = useRouter();
+
   const [open, setIsOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
@@ -107,7 +111,11 @@ export default function JobDetailsRoute({
                           <div className="ms-4">
                             <p className="font-medium">শিক্ষাগত যোগ্যতা:</p>
                             <span className="text-emerald-600 font-medium text-sm">
-                              {job?.qualification}
+                              {
+                                EDUCTATION_LEVELS.find(
+                                  (level) => level.value === job?.qualification
+                                )?.label
+                              }
                             </span>
                           </div>
                         </li>
@@ -155,13 +163,13 @@ export default function JobDetailsRoute({
                             title="চাকরিটি এডিট করুন"
                             onClick={(event) => {
                               event.stopPropagation();
-                              // router.push(`/jobs/${_id}/edit`);
+                              router.push(`/jobs/${params.jobId}/edit`);
                             }}
                           >
                             <span>
                               <Edit strokeWidth={1.7} size={16} />
                             </span>
-                            <span>Edit</span>
+                            <span>এডিট করুন</span>
                           </p>
                           <p
                             className="rounded-md bg-red-600/5 hover:bg-red-500 border-red-600/10 hover:border-red-600 text-red-600 duration-200 transition-all hover:text-white md:relative flex items-center justify-center px-4 py-2 space-x-1 cursor-pointer text-sm font-medium"
@@ -174,7 +182,7 @@ export default function JobDetailsRoute({
                             <span>
                               <Trash strokeWidth={1.7} size={16} />
                             </span>
-                            <span>Delete</span>
+                            <span>ডিলিট করুন</span>
                           </p>
                         </li>
                       </ul>

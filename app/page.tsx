@@ -14,6 +14,8 @@ import { JobFilter } from "./jobs/components/JobFilter";
 import { Hero } from "@/components/sections/home/hero";
 import { useEffect, useState } from "react";
 import { PendingReviewModal } from "./jobs/components/PendingReviewModal";
+import { useJobContext } from "./contexts/JobContext";
+import { TJob } from "@/utils/types/job";
 
 export default function Home() {
   useAuth();
@@ -22,6 +24,22 @@ export default function Home() {
   useEffect(() => {
     setIsReviewOpen(true);
   }, []);
+
+  const { jobs, isLoading } = useJobContext();
+
+  const [filteredJobs, setFilteredJobs] = useState<TJob[]>([]);
+
+  useEffect(() => {
+    setFilteredJobs(jobs);
+  }, [jobs]);
+
+  const handleFilterChange = (role: string) => {
+    if (role === "all") {
+      setFilteredJobs(jobs);
+    } else {
+      setFilteredJobs(jobs.filter(job => job.jobRole === role));
+    }
+  };
 
   return (
     <div>
@@ -47,7 +65,7 @@ export default function Home() {
             <div className="container z-1">
               <div className="flex md:items-center justify-between md:flex-row flex-col md:space-y-0 space-y-4">
                 <div className="flex-1 max-w-3xl">
-                  <JobFilter />
+                  <JobFilter onFilterChange={handleFilterChange} />
                 </div>
                 <Link href="/jobs/new">
                   <Button
@@ -60,7 +78,7 @@ export default function Home() {
               </div>
 
               <div className="mt-6">
-                <JobBox />
+                <JobBox jobs={filteredJobs} isLoading={isLoading} />
               </div>
             </div>
           </div>

@@ -9,10 +9,28 @@ import useJobById from "@/app/hooks/jobs/useJobById";
 import { AnimatePresence, motion } from "framer-motion";
 import { Loader } from "lucide-react";
 import { api_client } from "@/lib/axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { APPLICATION_STATUS } from "@/lib/constant";
+
+type ApplicationStatus = keyof typeof APPLICATION_STATUS | "ALL";
+import { TJob } from "@/utils/types/job";
+
+interface Application {
+  applicant: {
+    id: string;
+    name: string;
+  };
+  job: {
+    id: string;
+    title: string;
+  };
+  applicationStatus: keyof typeof APPLICATION_STATUS;
+  statusChangeDate: Date;
+  review: string | null;
+  reviewCreatedDate: Date | null;
+}
 
 export default function ApplicantListRoute({
   params
@@ -20,26 +38,22 @@ export default function ApplicantListRoute({
   params: { jobId: string };
 }) {
   const { job, isLoading, refetch } = useJobById({ jobId: params.jobId });
-  const [applicantId, setApplicantId] = useState<string | null>(null);
   const router = useRouter();
+  const [filteredApplicants, setFilteredApplicants] = useState<Application[]>([]);
 
-  function handleApplicantStatus(status: keyof typeof APPLICATION_STATUS) {
-    api_client
-      .patch(`/jobs/${job?._id}/${applicantId}`, {
-        status
-      })
-      .then((res) => {
-        if (res.data.status === "success") {
-          refetch();
-          router.push(`/jobs/${job?._id}`);
-          toast.success(res.data.message);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {});
-  }
+  useEffect(() => {
+    setFilteredApplicants(job?.applicants || []);
+  }, [job]);
+
+  const handleFilterChange = (status: ApplicationStatus) => {
+    if (status === "ALL") {
+      setFilteredApplicants(job?.applicants || []);
+    }
+    else {
+      setFilteredApplicants(job?.applicants?.filter(applicant => applicant.applicationStatus === status) || []);
+    }
+  };
+
 
   return (
     <>
@@ -48,7 +62,7 @@ export default function ApplicantListRoute({
       <section className="relative md:my-24 my-16">
         <div className="container">
           <div className="">
-            <ApplicantFilter />
+            <ApplicantFilter onFilterChange={handleFilterChange} />
           </div>
 
           {isLoading ? (
@@ -75,15 +89,13 @@ export default function ApplicantListRoute({
                 transition={{ delay: 0.05, duration: 0.5 }}
               >
                 <div className="mt-8 grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-[30px]">
-                  {job?.applicants?.map((applicant) => {
+                  {filteredApplicants?.map((application) => {
                     return (
                       //eslint-disable-next-line
                       // @ts-ignore
                       <ApplicantCard
-                        key={applicant?.applicant?.id}
-                        setApplicantId={setApplicantId}
-                        handleApplicantStatus={handleApplicantStatus}
-                        {...applicant}
+                        key={application?.applicant?.id}
+                        application={application}
                       />
                     );
                   })}
