@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import { JobProvider } from "./contexts/JobContext";
+import { UserProvider } from "./contexts/UserContext";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -37,8 +38,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <JobProvider>{children}</JobProvider>
-
+          <JobProvider>
+            <UserProvider>{children}</UserProvider>
+          </JobProvider>
           <Toaster />
         </ThemeProvider>
       </body>

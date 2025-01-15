@@ -78,7 +78,7 @@ export default function ApplicantListRoute({
                   justifyContent: "center"
                 }}
               >
-                <Loader size={22} className="animate-spin" />
+                <Loader size={22} className="animate-spin text-slate-400 dark:text-slate-600" />
               </motion.div>
             </AnimatePresence>
           ) : (
@@ -106,7 +106,7 @@ export default function ApplicantListRoute({
                       <ul className="inline-flex items-center -space-x-px">
                         <li>
                           <a
-                            className="size-[40px] inline-flex justify-center items-center text-slate-800 bg-white dark:bg-slate-900 rounded-s-3xl hover:text-white border border-gray-100 dark:border-gray-800 hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600"
+                            className="size-[40px] inline-flex justify-center items-center text-slate-800 dark:text-slate-200 bg-white dark:bg-slate-900 rounded-s-3xl hover:text-white border border-gray-100 dark:border-gray-800 hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600"
                             href="/candidate-list"
                           >
                             <svg
@@ -126,7 +126,7 @@ export default function ApplicantListRoute({
                         </li>
                         <li>
                           <a
-                            className="size-[40px] inline-flex justify-center items-center text-slate-800 hover:text-white bg-white dark:bg-slate-900 border border-gray-100 dark:border-gray-800 hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600"
+                            className="size-[40px] inline-flex justify-center items-center text-slate-800 dark:text-slate-200 hover:text-white bg-white dark:bg-slate-900 border border-gray-100 dark:border-gray-800 hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600"
                             href="/candidate-list"
                           >
                             1
@@ -135,7 +135,7 @@ export default function ApplicantListRoute({
                         <li>
                           <a
                             aria-current="page"
-                            className="size-[40px] inline-flex justify-center items-center text-slate-800 hover:text-white bg-white dark:bg-slate-900 border border-gray-100 dark:border-gray-800 hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600"
+                            className="size-[40px] inline-flex justify-center items-center text-slate-800 dark:text-slate-200 hover:text-white bg-white dark:bg-slate-900 border border-gray-100 dark:border-gray-800 hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600"
                             href="/candidate-list"
                           >
                             2
@@ -151,7 +151,7 @@ export default function ApplicantListRoute({
                         </li>
                         <li>
                           <a
-                            className="size-[40px] inline-flex justify-center items-center text-slate-800 hover:text-white bg-white dark:bg-slate-900 border border-gray-100 dark:border-gray-800 hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600"
+                            className="size-[40px] inline-flex justify-center items-center text-slate-800 dark:text-slate-200 hover:text-white bg-white dark:bg-slate-900 border border-gray-100 dark:border-gray-800 hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600"
                             href="/candidate-list"
                           >
                             4
@@ -159,7 +159,7 @@ export default function ApplicantListRoute({
                         </li>
                         <li>
                           <a
-                            className="size-[40px] inline-flex justify-center items-center text-slate-800 hover:text-white bg-white dark:bg-slate-900 border border-gray-100 dark:border-gray-800 hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600"
+                            className="size-[40px] inline-flex justify-center items-center text-slate-800 dark:text-slate-200 hover:text-white bg-white dark:bg-slate-900 border border-gray-100 dark:border-gray-800 hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600"
                             href="/candidate-list"
                           >
                             5
@@ -167,7 +167,7 @@ export default function ApplicantListRoute({
                         </li>
                         <li>
                           <a
-                            className="size-[40px] inline-flex justify-center items-center text-slate-800 bg-white dark:bg-slate-900 rounded-e-3xl hover:text-white border border-gray-100 dark:border-gray-800 hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600"
+                            className="size-[40px] inline-flex justify-center items-center text-slate-800 dark:text-slate-200 bg-white dark:bg-slate-900 rounded-e-3xl hover:text-white border border-gray-100 dark:border-gray-800 hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600"
                             href="/candidate-list"
                           >
                             <svg
@@ -194,6 +194,7 @@ export default function ApplicantListRoute({
           )}
         </div>
       </section>
+
 
       <Footer />
     </>

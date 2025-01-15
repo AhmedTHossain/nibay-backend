@@ -13,11 +13,18 @@ import {
 import { Switch } from "@/components/ui/switch";
 import { cn } from "@/lib/utils";
 import { useMotionValue, useScroll } from "framer-motion";
-import { LogOutIcon, SettingsIcon } from "lucide-react";
+import {
+  LogOutIcon,
+  MonitorCog,
+  MonitorCogIcon,
+  SettingsIcon
+} from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Avatar } from "../common/Avatar";
 import { Navigation } from "./Navigation";
+import AdminPanel from "@/app/admin/page";
+import { ModeToggle } from "../common/ModeToggle";
 
 const Header = () => {
   const { scrollY } = useScroll();
@@ -40,8 +47,8 @@ const Header = () => {
   return (
     <div
       className={cn(
-        "py-5 fixed w-full z-50 bg-gradient-to-b from-emerald-600/20 dark:from-emerald-600/40 via-emerald-600/10 dark:via-emerald-600/20 to-transparent",
-        hasShadow ? "shadow bg-white dark:bg-emerald-700" : ""
+        "py-5 fixed w-full z-50 bg-gradient-to-b from-emerald-600/20 dark:from-emerald-600/20 via-emerald-600/10 dark:via-emerald-600/10 to-transparent",
+        hasShadow ? "shadow bg-white dark:shadow-lg dark:bg-emerald-950" : ""
       )}
     >
       <div className="container">
@@ -51,9 +58,9 @@ const Header = () => {
           <div className="flex space-x-3 items-center">
             <Navigation />
             <ProfileMenu />
-            {/* <ModeToggle /> */}
             <div>
-              <Switch id="switch-lang" color="green" />
+              <ModeToggle />
+              {/* <Switch id="switch-lang" color="green" /> */}
             </div>
           </div>
         </div>
@@ -72,7 +79,11 @@ function ProfileMenu() {
     <Menubar className="border-0 bg-transparent dark:bg-transparent dark:border-0">
       <MenubarMenu>
         <MenubarTrigger className="focus:bg-transparent dark:bg-transparent data-[state=open]:bg-transparent dark:data-[state=open]:bg-transparent">
-          <Avatar title="FS" image={`/uploads/${user?.profilePhoto}`} />
+          {user?.profilePhoto ? (
+            <Avatar title={`${user?.name}`} image={`${user?.profilePhoto}`} />
+          ) : (
+            <Avatar title="Profile Photo" />
+          )}
         </MenubarTrigger>
         <MenubarContent>
           <MenubarItem
@@ -82,6 +93,15 @@ function ProfileMenu() {
             }}
           >
             <SettingsIcon size={18} strokeWidth={1.5} /> <span>সেটিংস</span>
+          </MenubarItem>
+          <MenubarSeparator />
+          <MenubarItem
+            className="gap-2"
+            onClick={() => {
+              router.push("/admin");
+            }}
+          >
+            <MonitorCogIcon size={18} strokeWidth={1.5} /> <span>অ্যাডমিন</span>
           </MenubarItem>
           <MenubarSeparator />
           <MenubarItem

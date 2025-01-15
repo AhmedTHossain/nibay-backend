@@ -14,61 +14,49 @@ export function ApplicantFilter({ onFilterChange }: ApplicantFilterProps) {
   };
 
   return (
-    <div className="bg-white dark:bg-slate-900 border-0 shadow rounded-md p-3 relative max-w-lg">
+    <div className="bg-white dark:bg-slate-900 border-0 shadow rounded-md p-2 relative max-w-lg">
       <form action="#">
         <div className="text-dark text-start">
           <div className="flex items-center gap-3">
-            <div className="w-full relative mt-2 flex items-center px-4 py-2 bg-gray-50 h-h-full dark:bg-slate-800">
+            <div className="w-full relative flex items-center px-4 bg-gray-50 h-h-full dark:bg-slate-900 rounded-md">
               <span className="">
                 <Bolt size={18} color="#10b981" />
               </span>
-              <select value={selectedStatus} onChange={handleChange} className="w-full text-sm bg-transparent dark:bg-transparent border-0 focus:ring- focus:outline-none">
-                {/* <option selected>Filter by</option> */}
-                <option value="ALL">সব</option>
+              <select
+                value={selectedStatus}
+                onChange={handleChange}
+                className="w-full text-sm bg-transparent dark:bg-transparent border-0 focus:ring-0 focus:outline-none text-slate-900 dark:text-slate-200"
+              >
+                <option value="ALL" className="text-slate-900 dark:text-slate-200">
+                  সব
+                </option>
                 {Object.keys(APPLICATION_STATUS).map((status) => (
-                  <option key={status} value={status}>
+                  <option
+                    key={status}
+                    value={status}
+                    className="text-slate-900 dark:text-slate-200 dark:bg-slate-900"
+                  >
                     {APPLICATION_STATUS[status as keyof typeof APPLICATION_STATUS].label}
                   </option>
                 ))}
               </select>
-
-              {/* <Select>
-                <SelectTrigger className="w-full bg-transparent dark:bg-transparent border-0 focus:ring-0 focus:ring-offset-0">
-                  <SelectValue placeholder="Role" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectItem value="professional drivers">
-                      Professional drivers
-                    </SelectItem>
-                    <SelectItem value="Institutional Employers">
-                      Institutional Employers
-                    </SelectItem>
-                    <SelectItem value="Individual Employers">
-                      Individual Employers
-                    </SelectItem>
-                    <SelectItem value="Site Admin">Site Admin</SelectItem>
-                    <SelectItem value="supervisors">Supervisors</SelectItem>
-                    <SelectItem value="conductors">Conductors</SelectItem>
-                    <SelectItem value="mechanics">Mechanics</SelectItem>
-                    <SelectItem value="maintenance workers">
-                      Maintenance workers
-                    </SelectItem>
-                    <SelectItem value="ticket counter agents">
-                      Ticket counter agents
-                    </SelectItem>
-                  </SelectGroup>
-                </SelectContent>
-              </Select> */}
             </div>
 
-            <Button className="bg-[#10b981] hover:bg-[#10b981] w-full h-full"
-              onClick={(e) => { e.preventDefault(); onFilterChange(selectedStatus as keyof typeof APPLICATION_STATUS); }}>
+
+            <Button
+              className="bg-[#10b981] hover:bg-[#10b981] text-white dark:text-white w-full h-full dark:bg-[#10b981] dark:hover:bg-[#10b981] transition-all duration-200"
+              onClick={(e) => {
+                e.preventDefault();
+                onFilterChange(selectedStatus as keyof typeof APPLICATION_STATUS);
+              }}
+            >
               অনুসন্ধান
             </Button>
+
           </div>
         </div>
       </form>
     </div>
+
   );
 }

@@ -99,26 +99,26 @@ export function ApplicantCard(props: ApplicantCardProps) {
             alt="Profile Photo"
           />
           <div className="mt-2">
-            <p className="font-semibold text-lg">{application?.applicant.name}</p>
-            <p className="text-sm text-slate-800">
+            <p className="font-semibold text-lg text-slate-800 dark:text-slate-200">{application?.applicant.name}</p>
+            <p className="text-sm text-slate-800 dark:text-slate-400">
               {USER_ROLE[Number(user?.role) as keyof typeof USER_ROLE]?.label}
             </p>
           </div>
 
           <div className="mt-6 text-left space-y-1">
             <div className="flex items-center gap-2">
-              <span className="text-slate-800 text-sm min-w-[100px] shrink-0 pr-0 mr-0">শিক্ষাগত যোগ্যতা</span>
+              <span className="text-slate-800 dark:text-slate-200 text-sm min-w-[100px] shrink-0 pr-0 mr-0">শিক্ষাগত যোগ্যতা</span>
               <span className="p-0 m-0">:</span>
-              <span className="text-sm font-semibold truncate">
+              <span className="text-sm font-semibold text-slate-800 dark:text-slate-200 truncate">
                 {
                   EDUCTATION_LEVELS.find(level => level.id === Number(user?.maxEducationLevel))?.label
                 }
               </span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-slate-800 text-sm min-w-[100px]">অভিজ্ঞতা</span>
+              <span className="text-slate-800 dark:text-slate-200 text-sm min-w-[100px]">অভিজ্ঞতা</span>
               <span className="p-0 m-0">:</span>
-              <span className="text-sm font-semibold">
+              <span className="text-sm font-semibold text-slate-800 dark:text-slate-200">
                 {formatEnglishToBangalNum(user?.yearsOfExperience)} বছর
               </span>
             </div>
@@ -143,7 +143,7 @@ export function ApplicantCard(props: ApplicantCardProps) {
                 বাতিল করুন
               </button>
               <button
-                className="rounded-sm p-[7px] border transition-all duration-200 border-gray-600 hover:bg-gray-600 hover:text-white bg-transparent text-gray-800 text-xs"
+                className="rounded-sm p-[7px] border transition-all duration-200 border-gray-600 hover:bg-gray-600 hover:text-white bg-transparent text-gray-800 text-xs dark:text-white"
                 onClick={(event) => {
                   event.stopPropagation();
                   handleApplicantStatus("SHORT_LISTED");
@@ -154,6 +154,7 @@ export function ApplicantCard(props: ApplicantCardProps) {
             </div>
           </div>
         </>
+
       )}
     </div>
   );

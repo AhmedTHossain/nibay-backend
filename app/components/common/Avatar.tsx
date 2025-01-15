@@ -12,7 +12,13 @@ type AvatarDProps = {
 export function Avatar({ image, title }: AvatarDProps) {
   return (
     <SAvatar>
-      {image && <AvatarImage src={image} alt={title} />}
+      {image && (
+        <AvatarImage
+          src={image}
+          alt={title}
+          style={{ objectFit: "cover", width: "100%", height: "100%" }}
+        />
+      )}
       <AvatarFallback>{title}</AvatarFallback>
     </SAvatar>
   );

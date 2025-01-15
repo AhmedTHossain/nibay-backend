@@ -104,18 +104,18 @@ export function JobBox({ jobs, isLoading }: JobBoxProps) {
       )}
 
       {pathname === "/" && jobs?.length > 0 && (
-        <div className="justify-center flex mt-6">
+        <div className="flex justify-center mt-6">
           <a
-            className="btn btn-link text-slate-800 hover:text-emerald-600 after:bg-emerald-600 duration-500 ease-in-out inline-flex items-center"
             href="/jobs"
+            className="btn btn-link text-slate-800 dark:text-slate-200 hover:text-emerald-600 dark:hover:text-emerald-400 after:bg-emerald-600 dark:after:bg-emerald-600/50 transition-colors ease-in inline-flex items-center"
           >
-            See all Jobs{" "}
+            See all Jobs
             <svg
               stroke="currentColor"
               fill="currentColor"
               strokeWidth={0}
               viewBox="0 0 24 24"
-              className="ms-1"
+              className="ml-1"
               height="1em"
               width="1em"
               xmlns="http://www.w3.org/2000/svg"
@@ -125,6 +125,7 @@ export function JobBox({ jobs, isLoading }: JobBoxProps) {
             </svg>
           </a>
         </div>
+
       )}
     </>
   );
