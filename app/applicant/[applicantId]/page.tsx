@@ -67,21 +67,26 @@ export default function ApplicantProfileRoute({
           ) : (
             <AnimatePresence>
               <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.05, duration: 0.5 }}
-                className="relative mt-[100px]"
+                initial={{ opacity: 0, y: 50 }}  // Start with opacity 0 and a vertical offset
+                animate={{ opacity: 1, y: 0 }}   // Fade in and reset vertical position
+                transition={{
+                  delay: 0.05,
+                  duration: 0.5,
+                  ease: "easeOut", // Smooth easing
+                }}
+                className="relative mt-[50px] text-white p-6 rounded-lg"
               >
 
                 {/* Cover Photo */}
-                <div className="relative h-[100px] w-full rounded-t-lg bg-gradient-to-b from-emerald-100 to-white overflow-hidden">
-                  <div className="absolute bottom-0 left-0 w-full h-20 bg-gradient-to-t from-white/10 to-transparent"></div>
+                <div className="relative h-[100px] w-full rounded-t-lg bg-gradient-to-b from-emerald-100 to-white dark:from-emerald-700 dark:to-slate-900 overflow-hidden">
+                  <div className="absolute bottom-0 left-0 w-full h-20 bg-gradient-to-t from-white/10 to-transparent dark:from-black/10"></div>
                   <div className="relative z-10 flex items-center justify-end gap-2">
-                    <span className="text-white text-sm bg-violet-800 px-4 py-2 m-5 mt-10 rounded-3xl">
+                    <span className="text-white text-sm bg-violet-800 px-4 py-2 m-5 mt-10 rounded-3xl dark:bg-violet-700">
                       আবেদন {APPLICATION_STATUS[user?.applicationStatus as keyof typeof APPLICATION_STATUS]?.label}
                     </span>
                   </div>
                 </div>
+
 
                 {/* Action Buttons */}
                 <div className="absolute right-6 top-[160px] flex gap-3 z-50">
@@ -99,7 +104,7 @@ export default function ApplicantProfileRoute({
                   </button>
 
                   <button
-                    className="text-gray-800 border border-gray-600 hover:bg-gray-600 hover:text-white px-4 py-2 rounded flex items-center gap-2 disabled:opacity-50 relative z-50"
+                    className="text-gray-800 dark:text-white border border-gray-600 hover:bg-gray-600 hover:text-white px-4 py-2 rounded flex items-center gap-2 disabled:opacity-50 relative z-50"
                     onClick={(e) => {
                       e.preventDefault();
                       e.stopPropagation();
@@ -126,7 +131,7 @@ export default function ApplicantProfileRoute({
                 </div>
 
                 {/* Profile Content */}
-                <div className="bg-white rounded-b-lg shadow-sm relative z-10">
+                <div className="rounded-b-lg shadow-sm relative z-10">
                   {/* Profile Photo and Basic Info */}
                   <div className="relative mt-5 px-6">
                     <div className="flex items-end gap-6">
@@ -156,70 +161,70 @@ export default function ApplicantProfileRoute({
                   <div className="p-6">
                     <div className="grid md:grid-cols-2 gap-6">
                       {/* Personal Information */}
-                      <div className="bg-gray-50 rounded-lg p-6">
-                        <h2 className="text-xl font-semibold mb-4 pb-2 border-b">পেশাগত তথ্য</h2>
+                      <div className="bg-gray-50 dark:bg-slate-800 rounded-lg p-6">
+                        <h2 className="text-xl font-semibold mb-4 pb-2 border-b dark:border-slate-700">পেশাগত তথ্য</h2>
                         <div className="space-y-3">
                           <div className="flex items-center gap-2">
-                            <span className="text-gray-600">শিক্ষাগত যোগ্যতা:</span>
+                            <span className="text-gray-600 dark:text-gray-300">শিক্ষাগত যোগ্যতা:</span>
                             <span>{EDUCTATION_LEVELS.find(
                               (level) => level.id === Number(user?.maxEducationLevel)
                             )?.label}</span>
                           </div>
                           <div className="flex items-center gap-2">
-                            <span className="text-gray-600">পেশা:</span>
+                            <span className="text-gray-600 dark:text-gray-300">পেশা:</span>
                             <span>{JOB_ROLES[user?.role as keyof typeof JOB_ROLES]?.label}</span>
                           </div>
                           <div className="flex items-center gap-2">
-                            <span className="text-gray-600">অভিজ্ঞতা:</span>
+                            <span className="text-gray-600 dark:text-gray-300">অভিজ্ঞতা:</span>
                             <span>{formatEnglishToBangalNum(user?.yearsOfExperience)} বছর</span>
                           </div>
                         </div>
                       </div>
 
                       {/* Contact Information */}
-                      <div className="bg-gray-50 rounded-lg p-6">
-                        <h2 className="text-xl font-semibold mb-4 pb-2 border-b">যোগাযোগের তথ্য</h2>
+                      <div className="bg-gray-50 dark:bg-slate-800 rounded-lg p-6">
+                        <h2 className="text-xl font-semibold mb-4 pb-2 border-b dark:border-slate-700">যোগাযোগের তথ্য</h2>
                         <div className="space-y-3">
                           {user?.email && (
                             <div className="flex items-center gap-2">
-                              <span className="text-gray-600">ইমেইল:</span>
+                              <span className="text-gray-600 dark:text-gray-300">ইমেইল:</span>
                               <span>{user.email}</span>
                             </div>
                           )}
                           {user?.phone && (
                             <div className="flex items-center gap-2">
-                              <span className="text-gray-600">ফোন:</span>
+                              <span className="text-gray-600 dark:text-gray-300">ফোন:</span>
                               <span>{user.phone}</span>
                             </div>
                           )}
                           <div className="flex items-center gap-2">
-                            <span className="text-gray-600">বিভাগ:</span>
+                            <span className="text-gray-600 dark:text-gray-300">বিভাগ:</span>
                             <span>{user?.division}</span>
                           </div>
                           <div className="flex items-center gap-2">
-                            <span className="text-gray-600">জেলা:</span>
+                            <span className="text-gray-600 dark:text-gray-300">জেলা:</span>
                             <span>{user?.district}</span>
                           </div>
                         </div>
                       </div>
 
                       {/* Documents */}
-                      <div className="bg-gray-50 rounded-lg p-6">
-                        <h2 className="text-xl font-semibold mb-4 pb-2 border-b">নথিপত্র</h2>
+                      <div className="bg-gray-50 dark:bg-slate-800 rounded-lg p-6">
+                        <h2 className="text-xl font-semibold mb-4 pb-2 border-b dark:border-slate-700">নথিপত্র</h2>
                         <div className="space-y-4">
                           <div>
                             <div className="flex items-center gap-2">
-                              <span className="text-gray-600">এন আইডি নং:</span>
+                              <span className="text-gray-600 dark:text-gray-300">এন আইডি নং:</span>
                               <span>{user?.nidNumber}</span>
                             </div>
                             {user?.nidCopy && (
                               <div className="mt-2">
-                                <p className="text-gray-600 mb-2">এন আইডি কপি:</p>
+                                <p className="text-gray-600 dark:text-gray-300 mb-2">এন আইডি কপি:</p>
                                 <div className="flex flex-col items-start">
                                   <Image
                                     alt="NID Copy"
                                     src={`${user.nidCopy}`}
-                                    className="rounded-lg border"
+                                    className="rounded-lg border dark:border-slate-700"
                                     width={200}
                                     height={120}
                                     objectFit="cover"
@@ -240,12 +245,12 @@ export default function ApplicantProfileRoute({
                             <div>
                               {user?.maxEducationLevelCertificateCopy && (
                                 <div className="mt-2">
-                                  <p className="text-gray-600 mb-2">সার্টিফিকেট কপি:</p>
+                                  <p className="text-gray-600 dark:text-gray-300 mb-2">সার্টিফিকেট কপি:</p>
                                   <div className="flex flex-col items-start">
                                     <Image
                                       alt="Driving License Copy"
                                       src={user.maxEducationLevelCertificateCopy}
-                                      className="rounded-lg border"
+                                      className="rounded-lg border dark:border-slate-700"
                                       width={200}
                                       height={120}
                                       objectFit="cover"
@@ -266,17 +271,17 @@ export default function ApplicantProfileRoute({
                           {user?.drivingLicense && (
                             <div>
                               <div className="flex items-center gap-2">
-                                <span className="text-gray-600">ড্রাইভিং লাইসেন্স:</span>
+                                <span className="text-gray-600 dark:text-gray-300">ড্রাইভিং লাইসেন্স:</span>
                                 <span>{user?.drivingLicense}</span>
                               </div>
                               {user?.drivingLicenseCopy && (
                                 <div className="mt-2">
-                                  <p className="text-gray-600 mb-2">ড্রাইভিং লাইসেন্স কপি:</p>
+                                  <p className="text-gray-600 dark:text-gray-300 mb-2">ড্রাইভিং লাইসেন্স কপি:</p>
                                   <div className="flex flex-col items-start">
                                     <Image
                                       alt="Driving License Copy"
                                       src={user.drivingLicenseCopy}
-                                      className="rounded-lg border"
+                                      className="rounded-lg border dark:border-slate-700"
                                       width={200}
                                       height={120}
                                       objectFit="cover"
@@ -297,19 +302,19 @@ export default function ApplicantProfileRoute({
                       </div>
 
                       {/* Extra documents */}
-                      <div className="bg-gray-50 rounded-lg p-6">
-                        <h2 className="text-xl font-semibold mb-4 pb-2 border-b">অতিরিক্ত নথিপত্র</h2>
+                      <div className="bg-gray-50 dark:bg-slate-800 rounded-lg p-6">
+                        <h2 className="text-xl font-semibold mb-4 pb-2 border-b dark:border-slate-700">অতিরিক্ত নথিপত্র</h2>
                         <div className="space-y-3">
                           {user?.chairmanCertificateCopy || user?.portEntryPermitCopy ? (
                             <>
                               {user?.chairmanCertificateCopy && (
                                 <div className="mt-2">
-                                  <p className="text-gray-600 mb-2">চেয়ারম্যান সার্টিফিকেট কপি:</p>
+                                  <p className="text-gray-600 dark:text-gray-300 mb-2">চেয়ারম্যান সার্টিফিকেট কপি:</p>
                                   <div className="flex flex-col items-start">
                                     <Image
                                       alt="Driving License Copy"
                                       src={user.chairmanCertificateCopy}
-                                      className="rounded-lg border"
+                                      className="rounded-lg border dark:border-slate-700"
                                       width={200}
                                       height={120}
                                       objectFit="cover"
@@ -327,12 +332,12 @@ export default function ApplicantProfileRoute({
 
                               {user?.portEntryPermitCopy && (
                                 <div className="mt-2">
-                                  <p className="text-gray-600 mb-2">পোর্ট এন্ট্রি পারমিট কপি:</p>
+                                  <p className="text-gray-600 dark:text-gray-300 mb-2">পোর্ট এন্ট্রি পারমিট কপি:</p>
                                   <div className="flex flex-col items-start">
                                     <Image
                                       alt="Driving License Copy"
                                       src={user.portEntryPermitCopy}
-                                      className="rounded-lg border"
+                                      className="rounded-lg border dark:border-slate-700"
                                       width={200}
                                       height={120}
                                       objectFit="cover"
@@ -349,12 +354,13 @@ export default function ApplicantProfileRoute({
                               )}
                             </>
                           ) : (
-                            <span className="text-gray-600">কোনো অতিরিক্ত নথি নেই</span>
+                            <span className="text-gray-600 dark:text-gray-300">কোনো অতিরিক্ত নথি নেই</span>
                           )}
                         </div>
                       </div>
                     </div>
                   </div>
+
                 </div>
               </motion.div>
             </AnimatePresence>
