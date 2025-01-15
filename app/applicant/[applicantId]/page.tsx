@@ -5,7 +5,12 @@ import Header from "@/app/components/header";
 import useUserById from "@/app/hooks/users/useUserById";
 import { Button } from "@/components/ui/button";
 import { api_client } from "@/lib/axios";
-import { APPLICATION_STATUS, EDUCTATION_LEVELS, JOB_ROLES, MAX_EDUCATION_LEVEL } from "@/lib/constant";
+import {
+  APPLICATION_STATUS,
+  EDUCTATION_LEVELS,
+  JOB_ROLES,
+  MAX_EDUCATION_LEVEL
+} from "@/lib/constant";
 import { AnimatePresence, motion } from "framer-motion";
 import { Check, Loader, Star, X } from "lucide-react";
 import Image from "next/image";
@@ -15,6 +20,7 @@ import { toast } from "sonner";
 
 import { useSearchParams } from "next/navigation";
 import { formatEnglishToBangalNum } from "@/utils/formatEtoBLang";
+import { ImagePreview } from "@/app/components/common/ImagePreview";
 
 export default function ApplicantProfileRoute({
   params
@@ -27,12 +33,21 @@ export default function ApplicantProfileRoute({
   const { user, isLoading } = useUserById({ userId: params.applicantId });
   const [isProcessing, setIsProcessing] = useState(false);
 
-  const handleApplicantStatus = async (status: keyof typeof APPLICATION_STATUS) => {
+  if (!isLoading) {
+    console.log(user);
+  }
+
+  const handleApplicantStatus = async (
+    status: keyof typeof APPLICATION_STATUS
+  ) => {
     setIsProcessing(true);
     try {
-      const response = await api_client.patch(`/jobs/${jobId}/${params.applicantId}`, {
-        status
-      });
+      const response = await api_client.patch(
+        `/jobs/${jobId}/${params.applicantId}`,
+        {
+          status
+        }
+      );
 
       if (response.data.status === "success") {
         toast.success(response.data.message);
@@ -47,10 +62,11 @@ export default function ApplicantProfileRoute({
   };
 
   return (
-    <div className="relative">  {/* Added relative to parent */}
+    <div className="relative">
+      {" "}
+      {/* Added relative to parent */}
       <Header />
       <HeroSection title="Applicants" />
-
       <section className="relative lg:mt-12 mt-[74px] mb-10">
         <div className="lg:container container-fluid">
           {isLoading ? (
@@ -67,26 +83,29 @@ export default function ApplicantProfileRoute({
           ) : (
             <AnimatePresence>
               <motion.div
-                initial={{ opacity: 0, y: 50 }}  // Start with opacity 0 and a vertical offset
-                animate={{ opacity: 1, y: 0 }}   // Fade in and reset vertical position
+                initial={{ opacity: 0, y: 50 }} // Start with opacity 0 and a vertical offset
+                animate={{ opacity: 1, y: 0 }} // Fade in and reset vertical position
                 transition={{
                   delay: 0.05,
                   duration: 0.5,
-                  ease: "easeOut", // Smooth easing
+                  ease: "easeOut" // Smooth easing
                 }}
                 className="relative mt-[50px] dark:text-white p-6 rounded-lg"
               >
-
                 {/* Cover Photo */}
-                <div className="relative h-[100px] w-full rounded-t-lg bg-gradient-to-b from-emerald-100 to-white dark:from-emerald-700 dark:to-slate-900 overflow-hidden">
+                <div className="relative h-[100px] w-full rounded-t-lg bg-gradient-to-b from-emerald-100 to-white dark:from-emerald-700/50 dark:to-dark/10 overflow-hidden">
                   <div className="absolute bottom-0 left-0 w-full h-20 bg-gradient-to-t from-white/10 to-transparent dark:from-black/10"></div>
                   <div className="relative z-10 flex items-center justify-end gap-2">
                     <span className="text-white text-sm bg-violet-800 px-4 py-2 m-5 mt-10 rounded-3xl dark:bg-violet-700">
-                      আবেদন {APPLICATION_STATUS[user?.applicationStatus as keyof typeof APPLICATION_STATUS]?.label}
+                      আবেদন{" "}
+                      {
+                        APPLICATION_STATUS[
+                          user?.applicationStatus as keyof typeof APPLICATION_STATUS
+                        ]?.label
+                      }
                     </span>
                   </div>
                 </div>
-
 
                 {/* Action Buttons */}
                 <div className="absolute right-6 top-[160px] flex gap-3 z-50">
@@ -139,7 +158,7 @@ export default function ApplicantProfileRoute({
                         <Image
                           alt={user?.name as string}
                           src={`${user?.profilePhoto}`}
-                          className="size-32 rounded-full border-4 border-white shadow-lg"
+                          className="size-32 rounded-full border-4 border-white shadow-lg object-cover"
                           width={128}
                           height={128}
                         />
@@ -150,8 +169,11 @@ export default function ApplicantProfileRoute({
                       )}
                       <div className="mb-8 items-center">
                         <h1 className="text-2xl font-bold">{user?.name}</h1>
-                        <p className="text-gray-600">
-                          {JOB_ROLES[user?.role as keyof typeof JOB_ROLES]?.label}
+                        <p className="text-gray-600 dark:text-gray-300">
+                          {
+                            JOB_ROLES[user?.role as keyof typeof JOB_ROLES]
+                              ?.label
+                          }
                         </p>
                       </div>
                     </div>
@@ -162,47 +184,80 @@ export default function ApplicantProfileRoute({
                     <div className="grid md:grid-cols-2 gap-6">
                       {/* Personal Information */}
                       <div className="bg-gray-50 dark:bg-slate-800 rounded-lg p-6">
-                        <h2 className="text-xl font-semibold mb-4 pb-2 border-b dark:border-slate-700">পেশাগত তথ্য</h2>
+                        <h2 className="text-xl font-semibold mb-4 pb-2 border-b dark:border-slate-700">
+                          পেশাগত তথ্য
+                        </h2>
                         <div className="space-y-3">
                           <div className="flex items-center gap-2">
-                            <span className="text-gray-600 dark:text-gray-300">শিক্ষাগত যোগ্যতা:</span>
-                            <span>{EDUCTATION_LEVELS.find(
-                              (level) => level.id === Number(user?.maxEducationLevel)
-                            )?.label}</span>
+                            <span className="text-gray-600 dark:text-gray-300">
+                              শিক্ষাগত যোগ্যতা:
+                            </span>
+                            <span>
+                              {
+                                EDUCTATION_LEVELS.find(
+                                  (level) =>
+                                    level.id === Number(user?.maxEducationLevel)
+                                )?.label
+                              }
+                            </span>
                           </div>
                           <div className="flex items-center gap-2">
-                            <span className="text-gray-600 dark:text-gray-300">পেশা:</span>
-                            <span>{JOB_ROLES[user?.role as keyof typeof JOB_ROLES]?.label}</span>
+                            <span className="text-gray-600 dark:text-gray-300">
+                              পেশা:
+                            </span>
+                            <span>
+                              {
+                                JOB_ROLES[user?.role as keyof typeof JOB_ROLES]
+                                  ?.label
+                              }
+                            </span>
                           </div>
                           <div className="flex items-center gap-2">
-                            <span className="text-gray-600 dark:text-gray-300">অভিজ্ঞতা:</span>
-                            <span>{formatEnglishToBangalNum(user?.yearsOfExperience)} বছর</span>
+                            <span className="text-gray-600 dark:text-gray-300">
+                              অভিজ্ঞতা:
+                            </span>
+                            <span>
+                              {formatEnglishToBangalNum(
+                                user?.yearsOfExperience
+                              )}{" "}
+                              বছর
+                            </span>
                           </div>
                         </div>
                       </div>
 
                       {/* Contact Information */}
                       <div className="bg-gray-50 dark:bg-slate-800 rounded-lg p-6">
-                        <h2 className="text-xl font-semibold mb-4 pb-2 border-b dark:border-slate-700">যোগাযোগের তথ্য</h2>
+                        <h2 className="text-xl font-semibold mb-4 pb-2 border-b dark:border-slate-700">
+                          যোগাযোগের তথ্য
+                        </h2>
                         <div className="space-y-3">
                           {user?.email && (
                             <div className="flex items-center gap-2">
-                              <span className="text-gray-600 dark:text-gray-300">ইমেইল:</span>
+                              <span className="text-gray-600 dark:text-gray-300">
+                                ইমেইল:
+                              </span>
                               <span>{user.email}</span>
                             </div>
                           )}
                           {user?.phone && (
                             <div className="flex items-center gap-2">
-                              <span className="text-gray-600 dark:text-gray-300">ফোন:</span>
+                              <span className="text-gray-600 dark:text-gray-300">
+                                ফোন:
+                              </span>
                               <span>{user.phone}</span>
                             </div>
                           )}
                           <div className="flex items-center gap-2">
-                            <span className="text-gray-600 dark:text-gray-300">বিভাগ:</span>
+                            <span className="text-gray-600 dark:text-gray-300">
+                              বিভাগ:
+                            </span>
                             <span>{user?.division}</span>
                           </div>
                           <div className="flex items-center gap-2">
-                            <span className="text-gray-600 dark:text-gray-300">জেলা:</span>
+                            <span className="text-gray-600 dark:text-gray-300">
+                              জেলা:
+                            </span>
                             <span>{user?.district}</span>
                           </div>
                         </div>
@@ -210,29 +265,33 @@ export default function ApplicantProfileRoute({
 
                       {/* Documents */}
                       <div className="bg-gray-50 dark:bg-slate-800 rounded-lg p-6">
-                        <h2 className="text-xl font-semibold mb-4 pb-2 border-b dark:border-slate-700">নথিপত্র</h2>
+                        <h2 className="text-xl font-semibold mb-4 pb-2 border-b dark:border-slate-700">
+                          নথিপত্র
+                        </h2>
                         <div className="space-y-4">
                           <div>
                             <div className="flex items-center gap-2">
-                              <span className="text-gray-600 dark:text-gray-300">এন আইডি নং:</span>
+                              <span className="text-gray-600 dark:text-gray-300">
+                                এন আইডি নং:
+                              </span>
                               <span>{user?.nidNumber}</span>
                             </div>
                             {user?.nidCopy && (
                               <div className="mt-2">
-                                <p className="text-gray-600 dark:text-gray-300 mb-2">এন আইডি কপি:</p>
-                                <div className="flex flex-col items-start">
-                                  <Image
+                                <p className="text-gray-600 dark:text-gray-300 mb-2">
+                                  এন আইডি কপি:
+                                </p>
+                                <div className="flex flex-col items-center">
+                                  <ImagePreview
+                                    src={user.nidCopy}
                                     alt="NID Copy"
-                                    src={`${user.nidCopy}`}
-                                    className="rounded-lg border dark:border-slate-700"
                                     width={200}
                                     height={120}
-                                    objectFit="cover"
                                   />
                                   <a
                                     href={`${user.nidCopy}`}
                                     download
-                                    className="text-blue-500 hover:underline mt-2 block"
+                                    className="mt-2 px-4 py-2 bg-emerald-500 text-white font-semibold rounded hover:bg-emerald-600 transition duration-200"
                                   >
                                     ডাউনলোড করুন
                                   </a>
@@ -245,20 +304,22 @@ export default function ApplicantProfileRoute({
                             <div>
                               {user?.maxEducationLevelCertificateCopy && (
                                 <div className="mt-2">
-                                  <p className="text-gray-600 dark:text-gray-300 mb-2">সার্টিফিকেট কপি:</p>
-                                  <div className="flex flex-col items-start">
-                                    <Image
-                                      alt="Driving License Copy"
-                                      src={user.maxEducationLevelCertificateCopy}
-                                      className="rounded-lg border dark:border-slate-700"
+                                  <p className="text-gray-600 dark:text-gray-300 mb-2">
+                                    সার্টিফিকেট কপি:
+                                  </p>
+                                  <div className="flex flex-col items-center">
+                                    <ImagePreview
+                                      alt="Certificate Copy"
+                                      src={
+                                        user.maxEducationLevelCertificateCopy
+                                      }
                                       width={200}
                                       height={120}
-                                      objectFit="cover"
                                     />
                                     <a
                                       href={`${user.maxEducationLevelCertificateCopy}`}
                                       download
-                                      className="text-blue-500 hover:underline mt-2 block"
+                                      className="mt-2 px-4 py-2 bg-emerald-500 text-white font-semibold rounded hover:bg-emerald-600 transition duration-200"
                                     >
                                       ডাউনলোড করুন
                                     </a>
@@ -271,25 +332,27 @@ export default function ApplicantProfileRoute({
                           {user?.drivingLicense && (
                             <div>
                               <div className="flex items-center gap-2">
-                                <span className="text-gray-600 dark:text-gray-300">ড্রাইভিং লাইসেন্স:</span>
+                                <span className="text-gray-600 dark:text-gray-300">
+                                  ড্রাইভিং লাইসেন্স:
+                                </span>
                                 <span>{user?.drivingLicense}</span>
                               </div>
                               {user?.drivingLicenseCopy && (
                                 <div className="mt-2">
-                                  <p className="text-gray-600 dark:text-gray-300 mb-2">ড্রাইভিং লাইসেন্স কপি:</p>
-                                  <div className="flex flex-col items-start">
-                                    <Image
+                                  <p className="text-gray-600 dark:text-gray-300 mb-2">
+                                    ড্রাইভিং লাইসেন্স কপি:
+                                  </p>
+                                  <div className="flex flex-col items-center">
+                                    <ImagePreview
                                       alt="Driving License Copy"
                                       src={user.drivingLicenseCopy}
-                                      className="rounded-lg border dark:border-slate-700"
                                       width={200}
                                       height={120}
-                                      objectFit="cover"
                                     />
                                     <a
                                       href={`${user.drivingLicenseCopy}`}
                                       download
-                                      className="text-blue-500 hover:underline mt-2 block"
+                                      className="mt-2 px-4 py-2 bg-emerald-500 text-white font-semibold rounded hover:bg-emerald-600 transition duration-200"
                                     >
                                       ডাউনলোড করুন
                                     </a>
@@ -303,26 +366,29 @@ export default function ApplicantProfileRoute({
 
                       {/* Extra documents */}
                       <div className="bg-gray-50 dark:bg-slate-800 rounded-lg p-6">
-                        <h2 className="text-xl font-semibold mb-4 pb-2 border-b dark:border-slate-700">অতিরিক্ত নথিপত্র</h2>
+                        <h2 className="text-xl font-semibold mb-4 pb-2 border-b dark:border-slate-700">
+                          অতিরিক্ত নথিপত্র
+                        </h2>
                         <div className="space-y-3">
-                          {user?.chairmanCertificateCopy || user?.portEntryPermitCopy ? (
+                          {user?.chairmanCertificateCopy ||
+                          user?.portEntryPermitCopy ? (
                             <>
                               {user?.chairmanCertificateCopy && (
                                 <div className="mt-2">
-                                  <p className="text-gray-600 dark:text-gray-300 mb-2">চেয়ারম্যান সার্টিফিকেট কপি:</p>
-                                  <div className="flex flex-col items-start">
-                                    <Image
-                                      alt="Driving License Copy"
+                                  <p className="text-gray-600 dark:text-gray-300 mb-2">
+                                    চেয়ারম্যান সার্টিফিকেট কপি:
+                                  </p>
+                                  <div className="flex flex-col items-center">
+                                    <ImagePreview
+                                      alt="Chairman Certificate Copy"
                                       src={user.chairmanCertificateCopy}
-                                      className="rounded-lg border dark:border-slate-700"
                                       width={200}
                                       height={120}
-                                      objectFit="cover"
                                     />
                                     <a
                                       href={`${user.chairmanCertificateCopy}`}
                                       download
-                                      className="text-blue-500 hover:underline mt-2"
+                                      className="mt-2 px-4 py-2 bg-emerald-500 text-white font-semibold rounded hover:bg-emerald-600 transition duration-200"
                                     >
                                       ডাউনলোড করুন
                                     </a>
@@ -332,20 +398,20 @@ export default function ApplicantProfileRoute({
 
                               {user?.portEntryPermitCopy && (
                                 <div className="mt-2">
-                                  <p className="text-gray-600 dark:text-gray-300 mb-2">পোর্ট এন্ট্রি পারমিট কপি:</p>
-                                  <div className="flex flex-col items-start">
-                                    <Image
-                                      alt="Driving License Copy"
+                                  <p className="text-gray-600 dark:text-gray-300 mb-2">
+                                    পোর্ট এন্ট্রি পারমিট কপি:
+                                  </p>
+                                  <div className="flex flex-col items-center">
+                                    <ImagePreview
+                                      alt="Port Entry Permit Copy"
                                       src={user.portEntryPermitCopy}
-                                      className="rounded-lg border dark:border-slate-700"
                                       width={200}
                                       height={120}
-                                      objectFit="cover"
                                     />
                                     <a
                                       href={`${user.portEntryPermitCopy}`}
                                       download
-                                      className="text-blue-500 hover:underline mt-2"
+                                      className="mt-2 px-4 py-2 bg-emerald-500 text-white font-semibold rounded hover:bg-emerald-600 transition duration-200"
                                     >
                                       ডাউনলোড করুন
                                     </a>
@@ -354,19 +420,20 @@ export default function ApplicantProfileRoute({
                               )}
                             </>
                           ) : (
-                            <span className="text-gray-600 dark:text-gray-300">কোনো অতিরিক্ত নথি নেই</span>
+                            <span className="text-gray-600 dark:text-gray-300">
+                              কোনো অতিরিক্ত নথি নেই
+                            </span>
                           )}
                         </div>
                       </div>
                     </div>
                   </div>
-
                 </div>
               </motion.div>
             </AnimatePresence>
           )}
         </div>
-      </section >
-    </div >
+      </section>
+    </div>
   );
 }
