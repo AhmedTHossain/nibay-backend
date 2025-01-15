@@ -146,6 +146,7 @@ export default function ApplicantProfileRoute({
                       <div className="mb-8 items-center">
                         <h1 className="text-2xl font-bold">{user?.name}</h1>
                         <p className="text-gray-600">
+                          {/* @ts-expect-error: job_roles cannot be number */}
                           {JOB_ROLES[user?.role as keyof typeof JOB_ROLES]?.label}
                         </p>
                       </div>
@@ -167,6 +168,7 @@ export default function ApplicantProfileRoute({
                           </div>
                           <div className="flex items-center gap-2">
                             <span className="text-gray-600">পেশা:</span>
+                            {/* @ts-expect-error: job_roles cannot be number */}
                             <span>{JOB_ROLES[user?.role as keyof typeof JOB_ROLES]?.label}</span>
                           </div>
                           <div className="flex items-center gap-2">
