@@ -170,6 +170,7 @@ export default function ApplicantProfileRoute({
                       <div className="mb-8 items-center">
                         <h1 className="text-2xl font-bold">{user?.name}</h1>
                         <p className="text-gray-600 dark:text-gray-300">
+                          {/* @ts-expect-error: job_roles cannot be number */}
                           {
                             JOB_ROLES[user?.role as keyof typeof JOB_ROLES]
                               ?.label
@@ -205,6 +206,7 @@ export default function ApplicantProfileRoute({
                             <span className="text-gray-600 dark:text-gray-300">
                               পেশা:
                             </span>
+                            {/* @ts-expect-error: job_roles cannot be number */}
                             <span>
                               {
                                 JOB_ROLES[user?.role as keyof typeof JOB_ROLES]
@@ -371,7 +373,7 @@ export default function ApplicantProfileRoute({
                         </h2>
                         <div className="space-y-3">
                           {user?.chairmanCertificateCopy ||
-                          user?.portEntryPermitCopy ? (
+                            user?.portEntryPermitCopy ? (
                             <>
                               {user?.chairmanCertificateCopy && (
                                 <div className="mt-2">

@@ -100,7 +100,7 @@ export async function mobileRegister(request: NextRequest) {
     const existingUser = await User.findOne({ phone });
     if (existingUser) {
       return NextResponse.json(
-        { error: "Invalid credentials!" },
+        { error: "User already exists!" },
         { status: 400 }
       );
     }
