@@ -29,6 +29,7 @@ import { toast } from "sonner";
 import { z } from "zod";
 
 const jobSchema = z.object({
+  email: z.string().email(),
   title: z
     .string()
     .min(1, REQUIRED_ERROR)
