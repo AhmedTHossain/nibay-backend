@@ -47,8 +47,8 @@ const Header = () => {
   return (
     <div
       className={cn(
-        "py-5 fixed w-full z-50 bg-gradient-to-b from-emerald-600/20 dark:from-emerald-600/40 via-emerald-600/10 dark:via-emerald-600/20 to-transparent",
-        hasShadow ? "shadow bg-white dark:bg-emerald-700" : ""
+        "py-5 fixed w-full z-50 bg-gradient-to-b from-emerald-600/20 dark:from-emerald-600/20 via-emerald-600/10 dark:via-emerald-600/10 to-transparent",
+        hasShadow ? "shadow bg-white dark:shadow-lg dark:bg-emerald-950" : ""
       )}
     >
       <div className="container">

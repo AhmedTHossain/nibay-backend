@@ -22,7 +22,7 @@ export function JobGrid(props: JobGridProps) {
 
   return (
     <div
-      className="group relative p-5 rounded-lg border border-emerald-600/20 dark:border-emerald-600/40 bg-white dark:bg-slate-900 hover:bg-emerald-600/[0.02] hover:dark:bg-emerald-600/5 hover:shadow-md hover:shadow-emerald-600/5 transition-all duration-500 cursor-pointer"
+      className="group relative p-5 rounded-lg border border-emerald-600/20 dark:border-emerald-600/20 bg-white dark:bg-slate-900 hover:bg-emerald-600/5 hover:dark:bg-emerald-600/10 hover:shadow-md hover:shadow-emerald-600/10 cursor-pointer"
       onClick={() => {
         router.push(`/jobs/${_id}`);
       }}
@@ -33,11 +33,11 @@ export function JobGrid(props: JobGridProps) {
         </div>
         <div className="flex items-center space-x-2">
           <p
-            className="rounded-full bg-gray-600/5 hover:bg-gray-500 border-gray-600/10 hover:border-gray-600 text-gray-600 hover:text-white md:relative w-8 h-8 flex items-center justify-center"
+            className="rounded-full bg-gray-600/10 hover:bg-gray-500 hover:border-gray-600 text-gray-600 hover:text-white w-8 h-8 flex items-center justify-center dark:bg-gray-700/10 dark:hover:bg-gray-600 dark:text-gray-300 dark:hover:text-white"
+
             title="চাকরিটি ডুপ্লিকেট করুন"
             onClick={(event) => {
               event.stopPropagation();
-              console.log("restJob", restJob);
               setCopyJob(restJob);
               router.push(`/jobs/new`);
             }}
@@ -46,7 +46,8 @@ export function JobGrid(props: JobGridProps) {
           </p>
 
           <p
-            className="rounded-full bg-emerald-600/5 hover:bg-emerald-500 border-emerald-600/10 hover:border-emerald-600 text-emerald-600 hover:text-white md:relative w-8 h-8 flex items-center justify-center"
+            className="rounded-full bg-emerald-600/10 hover:bg-emerald-500 hover:border-emerald-600 text-emerald-600 hover:text-white w-8 h-8 flex items-center justify-center dark:bg-emerald-700/10 dark:hover:bg-emerald-600 dark:text-emerald-300 dark:hover:text-white"
+
             title="চাকরিটি এডিট করুন"
             onClick={(event) => {
               event.stopPropagation();
@@ -55,8 +56,9 @@ export function JobGrid(props: JobGridProps) {
           >
             <Edit strokeWidth={1.5} size={16} />
           </p>
+
           <p
-            className="rounded-full bg-red-600/5 hover:bg-red-500 border-red-600/10 hover:border-red-600 text-red-600 hover:text-white md:relative w-8 h-8 flex items-center justify-center"
+            className="rounded-full bg-red-600/10 hover:bg-red-500 hover:border-red-600 text-red-600 hover:text-white w-8 h-8 flex items-center justify-center dark:bg-red-700/10 dark:hover:bg-red-600 dark:text-red-300 dark:hover:text-white"
             title="চাকরিটি ডিলিট করুন"
             onClick={(event) => {
               event.stopPropagation();
@@ -69,31 +71,28 @@ export function JobGrid(props: JobGridProps) {
         </div>
       </div>
       <div className="mt-3">
-        <p className="mt-4 text-xl font-semibold transition-all duration-500">
+        <p className="mt-4 text-xl font-semibold">
           {title}
         </p>
-        <p className="text-slate-800 mt-2 break-words">
+        <p className="text-slate-800 dark:text-slate-300 mt-2 break-words">
           {shortDescription?.substring(0, 70) + (shortDescription.length > 70 ? "..." : "")}
         </p>
         <div className="mt-3 flex items-center justify-between gap-2">
           {/* Salary Section - Left Aligned */}
-          <p className="shrink-0 flex items-center">
-            {salary && parseInt(salary) > 0 && (
-              <span className="bg-purple-600/5 hover:bg-purple-600/20 dark:bg-purple-600/10 hover:dark:bg-purple-600/30 text-purple-600 px-3 text-[14px] inline-flex space-x-1 font-medium rounded-full transition-all duration-500">
-                <Image src={taka_svg} alt="Taka SVG" width={10} />
-                <span>{formatEnglishToBangalNum(salary)}</span>
-              </span>
-            )}
-          </p>
+          {salary && parseInt(salary) > 0 && (
+            <p className="bg-purple-600/10 hover:bg-purple-600/20 dark:bg-purple-600/15 text-purple-600 px-3 text-[14px] font-medium rounded-full flex items-center gap-1">
+              <Image src={taka_svg} alt="Taka SVG" width={8} className="dark:invert" />
+              <span>{formatEnglishToBangalNum(salary)}</span>
+            </p>
+          )}
 
           {/* Job Role Section - Right Aligned */}
-          <p className="flex min-w-[20px]">
-            <span className="truncate bg-orange-600/5 hover:bg-orange-600/20 dark:bg-orange-600/10 hover:dark:bg-orange-600/30 text-orange-600 px-3 text-[14px] font-medium rounded-full transition-all duration-500">
-              {jobRole}
-            </span>
+          <p className="truncate bg-orange-600/10 hover:bg-orange-600/20 dark:bg-orange-600/15 text-orange-600 px-3 text-[14px] font-medium rounded-full dark:text-orange-400 dark:hover:bg-orange-600/30">
+            {jobRole}
           </p>
         </div>
       </div>
-    </div>
+    </div >
+
   );
 }

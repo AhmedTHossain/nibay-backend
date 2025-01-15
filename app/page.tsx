@@ -56,7 +56,7 @@ export default function Home() {
         <div className="container">
           <div className="grid grid-cols-1 pb-8 text-center">
             <h3 className="md:text-[26px] md:leading-normal text-2xl leading-normal font-semibold">
-              একটিভ জব্‌স
+              একটিভ জবস
             </h3>
           </div>
           <div className="flex justify-end"></div>
@@ -70,7 +70,8 @@ export default function Home() {
                 <Link href="/jobs/new">
                   <Button
                     size="lg"
-                    className="bg-[#10b981] hover:bg-[rgb(29,128,95)]"
+                    className="bg-[#10b981] text-white hover:bg-[#0e9c6e] 
+             dark:bg-[#065f46] dark:text-gray-200 dark:hover:bg-[#046c47]"
                   >
                     নতুন চাকরি তৈরি করুন
                   </Button>

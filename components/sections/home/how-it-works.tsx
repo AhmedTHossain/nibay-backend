@@ -19,20 +19,20 @@ export function HowItWorks(props: HowItWorksProps) {
 
   return (
     <div className="p-6 hover:shadow-xl hover:shadow-gray-100 dark:hover:shadow-gray-800 transition duration-500 rounded-2xl text-center">
-      <div className="size-14 bg-emerald-600/5 text-emerald-600 rounded-xl text-2xl flex align-middle justify-center items-center mx-auto shadow-sm dark:shadow-gray-800">
+      <div className="size-14 bg-emerald-600/5 text-emerald-600 rounded-xl text-2xl flex items-center justify-center mx-auto shadow-sm dark:shadow-gray-800">
         <Icon />
       </div>
       <div className="content mt-7">
         <a
-          className="title h5 text-lg font-semibold hover:text-emerald-600"
+          className="title h5 text-lg font-semibold hover:text-emerald-600 dark:hover:text-emerald-400"
           href="/index-three"
         >
           {title}
         </a>
-        <p className="text-slate-800 mt-3">{text}</p>
+        <p className="text-slate-800 mt-3 dark:text-slate-200">{text}</p>
         <div className="mt-5">
           <Link
-            className="btn btn-link text-emerald-600 hover:text-emerald-600 after:bg-emerald-600 duration-500 ease-in-out inline-flex items-center"
+            className="btn btn-link text-emerald-600 hover:text-emerald-600 after:bg-emerald-600 duration-500 ease-in-out inline-flex items-center dark:text-emerald-400 dark:hover:text-emerald-300 dark:after:bg-emerald-600/30"
             href="/index-three"
           >
             আর পড়ুন{" "}
@@ -53,6 +53,7 @@ export function HowItWorks(props: HowItWorksProps) {
         </div>
       </div>
     </div>
+
   );
 }
 
