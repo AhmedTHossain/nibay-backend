@@ -62,7 +62,11 @@ function ApplicantReview({
         </Avatar>
         <div>
           <h3 className="text-lg font-semibold">{applicant.name}</h3>
-          <p className="text-sm text-gray-500">{applicant.role}</p>
+          <p className="text-sm text-gray-500">
+            {
+              USER_ROLE[applicant.role as keyof typeof USER_ROLE].label
+            }
+          </p>
           <button
             onClick={() => {
               handleJobClick(applicant.jobId);
