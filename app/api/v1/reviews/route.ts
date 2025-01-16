@@ -30,7 +30,8 @@ export async function GET(request: Request) {
       const application = job.applicants.find(
         (item) =>
           item.applicationStatus === "ACCEPTED" &&
-          item.statusChangeDate.getTime() <= threeMonthsAgo.getTime()
+          item.statusChangeDate.getTime() <= threeMonthsAgo.getTime() &&
+          item.review === null
       );
 
       if (application) {
@@ -40,7 +41,7 @@ export async function GET(request: Request) {
           results.push({
             _id: applicant.id,
             name: applicant.name,
-            role: applicant.role,
+            role: Number(applicant.role),
             jobId: job.id,
             jobShortDescription: job.shortDescription,
             profilePhoto: applicant.profilePhoto
@@ -52,8 +53,6 @@ export async function GET(request: Request) {
     //   applicationStatus: "ACCEPTED",
     //   statusChangeDate: { $lte: threeMonthsAgo }
     // });
-
-    console.log("results", results);
 
     return NextResponse.json({ status: "success", data: results });
   } catch (error) {
