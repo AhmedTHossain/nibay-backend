@@ -6,7 +6,7 @@ export const api_client = Axios.create({
   baseURL:
     process.env.NODE_ENV === "development"
       ? "http://localhost:3000/api/v1"
-      : "http://173.231.56.108/api/v1"
+      : "http://173.231.56.108"
 });
 
 api_client.interceptors.request.use(
