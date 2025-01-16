@@ -1,7 +1,7 @@
 export interface Applicant {
   _id: number;
   name: string;
-  role: string;
+  role: number;
   jobId: string;
   jobShortDescription: string;
   profilePhoto: string;

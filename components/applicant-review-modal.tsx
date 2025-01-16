@@ -12,9 +12,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Star } from "lucide-react";
+import { ArrowLeft, Star } from "lucide-react";
 import { Applicant } from "@/utils/types/applicant";
-import { JOB_ROLES } from "@/lib/constant";
+import { JOB_ROLES, USER_ROLE } from "@/lib/constant";
 import { useRouter } from "next/navigation";
 
 interface Review {
@@ -41,9 +41,7 @@ function ApplicantReview({
   };
 
   const handleJobClick = (jobId: string) => {
-    console.log(`Job clicked: ${applicant.jobShortDescription}`);
     router.push(`/jobs/${jobId}`);
-    // Here you would typically navigate to the job details page or open a modal with job details
   };
 
   return (
@@ -95,6 +93,7 @@ function ApplicantReview({
       </div>
       <div className="flex justify-between">
         <Button variant="outline" onClick={onGoBack}>
+          <ArrowLeft className="mr-2" />
           পিছনে যান
         </Button>
         <Button
@@ -164,13 +163,15 @@ export default function ApplicantReviewModal({
               {pendingReviews.map((applicant) => (
                 <li key={applicant._id}>
                   <button
-                    className="w-full text-left flex items-center space-x-4 p-2 rounded-lg hover:bg-emerald-50 dark:hover:bg-emerald-800/25 transition-colors"
+                    className="w-full text-left flex items-center space-x-4 p-2 rounded-lg shadow-lg border-2 bg-gray-50 hover:bg-emerald-50 dark:hover:bg-emerald-800/25 transition-colors focus:outline-none"
                     onClick={() => handleApplicantClick(applicant)}
                   >
                     <Avatar>
                       <AvatarImage
                         src={applicant.profilePhoto}
                         alt={applicant.name}
+                        width={40}
+                        height={40}
                         className="object-cover"
                       />
                       <AvatarFallback>
@@ -185,7 +186,9 @@ export default function ApplicantReviewModal({
                         {applicant.name}
                       </span>
                       <span className="text-sm text-gray-500 dark:text-gray-400 block">
-                        {applicant.role}
+                        {
+                          USER_ROLE[applicant.role as keyof typeof USER_ROLE].label
+                        }
                       </span>
                       <span
                         className="text-sm text-blue-500 hover:underline"
