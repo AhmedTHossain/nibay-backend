@@ -21,6 +21,7 @@ export function ImagePreview({ src, alt, width, height }: ImagePreviewProps) {
         className="overflow-hidden rounded-lg shadow-md transition-transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
       >
         <Image
+          unoptimized
           src={src || "/placeholder.svg"}
           alt={alt}
           width={width || undefined}

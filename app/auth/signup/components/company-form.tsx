@@ -60,7 +60,7 @@ export function CompanyRegisterForm(props: CompanyRegisterFormProps) {
         router.push("/auth/login");
         toast.success("অ্যাকাউন্ট সফলভাবে তৈরি করা হয়েছে");
       })
-      .catch(() => {})
+      .catch(() => { })
       .finally(() => {
         setIsLoading(false);
       });
@@ -169,7 +169,7 @@ export function CompanyRegisterForm(props: CompanyRegisterFormProps) {
         <div className="mb-4 text-left">
           {preview && (
             <div className="mb-6">
-              <Image
+              <Image unoptimized
                 src={preview}
                 alt="Preview"
                 width={300}

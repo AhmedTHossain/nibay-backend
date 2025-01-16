@@ -13,7 +13,7 @@ export function ImageModal({ isOpen, onClose, src, alt }: ImageModalProps) {
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-3xl">
         <div className="relative aspect-square">
-          <Image
+          <Image unoptimized
             src={src || "/placeholder.svg"}
             alt={alt}
             fill

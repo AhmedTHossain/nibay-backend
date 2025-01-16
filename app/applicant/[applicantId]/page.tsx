@@ -155,7 +155,7 @@ export default function ApplicantProfileRoute({
                   <div className="relative mt-5 px-6">
                     <div className="flex items-end gap-6">
                       {user?.profilePhoto ? (
-                        <Image
+                        <Image unoptimized
                           alt={user?.name as string}
                           src={`${user?.profilePhoto}`}
                           className="size-32 rounded-full border-4 border-white shadow-lg object-cover"

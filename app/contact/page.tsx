@@ -124,7 +124,7 @@ export default function ContactRoute() {
         <div className="container">
           <div className="grid md:grid-cols-12 grid-cols-1 items-center gap-[30px]">
             <div className="lg:col-span-7 md:col-span-6">
-              <Image src={contact_bg} alt="Contact bg image" />
+              <Image unoptimized src={contact_bg} alt="Contact bg image" />
             </div>
             <div className="lg:col-span-5 md:col-span-6">
               <div className="lg:ms-5">

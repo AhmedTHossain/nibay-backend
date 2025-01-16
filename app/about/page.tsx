@@ -21,7 +21,7 @@ export default function AboutRoute() {
             <div className="lg:col-span-5 md:col-span-6">
               <div className="relative">
                 <div className="relative">
-                  <Image
+                  <Image unoptimized
                     src={Feature3}
                     className="lg:w-[400px] w-[280px] rounded-md shadow dark:shadow-gray-700"
                     alt=""
@@ -38,7 +38,7 @@ export default function AboutRoute() {
                   </div>
                 </div>
                 <div className="absolute md:-end-5 end-0 -bottom-16">
-                  <Image
+                  <Image unoptimized
                     src={Feature2}
                     className="lg:w-[280px] w-[200px] border-8 border-white dark:border-slate-900 rounded-md shadow dark:shadow-gray-700"
                     alt=""
@@ -137,7 +137,7 @@ export default function AboutRoute() {
             <div className="relative overflow-hidden bg-emerald-600 rounded-md shadow dark:shadow-gray-700">
               <div className="grid md:grid-cols-2 items-center gap-[30px]">
                 <div className="relative">
-                  <Image src={get_job_bg} alt="" />
+                  <Image unoptimized src={get_job_bg} alt="" />
                   <div className="absolute md:bottom-1/2 md:translate-y-1/2 md:-end-10 ltr:md:translate-x-0 rtl:md:translate-x-0 -bottom-10 end-1/2 ltr:translate-x-1/2 rtl:-translate-x-1/2 text-center">
                     <a
                       data-id="S_CGed6E610"

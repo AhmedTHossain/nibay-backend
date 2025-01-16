@@ -81,7 +81,7 @@ export function JobGrid(props: JobGridProps) {
           {/* Salary Section - Left Aligned */}
           {salary && parseInt(salary) > 0 && (
             <p className="bg-purple-600/10 hover:bg-purple-600/20 dark:bg-purple-600/15 text-purple-600 px-3 text-[14px] font-medium rounded-full flex items-center gap-1">
-              <Image src={taka_svg} alt="Taka SVG" width={8} className="dark:invert" />
+              <Image unoptimized src={taka_svg} alt="Taka SVG" width={8} className="dark:invert" />
               <span>{formatEnglishToBangalNum(salary)}</span>
             </p>
           )}

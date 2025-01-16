@@ -91,7 +91,7 @@ export function ApplicantCard(props: ApplicantCardProps) {
         </AnimatePresence>
       ) : (
         <>
-          <Image
+          <Image unoptimized
             src={`${user?.profilePhoto || "/"}`}
             width={60}
             height={60}

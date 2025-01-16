@@ -322,7 +322,7 @@ export function AccountSettings() {
 
                   <div className="max-w-[100px] max-h[100px]">
                     {form.getValues("image") && imagePreview ? (
-                      <Image
+                      <Image unoptimized
                         src={imagePreview}
                         alt="user image"
                         className="rounded-md w-auto h-auto"
@@ -330,7 +330,7 @@ export function AccountSettings() {
                         height={100}
                       />
                     ) : currentUser?.profilePhoto ? (
-                      <Image
+                      <Image unoptimized
                         alt="user image"
                         src={`${currentUser?.profilePhoto}`}
                         className="rounded-md w-auto h-auto"
