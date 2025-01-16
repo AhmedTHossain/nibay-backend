@@ -13,7 +13,8 @@ export const USER_ROLE = {
     label: "সুপারভাইজার/প্যাসেঞ্জার গাইড",
     value: "SUPERVISOR_PASSENGER_GUIDE"
   },
-  9: { label: "ট্রাক ড্রাইভার", value: "TRUCK_DRIVER" }
+  9: { label: "ট্রাক ড্রাইভার", value: "TRUCK_DRIVER" },
+  10: { label: "প্রতিষ্ঠানিক", value: "INSTITUTION" }
 };
 
 export const APPLICATION_STATUS = {

@@ -1,6 +1,13 @@
 import { APPLICATION_STATUS } from "@/lib/constant";
 import { TJob } from "./job";
 
+export interface Review {
+  jobId: string;
+  rating: number;
+  feedback: string;
+  reviewCreatedDate: Date;
+}
+
 export interface TUser {
   _id: string;
   name: string;
@@ -34,7 +41,7 @@ export interface TUser {
   following: Array<string>;
   followers: Array<string>;
   reviews_for_employees: Array<string>;
-  reviews_from_employers: Array<string>;
+  reviews_from_employers: Array<Review>;
   id: string;
   job: string;
   applicant: string;

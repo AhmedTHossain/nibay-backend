@@ -16,6 +16,8 @@ import { useEffect, useState } from "react";
 import { PendingReviewModal } from "./jobs/components/PendingReviewModal";
 import { useJobContext } from "./contexts/JobContext";
 import { TJob } from "@/utils/types/job";
+import ApplicantReviewModal from "@/components/applicant-review-modal";
+import usePendingReviews from "./hooks/reviews/usePendingReviews";
 
 export default function Home() {
   useAuth();
@@ -26,6 +28,7 @@ export default function Home() {
   }, []);
 
   const { jobs, isLoading } = useJobContext();
+  const { pendingReviews, submitReview, isSubmitting } = usePendingReviews();
 
   const [filteredJobs, setFilteredJobs] = useState<TJob[]>([]);
 
@@ -37,13 +40,13 @@ export default function Home() {
     if (role === "all") {
       setFilteredJobs(jobs);
     } else {
-      setFilteredJobs(jobs.filter(job => job.jobRole === role));
+      setFilteredJobs(jobs.filter((job) => job.jobRole === role));
     }
   };
 
   return (
     <div>
-      <PendingReviewModal open={reviewOpen} setIsOpen={setIsReviewOpen} />
+      <ApplicantReviewModal pendingReviews={pendingReviews} submitReview={submitReview} isSubmitting={isSubmitting} />
       <Header />
 
       <section className="relative py-36">
