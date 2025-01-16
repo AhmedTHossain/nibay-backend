@@ -4,6 +4,7 @@ import { connectToMongoDB } from "@/lib/database";
 import User from "../../models/user";
 import { authMiddleware } from "../../middleware/auth";
 import Job from "../../models/job";
+import { Applicant } from "@/utils/types/applicant";
 
 const threeMonthsAgo = new Date();
 threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
@@ -26,25 +27,33 @@ export async function GET(request: Request) {
 
     const results = [];
     for (const job of jobs) {
-      const applicant = job.applicants.find(
+      const application = job.applicants.find(
         (item) =>
           item.applicationStatus === "ACCEPTED" &&
           item.statusChangeDate.getTime() <= threeMonthsAgo.getTime()
       );
 
-      if (applicant)
-        results.push({
-          ...applicant,
-          job: {
-            title: job.title
-          }
-        });
+      if (application) {
+        const applicant = await User.findById(application.applicant.id);
+
+        if (applicant)
+          results.push({
+            _id: applicant.id,
+            name: applicant.name,
+            role: applicant.role,
+            jobId: job.id,
+            jobShortDescription: job.shortDescription,
+            profilePhoto: applicant.profilePhoto
+          } as Applicant);
+      }
     }
 
     // const reviewableUsers = await User.find({
     //   applicationStatus: "ACCEPTED",
     //   statusChangeDate: { $lte: threeMonthsAgo }
     // });
+
+    console.log("results", results);
 
     return NextResponse.json({ status: "success", data: results });
   } catch (error) {
