@@ -28,7 +28,7 @@ export default function Home() {
   }, []);
 
   const { jobs, isLoading } = useJobContext();
-  const { pendingReviews } = usePendingReviews();
+  const { pendingReviews, submitReview, isSubmitting } = usePendingReviews();
 
   const [filteredJobs, setFilteredJobs] = useState<TJob[]>([]);
 
@@ -46,7 +46,7 @@ export default function Home() {
 
   return (
     <div>
-      <ApplicantReviewModal pendingReviews={pendingReviews} />
+      <ApplicantReviewModal pendingReviews={pendingReviews} submitReview={submitReview} isSubmitting={isSubmitting} />
       <Header />
 
       <section className="relative py-36">

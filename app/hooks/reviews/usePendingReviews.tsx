@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 const usePendingReviews = () => {
   const [pendingReviews, setPendingReviews] = useState<Applicant[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const fetchReviews = async () => {
     setIsLoading(true);
@@ -19,6 +20,22 @@ const usePendingReviews = () => {
     }
   };
 
+  const submitReview = async (jobId: string, applicantId: string, review: { rating: number; feedback: string }) => {
+    const backup_reviews = pendingReviews;
+    try {
+      setIsSubmitting(true);
+      setPendingReviews((reviews) => reviews.filter((review) => review._id !== applicantId));
+      await api_client.post(`reviews/${jobId}`, {
+        applicantId,
+        review
+      });
+      setIsSubmitting(false);
+    } catch (error) {
+      setPendingReviews(backup_reviews);
+      console.error("Failed to submit review:", error);
+    }
+  }
+
   useEffect(() => {
     fetchReviews();
   }, []);
@@ -27,7 +44,9 @@ const usePendingReviews = () => {
     pendingReviews,
     setPendingReviews,
     isLoading,
-    refetch: fetchReviews
+    refetch: fetchReviews,
+    submitReview,
+    isSubmitting
   };
 };
 

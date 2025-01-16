@@ -16,6 +16,9 @@ import { ArrowLeft, Star } from "lucide-react";
 import { Applicant } from "@/utils/types/applicant";
 import { JOB_ROLES, USER_ROLE } from "@/lib/constant";
 import { useRouter } from "next/navigation";
+import { Textarea } from "./ui/textarea";
+import { api_client } from "@/lib/axios";
+import { sub } from "date-fns";
 
 interface Review {
   rating: number;
@@ -35,6 +38,7 @@ function ApplicantReview({
 
   const [rating, setRating] = useState(0);
   const [feedback, setFeedback] = useState("");
+  const [feedbackCount, setFeedbackCount] = useState(0);
 
   const handleSubmit = () => {
     onSubmit({ rating, feedback });
@@ -64,7 +68,7 @@ function ApplicantReview({
           <h3 className="text-lg font-semibold">{applicant.name}</h3>
           <p className="text-sm text-gray-500">
             {
-              USER_ROLE[applicant.role as keyof typeof USER_ROLE].label
+              USER_ROLE[applicant.role as keyof typeof USER_ROLE]?.label
             }
           </p>
           <button
@@ -86,14 +90,26 @@ function ApplicantReview({
           />
         ))}
       </div>
-      <div className="space-y-2">
+      <div className="space-y-2 relative">
         <Label htmlFor="feedback">মন্তব্য (অপশনাল)</Label>
-        <Input
+        <Textarea
           id="feedback"
           value={feedback}
-          onChange={(e) => setFeedback(e.target.value)}
+          maxLength={500}
+          onChange={(e) => {
+            if (e.target.value.length <= 500) {
+              setFeedback(e.target.value);
+              setFeedbackCount(e.target.value.length);
+            }
+          }}
           placeholder="আপনার মন্তব্য লিখুন"
         />
+        <span
+          className={`absolute bottom-2 right-2 text-xs text-gray-500"
+            }`}
+        >
+          {feedbackCount}/500
+        </span>
       </div>
       <div className="flex justify-between">
         <Button variant="outline" onClick={onGoBack}>
@@ -101,6 +117,7 @@ function ApplicantReview({
           পিছনে যান
         </Button>
         <Button
+          disabled={rating === 0}
           onClick={handleSubmit}
           className="bg-emerald-500 hover:bg-emerald-600 dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:text-white"
         >
@@ -113,10 +130,14 @@ function ApplicantReview({
 
 interface ApplicantReviewModalProps {
   pendingReviews: Applicant[];
+  submitReview: (jobId: string, applicantId: string, review: Review) => void;
+  isSubmitting: boolean;
 }
 
 export default function ApplicantReviewModal({
-  pendingReviews
+  pendingReviews,
+  submitReview,
+  isSubmitting
 }: ApplicantReviewModalProps) {
   const router = useRouter();
 
@@ -134,8 +155,9 @@ export default function ApplicantReviewModal({
   };
 
   const handleReviewSubmit = (review: Review) => {
-    console.log(`Review submitted for ${selectedApplicant?.name}:`, review);
-    // Here you would typically send this data to your backend
+    if (selectedApplicant) {
+      submitReview(selectedApplicant?.jobId, selectedApplicant._id, review);
+    }
     setSelectedApplicant(null);
   };
 
@@ -145,7 +167,6 @@ export default function ApplicantReviewModal({
 
   const handleJobClick = (jobId: string, e: React.MouseEvent) => {
     e.preventDefault();
-    console.log(`Job clicked: ${jobId}`);
     router.push(`/jobs/${jobId}`);
   };
 
@@ -191,7 +212,7 @@ export default function ApplicantReviewModal({
                       </span>
                       <span className="text-sm text-gray-500 dark:text-gray-400 block">
                         {
-                          USER_ROLE[applicant.role as keyof typeof USER_ROLE].label
+                          USER_ROLE[applicant.role as keyof typeof USER_ROLE]?.label
                         }
                       </span>
                       <span

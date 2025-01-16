@@ -1,5 +1,5 @@
 export interface Applicant {
-  _id: number;
+  _id: string;
   name: string;
   role: number;
   jobId: string;
