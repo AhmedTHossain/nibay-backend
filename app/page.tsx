@@ -17,6 +17,7 @@ import { PendingReviewModal } from "./jobs/components/PendingReviewModal";
 import { useJobContext } from "./contexts/JobContext";
 import { TJob } from "@/utils/types/job";
 import ApplicantReviewModal from "@/components/applicant-review-modal";
+import usePendingReviews from "./hooks/reviews/usePendingReviews";
 
 export default function Home() {
   useAuth();
@@ -27,6 +28,7 @@ export default function Home() {
   }, []);
 
   const { jobs, isLoading } = useJobContext();
+  const { pendingReviews } = usePendingReviews();
 
   const [filteredJobs, setFilteredJobs] = useState<TJob[]>([]);
 
@@ -44,7 +46,7 @@ export default function Home() {
 
   return (
     <div>
-      <ApplicantReviewModal />
+      <ApplicantReviewModal pendingReviews={pendingReviews} />
       <Header />
 
       <section className="relative py-36">
