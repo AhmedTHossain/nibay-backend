@@ -20,8 +20,6 @@ import usePendingReviews from "./hooks/reviews/usePendingReviews";
 import { CustomPagination } from "./components/common/Pagination";
 import { useJobContext } from "./contexts/JobContext";
 
-const pageLimit = 12;
-
 export default function Home() {
   useAuth();
 
@@ -33,7 +31,7 @@ export default function Home() {
 
   useEffect(() => {
     // Refetch jobs whenever the page or filter changes
-    refetch({ page: currentPage, limit: pageLimit, jobRole: jobRoleFilter === 'all' ? undefined : jobRoleFilter });
+    refetch({ page: currentPage, jobRole: jobRoleFilter === 'all' ? undefined : jobRoleFilter });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage, jobRoleFilter]);
 

@@ -12,8 +12,6 @@ import { useEffect, useState } from "react";
 import { TJob } from "@/utils/types/job";
 import { CustomPagination } from "../components/common/Pagination";
 
-const pageLimit = 12;
-
 export default function JobsRoute() {
   const { jobs, isLoading, pagination, refetch } = useJobContext();
 
@@ -23,7 +21,7 @@ export default function JobsRoute() {
 
   useEffect(() => {
     // Refetch jobs whenever the page or filter changes
-    refetch({ page: currentPage, limit: pageLimit, jobRole: jobRoleFilter === 'all' ? undefined : jobRoleFilter, jobStatus: jobStatusFilter === 'all' ? undefined : jobStatusFilter });
+    refetch({ page: currentPage, jobRole: jobRoleFilter === 'all' ? undefined : jobRoleFilter, jobStatus: jobStatusFilter === 'all' ? undefined : jobStatusFilter });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage, jobRoleFilter, jobStatusFilter]);
 
