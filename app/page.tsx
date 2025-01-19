@@ -28,12 +28,22 @@ export default function Home() {
 
   const [currentPage, setCurrentPage] = useState(pagination.currentPage);
   const [jobRoleFilter, setjobRoleFilter] = useState<string>('all');
+  const [forceTrigger, setForceTrigger] = useState(false);
 
   useEffect(() => {
     // Refetch jobs whenever the page or filter changes
-    refetch({ page: currentPage, jobRole: jobRoleFilter === 'all' ? undefined : jobRoleFilter });
+    refetch({ page: currentPage, limit: 6, jobRole: jobRoleFilter === 'all' ? undefined : jobRoleFilter });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentPage, jobRoleFilter]);
+  }, [currentPage, forceTrigger]);
+
+  useEffect(() => {
+    if (currentPage !== 1) {
+      setCurrentPage(1);
+    }
+    else {
+      setForceTrigger(!forceTrigger);
+    }
+  }, [jobRoleFilter]);
 
   return (
     <div>
