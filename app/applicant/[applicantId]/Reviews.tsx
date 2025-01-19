@@ -35,14 +35,14 @@ export default function ApplicantReviews({ applicantId }: { applicantId: string 
     }, {} as Record<number, number>);
 
     return (
-        <div className="container mx-auto p-4 max-w-2xl">
+        <div className="container mx-auto p-4 max-w-full">
             <Card className="mb-8 rounded-lg">
                 <CardHeader className="pb-2">
                     <CardTitle className="text-xl font-bold">রেটিং এবং রিভিউ</CardTitle>
                 </CardHeader>
                 <CardContent>
                     <div className="flex items-center mb-4">
-                        <span className="text-4xl font-bold mr-2">{averageRating.toFixed(1)}</span>
+                        <span className="text-4xl font-bold mr-2">{averageRating.toFixed(1)} / 5</span>
                         {renderStars(averageRating)}
                     </div>
                     <div className="space-y-1">
