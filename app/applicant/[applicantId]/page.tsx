@@ -22,6 +22,7 @@ import { useSearchParams } from "next/navigation";
 import { formatEnglishToBangalNum } from "@/utils/formatEtoBLang";
 import { ImagePreview } from "@/app/components/common/ImagePreview";
 import useReviewsByApplicantId from "@/app/hooks/reviews/useReviewsByApplicantId";
+import Reviews from "./Reviews";
 
 export default function ApplicantProfileRoute({
   params
@@ -422,6 +423,11 @@ export default function ApplicantProfileRoute({
                             </span>
                           )}
                         </div>
+                      </div>
+
+                      {/* Reviews */}
+                      <div className="col-span-2 bg-gray-50 dark:bg-slate-800 rounded-lg p-6">
+                        <Reviews applicantId={params.applicantId} />
                       </div>
                     </div>
                   </div>

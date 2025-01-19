@@ -6,12 +6,13 @@ import { authMiddleware } from "../../../middleware/auth";
 import { Applicant } from "@/utils/types/applicant";
 
 interface TApplicantId {
-  param: {
+  params: {
     applicantId: string;
   };
 }
 
-export async function GET(request: NextRequest, { param }: TApplicantId) {
+export async function GET(request: NextRequest, { params }: TApplicantId) {
+  console.log("here: ", params.applicantId);
   try {
     const authUser = authMiddleware(request);
     if (authUser instanceof NextResponse) {
@@ -25,7 +26,7 @@ export async function GET(request: NextRequest, { param }: TApplicantId) {
       return NextResponse.json({ error: "User not found!" }, { status: 404 });
     }
 
-    const applicantId = param.applicantId;
+    const applicantId = params.applicantId;
     // Find all the reviews for the applicant
     const results = {
       averageRating: 4.5,
