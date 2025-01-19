@@ -34,7 +34,8 @@ export default function Home() {
   useEffect(() => {
     // Refetch jobs whenever the page or filter changes
     refetch({ page: currentPage, limit: pageLimit, jobRole: jobRoleFilter === 'all' ? undefined : jobRoleFilter });
-  }, [currentPage, jobRoleFilter, refetch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentPage, jobRoleFilter]);
 
   return (
     <div>

@@ -24,7 +24,8 @@ export default function JobsRoute() {
   useEffect(() => {
     // Refetch jobs whenever the page or filter changes
     refetch({ page: currentPage, limit: pageLimit, jobRole: jobRoleFilter === 'all' ? undefined : jobRoleFilter, jobStatus: jobStatusFilter === 'all' ? undefined : jobStatusFilter });
-  }, [currentPage, jobRoleFilter, jobStatusFilter, refetch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentPage, jobRoleFilter, jobStatusFilter]);
 
   return (
     <>
