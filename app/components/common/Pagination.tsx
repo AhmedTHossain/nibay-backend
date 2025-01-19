@@ -19,43 +19,79 @@ export function CustomPagination({
   currentPage,
   onPageChange,
 }: CustomPaginationProps) {
-  const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+  // Function to generate page numbers with ellipses
+  const generatePages = () => {
+    const visiblePages = [];
+    const range = 2; // Show 2 pages before and after the current page
+    const startPage = Math.max(1, currentPage - range);
+    const endPage = Math.min(totalPages, currentPage + range);
+
+    // Handle left ellipsis
+    if (startPage > 2) {
+      visiblePages.push(1);
+      visiblePages.push('...');
+    }
+
+    // Add the pages in the range
+    for (let i = startPage; i <= endPage; i++) {
+      visiblePages.push(i);
+    }
+
+    // Handle right ellipsis
+    if (endPage < totalPages - 1) {
+      visiblePages.push('...');
+      visiblePages.push(totalPages);
+    }
+
+    return visiblePages;
+  };
+
+  const pages = generatePages();
 
   return (
     <nav aria-label="Pagination">
       <ul className="flex items-center space-x-2">
+        {/* Previous Button */}
         <li>
           <button
             onClick={() => onPageChange(currentPage - 1)}
             disabled={currentPage === 1}
             className={`px-4 py-2 rounded-md ${currentPage === 1
-                ? "text-gray-400 cursor-not-allowed"
-                : "hover:bg-gray-200 dark:hover:bg-gray-700"
+              ? "text-gray-400 cursor-not-allowed"
+              : "hover:bg-gray-200 dark:hover:bg-gray-700"
               }`}
           >
             Previous
           </button>
         </li>
-        {pages.map((page) => (
-          <li key={page}>
-            <button
-              onClick={() => onPageChange(page)}
-              className={`px-4 py-2 rounded-md ${page === currentPage
+
+        {/* Page Numbers */}
+        {pages.map((page, index) =>
+          page === '...' ? (
+            <li key={index} className="px-4 py-2">...</li>
+          ) : (
+            <li key={page}>
+              <button
+                onClick={() => onPageChange(Number(page))}
+                className={`px-4 py-2 rounded-md ${page === currentPage
                   ? "bg-emerald-500 text-white"
                   : "hover:bg-gray-200 dark:hover:bg-gray-700"
-                }`}
-            >
-              {page}
-            </button>
-          </li>
-        ))}
+                  }`}
+              >
+                {page}
+              </button>
+            </li>
+          )
+        )}
+
+        {/* Next Button */}
         <li>
           <button
             onClick={() => onPageChange(currentPage + 1)}
             disabled={currentPage === totalPages}
             className={`px-4 py-2 rounded-md ${currentPage === totalPages
-                ? "text-gray-400 cursor-not-allowed"
-                : "hover:bg-gray-200 dark:hover:bg-gray-700"
+              ? "text-gray-400 cursor-not-allowed"
+              : "hover:bg-gray-200 dark:hover:bg-gray-700"
               }`}
           >
             Next
