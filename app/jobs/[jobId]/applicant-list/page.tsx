@@ -3,34 +3,15 @@
 import { HeroSection } from "@/app/components/common/HeroSection";
 import Header from "@/app/components/header";
 import Footer from "@/components/sections/Footer";
-import { ApplicantCard } from "../../components/ApplicantCard";
 import { ApplicantFilter } from "../../components/ApplicantFilter";
 import useJobById from "@/app/hooks/jobs/useJobById";
 import { AnimatePresence, motion } from "framer-motion";
 import { Loader } from "lucide-react";
-import { api_client } from "@/lib/axios";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { toast } from "sonner";
-import { APPLICATION_STATUS } from "@/lib/constant";
+import { Application, ApplicationStatus } from "@/utils/types/applicant";
+import { ApplicantCard } from "../../components/ApplicantCard";
 
-type ApplicationStatus = keyof typeof APPLICATION_STATUS | "ALL";
-import { TJob } from "@/utils/types/job";
-
-interface Application {
-  applicant: {
-    id: string;
-    name: string;
-  };
-  job: {
-    id: string;
-    title: string;
-  };
-  applicationStatus: keyof typeof APPLICATION_STATUS;
-  statusChangeDate: Date;
-  review: string | null;
-  reviewCreatedDate: Date | null;
-}
 
 export default function ApplicantListRoute({
   params
@@ -88,11 +69,9 @@ export default function ApplicantListRoute({
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.05, duration: 0.5 }}
               >
-                <div className="mt-8 grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-[30px]">
+                <div className="mt-8 grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-x-[150px] gap-y-6">
                   {filteredApplicants?.map((application) => {
                     return (
-                      //eslint-disable-next-line
-                      // @ts-ignore
                       <ApplicantCard
                         key={application?.applicant?.id}
                         application={application}

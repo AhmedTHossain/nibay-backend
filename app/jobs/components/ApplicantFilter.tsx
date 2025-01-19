@@ -18,14 +18,14 @@ export function ApplicantFilter({ onFilterChange }: ApplicantFilterProps) {
       <form action="#">
         <div className="text-dark text-start">
           <div className="flex items-center gap-3">
-            <div className="w-full relative flex items-center px-4 bg-gray-50 h-h-full dark:bg-slate-900 rounded-md">
+            <div className="w-full relative flex gap-3 items-center px-4 bg-gray-50 h-h-full dark:bg-slate-900 rounded-md">
               <span className="">
                 <Bolt size={18} color="#10b981" />
               </span>
               <select
                 value={selectedStatus}
                 onChange={handleChange}
-                className="w-full text-sm bg-transparent dark:bg-transparent border-0 focus:ring-0 focus:outline-none text-slate-900 dark:text-slate-200"
+                className="w-full text-sm bg-transparent dark:bg-transparent border-0 focus:ring-2 focus:ring-[#10b981] dark:focus:ring-[#065f46] focus:outline-none text-slate-900 dark:text-slate-200"
               >
                 <option value="ALL" className="text-slate-900 dark:text-slate-200">
                   সব

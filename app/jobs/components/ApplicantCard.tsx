@@ -10,6 +10,7 @@ import {
   USER_ROLE
 } from "@/lib/constant";
 import { formatEnglishToBangalNum } from "@/utils/formatEtoBLang";
+import { Application } from "@/utils/types/applicant";
 import { TUser } from "@/utils/types/user";
 import { AnimatePresence, motion } from "framer-motion";
 import { Loader } from "lucide-react";
@@ -18,21 +19,9 @@ import { useRouter } from "next/navigation";
 import { Dispatch, SetStateAction, useEffect } from "react";
 import { toast } from "sonner";
 
-interface ApplicantCardProps extends TUser {
-  application: {
-    applicant: {
-      id: string;
-      name: string;
-    };
-    job: {
-      id: string;
-      title: string;
-    };
-    applicationStatus: keyof typeof APPLICATION_STATUS;
-    statusChangeDate: Date;
-    review: string | null;
-    reviewCreatedDate: Date | null;
-  };
+interface ApplicantCardProps {
+  key: string;
+  application: Application;
 }
 
 export function ApplicantCard(props: ApplicantCardProps) {
