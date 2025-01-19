@@ -3,22 +3,27 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Progress } from "@/components/ui/progress"
 import useReviewsByApplicantId from '@/app/hooks/reviews/useReviewsByApplicantId';
+import { formatEnglishToBangalNum } from '@/utils/formatEtoBLang';
 
 export default function ApplicantReviews({ applicantId }: { applicantId: string }) {
     const { reviews, averageRating, isLoading: isReviewLoading } = useReviewsByApplicantId({ applicantId });
 
     const renderStars = (rating: number) => {
+        const roundedRating = Math.round(rating * 10) / 10 // Round to 1 decimal place
         return (
-            <div className="flex">
+            <div className="flex items-center">
                 {[1, 2, 3, 4, 5].map((star) => (
-                    <Star
-                        key={star}
-                        className={`w-4 h-4 ${star <= rating
-                            ? "text-yellow-400 fill-yellow-400"
-                            : "text-gray-300"
-                            }`}
-                    />
+                    <div key={star} className="relative">
+                        <Star className="w-4 h-4 text-gray-300" />
+                        <div
+                            className="absolute top-0 left-0 overflow-hidden"
+                            style={{ width: `${Math.max(0, Math.min(100, (roundedRating - star + 1) * 100))}%` }}
+                        >
+                            <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
+                        </div>
+                    </div>
                 ))}
+                <span className="ml-1 text-sm text-gray-600">{roundedRating.toFixed(1)}</span>
             </div>
         );
     };
@@ -31,9 +36,9 @@ export default function ApplicantReviews({ applicantId }: { applicantId: string 
 
     return (
         <div className="container mx-auto p-4 max-w-2xl">
-            <Card className="mb-8">
+            <Card className="mb-8 rounded-lg">
                 <CardHeader className="pb-2">
-                    <CardTitle className="text-xl font-bold">{"asdf"}</CardTitle>
+                    <CardTitle className="text-xl font-bold">রেটিং এবং রিভিউ</CardTitle>
                 </CardHeader>
                 <CardContent>
                     <div className="flex items-center mb-4">
@@ -51,7 +56,7 @@ export default function ApplicantReviews({ applicantId }: { applicantId: string 
                             </div>
                         ))}
                     </div>
-                    <p className="text-sm text-gray-500 mt-2">{reviews.length} reviews</p>
+                    <p className="text-sm text-gray-500 mt-2">{formatEnglishToBangalNum(String(reviews.length))}টি রিভিউ</p>
                 </CardContent>
             </Card>
             <div className="space-y-4">
@@ -66,8 +71,13 @@ export default function ApplicantReviews({ applicantId }: { applicantId: string 
                                     <div className="flex items-center justify-between">
                                         <h3 className="font-semibold">{review.reviewerName}</h3>
                                         <span className="text-sm text-gray-500">
-                                            {new Date(review.createdAt).toLocaleDateString()} {/* Placeholder date */}
+                                            {formatEnglishToBangalNum(new Date(review.createdAt).toLocaleDateString())} {/* Placeholder date */}
                                         </span>
+                                    </div>
+                                    <div className="text-sm text-gray-500">
+                                        <a href={`/jobs/${review.jobId}`} className="text-blue-500 hover:underline">
+                                            {review.jobTitle}
+                                        </a>
                                     </div>
                                     <div className="flex items-center mt-1">
                                         {renderStars(review.rating)}

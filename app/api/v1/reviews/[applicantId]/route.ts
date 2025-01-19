@@ -35,19 +35,64 @@ export async function GET(request: NextRequest, { params }: TApplicantId) {
           reviewerId: "123",
           reviewerName: "John Doe",
           jobId: "456",
-          jobTitle: "Checker",
+          jobTitle: "গাড়ি মেইনটেন্যান্স কর্মী",
           rating: 4,
-          feedback: "Great job!",
+          feedback: "কাজটি খুবই ভালো হয়েছে।",
           createdAt: "2021-08-01T00:00:00.000Z"
         },
         {
           reviewerId: "789",
           reviewerName: "Jane Doe",
           jobId: "101",
-          jobTitle: "Driver",
-          rating: 5,
-          feedback: "Excellent job!",
+          jobTitle: "ডেলিভারি চালক",
+          rating: 1,
+          feedback: "অত্যন্ত ভালো অভিজ্ঞতা, কাজের মান চমৎকার!",
           createdAt: "2021-08-02T00:00:00.000Z"
+        },
+        {
+          reviewerId: "456",
+          reviewerName: "John Smith",
+          jobId: "123",
+          jobTitle: "গুদাম চেকার",
+          rating: 2,
+          feedback: "শ্রেষ্ঠ কর্মী, দারুণ সহায়ক এবং দক্ষ।",
+          createdAt: "2021-08-03T00:00:00.000Z"
+        },
+        {
+          reviewerId: "101",
+          reviewerName: "Jane Smith",
+          jobId: "789",
+          jobTitle: "ভ্যান চালক",
+          rating: 3,
+          feedback: "খুবই সন্তুষ্ট, সময়মতো কাজ সম্পন্ন হয়েছে।",
+          createdAt: "2021-08-04T00:00:00.000Z"
+        },
+        {
+          reviewerId: "789",
+          reviewerName: "Jane Doe",
+          jobId: "101",
+          jobTitle: "ডেলিভারি চালক",
+          rating: 5,
+          feedback: "অত্যন্ত ভালো অভিজ্ঞতা, কাজের মান চমৎকার!",
+          createdAt: "2021-08-02T00:00:00.000Z"
+        },
+        {
+          reviewerId: "456",
+          reviewerName: "John Smith",
+          jobId: "123",
+          jobTitle: "গুদাম চেকার",
+          rating: 4,
+          feedback: "শ্রেষ্ঠ কর্মী, দারুণ সহায়ক এবং দক্ষ।",
+          createdAt: "2021-08-03T00:00:00.000Z"
+        },
+        {
+          reviewerId: "101",
+          reviewerName: "Jane Smith",
+          jobId: "789",
+          jobTitle: "ভ্যান চালক",
+          rating: 3,
+          feedback: "খুবই সন্তুষ্ট, সময়মতো কাজ সম্পন্ন হয়েছে।",
+          createdAt: "2021-08-04T00:00:00.000Z"
         }
       ]
     };
