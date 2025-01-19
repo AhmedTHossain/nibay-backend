@@ -488,7 +488,8 @@ export default function EditJobRoute({
                         className="mt-3"
                         type="date"
                         placeholder="আবেদনের শেষ তারিখ"
-                        value={moment(date).format("YYYY-MM-DDTHH:mm")}
+                        min={moment().format("YYYY-MM-DD")}
+                        value={moment(date).format("YYYY-MM-DD")}
                         onChange={(event) => {
                           setDate(new Date(event.target.value));
                           form.setValue(
