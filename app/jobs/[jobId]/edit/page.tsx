@@ -343,14 +343,14 @@ export default function EditJobRoute({
                           form.setValue("experience", value);
                         }}
                       >
-                        <option value="0-1">0 — 1 year</option>
-                        <option value="1-2">1 — 2 years</option>
-                        <option value="2-3">2 — 3 years</option>
-                        <option value="3-4">3 — 4 years</option>
-                        <option value="4-5">4 — 5 years</option>
-                        <option value="5-7">5 — 7 years</option>
-                        <option value="7-10">7 — 10 years</option>
-                        <option value="10+">10+ years</option>
+                        <option value="0-1">০ — ১ বছর</option>
+                        <option value="1-2">১ — ২ বছর</option>
+                        <option value="2-3">২ — ৩ বছর</option>
+                        <option value="3-4">৩ — ৪ বছর</option>
+                        <option value="4-5">৪ — ৫ বছর</option>
+                        <option value="5-7">৫ — ৭ বছর</option>
+                        <option value="7-10">৭ — ১০ বছর</option>
+                        <option value="10+">১০+ বছর</option>
                       </select>
                       {/* <Input
                       id="experience"
