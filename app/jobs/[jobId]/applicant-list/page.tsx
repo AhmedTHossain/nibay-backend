@@ -34,21 +34,17 @@ export default function ApplicantListRoute({
 
   useEffect(() => {
     setTotalPages(Math.ceil(filteredApplicants?.length / pageLimit));
-    console.log("Total Pages: ", totalPages);
-  }), [filteredApplicants];
+  }, [filteredApplicants.length]);
 
   useEffect(() => {
     const start = (currentPage - 1) * pageLimit;
     const end = start + pageLimit;
     setPaginatedApplicants(filteredApplicants?.slice(start, end) || []);
-    console.log("Start: ", start, "End: ", end);
-    console.log("Paginated Applicants: ", paginatedApplicants);
-    console.log("Filtered Applicants: ", filteredApplicants);
   }, [filteredApplicants, currentPage]);
 
   useEffect(() => {
     setFilteredApplicants(statusFilter == "ALL" ? job?.applicants || [] : job?.applicants?.filter(applicant => applicant.applicationStatus === statusFilter) || []);
-  }, [statusFilter]);
+  }, [statusFilter, job?.applicants]);
 
 
   return (
