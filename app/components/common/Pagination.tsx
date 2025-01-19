@@ -23,12 +23,12 @@ export function CustomPagination({
   const generatePages = () => {
     const visiblePages = [];
     const range = 2; // Show 2 pages before and after the current page
-    const startPage = Math.max(1, currentPage - range);
-    const endPage = Math.min(totalPages, currentPage + range);
+    const startPage = Math.max(2, currentPage - range);
+    const endPage = Math.min(totalPages - 1, currentPage + range);
 
     // Handle left ellipsis
+    visiblePages.push(1);
     if (startPage > 2) {
-      visiblePages.push(1);
       visiblePages.push('...');
     }
 
@@ -40,8 +40,8 @@ export function CustomPagination({
     // Handle right ellipsis
     if (endPage < totalPages - 1) {
       visiblePages.push('...');
-      visiblePages.push(totalPages);
     }
+    visiblePages.push(totalPages);
 
     return visiblePages;
   };
