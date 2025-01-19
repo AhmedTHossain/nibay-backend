@@ -41,7 +41,7 @@ export function CustomPagination({
     if (endPage < totalPages - 1) {
       visiblePages.push('...');
     }
-    visiblePages.push(totalPages);
+    if (totalPages > 1) visiblePages.push(totalPages);
 
     return visiblePages;
   };
