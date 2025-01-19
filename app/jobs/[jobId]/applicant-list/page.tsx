@@ -7,7 +7,7 @@ import { ApplicantFilter } from "../../components/ApplicantFilter";
 import useJobById from "@/app/hooks/jobs/useJobById";
 import { AnimatePresence, motion } from "framer-motion";
 import { Loader } from "lucide-react";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Application, ApplicationStatus } from "@/utils/types/applicant";
 import { ApplicantCard } from "../../components/ApplicantCard";
@@ -27,6 +27,7 @@ export default function ApplicantListRoute({
   const [paginatedApplicants, setPaginatedApplicants] = useState<Application[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [forceTrigger, setForceTrigger] = useState(false);
 
   useEffect(() => {
     setFilteredApplicants(job?.applicants || []);
@@ -40,7 +41,16 @@ export default function ApplicantListRoute({
     const start = (currentPage - 1) * pageLimit;
     const end = start + pageLimit;
     setPaginatedApplicants(filteredApplicants?.slice(start, end) || []);
-  }, [filteredApplicants, currentPage]);
+  }, [currentPage, forceTrigger]);
+
+  useEffect(() => {
+    if (currentPage != 1) {
+      setCurrentPage(1);
+    }
+    else {
+      setForceTrigger(!forceTrigger);
+    }
+  }, [filteredApplicants]);
 
   useEffect(() => {
     setFilteredApplicants(statusFilter == "ALL" ? job?.applicants || [] : job?.applicants?.filter(applicant => applicant.applicationStatus === statusFilter) || []);

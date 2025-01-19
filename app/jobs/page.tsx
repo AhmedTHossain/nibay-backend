@@ -17,12 +17,22 @@ export default function JobsRoute() {
   const [currentPage, setCurrentPage] = useState(pagination.currentPage);
   const [jobRoleFilter, setjobRoleFilter] = useState<string>('all');
   const [jobStatusFilter, setJobStatusFilter] = useState<string>('all');
+  const [forceTrigger, setForceTrigger] = useState(false);
 
   useEffect(() => {
     // Refetch jobs whenever the page or filter changes
     refetch({ page: currentPage, jobRole: jobRoleFilter === 'all' ? undefined : jobRoleFilter, jobStatus: jobStatusFilter === 'all' ? undefined : jobStatusFilter });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentPage, jobRoleFilter, jobStatusFilter]);
+  }, [currentPage, forceTrigger]);
+
+  useEffect(() => {
+    if (currentPage !== 1) {
+      setCurrentPage(1);
+    }
+    else {
+      setForceTrigger(!forceTrigger);
+    }
+  }, [jobRoleFilter, jobStatusFilter]);
 
   return (
     <>
