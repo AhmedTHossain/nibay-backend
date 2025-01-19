@@ -1,9 +1,10 @@
 import { handleError } from "@/lib/handleErrors";
+import { Types } from "mongoose";
+const ObjectId = Types.ObjectId;
 import { NextRequest, NextResponse } from "next/server";
 import { connectToMongoDB } from "@/lib/database";
 import User from "../../../models/user";
 import { authMiddleware } from "../../../middleware/auth";
-import { Applicant } from "@/utils/types/applicant";
 
 interface TApplicantId {
   params: {
@@ -12,7 +13,6 @@ interface TApplicantId {
 }
 
 export async function GET(request: NextRequest, { params }: TApplicantId) {
-  console.log("here: ", params.applicantId);
   try {
     const authUser = authMiddleware(request);
     if (authUser instanceof NextResponse) {
@@ -27,77 +27,66 @@ export async function GET(request: NextRequest, { params }: TApplicantId) {
     }
 
     const applicantId = params.applicantId;
-    // Find all the reviews for the applicant
-    const results = {
-      averageRating: 4.5,
-      reviews: [
-        {
-          reviewerId: "123",
-          reviewerName: "John Doe",
-          jobId: "456",
-          jobTitle: "গাড়ি মেইনটেন্যান্স কর্মী",
-          rating: 4,
-          feedback: "কাজটি খুবই ভালো হয়েছে।",
-          createdAt: "2021-08-01T00:00:00.000Z"
-        },
-        {
-          reviewerId: "789",
-          reviewerName: "Jane Doe",
-          jobId: "101",
-          jobTitle: "ডেলিভারি চালক",
-          rating: 1,
-          feedback: "অত্যন্ত ভালো অভিজ্ঞতা, কাজের মান চমৎকার!",
-          createdAt: "2021-08-02T00:00:00.000Z"
-        },
-        {
-          reviewerId: "456",
-          reviewerName: "John Smith",
-          jobId: "123",
-          jobTitle: "গুদাম চেকার",
-          rating: 2,
-          feedback: "শ্রেষ্ঠ কর্মী, দারুণ সহায়ক এবং দক্ষ।",
-          createdAt: "2021-08-03T00:00:00.000Z"
-        },
-        {
-          reviewerId: "101",
-          reviewerName: "Jane Smith",
-          jobId: "789",
-          jobTitle: "ভ্যান চালক",
-          rating: 3,
-          feedback: "খুবই সন্তুষ্ট, সময়মতো কাজ সম্পন্ন হয়েছে।",
-          createdAt: "2021-08-04T00:00:00.000Z"
-        },
-        {
-          reviewerId: "789",
-          reviewerName: "Jane Doe",
-          jobId: "101",
-          jobTitle: "ডেলিভারি চালক",
-          rating: 5,
-          feedback: "অত্যন্ত ভালো অভিজ্ঞতা, কাজের মান চমৎকার!",
-          createdAt: "2021-08-02T00:00:00.000Z"
-        },
-        {
-          reviewerId: "456",
-          reviewerName: "John Smith",
-          jobId: "123",
-          jobTitle: "গুদাম চেকার",
-          rating: 4,
-          feedback: "শ্রেষ্ঠ কর্মী, দারুণ সহায়ক এবং দক্ষ।",
-          createdAt: "2021-08-03T00:00:00.000Z"
-        },
-        {
-          reviewerId: "101",
-          reviewerName: "Jane Smith",
-          jobId: "789",
-          jobTitle: "ভ্যান চালক",
-          rating: 3,
-          feedback: "খুবই সন্তুষ্ট, সময়মতো কাজ সম্পন্ন হয়েছে।",
-          createdAt: "2021-08-04T00:00:00.000Z"
+
+    const result = await User.aggregate([
+      {
+        $match: { _id: new ObjectId(applicantId) } // Match the specific user
+      },
+      {
+        $unwind: "$reviews_from_employers" // Unwind the reviews array
+      },
+      {
+        $lookup: {
+          from: "jobs", // Collection containing job data
+          localField: "reviews_from_employers.jobId",
+          foreignField: "_id",
+          as: "jobDetails"
         }
-      ]
+      },
+      {
+        $lookup: {
+          from: "users", // Collection containing user data
+          localField: "reviews_from_employers.reviewerId",
+          foreignField: "_id",
+          as: "reviewerDetails"
+        }
+      },
+      {
+        $project: {
+          _id: 0,
+          reviewerId: "$reviews_from_employers.reviewerId",
+          reviewerName: { $arrayElemAt: ["$reviewerDetails.name", 0] },
+          jobId: "$reviews_from_employers.jobId",
+          jobTitle: { $arrayElemAt: ["$jobDetails.title", 0] },
+          rating: "$reviews_from_employers.rating",
+          feedback: "$reviews_from_employers.feedback",
+          createdAt: "$reviews_from_employers.reviewCreatedDate"
+        }
+      },
+      {
+        $group: {
+          _id: null,
+          reviews: { $push: "$$ROOT" },
+          averageRating: { $avg: "$rating" }
+        }
+      },
+      {
+        $project: {
+          _id: 0,
+          averageRating: { $round: ["$averageRating", 1] }, // Round to 1 decimal place
+          reviews: 1
+        }
+      }
+    ]);
+
+    console.log("here: ", result[0]?.reviews);
+
+    const data = {
+      averageRating: result[0]?.averageRating || 0,
+      reviews: result[0]?.reviews || []
     };
 
-    return NextResponse.json({ status: "success", data: results });
+    return NextResponse.json({ status: "success", data: data });
   } catch (error) {
     return handleError(error);
   }
