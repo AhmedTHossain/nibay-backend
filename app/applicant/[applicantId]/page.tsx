@@ -15,12 +15,13 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Check, Loader, Star, X } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { use, useState } from "react";
 import { toast } from "sonner";
 
 import { useSearchParams } from "next/navigation";
 import { formatEnglishToBangalNum } from "@/utils/formatEtoBLang";
 import { ImagePreview } from "@/app/components/common/ImagePreview";
+import useReviewsByApplicantId from "@/app/hooks/reviews/useReviewsByApplicantId";
 
 export default function ApplicantProfileRoute({
   params
@@ -32,10 +33,6 @@ export default function ApplicantProfileRoute({
   const jobId = searchParams.get("jobId") as string;
   const { user, isLoading } = useUserById({ userId: params.applicantId });
   const [isProcessing, setIsProcessing] = useState(false);
-
-  if (!isLoading) {
-    console.log(user);
-  }
 
   const handleApplicantStatus = async (
     status: keyof typeof APPLICATION_STATUS
