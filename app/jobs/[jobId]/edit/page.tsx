@@ -486,7 +486,7 @@ export default function EditJobRoute({
                       <Input
                         id="applicationDeadline"
                         className="mt-3"
-                        type="datetime-local"
+                        type="date"
                         placeholder="আবেদনের শেষ তারিখ"
                         value={moment(date).format("YYYY-MM-DDTHH:mm")}
                         onChange={(event) => {
