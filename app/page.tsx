@@ -21,11 +21,6 @@ import usePendingReviews from "./hooks/reviews/usePendingReviews";
 
 export default function Home() {
   useAuth();
-  const [reviewOpen, setIsReviewOpen] = useState(false);
-
-  useEffect(() => {
-    setIsReviewOpen(true);
-  }, []);
 
   const { jobs, isLoading } = useJobContext();
   const { pendingReviews, submitReview, isSubmitting } = usePendingReviews();
