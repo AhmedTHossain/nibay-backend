@@ -21,7 +21,7 @@ export function JobFilterByStatus({ onFilterChange }: JobFilterProps) {
               <span>
                 <Bolt size={18} color="#10b981" />
               </span>
-              <select value={selectedStatus} onChange={handleChange} className="w-full text-sm bg-transparent dark:bg-transparent border-0 focus:outline-none px-4 py-0">
+              <select value={selectedStatus} onChange={handleChange} className="w-full text-sm bg-transparent dark:bg-transparent border-0 focus:outline-none px-10 py-0">
                 <option value="all">সব স্ট্যাটাস</option>
                 {JOB_STATUS.map((item, idx) => {
                   return (

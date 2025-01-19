@@ -24,12 +24,43 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: "User not found!" }, { status: 404 });
     }
 
-    const jobs = await Job.find({ user: user._id });
+    // Extract query parameters
+    const { searchParams } = new URL(request.url);
+    const page = parseInt(searchParams.get("page") || "1", 10); // Default to page 1
+    const limit = parseInt(searchParams.get("limit") || "10", 10); // Default to 10 items per page
+    const jobRole = searchParams.get("jobRole") || undefined;
+    const jobStatus = searchParams.get("jobStatus") || undefined;
+
+    // Build the query object
+    const query: Record<string, any> = { user: user._id };
+    if (jobRole) {
+      query.jobRole = jobRole;
+    }
+    if (jobStatus) {
+      query.status = jobStatus;
+    }
+
+    console.log("Query:", query);
+
+    // Pagination
+    const skip = (page - 1) * limit;
+
+    // Fetch jobs with filtering and pagination
+    const jobs = await Job.find(query).skip(skip).limit(limit);
+    const totalJobs = await Job.countDocuments(query);
+    const totalPages = Math.ceil(totalJobs / limit);
 
     return NextResponse.json({
       status: "success",
       message: "Job fetched successfully...",
-      data: jobs
+      data: {
+        jobs,
+        pagination: {
+          totalJobs,
+          totalPages,
+          currentPage: page
+        }
+      }
     });
   } catch (error) {
     return handleError(error);

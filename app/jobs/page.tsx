@@ -10,31 +10,19 @@ import { useJobContext } from "../contexts/JobContext";
 import { JobFilterByStatus } from "./components/JobFilterByStatus";
 import { useEffect, useState } from "react";
 import { TJob } from "@/utils/types/job";
+import { CustomPagination } from "../components/common/Pagination";
 
 export default function JobsRoute() {
-  const { jobs, isLoading } = useJobContext();
+  const { jobs, isLoading, pagination, refetch } = useJobContext();
 
-  const [filteredJobs, setFilteredJobs] = useState<TJob[]>([]);
+  const [currentPage, setCurrentPage] = useState(pagination.currentPage);
+  const [jobRoleFilter, setjobRoleFilter] = useState<string>('all');
+  const [jobStatusFilter, setJobStatusFilter] = useState<string>('all');
 
   useEffect(() => {
-    setFilteredJobs(jobs);
-  }, [jobs]);
-
-  const handleFilterChange = (role: string) => {
-    if (role === "all") {
-      setFilteredJobs(jobs);
-    } else {
-      setFilteredJobs(jobs.filter(job => job.jobRole === role));
-    }
-  };
-
-  const handleStatusFilterChange = (status: string) => {
-    if (status === "all") {
-      setFilteredJobs(jobs);
-    } else {
-      setFilteredJobs(jobs.filter(job => job.status === status));
-    }
-  }
+    // Refetch jobs whenever the page or filter changes
+    refetch({ page: currentPage, jobRole: jobRoleFilter === 'all' ? undefined : jobRoleFilter, jobStatus: jobStatusFilter === 'all' ? undefined : jobStatusFilter });
+  }, [currentPage, jobRoleFilter, jobStatusFilter]);
 
   return (
     <>
@@ -45,10 +33,19 @@ export default function JobsRoute() {
       <section className="md:pb-24 pb-16">
         <div className="container z-1">
           <div className="mt-6 flex gap-6">
-            <JobFilter onFilterChange={handleFilterChange} />
-            <JobFilterByStatus onFilterChange={handleStatusFilterChange} />
+            <JobFilter onFilterChange={setjobRoleFilter} />
+            <JobFilterByStatus onFilterChange={setJobStatusFilter} />
           </div>
-          <JobBox jobs={filteredJobs} isLoading={isLoading} />
+          <JobBox jobs={jobs} isLoading={isLoading} />
+          {jobs !== null && jobs?.length > 0 && (
+            <div className="flex justify-center items-center w-full mt-12">
+              <CustomPagination
+                totalPages={pagination.totalPages}
+                currentPage={currentPage}
+                onPageChange={setCurrentPage}
+              />
+            </div>
+          )}
         </div>
 
         <WhySection />
