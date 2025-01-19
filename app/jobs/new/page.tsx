@@ -243,8 +243,9 @@ export default function NewJobRoute() {
                         }}
                       />
                       <span
-                        className={`absolute bottom-2 right-2 text-xs ${titleCount > 50 ? "text-red-500" : "text-gray-500"
-                          }`}
+                        className={`absolute bottom-2 right-2 text-xs ${
+                          titleCount > 50 ? "text-red-500" : "text-gray-500"
+                        }`}
                       >
                         {titleCount}/50
                       </span>
@@ -274,10 +275,11 @@ export default function NewJobRoute() {
                         }}
                       />
                       <span
-                        className={`absolute bottom-2 right-2 text-xs ${shortDescCount > 150
-                          ? "text-red-500"
-                          : "text-gray-500"
-                          }`}
+                        className={`absolute bottom-2 right-2 text-xs ${
+                          shortDescCount > 150
+                            ? "text-red-500"
+                            : "text-gray-500"
+                        }`}
                       >
                         {shortDescCount}/150
                       </span>
@@ -307,8 +309,9 @@ export default function NewJobRoute() {
                         }}
                       />
                       <span
-                        className={`absolute bottom-2 right-2 text-xs ${longDescCount > 500 ? "text-red-500" : "text-gray-500"
-                          }`}
+                        className={`absolute bottom-2 right-2 text-xs ${
+                          longDescCount > 500 ? "text-red-500" : "text-gray-500"
+                        }`}
                       >
                         {longDescCount}/500
                       </span>
@@ -325,13 +328,8 @@ export default function NewJobRoute() {
                       শিক্ষাগত যোগ্যতা
                     </label>
                     <select
-                      id="experience"
-                      defaultValue="No Formal Education"
-                      value={form.getValues("qualification")}
-                      onChange={(event) => {
-                        console.log(event.target.value);
-                        form.setValue("qualification", event.target.value);
-                      }}
+                      id="qualification"
+                      {...form.register("qualification")}
                     >
                       {EDUCTATION_LEVELS.map((option) => {
                         return (
@@ -362,12 +360,7 @@ export default function NewJobRoute() {
                     <select
                       id="experience"
                       className="mt-1 h-10 w-full rounded-md border border-neutral-200 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:text-sm file:font-medium file:text-neutral-950 placeholder:text-neutral-500 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-800 dark:bg-neutral-950 dark:ring-offset-neutral-950 appearance-none"
-                      defaultValue="0-1"
-                      value={form.getValues("experience")}
-                      onChange={(event) => {
-                        console.log(event.target.value);
-                        form.setValue("experience", event.target.value);
-                      }}
+                      {...form.register("experience")}
                     >
                       <option value="0-1">০ — ১ বছর</option>
                       <option value="1-2">১ — ২ বছর</option>
