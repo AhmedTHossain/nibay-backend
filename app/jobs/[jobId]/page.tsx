@@ -150,8 +150,8 @@ export default function JobDetailsRoute({
                           <div className="ms-4">
                             <p className="font-medium">আবেদনের শেষ তারিখ:</p>
                             <span className="text-emerald-600 font-medium text-sm">
-                              {moment(job?.applicationDeadline).format(
-                                "DD-MM-YYYY"
+                              {formatEnglishToBangalNum(
+                                moment(job?.applicationDeadline).format("DD-MM-YYYY")
                               )}
                             </span>
                           </div>

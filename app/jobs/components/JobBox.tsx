@@ -96,37 +96,6 @@ export function JobBox({ jobs, isLoading }: JobBoxProps) {
           )}
         </AnimatePresence> */}
       </div>
-
-      {jobs !== null && jobs?.length > 0 && (
-        <div className="flex justify-center items-center w-full mt-12">
-          <CustomPagination />
-        </div>
-      )}
-
-      {pathname === "/" && jobs?.length > 0 && (
-        <div className="flex justify-center mt-6">
-          <a
-            href="/jobs"
-            className="btn btn-link text-slate-800 dark:text-slate-200 hover:text-emerald-600 dark:hover:text-emerald-400 after:bg-emerald-600 dark:after:bg-emerald-600/50 transition-colors ease-in inline-flex items-center"
-          >
-            See all Jobs
-            <svg
-              stroke="currentColor"
-              fill="currentColor"
-              strokeWidth={0}
-              viewBox="0 0 24 24"
-              className="ml-1"
-              height="1em"
-              width="1em"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path fill="none" d="M0 0h24v24H0V0z" />
-              <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8-8-8z" />
-            </svg>
-          </a>
-        </div>
-
-      )}
     </>
   );
 }

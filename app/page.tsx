@@ -14,35 +14,26 @@ import { JobFilter } from "./jobs/components/JobFilter";
 import { Hero } from "@/components/sections/home/hero";
 import { useEffect, useState } from "react";
 import { PendingReviewModal } from "./jobs/components/PendingReviewModal";
-import { useJobContext } from "./contexts/JobContext";
 import { TJob } from "@/utils/types/job";
 import ApplicantReviewModal from "@/components/applicant-review-modal";
 import usePendingReviews from "./hooks/reviews/usePendingReviews";
+import { CustomPagination } from "./components/common/Pagination";
+import { useJobContext } from "./contexts/JobContext";
 
 export default function Home() {
   useAuth();
-  const [reviewOpen, setIsReviewOpen] = useState(false);
 
-  useEffect(() => {
-    setIsReviewOpen(true);
-  }, []);
-
-  const { jobs, isLoading } = useJobContext();
+  const { jobs, isLoading, pagination, refetch } = useJobContext();
   const { pendingReviews, submitReview, isSubmitting } = usePendingReviews();
 
-  const [filteredJobs, setFilteredJobs] = useState<TJob[]>([]);
+  const [currentPage, setCurrentPage] = useState(pagination.currentPage);
+  const [jobRoleFilter, setjobRoleFilter] = useState<string>('all');
 
   useEffect(() => {
-    setFilteredJobs(jobs);
-  }, [jobs]);
-
-  const handleFilterChange = (role: string) => {
-    if (role === "all") {
-      setFilteredJobs(jobs);
-    } else {
-      setFilteredJobs(jobs.filter((job) => job.jobRole === role));
-    }
-  };
+    // Refetch jobs whenever the page or filter changes
+    refetch({ page: currentPage, jobRole: jobRoleFilter === 'all' ? undefined : jobRoleFilter });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentPage, jobRoleFilter]);
 
   return (
     <div>
@@ -68,7 +59,7 @@ export default function Home() {
             <div className="container z-1">
               <div className="flex md:items-center justify-between md:flex-row flex-col md:space-y-0 space-y-4">
                 <div className="flex-1 max-w-3xl">
-                  <JobFilter onFilterChange={handleFilterChange} />
+                  <JobFilter onFilterChange={setjobRoleFilter} />
                 </div>
                 <Link href="/jobs/new">
                   <Button
@@ -82,7 +73,40 @@ export default function Home() {
               </div>
 
               <div className="mt-6">
-                <JobBox jobs={filteredJobs} isLoading={isLoading} />
+                <JobBox jobs={jobs} isLoading={isLoading} />
+                {jobs !== null && jobs?.length > 0 && (
+                  <div className="flex justify-center items-center w-full mt-12">
+                    <CustomPagination
+                      totalPages={pagination.totalPages}
+                      currentPage={currentPage}
+                      onPageChange={setCurrentPage}
+                    />
+                  </div>
+                )}
+
+                {jobs?.length > 0 && (
+                  <div className="flex justify-center mt-6">
+                    <a
+                      href="/jobs"
+                      className="btn btn-link text-slate-800 dark:text-slate-200 hover:text-emerald-600 dark:hover:text-emerald-400 after:bg-emerald-600 dark:after:bg-emerald-600/50 transition-colors ease-in inline-flex items-center"
+                    >
+                      See all Jobs
+                      <svg
+                        stroke="currentColor"
+                        fill="currentColor"
+                        strokeWidth={0}
+                        viewBox="0 0 24 24"
+                        className="ml-1"
+                        height="1em"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path fill="none" d="M0 0h24v24H0V0z" />
+                        <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8-8-8z" />
+                      </svg>
+                    </a>
+                  </div>
+                )}
               </div>
             </div>
           </div>

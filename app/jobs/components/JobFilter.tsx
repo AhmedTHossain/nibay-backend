@@ -16,8 +16,8 @@ export function JobFilter({ onFilterChange }: JobFilterProps) {
     <div className="bg-white dark:bg-gray-900 border-0 shadow rounded-md px-3 py-1 relative max-w-md">
       <form action="#">
         <div className="text-dark text-start">
-          <div className="flex items-center gap-3">
-            <div className="w-full relative flex items-center px-4 py-1 h-full">
+          <div className="flex items-center">
+            <div className="w-full relative gap-3 flex items-center px-4 py-1 h-full">
               <span>
                 <Bolt size={18} color="#10b981" />
               </span>
