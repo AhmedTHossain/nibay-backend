@@ -99,7 +99,7 @@ export default function ApplicantReviews({
       {hasReviews ? (
         <div className="space-y-4">
           {reviews.map((review) => (
-            <Card>
+            <Card key={review.reviewerId} className="p-4">
               <CardContent className="pt-4">
                 <div className="flex items-start">
                   <Avatar className="w-10 h-10 mr-4">
