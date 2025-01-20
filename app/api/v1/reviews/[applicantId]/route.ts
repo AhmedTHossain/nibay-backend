@@ -33,6 +33,23 @@ export async function GET(request: NextRequest, { params }: TApplicantId) {
         $match: { _id: new ObjectId(applicantId) } // Match the specific user
       },
       {
+        $addFields: {
+          reviews_from_employers: {
+            $map: {
+              input: "$reviews_from_employers",
+              as: "review",
+              in: {
+                jobId: { $toObjectId: "$$review.jobId" },
+                reviewerId: { $toObjectId: "$$review.reviewerId" },
+                rating: "$$review.rating",
+                feedback: "$$review.feedback",
+                reviewCreatedDate: "$$review.reviewCreatedDate"
+              }
+            }
+          }
+        }
+      },
+      {
         $unwind: "$reviews_from_employers" // Unwind the reviews array
       },
       {
@@ -78,8 +95,6 @@ export async function GET(request: NextRequest, { params }: TApplicantId) {
         }
       }
     ]);
-
-    console.log("here: ", result[0]?.reviews);
 
     const data = {
       averageRating: result[0]?.averageRating || 0,
