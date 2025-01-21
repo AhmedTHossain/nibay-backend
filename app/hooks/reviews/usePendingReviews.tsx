@@ -20,12 +20,18 @@ const usePendingReviews = () => {
     }
   };
 
-  const submitReview = async (jobId: string, applicantId: string, review: { rating: number; feedback: string }) => {
+  const submitReview = async (
+    jobId: string,
+    applicantId: string,
+    review: { rating: number; feedback: string }
+  ) => {
     const backup_reviews = pendingReviews;
     try {
       setIsSubmitting(true);
-      setPendingReviews((reviews) => reviews.filter((review) => review._id !== applicantId));
-      await api_client.post(`reviews/${jobId}`, {
+      setPendingReviews((reviews) =>
+        reviews.filter((review) => review._id !== applicantId)
+      );
+      await api_client.post(`reviews/job/${jobId}`, {
         applicantId,
         review
       });
@@ -34,7 +40,7 @@ const usePendingReviews = () => {
       setPendingReviews(backup_reviews);
       console.error("Failed to submit review:", error);
     }
-  }
+  };
 
   useEffect(() => {
     fetchReviews();
