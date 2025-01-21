@@ -24,8 +24,11 @@ import {
   accountSettingsFormValues
 } from "./form";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export function AccountSettings() {
+  const router = useRouter();
+
   const [districts, setDistricts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
@@ -67,6 +70,7 @@ export function AccountSettings() {
         if (res.data.status === "success") {
           toast.success(res.data.message);
         }
+        window.location.reload();
       })
       .catch((err) => console.log(err))
       .finally(() => setIsLoading(false));
@@ -322,7 +326,8 @@ export function AccountSettings() {
 
                   <div className="max-w-[100px] max-h[100px]">
                     {form.getValues("image") && imagePreview ? (
-                      <Image unoptimized
+                      <Image
+                        unoptimized
                         src={imagePreview}
                         alt="user image"
                         className="rounded-md w-auto h-auto"
@@ -330,7 +335,8 @@ export function AccountSettings() {
                         height={100}
                       />
                     ) : currentUser?.profilePhoto ? (
-                      <Image unoptimized
+                      <Image
+                        unoptimized
                         alt="user image"
                         src={`${currentUser?.profilePhoto}`}
                         className="rounded-md w-auto h-auto"
