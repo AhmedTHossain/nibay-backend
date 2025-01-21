@@ -56,7 +56,7 @@ export async function POST(request: NextRequest, { params }: TJobParams) {
         jobId: jobId,
         rating: review.rating,
         feedback: review.feedback,
-        createdAt: application.reviewCreatedDate.toString(),
+        createdAt: application.reviewCreatedDate,
         reviewerId: user._id
       });
       applicant.markModified("reviews_from_employers");
