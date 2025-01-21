@@ -40,13 +40,14 @@ export async function GET(request: NextRequest) {
       query.status = jobStatus;
     }
 
-    console.log("Query:", query);
-
     // Pagination
     const skip = (page - 1) * limit;
 
-    // Fetch jobs with filtering and pagination
-    const jobs = await Job.find(query).skip(skip).limit(limit);
+    // Fetch jobs with filtering, sorting, and pagination
+    const jobs = await Job.find(query)
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
     const totalJobs = await Job.countDocuments(query);
     const totalPages = Math.ceil(totalJobs / limit);
 
