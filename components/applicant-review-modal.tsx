@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger
@@ -12,13 +13,29 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { ArrowLeft, Star } from "lucide-react";
+import {
+  ArrowLeft,
+  Briefcase,
+  Clock,
+  Mail,
+  MapPin,
+  Phone,
+  Star,
+  User
+} from "lucide-react";
 import { Applicant } from "@/utils/types/applicant";
 import { JOB_ROLES, USER_ROLE } from "@/lib/constant";
 import { useRouter } from "next/navigation";
 import { Textarea } from "./ui/textarea";
 import { api_client } from "@/lib/axios";
 import { sub } from "date-fns";
+import { AnimatePresence, motion } from "framer-motion";
+import { Card, CardContent } from "./ui/card";
+import { Alert, AlertDescription } from "./ui/alert";
+import { Badge } from "./ui/badge";
+import { ScrollArea } from "./ui/scroll-area";
+import { Separator } from "./ui/separator";
+import { formatEnglishToBangalNum } from "@/utils/formatEtoBLang";
 
 interface Review {
   rating: number;
@@ -39,90 +56,173 @@ function ApplicantReview({
   const [rating, setRating] = useState(0);
   const [feedback, setFeedback] = useState("");
   const [feedbackCount, setFeedbackCount] = useState(0);
+  const [error, setError] = useState("");
 
   const handleSubmit = () => {
+    if (rating === 0) {
+      setError("Please select a star rating before submitting.");
+      return;
+    }
+    setError("");
     onSubmit({ rating, feedback });
   };
 
-  const handleJobClick = (jobId: string) => {
-    router.push(`/jobs/${jobId}`);
+  const handleJobClick = () => {
+    router.push(`/jobs/${applicant.jobId}`);
   };
 
   return (
-    <div className="space-y-4">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.3 }}
+      className="space-y-6"
+    >
       <div className="flex flex-col items-center space-y-4">
-        <Avatar className="w-24 h-24">
+        <Avatar className="w-32 h-32 border-2 border-emerald-500">
           <AvatarImage
             src={applicant.profilePhoto}
             alt={applicant.name}
             className="object-cover"
           />
-          <AvatarFallback>
+          <AvatarFallback className="text-3xl bg-emerald-100 text-emerald-700">
             {applicant.name
               .split(" ")
               .map((n) => n[0])
               .join("")}
           </AvatarFallback>
         </Avatar>
-        <div className="flex flex-col items-center space-y-1">
-          <h3 className="text-lg font-semibold">{applicant.name}</h3>
-          <p className="text-sm text-gray-500">
-            {USER_ROLE[applicant.role as keyof typeof USER_ROLE]?.label}
+        <div className="text-center flex flex-col items-center space-y-1">
+          <h3 className="text-2xl font-bold text-emerald-700">
+            {applicant.name}
+          </h3>
+          <p className="text-sm text-emerald-600">
+            {
+              // @ts-expect-error
+              JOB_ROLES[applicant.role as keyof typeof JOB_ROLES]?.label
+            }
           </p>
           <button
-            onClick={() => {
-              handleJobClick(applicant.jobId);
-            }}
-            className="text-sm text-blue-500 hover:underline"
+            onClick={handleJobClick}
+            className="text-sm font-medium text-emerald-500 hover:text-emerald-600 transition-colors flex items-start justify-center mt-1"
           >
+            {/* <Briefcase className="w-5 h-5 mr-1" /> */}
             {applicant.jobShortDescription}
           </button>
         </div>
-        <div className="flex space-x-2">
-          {[1, 2, 3, 4, 5].map((star) => (
-            <Star
-              key={star}
-              className={`w-6 h-6 cursor-pointer ${star <= rating ? "text-yellow-400 fill-yellow-400" : "text-gray-300"}`}
-              onClick={() => setRating(star)}
-            />
-          ))}
-        </div>
       </div>
-      <div className="space-y-2 relative">
-        <Label htmlFor="feedback">মন্তব্য (অপশনাল)</Label>
-        <Textarea
-          id="feedback"
-          value={feedback}
-          maxLength={500}
-          onChange={(e) => {
-            if (e.target.value.length <= 500) {
-              setFeedback(e.target.value);
-              setFeedbackCount(e.target.value.length);
-            }
-          }}
-          placeholder="আপনার মন্তব্য লিখুন"
-        />
-        <span
-          className={`absolute bottom-2 right-2 text-xs text-gray-500"
-            }`}
-        >
-          {feedbackCount}/500
-        </span>
-      </div>
+      <Card className="">
+        <CardContent className="pt-6 bg-gray-50">
+          <div className="space-y-4 star-rating">
+            <div className="space-y-2">
+              <Label className="text-lg font-semibold text-emerald-700">
+                রেটিং
+              </Label>
+              <div className="flex justify-center space-x-2">
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <Star
+                    key={star}
+                    className={`w-8 h-8 cursor-pointer transition-all duration-150 
+                      ${star <= rating ? "text-yellow-400 fill-yellow-400 scale-110" : "text-gray-300"}
+                      hover:text-yellow-400 hover:fill-yellow-400 hover:scale-110`}
+                    onMouseEnter={() => {
+                      const stars = document.querySelectorAll(
+                        ".star-rating .lucide-star"
+                      );
+                      stars.forEach((s, index) => {
+                        if (index < star) {
+                          s.classList.add(
+                            "text-yellow-400",
+                            "fill-yellow-400",
+                            "scale-110"
+                          );
+                        } else {
+                          s.classList.remove(
+                            "text-yellow-400",
+                            "fill-yellow-400",
+                            "scale-110"
+                          );
+                        }
+                      });
+                    }}
+                    onMouseLeave={() => {
+                      const stars = document.querySelectorAll(
+                        ".star-rating .lucide-star"
+                      );
+                      stars.forEach((s, index) => {
+                        if (index < rating) {
+                          s.classList.add(
+                            "text-yellow-400",
+                            "fill-yellow-400",
+                            "scale-110"
+                          );
+                        } else {
+                          s.classList.remove(
+                            "text-yellow-400",
+                            "fill-yellow-400",
+                            "scale-110"
+                          );
+                        }
+                      });
+                    }}
+                    onClick={() => setRating(star)}
+                  />
+                ))}
+              </div>
+            </div>
+            <div className="space-y-2 relative">
+              <Label
+                htmlFor="feedback"
+                className="text-lg font-semibold text-emerald-700"
+              >
+                মন্তব্য (অপশনাল)
+              </Label>
+              <Textarea
+                id="feedback"
+                value={feedback}
+                onChange={(e) => setFeedback(e.target.value)}
+                placeholder="আপনার মতামত লিখুন..."
+                className="h-24 resize-none bg-white focus:border-emerald-500 focus:ring-emerald-500"
+              />
+              <span className="absolute bottom-2 right-2 text-xs text-gray-500">
+                {formatEnglishToBangalNum(String(feedbackCount))}/৫০০
+              </span>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+      <AnimatePresence>
+        {error && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+          >
+            <Alert variant="destructive">
+              <AlertDescription>{error}</AlertDescription>
+            </Alert>
+          </motion.div>
+        )}
+      </AnimatePresence>
       <div className="flex justify-between">
-        <Button variant="outline" onClick={onGoBack}>
-          <ArrowLeft className="mr-2" />
+        <Button
+          variant="outline"
+          onClick={onGoBack}
+          className="border-emerald-500 text-emerald-700 hover:bg-emerald-50"
+        >
+          <ArrowLeft className="w-4 h-4" />
           পিছনে যান
         </Button>
         <Button
-          disabled={rating === 0}
           onClick={handleSubmit}
-          className="bg-emerald-500 hover:bg-emerald-600 dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:text-white"
+          className="bg-emerald-500 text-white hover:bg-emerald-600"
         >
-          সাবমিট
+          রিভিউ সাবমিট করুন
         </Button>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -170,65 +270,162 @@ export default function ApplicantReviewModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent className="sm:max-w-[425px] dark:bg-slate-800">
+      <DialogContent className="max-w-2xl dark:bg-slate-800">
         <DialogHeader>
-          <DialogTitle>আবেদনকারীর রিভিউ</DialogTitle>
+          <DialogTitle className="text-2xl font-bold">
+            আবেদনকারীর রিভিউ
+          </DialogTitle>
+          <DialogDescription className="pt-4">
+            আপনার পর্যালোচনা আমাদের অন্য ব্যবহারকারীদের সহায়তা করতে এবং তাদের
+            অভিজ্ঞতা উন্নত করতে সাহায্য করবে। দয়া করে আপনার মতামত শেয়ার করুন!{" "}
+          </DialogDescription>
         </DialogHeader>
-        <div className="mt-4">
-          {selectedApplicant ? (
-            <ApplicantReview
-              applicant={selectedApplicant}
-              onSubmit={handleReviewSubmit}
-              onGoBack={handleGoBack}
-            />
-          ) : (
-            <ul className="space-y-4">
-              {pendingReviews.map((applicant) => (
-                <li key={applicant._id}>
-                  <button
-                    className="w-full text-left flex items-center space-x-4 px-4 py-3 rounded-lg shadow-lg border-0 bg-gray-50 hover:bg-emerald-50 dark:hover:bg-slate-600/25 dark:bg-slate-700 transition-colors focus:outline-none"
-                    onClick={() => handleApplicantClick(applicant)}
+        <div>
+          <AnimatePresence mode="wait">
+            {selectedApplicant ? (
+              <ApplicantReview
+                applicant={selectedApplicant}
+                onSubmit={handleReviewSubmit}
+                onGoBack={handleGoBack}
+              />
+            ) : (
+              <div className="mt-4">
+                <div className="flex items-center justify-between mb-4">
+                  <Badge
+                    variant="outline"
+                    className="bg-emerald-50 text-emerald-700 border-emerald-200"
                   >
-                    <Avatar>
-                      <AvatarImage
-                        src={applicant.profilePhoto}
-                        alt={applicant.name}
-                        width={40}
-                        height={40}
-                        className="object-cover"
-                      />
-                      <AvatarFallback>
-                        {applicant.name
-                          .split(" ")
-                          .map((n) => n[0])
-                          .join("")}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div>
-                      <span className="font-semibold block">
-                        {applicant.name}
-                      </span>
-                      <span className="text-sm text-gray-500 dark:text-gray-400 block">
-                        {
-                          USER_ROLE[applicant.role as keyof typeof USER_ROLE]
-                            ?.label
-                        }
-                      </span>
-                      <span
-                        className="text-sm text-blue-500 hover:underline"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleJobClick(applicant.jobId, e);
-                        }}
-                      >
-                        {applicant.jobShortDescription}
-                      </span>
-                    </div>
-                  </button>
-                </li>
-              ))}
-            </ul>
-          )}
+                    {formatEnglishToBangalNum(String(pendingReviews.length))} টি
+                    রিভিউ বাকি
+                  </Badge>
+                </div>
+                <ScrollArea className="h-auto rounded-md border border-emerald-100 bg-emerald-50/50">
+                  {" "}
+                  <div className="p-4 space-y-4">
+                    <motion.ul
+                      key="list"
+                      className="space-y-4"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -20 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      {pendingReviews.map((applicant, index) => (
+                        <motion.li
+                          key={applicant._id}
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                        >
+                          <div key={applicant._id}>
+                            <div className="bg-white rounded-lg p-4 shadow-sm border border-emerald-100">
+                              <div className="flex items-start justify-start gap-4">
+                                <Avatar className="w-24 h-24 border-2 border-emerald-500">
+                                  <AvatarImage
+                                    src={applicant.profilePhoto}
+                                    alt={applicant.name}
+                                    className="object-cover"
+                                  />
+                                  <AvatarFallback className="text-xl bg-emerald-100 text-emerald-700">
+                                    {applicant.name
+                                      .split(" ")
+                                      .map((n) => n[0])
+                                      .join("")}
+                                  </AvatarFallback>
+                                </Avatar>
+                                <div className="flex items-start justify-between w-full">
+                                  <div className="space-y-3">
+                                    <div className="flex items-center gap-2">
+                                      <User className="w-4 h-4 text-emerald-600" />
+                                      <h3 className="font-semibold">
+                                        {applicant.name}
+                                      </h3>
+                                      <Badge
+                                        variant="secondary"
+                                        className="ml-2 bg-orange-100 text-orange-600"
+                                      >
+                                        {
+                                          // prettier-ignore
+                                          // @ts-expect-error
+                                          JOB_ROLES[applicant.role as typeof JOB_ROLES]?.label
+                                        }
+                                      </Badge>
+                                    </div>
+                                    <div className="space-y-1 text-sm text-muted-foreground">
+                                      {applicant?.email && (
+                                        <div className="flex items-center gap-2">
+                                          <Mail className="w-4 h-4 text-emerald-600" />
+                                          <span>{applicant.email}</span>
+                                        </div>
+                                      )}
+                                      {applicant?.phone && (
+                                        <div className="flex items-center gap-2">
+                                          <Phone className="w-4 h-4 text-emerald-600" />
+                                          <span>{applicant.phone}</span>
+                                        </div>
+                                      )}
+                                      {applicant?.address && (
+                                        <div className="flex items-center gap-2">
+                                          <MapPin className="w-4 h-4 text-emerald-600" />
+                                          <span>{applicant.address}</span>
+                                        </div>
+                                      )}
+                                      {applicant?.jobId && (
+                                        <div className="flex items-center gap-2">
+                                          <Briefcase className="w-4 h-4 text-emerald-600" />
+                                          <span>
+                                            <a
+                                              href="#"
+                                              onClick={(e) =>
+                                                handleJobClick(
+                                                  applicant.jobId,
+                                                  e
+                                                )
+                                              }
+                                              className="text-emerald-600 hover:underline"
+                                            >
+                                              {applicant.jobTitle}
+                                            </a>
+                                          </span>
+                                        </div>
+                                      )}
+                                      <div className="flex items-center gap-2">
+                                        <Clock className="w-4 h-4 text-emerald-600" />
+                                        <span>
+                                          আবেদনটি গ্রহণ করেছেন{" "}
+                                          {formatEnglishToBangalNum(
+                                            new Date(
+                                              applicant?.statusChangeDate
+                                            ).toLocaleDateString()
+                                          )}
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div className="flex gap-2">
+                                  <Button
+                                    onClick={() =>
+                                      handleApplicantClick(applicant)
+                                    }
+                                    className="bg-emerald-600 hover:bg-emerald-700"
+                                  >
+                                    রিভিউ দিন
+                                  </Button>
+                                </div>
+                              </div>
+                            </div>
+                            {index < pendingReviews.length - 1 && (
+                              <Separator className="my-4 bg-emerald-100" />
+                            )}
+                          </div>
+                        </motion.li>
+                      ))}
+                    </motion.ul>
+                  </div>
+                </ScrollArea>
+              </div>
+            )}
+          </AnimatePresence>
         </div>
       </DialogContent>
     </Dialog>
