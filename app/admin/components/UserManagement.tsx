@@ -40,7 +40,11 @@ export default function UserManagement() {
     reviews_from_employers: [],
     id: "",
     job: "",
-    applicant: ""
+    applicant: "",
+    profession: "",
+    nidPhoto: "",
+    drivingLicensePhoto: "",
+    isMobileUser: false,
   });
 
   const handleAddUser = () => {
@@ -81,7 +85,11 @@ export default function UserManagement() {
       reviews_from_employers: [],
       id: "",
       job: "",
-      applicant: ""
+      applicant: "",
+      profession: "",
+      nidPhoto: "",
+      drivingLicensePhoto: "",
+      isMobileUser: false,
     });
   };
 
@@ -149,7 +157,11 @@ export default function UserManagement() {
                 reviews_from_employers: [],
                 id: "",
                 job: "",
-                applicant: ""
+                applicant: "",
+                profession: "",
+                nidPhoto: "",
+                drivingLicensePhoto: "",
+                isMobileUser: false,
               })
             }
           >
@@ -197,7 +209,11 @@ export default function UserManagement() {
                 reviews_from_employers: [],
                 id: "",
                 job: "",
-                applicant: ""
+                applicant: "",
+                profession: "",
+                nidPhoto: "",
+                drivingLicensePhoto: "",
+                isMobileUser: false,
               })
             }
           >

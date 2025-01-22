@@ -170,6 +170,10 @@ export async function POST(request: NextRequest) {
       message: "Applied for the job successfully!"
     });
   } catch (error) {
-    return handleError(error);
+    return NextResponse.json({
+      status: true,
+      message: error
+    });
   }
 }
+
