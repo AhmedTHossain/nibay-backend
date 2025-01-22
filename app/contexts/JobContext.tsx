@@ -35,14 +35,14 @@ export const JobProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [pagination, setPagination] = useState({
     currentPage: 1,
     totalPages: 1,
-    totalJobs: 0,
+    totalJobs: 0
   });
 
   const fetchJobs = async ({
     page = 1,
     limit = 12,
     jobRole,
-    jobStatus,
+    jobStatus
   }: {
     page?: number;
     limit?: number;
@@ -67,7 +67,7 @@ export const JobProvider: FC<{ children: ReactNode }> = ({ children }) => {
       setPagination({
         currentPage: data.pagination.currentPage,
         totalPages: data.pagination.totalPages,
-        totalJobs: data.pagination.totalJobs,
+        totalJobs: data.pagination.totalJobs
       });
     } catch (error) {
       console.error("Failed to fetch jobs:", error);
@@ -102,10 +102,6 @@ export const JobProvider: FC<{ children: ReactNode }> = ({ children }) => {
       console.error("Failed to delete job:", error);
     }
   };
-
-  useEffect(() => {
-    fetchJobs();
-  }, []);
 
   return (
     <JobContext.Provider

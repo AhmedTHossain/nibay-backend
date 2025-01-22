@@ -14,25 +14,32 @@ import { CustomPagination } from "../components/common/Pagination";
 export default function JobsRoute() {
   const { jobs, isLoading, pagination, refetch } = useJobContext();
 
-  const [currentPage, setCurrentPage] = useState(pagination.currentPage);
-  const [jobRoleFilter, setjobRoleFilter] = useState<string>('all');
-  const [jobStatusFilter, setJobStatusFilter] = useState<string>('all');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [jobRoleFilter, setjobRoleFilter] = useState<string>("all");
+  const [jobStatusFilter, setJobStatusFilter] = useState<string>("all");
   const [forceTrigger, setForceTrigger] = useState(false);
 
   useEffect(() => {
     // Refetch jobs whenever the page or filter changes
-    refetch({ page: currentPage, jobRole: jobRoleFilter === 'all' ? undefined : jobRoleFilter, jobStatus: jobStatusFilter === 'all' ? undefined : jobStatusFilter });
+    refetch({
+      page: currentPage,
+      jobRole: jobRoleFilter === "all" ? undefined : jobRoleFilter,
+      jobStatus: jobStatusFilter === "all" ? undefined : jobStatusFilter
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage, forceTrigger]);
 
   useEffect(() => {
     if (currentPage !== 1) {
       setCurrentPage(1);
-    }
-    else {
+    } else {
       setForceTrigger(!forceTrigger);
     }
   }, [jobRoleFilter, jobStatusFilter]);
+
+  useEffect(() => {
+    setForceTrigger(!forceTrigger);
+  }, []);
 
   return (
     <>

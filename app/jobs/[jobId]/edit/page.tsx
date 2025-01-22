@@ -224,8 +224,9 @@ export default function EditJobRoute({
                           }}
                         />
                         <span
-                          className={`absolute bottom-2 right-2 text-xs ${titleCount > 50 ? "text-red-500" : "text-gray-500"
-                            }`}
+                          className={`absolute bottom-2 right-2 text-xs ${
+                            titleCount > 50 ? "text-red-500" : "text-gray-500"
+                          }`}
                         >
                           {titleCount}/50
                         </span>
@@ -237,7 +238,10 @@ export default function EditJobRoute({
                       ) : null}
                     </div>
                     <div className="text-left">
-                      <label className="font-semibold" htmlFor="shortDescription">
+                      <label
+                        className="font-semibold"
+                        htmlFor="shortDescription"
+                      >
                         কাজের সারসংক্ষেপ
                       </label>
                       <div className="relative">
@@ -254,10 +258,11 @@ export default function EditJobRoute({
                           }}
                         />
                         <span
-                          className={`absolute bottom-2 right-2 text-xs ${shortDescCount > 150
-                            ? "text-red-500"
-                            : "text-gray-500"
-                            }`}
+                          className={`absolute bottom-2 right-2 text-xs ${
+                            shortDescCount > 150
+                              ? "text-red-500"
+                              : "text-gray-500"
+                          }`}
                         >
                           {shortDescCount}/150
                         </span>
@@ -270,7 +275,10 @@ export default function EditJobRoute({
                     </div>
 
                     <div className="text-left">
-                      <label className="font-semibold" htmlFor="longDescription">
+                      <label
+                        className="font-semibold"
+                        htmlFor="longDescription"
+                      >
                         কাজের বিবরণ
                       </label>
                       <div className="relative">
@@ -287,8 +295,11 @@ export default function EditJobRoute({
                           }}
                         />
                         <span
-                          className={`absolute bottom-2 right-2 text-xs ${longDescCount > 500 ? "text-red-500" : "text-gray-500"
-                            }`}
+                          className={`absolute bottom-2 right-2 text-xs ${
+                            longDescCount > 500
+                              ? "text-red-500"
+                              : "text-gray-500"
+                          }`}
                         >
                           {longDescCount}/500
                         </span>
@@ -445,35 +456,34 @@ export default function EditJobRoute({
                       </Select>
                     </div>
 
-                    {districts.length > 0 ? (
-                      <div className="mb-4 text-left">
-                        <label className="font-semibold" htmlFor="division">
+                    {districts.length > 0 && (
+                      <div className="text-left">
+                        <label className="font-semibold" htmlFor="district">
                           জেলা
                         </label>
-                        <Select
+                        <select
+                          id="district"
+                          className="mt-1 h-10 w-full rounded-md border border-neutral-200 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:text-sm file:font-medium file:text-neutral-950 placeholder:text-neutral-500 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-800 dark:bg-neutral-950 dark:ring-offset-neutral-950 appearance-none"
                           defaultValue={job?.district}
-                          onValueChange={(value) =>
-                            form.setValue("district", value)
+                          onChange={(event) =>
+                            form.setValue("district", event.target.value)
                           }
                         >
-                          <SelectTrigger className="">
-                            <SelectValue placeholder="জেলা" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectGroup>
-                              {districts.map((item, idx) => {
-                                return (
-                                  <SelectItem key={idx} value={item}>
-                                    {item}
-                                  </SelectItem>
-                                );
-                              })}
-                            </SelectGroup>
-                          </SelectContent>
-                        </Select>
+                          <option value="" disabled>
+                            জেলা
+                          </option>
+                          {districts.map((item, idx) => (
+                            <option key={idx} value={item}>
+                              {item}
+                            </option>
+                          ))}
+                        </select>
+                        {error("district") ? (
+                          <p className="text-red-500 font-semibold text-sm">
+                            {error("district")}
+                          </p>
+                        ) : null}
                       </div>
-                    ) : (
-                      <div></div>
                     )}
 
                     <div className="mb-4 text-left">

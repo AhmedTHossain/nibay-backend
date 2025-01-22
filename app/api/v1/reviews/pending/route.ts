@@ -41,10 +41,15 @@ export async function GET(request: Request) {
           results.push({
             _id: applicant.id,
             name: applicant.name,
+            email: applicant.email,
+            phone: applicant.phone,
+            address: applicant.division + ", " + applicant.district,
             role: Number(applicant.role),
             jobId: job.id,
+            jobTitle: job.title,
             jobShortDescription: job.shortDescription,
-            profilePhoto: applicant.profilePhoto
+            profilePhoto: applicant.profilePhoto,
+            statusChangeDate: application.statusChangeDate
           } as Applicant);
       }
     }

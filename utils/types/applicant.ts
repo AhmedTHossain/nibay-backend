@@ -5,8 +5,13 @@ export interface Applicant {
   name: string;
   role: number;
   jobId: string;
+  jobTitle: string;
   jobShortDescription: string;
   profilePhoto: string;
+  statusChangeDate: Date;
+  email: string;
+  phone: string;
+  address: string;
 }
 
 export type ApplicationStatus = keyof typeof APPLICATION_STATUS | "ALL";

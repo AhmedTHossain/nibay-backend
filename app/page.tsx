@@ -12,7 +12,7 @@ import { useAuth } from "./hooks/useAuth";
 import { JobBox } from "./jobs/components/JobBox";
 import { JobFilter } from "./jobs/components/JobFilter";
 import { Hero } from "@/components/sections/home/hero";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { PendingReviewModal } from "./jobs/components/PendingReviewModal";
 import { TJob } from "@/utils/types/job";
 import ApplicantReviewModal from "@/components/applicant-review-modal";
@@ -26,28 +26,43 @@ export default function Home() {
   const { jobs, isLoading, pagination, refetch } = useJobContext();
   const { pendingReviews, submitReview, isSubmitting } = usePendingReviews();
 
-  const [currentPage, setCurrentPage] = useState(pagination.currentPage);
-  const [jobRoleFilter, setjobRoleFilter] = useState<string>('all');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [jobRoleFilter, setjobRoleFilter] = useState<string>("all");
   const [forceTrigger, setForceTrigger] = useState(false);
 
   useEffect(() => {
     // Refetch jobs whenever the page or filter changes
-    refetch({ page: currentPage, limit: 6, jobRole: jobRoleFilter === 'all' ? undefined : jobRoleFilter });
+    refetch({
+      page: currentPage,
+      limit: 6,
+      jobRole: jobRoleFilter === "all" ? undefined : jobRoleFilter
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage, forceTrigger]);
 
   useEffect(() => {
     if (currentPage !== 1) {
       setCurrentPage(1);
-    }
-    else {
+    } else {
       setForceTrigger(!forceTrigger);
     }
   }, [jobRoleFilter]);
 
+  useEffect(() => {
+    setForceTrigger(!forceTrigger);
+  }, []);
+
+  useEffect(() => {
+    console.log("currentPage", currentPage);
+  }, [currentPage]);
+
   return (
     <div>
-      <ApplicantReviewModal pendingReviews={pendingReviews} submitReview={submitReview} isSubmitting={isSubmitting} />
+      <ApplicantReviewModal
+        pendingReviews={pendingReviews}
+        submitReview={submitReview}
+        isSubmitting={isSubmitting}
+      />
       <Header />
 
       <section className="relative py-36">

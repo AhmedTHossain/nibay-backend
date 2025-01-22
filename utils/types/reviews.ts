@@ -5,5 +5,5 @@ export interface Review {
   jobTitle?: string;
   rating: number;
   feedback: string;
-  createdAt: string;
+  createdAt: Date;
 }

@@ -43,7 +43,7 @@ export async function GET(request: NextRequest, { params }: TApplicantId) {
                 reviewerId: { $toObjectId: "$$review.reviewerId" },
                 rating: "$$review.rating",
                 feedback: "$$review.feedback",
-                reviewCreatedDate: "$$review.reviewCreatedDate"
+                createdAt: "$$review.createdAt"
               }
             }
           }
@@ -77,7 +77,7 @@ export async function GET(request: NextRequest, { params }: TApplicantId) {
           jobTitle: { $arrayElemAt: ["$jobDetails.title", 0] },
           rating: "$reviews_from_employers.rating",
           feedback: "$reviews_from_employers.feedback",
-          createdAt: "$reviews_from_employers.reviewCreatedDate"
+          createdAt: "$reviews_from_employers.createdAt"
         }
       },
       {
