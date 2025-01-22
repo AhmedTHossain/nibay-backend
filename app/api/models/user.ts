@@ -5,6 +5,7 @@ import {
 } from "@/lib/constant";
 import { TUser } from "@/utils/types/user";
 import mongoose, { Model } from "mongoose";
+import { boolean } from "zod";
 
 interface IUserMethods {
   checkPasswordCorrect(candidatePassword: string): Promise<boolean>;
@@ -20,6 +21,7 @@ const userSchema = new mongoose.Schema<TUser, object, IUserMethods>(
       type: String,
       required: false,
       unique: true,
+      sparse: true,
       match: [/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/, "Invalid Email!"]
     },
     role: {
@@ -34,6 +36,7 @@ const userSchema = new mongoose.Schema<TUser, object, IUserMethods>(
     phone: {
       type: String,
       unique: true,
+      sparse: true,
       required: true
     },
     nidNumber: {
@@ -115,6 +118,10 @@ const userSchema = new mongoose.Schema<TUser, object, IUserMethods>(
     },
     reviews_from_employers: {
       type: [],
+      required: false
+    },
+    isMobileUser: {
+      type: Boolean,
       required: false
     },
     birthCertificate: { type: String, required: false },

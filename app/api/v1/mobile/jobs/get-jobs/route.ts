@@ -187,6 +187,10 @@ export async function GET(request: Request) {
       data: jobs
     });
   } catch (error) {
-    return handleError(error);
+    return NextResponse.json({
+      status: false,
+      message: "Jobs fetching was failed",
+      data: {}
+    });
   }
 }

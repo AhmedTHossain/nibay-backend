@@ -39,4 +39,8 @@ export interface TUser {
   id: string;
   job: string;
   applicant: string;
+  profession: string;
+  nidPhoto: "";
+  drivingLicensePhoto: "",
+  isMobileUser: boolean,
 }

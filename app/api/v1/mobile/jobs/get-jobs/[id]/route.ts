@@ -113,6 +113,10 @@ export async function GET(request: Request, { params }: { params: { id: string }
       data: job
     });
   } catch (error) {
-    return handleError(error);
+    return NextResponse.json({
+      status: false,
+      message: "Job fetching failed",
+      data: {}
+    });
   }
 }
