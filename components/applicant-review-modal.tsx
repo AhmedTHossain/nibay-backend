@@ -99,8 +99,7 @@ function ApplicantReview({
           </h3>
           <p className="text-sm text-emerald-600 dark:text-emerald-400">
             {
-              // @ts-expect-error
-              JOB_ROLES[applicant.role as keyof typeof JOB_ROLES]?.label
+              JOB_ROLES[Number(applicant.role)]?.label
             }
           </p>
           <button
@@ -342,9 +341,7 @@ export default function ApplicantReviewModal({
                                         className="ml-2 bg-orange-100 dark:bg-orange-900 text-orange-600 dark:text-orange-300"
                                       >
                                         {
-                                          JOB_ROLES[
-                                            applicant.role as keyof typeof JOB_ROLES
-                                          ]?.label
+                                          JOB_ROLES[Number(applicant.role)]?.label
                                         }
                                       </Badge>
                                     </div>

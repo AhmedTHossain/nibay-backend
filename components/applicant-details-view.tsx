@@ -18,10 +18,7 @@ import {
   AlertCircle,
   GraduationCap,
 } from "lucide-react"
-import DocumentPreviewModal from "./document-preview-modal"
-import ReviewCard from "./review-card"
 import DocumentCard from "./document-card"
-import DetailedReviewModal from "./detailed-review-modal"
 import { TUser } from "@/utils/types/user"
 import { APPLICATION_STATUS, EDUCTATION_LEVELS, JOB_ROLES, MAX_EDUCATION_LEVEL } from "@/lib/constant"
 import { formatEnglishToBangalNum } from "@/utils/formatEtoBLang"
