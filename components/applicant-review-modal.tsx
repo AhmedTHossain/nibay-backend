@@ -270,14 +270,14 @@ export default function ApplicantReviewModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent className="max-w-2xl dark:bg-slate-800">
+      <DialogContent className="max-w-2xl bg-white dark:bg-slate-800">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold">
+          <DialogTitle className="text-2xl font-bold text-gray-900 dark:text-gray-100">
             আবেদনকারীর রিভিউ
           </DialogTitle>
-          <DialogDescription className="pt-4">
+          <DialogDescription className="pt-4 text-gray-700 dark:text-gray-300">
             আপনার পর্যালোচনা আমাদের অন্য ব্যবহারকারীদের সহায়তা করতে এবং তাদের
-            অভিজ্ঞতা উন্নত করতে সাহায্য করবে। দয়া করে আপনার মতামত শেয়ার করুন!{" "}
+            অভিজ্ঞতা উন্নত করতে সাহায্য করবে। দয়া করে আপনার মতামত শেয়ার করুন!
           </DialogDescription>
         </DialogHeader>
         <div>
@@ -293,14 +293,13 @@ export default function ApplicantReviewModal({
                 <div className="flex items-center justify-between mb-4">
                   <Badge
                     variant="outline"
-                    className="bg-emerald-50 text-emerald-700 border-emerald-200"
+                    className="bg-emerald-50 dark:bg-emerald-900 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-700"
                   >
                     {formatEnglishToBangalNum(String(pendingReviews.length))} টি
                     রিভিউ বাকি
                   </Badge>
                 </div>
-                <ScrollArea className="h-auto rounded-md border border-emerald-100 bg-emerald-50/50">
-                  {" "}
+                <ScrollArea className="h-auto rounded-md border border-emerald-100 dark:border-emerald-700 bg-emerald-50/50 dark:bg-emerald-900/50">
                   <div className="p-4 space-y-4">
                     <motion.ul
                       key="list"
@@ -317,7 +316,7 @@ export default function ApplicantReviewModal({
                           whileTap={{ scale: 0.98 }}
                         >
                           <div key={applicant._id}>
-                            <div className="bg-white rounded-lg p-4 shadow-sm border border-emerald-100">
+                            <div className="bg-white dark:bg-slate-700 rounded-lg p-4 shadow-sm border border-emerald-100 dark:border-emerald-700">
                               <div className="flex items-start justify-start gap-4">
                                 <Avatar className="w-24 h-24 border-2 border-emerald-500">
                                   <AvatarImage
@@ -325,7 +324,7 @@ export default function ApplicantReviewModal({
                                     alt={applicant.name}
                                     className="object-cover"
                                   />
-                                  <AvatarFallback className="text-xl bg-emerald-100 text-emerald-700">
+                                  <AvatarFallback className="text-xl bg-emerald-100 dark:bg-emerald-800 text-emerald-700 dark:text-emerald-300">
                                     {applicant.name
                                       .split(" ")
                                       .map((n) => n[0])
@@ -335,43 +334,47 @@ export default function ApplicantReviewModal({
                                 <div className="flex items-start justify-between w-full">
                                   <div className="space-y-3">
                                     <div className="flex items-center gap-2">
-                                      <User className="w-4 h-4 text-emerald-600" />
-                                      <h3 className="font-semibold">
+                                      <User className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                                      <h3 className="font-semibold text-gray-900 dark:text-gray-100">
                                         {applicant.name}
                                       </h3>
                                       <Badge
                                         variant="secondary"
-                                        className="ml-2 bg-orange-100 text-orange-600"
+                                        className="ml-2 bg-orange-100 dark:bg-orange-900 text-orange-600 dark:text-orange-300"
                                       >
                                         {
-                                          // prettier-ignore
-                                          // @ts-expect-error
-                                          JOB_ROLES[applicant.role as typeof JOB_ROLES]?.label
+                                          JOB_ROLES[
+                                            applicant.role as keyof typeof JOB_ROLES
+                                          ]?.label
                                         }
                                       </Badge>
                                     </div>
-                                    <div className="space-y-1 text-sm text-muted-foreground">
+                                    <div className="space-y-1 text-sm text-gray-600 dark:text-gray-400">
                                       {applicant?.email && (
                                         <div className="flex items-center gap-2">
-                                          <Mail className="w-4 h-4 text-emerald-600" />
+                                          <Mail className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                                           <span>{applicant.email}</span>
                                         </div>
                                       )}
                                       {applicant?.phone && (
                                         <div className="flex items-center gap-2">
-                                          <Phone className="w-4 h-4 text-emerald-600" />
-                                          <span>{applicant.phone}</span>
+                                          <Phone className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                                          <span>
+                                            {formatEnglishToBangalNum(
+                                              applicant.phone
+                                            )}
+                                          </span>
                                         </div>
                                       )}
                                       {applicant?.address && (
                                         <div className="flex items-center gap-2">
-                                          <MapPin className="w-4 h-4 text-emerald-600" />
+                                          <MapPin className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                                           <span>{applicant.address}</span>
                                         </div>
                                       )}
                                       {applicant?.jobId && (
                                         <div className="flex items-center gap-2">
-                                          <Briefcase className="w-4 h-4 text-emerald-600" />
+                                          <Briefcase className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                                           <span>
                                             <a
                                               href="#"
@@ -381,7 +384,7 @@ export default function ApplicantReviewModal({
                                                   e
                                                 )
                                               }
-                                              className="text-emerald-600 hover:underline"
+                                              className="text-emerald-600 dark:text-emerald-300 hover:underline"
                                             >
                                               {applicant.jobTitle}
                                             </a>
@@ -389,7 +392,7 @@ export default function ApplicantReviewModal({
                                         </div>
                                       )}
                                       <div className="flex items-center gap-2">
-                                        <Clock className="w-4 h-4 text-emerald-600" />
+                                        <Clock className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                                         <span>
                                           আবেদনটি গ্রহণ করেছেন{" "}
                                           {formatEnglishToBangalNum(
@@ -407,7 +410,7 @@ export default function ApplicantReviewModal({
                                     onClick={() =>
                                       handleApplicantClick(applicant)
                                     }
-                                    className="bg-emerald-600 hover:bg-emerald-700"
+                                    className="bg-emerald-600 dark:bg-emerald-700 hover:bg-emerald-700 dark:hover:bg-emerald-800"
                                   >
                                     রিভিউ দিন
                                   </Button>
@@ -415,7 +418,7 @@ export default function ApplicantReviewModal({
                               </div>
                             </div>
                             {index < pendingReviews.length - 1 && (
-                              <Separator className="my-4 bg-emerald-100" />
+                              <Separator className="my-4 bg-emerald-100 dark:bg-emerald-700" />
                             )}
                           </div>
                         </motion.li>
