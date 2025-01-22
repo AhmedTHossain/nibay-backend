@@ -170,9 +170,9 @@ export default function ApplicantProfileRoute({
                         <h1 className="text-2xl font-bold">{user?.name}</h1>
                         <p className="text-gray-600 dark:text-gray-300">
                           {
+                            // prettier-ignore
                             // @ts-expect-error: job_roles cannot be number
-                            JOB_ROLES[user?.role as keyof typeof JOB_ROLES]
-                              ?.label
+                            JOB_ROLES[user?.role as keyof typeof JOB_ROLES]?.label
                           }
                         </p>
                       </div>
@@ -207,9 +207,9 @@ export default function ApplicantProfileRoute({
                             </span>
                             <span>
                               {
+                                // prettier-ignore
                                 // @ts-expect-error: job_roles cannot be number
-                                JOB_ROLES[user?.role as keyof typeof JOB_ROLES]
-                                  ?.label
+                                JOB_ROLES[user?.role as keyof typeof JOB_ROLES]?.label
                               }
                             </span>
                           </div>
