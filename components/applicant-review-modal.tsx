@@ -50,8 +50,8 @@ function ApplicantReview({
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center space-x-4">
-        <Avatar>
+      <div className="flex flex-col items-center space-y-4">
+        <Avatar className="w-24 h-24">
           <AvatarImage
             src={applicant.profilePhoto}
             alt={applicant.name}
@@ -64,12 +64,10 @@ function ApplicantReview({
               .join("")}
           </AvatarFallback>
         </Avatar>
-        <div>
+        <div className="flex flex-col items-center space-y-1">
           <h3 className="text-lg font-semibold">{applicant.name}</h3>
           <p className="text-sm text-gray-500">
-            {
-              USER_ROLE[applicant.role as keyof typeof USER_ROLE]?.label
-            }
+            {USER_ROLE[applicant.role as keyof typeof USER_ROLE]?.label}
           </p>
           <button
             onClick={() => {
@@ -80,15 +78,15 @@ function ApplicantReview({
             {applicant.jobShortDescription}
           </button>
         </div>
-      </div>
-      <div className="flex space-x-2">
-        {[1, 2, 3, 4, 5].map((star) => (
-          <Star
-            key={star}
-            className={`w-6 h-6 cursor-pointer ${star <= rating ? "text-yellow-400 fill-yellow-400" : "text-gray-300"}`}
-            onClick={() => setRating(star)}
-          />
-        ))}
+        <div className="flex space-x-2">
+          {[1, 2, 3, 4, 5].map((star) => (
+            <Star
+              key={star}
+              className={`w-6 h-6 cursor-pointer ${star <= rating ? "text-yellow-400 fill-yellow-400" : "text-gray-300"}`}
+              onClick={() => setRating(star)}
+            />
+          ))}
+        </div>
       </div>
       <div className="space-y-2 relative">
         <Label htmlFor="feedback">মন্তব্য (অপশনাল)</Label>
@@ -172,9 +170,9 @@ export default function ApplicantReviewModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px] dark:bg-slate-800">
         <DialogHeader>
-          <DialogTitle>আবেদনকারী রিভিউ</DialogTitle>
+          <DialogTitle>আবেদনকারীর রিভিউ</DialogTitle>
         </DialogHeader>
         <div className="mt-4">
           {selectedApplicant ? (
@@ -188,7 +186,7 @@ export default function ApplicantReviewModal({
               {pendingReviews.map((applicant) => (
                 <li key={applicant._id}>
                   <button
-                    className="w-full text-left flex items-center space-x-4 p-2 rounded-lg shadow-lg border-2 bg-gray-50 hover:bg-emerald-50 dark:hover:bg-emerald-800/25 transition-colors focus:outline-none"
+                    className="w-full text-left flex items-center space-x-4 px-4 py-3 rounded-lg shadow-lg border-0 bg-gray-50 hover:bg-emerald-50 dark:hover:bg-slate-600/25 dark:bg-slate-700 transition-colors focus:outline-none"
                     onClick={() => handleApplicantClick(applicant)}
                   >
                     <Avatar>
@@ -212,7 +210,8 @@ export default function ApplicantReviewModal({
                       </span>
                       <span className="text-sm text-gray-500 dark:text-gray-400 block">
                         {
-                          USER_ROLE[applicant.role as keyof typeof USER_ROLE]?.label
+                          USER_ROLE[applicant.role as keyof typeof USER_ROLE]
+                            ?.label
                         }
                       </span>
                       <span
