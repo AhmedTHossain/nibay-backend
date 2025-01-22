@@ -106,7 +106,7 @@ export default function ApplicantProfileRoute({
                 </div>
 
                 {/* Action Buttons */}
-                <div className="absolute right-6 top-[160px] flex gap-3 z-50">
+                <div className="absolute right-6 top-[160px] flex gap-3 z-10">
                   <button
                     className="text-white bg-[#10b981] hover:bg-[#0ea371] px-4 py-2 rounded flex items-center gap-2 disabled:opacity-50 relative z-50"
                     onClick={(e) => {
@@ -153,7 +153,8 @@ export default function ApplicantProfileRoute({
                   <div className="relative mt-5 px-6">
                     <div className="flex items-end gap-6">
                       {user?.profilePhoto ? (
-                        <Image unoptimized
+                        <Image
+                          unoptimized
                           alt={user?.name as string}
                           src={`${user?.profilePhoto}`}
                           className="size-32 rounded-full border-4 border-white shadow-lg object-cover"
@@ -170,7 +171,8 @@ export default function ApplicantProfileRoute({
                         <p className="text-gray-600 dark:text-gray-300">
                           {
                             // @ts-expect-error: job_roles cannot be number
-                            JOB_ROLES[user?.role as keyof typeof JOB_ROLES]?.label
+                            JOB_ROLES[user?.role as keyof typeof JOB_ROLES]
+                              ?.label
                           }
                         </p>
                       </div>
@@ -206,7 +208,8 @@ export default function ApplicantProfileRoute({
                             <span>
                               {
                                 // @ts-expect-error: job_roles cannot be number
-                                JOB_ROLES[user?.role as keyof typeof JOB_ROLES]?.label
+                                JOB_ROLES[user?.role as keyof typeof JOB_ROLES]
+                                  ?.label
                               }
                             </span>
                           </div>
@@ -369,7 +372,7 @@ export default function ApplicantProfileRoute({
                         </h2>
                         <div className="space-y-3">
                           {user?.chairmanCertificateCopy ||
-                            user?.portEntryPermitCopy ? (
+                          user?.portEntryPermitCopy ? (
                             <>
                               {user?.chairmanCertificateCopy && (
                                 <div className="mt-2">
