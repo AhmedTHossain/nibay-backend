@@ -87,7 +87,7 @@ export function JobGrid(props: JobGridProps) {
           )}
 
           {/* Job Role Section - Right Aligned */}
-          <p className="truncate bg-orange-600/10 hover:bg-orange-600/20 dark:bg-orange-600/15 text-orange-600 px-3 text-[14px] font-medium rounded-full dark:text-orange-400 dark:hover:bg-orange-600/30">
+          <p className="ml-auto truncate bg-orange-600/10 hover:bg-orange-600/20 dark:bg-orange-600/15 text-orange-600 px-3 text-[14px] font-medium rounded-full dark:text-orange-400 dark:hover:bg-orange-600/30">
             {jobRole}
           </p>
         </div>
