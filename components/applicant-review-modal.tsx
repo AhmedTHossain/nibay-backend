@@ -86,7 +86,7 @@ function ApplicantReview({
             alt={applicant.name}
             className="object-cover"
           />
-          <AvatarFallback className="text-3xl bg-emerald-100 text-emerald-700">
+          <AvatarFallback className="text-3xl bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300">
             {applicant.name
               .split(" ")
               .map((n) => n[0])
@@ -94,10 +94,10 @@ function ApplicantReview({
           </AvatarFallback>
         </Avatar>
         <div className="text-center flex flex-col items-center space-y-1">
-          <h3 className="text-2xl font-bold text-emerald-700">
+          <h3 className="text-2xl font-bold text-emerald-700 dark:text-emerald-300">
             {applicant.name}
           </h3>
-          <p className="text-sm text-emerald-600">
+          <p className="text-sm text-emerald-600 dark:text-emerald-400">
             {
               // @ts-expect-error
               JOB_ROLES[applicant.role as keyof typeof JOB_ROLES]?.label
@@ -105,18 +105,17 @@ function ApplicantReview({
           </p>
           <button
             onClick={handleJobClick}
-            className="text-sm font-medium text-emerald-500 hover:text-emerald-600 transition-colors flex items-start justify-center mt-1"
+            className="text-sm font-medium text-emerald-500 hover:text-emerald-600 dark:text-emerald-400 dark:hover:text-emerald-300 transition-colors flex items-start justify-center mt-1"
           >
-            {/* <Briefcase className="w-5 h-5 mr-1" /> */}
             {applicant.jobShortDescription}
           </button>
         </div>
       </div>
-      <Card className="">
-        <CardContent className="pt-6 bg-gray-50">
+      <Card>
+        <CardContent className="pt-6 bg-gray-50 dark:bg-gray-800">
           <div className="space-y-4 star-rating">
             <div className="space-y-2">
-              <Label className="text-lg font-semibold text-emerald-700">
+              <Label className="text-lg font-semibold text-emerald-700 dark:text-emerald-300">
                 রেটিং
               </Label>
               <div className="flex justify-center space-x-2">
@@ -124,7 +123,7 @@ function ApplicantReview({
                   <Star
                     key={star}
                     className={`w-8 h-8 cursor-pointer transition-all duration-150 
-                      ${star <= rating ? "text-yellow-400 fill-yellow-400 scale-110" : "text-gray-300"}
+                      ${star <= rating ? "text-yellow-400 fill-yellow-400 scale-110" : "text-gray-300 dark:text-gray-600"}
                       hover:text-yellow-400 hover:fill-yellow-400 hover:scale-110`}
                     onMouseEnter={() => {
                       const stars = document.querySelectorAll(
@@ -174,7 +173,7 @@ function ApplicantReview({
             <div className="space-y-2 relative">
               <Label
                 htmlFor="feedback"
-                className="text-lg font-semibold text-emerald-700"
+                className="text-lg font-semibold text-emerald-700 dark:text-emerald-300"
               >
                 মন্তব্য (অপশনাল)
               </Label>
@@ -183,9 +182,9 @@ function ApplicantReview({
                 value={feedback}
                 onChange={(e) => setFeedback(e.target.value)}
                 placeholder="আপনার মতামত লিখুন..."
-                className="h-24 resize-none bg-white focus:border-emerald-500 focus:ring-emerald-500"
+                className="h-24 resize-none bg-white dark:bg-gray-700 dark:text-gray-200 focus:border-emerald-500 focus:ring-emerald-500"
               />
-              <span className="absolute bottom-2 right-2 text-xs text-gray-500">
+              <span className="absolute bottom-2 right-2 text-xs text-gray-500 dark:text-gray-400">
                 {formatEnglishToBangalNum(String(feedbackCount))}/৫০০
               </span>
             </div>
@@ -210,14 +209,14 @@ function ApplicantReview({
         <Button
           variant="outline"
           onClick={onGoBack}
-          className="border-emerald-500 text-emerald-700 hover:bg-emerald-50"
+          className="border-emerald-500 text-emerald-700 hover:bg-emerald-50 dark:text-emerald-300 dark:hover:bg-emerald-700 dark:border-emerald-300"
         >
           <ArrowLeft className="w-4 h-4" />
           পিছনে যান
         </Button>
         <Button
           onClick={handleSubmit}
-          className="bg-emerald-500 text-white hover:bg-emerald-600"
+          className="bg-emerald-500 text-white hover:bg-emerald-600 dark:bg-emerald-700 dark:hover:bg-emerald-800"
         >
           রিভিউ সাবমিট করুন
         </Button>
@@ -410,7 +409,7 @@ export default function ApplicantReviewModal({
                                     onClick={() =>
                                       handleApplicantClick(applicant)
                                     }
-                                    className="bg-emerald-600 dark:bg-emerald-700 hover:bg-emerald-700 dark:hover:bg-emerald-800"
+                                    className="bg-emerald-600 dark:bg-emerald-700 dark:text-white hover:bg-emerald-700 dark:hover:bg-emerald-800"
                                   >
                                     রিভিউ দিন
                                   </Button>
