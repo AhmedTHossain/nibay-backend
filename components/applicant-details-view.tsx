@@ -23,75 +23,77 @@ import ReviewCard from "./review-card"
 import DocumentCard from "./document-card"
 import DetailedReviewModal from "./detailed-review-modal"
 import { TUser } from "@/utils/types/user"
-import { EDUCTATION_LEVELS, JOB_ROLES, MAX_EDUCATION_LEVEL } from "@/lib/constant"
+import { APPLICATION_STATUS, EDUCTATION_LEVELS, JOB_ROLES, MAX_EDUCATION_LEVEL } from "@/lib/constant"
 import { formatEnglishToBangalNum } from "@/utils/formatEtoBLang"
 import ApplicantReviews from "@/app/applicant/[applicantId]/Reviews"
+import { api_client } from "@/lib/axios"
+import { useRouter, useSearchParams } from "next/navigation"
+import { toast } from "sonner"
 
 export default function ApplicantDetailsView({ applicant }: { applicant: TUser }) {
-  const [selectedDocument, setSelectedDocument] = useState(null)
-  const [isDetailedReviewOpen, setIsDetailedReviewOpen] = useState(false)
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const jobId = searchParams.get("jobId") as string;
+  const [isProcessing, setIsProcessing] = useState(false);
 
-  const requiredDocuments = [
-    { id: "DOC001", name: "NID Card", status: "verified", thumbnail: "/placeholder.svg?height=100&width=100" },
-    { id: "DOC002", name: "Certificate", status: "pending", thumbnail: "/placeholder.svg?height=100&width=100" },
-    {
-      id: "DOC003",
-      name: "Driving License",
-      status: "not_uploaded",
-      thumbnail: "/placeholder.svg?height=100&width=100",
-    },
-  ]
+  const handleApplicantStatus = async (
+    status: keyof typeof APPLICATION_STATUS
+  ) => {
+    setIsProcessing(true);
+    try {
+      const response = await api_client.patch(
+        `/jobs/${jobId}/${applicant._id}`,
+        {
+          status
+        }
+      );
 
-  const additionalDocuments = [
-    { id: "ADD001", name: "Chairman Certificate", status: "not_uploaded" },
-    { id: "ADD002", name: "Port Entry Permit", status: "verified" },
-  ]
-
-  const reviews = [
-    { id: 1, employer: "Tech Co", rating: 4.5, comment: "Excellent problem-solving skills and team player." },
-    {
-      id: 2,
-      employer: "Innovate Inc",
-      rating: 4.8,
-      comment: "Highly recommended. Great work ethic and communication.",
-    },
-  ]
-
-  const detailedReview = {
-    summary:
-      "John Doe is a highly skilled and experienced software engineer with strong background in web development. His technical expertise, coupled excellent communication skills proven track record of successful project deliveries, makes him candidate for the position.",
-    strengths: [
-      "Extensive experience with React and Node.js",
-      "Strong problem-solving skills",
-      "Excellent team player with great communication skills",
-      "Proven track record of delivering high-quality projects on time",
-    ],
-    areasForImprovement: [
-      "Could benefit from more experience with cloud technologies",
-      "May need to expand knowledge of mobile development frameworks",
-    ],
-    overallRating: 4.7,
-  }
+      if (response.data.status === "success") {
+        toast.success(response.data.message);
+        router.push(`/jobs/${jobId}/applicant-list`);
+      }
+    } catch (error) {
+      toast.error("Something went wrong!");
+      console.error(error);
+    } finally {
+      setIsProcessing(false);
+    }
+  };
 
   return (
-    <div className="container mx-auto p-6 bg-white">
+    <div className="container mx-auto p-6">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold text-green-700">আবেদনকারীর বিস্তারিত তথ্য</h1>
         <div className="flex space-x-2">
-          <Button onClick={() => console.log("Accepted")} className="bg-green-500 hover:bg-green-600">
+          <Button onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            handleApplicantStatus("ACCEPTED");
+          }}
+            disabled={isProcessing} className="bg-green-500 hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-700 dark:text-white">
             <Check className="mr-2 h-4 w-4" /> গ্রহন করুন
           </Button>
           <Button
-            onClick={() => console.log("Shortlisted")}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              handleApplicantStatus("SHORT_LISTED");
+            }}
+            disabled={isProcessing}
             variant="outline"
-            className="text-yellow-600 border-yellow-600 hover:bg-yellow-50"
+            className="text-yellow-600 border-yellow-600 dark:border-yellow-600 hover:bg-yellow-50"
           >
             <List className="mr-2 h-4 w-4" /> শর্টলিস্ট করুন
           </Button>
           <Button
-            onClick={() => console.log("Rejected")}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              handleApplicantStatus("REJECTED");
+            }}
+            disabled={isProcessing}
             variant="outline"
-            className="text-red-600 border-red-600 hover:bg-red-50"
+            className="text-red-600 border-red-600 dark:border-red-600 hover:bg-red-50"
           >
             <X className="mr-2 h-4 w-4" /> বাতিল করুন
           </Button>
@@ -234,16 +236,6 @@ export default function ApplicantDetailsView({ applicant }: { applicant: TUser }
           </CardContent>
         </Card>
       </div>
-
-      {selectedDocument && (
-        <DocumentPreviewModal document={selectedDocument} onClose={() => setSelectedDocument(null)} />
-      )}
-
-      <DetailedReviewModal
-        isOpen={isDetailedReviewOpen}
-        onClose={() => setIsDetailedReviewOpen(false)}
-        review={detailedReview}
-      />
     </div>
   )
 }

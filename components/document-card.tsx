@@ -41,7 +41,7 @@ export default function DocumentCard({ document, onView, onDownload }: DocumentC
 
   return (
     <Card>
-      <CardContent className="p-4">
+      <CardContent className="p-4 h-full flex flex-col">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center">
             <FileText className="w-6 h-6 mr-2 text-green-500" />
@@ -49,32 +49,17 @@ export default function DocumentCard({ document, onView, onDownload }: DocumentC
           </div>
           {getStatusBadge()}
         </div>
-        <div className="flex flex-col items-end h-full gap-4">
+        <div className="flex flex-col items-center flex-1 justify-center mb-4">
           {document.thumbnail && (
-            // <img
-            //   src={document.thumbnail || "/placeholder.svg"}
-            //   alt={document.name}
-            //   className="w-full h-32 object-cover rounded-md mb-4"
-            // />
             <ImagePreview src={document.thumbnail} alt={document.name} width={1024} height={1024} />
           )}
-          <div className="flex w-full">
-            {document.status !== "not_uploaded" && (
-              <>
-                {/* <Button variant="outline" size="sm" onClick={onView} className="flex-1">
-                <Eye className="w-4 h-4 mr-2" /> View
-                </Button> */}
-                <Button variant="outline" size="sm" onClick={onDownload} className="flex-1">
-                  <Download className="w-4 h-4 mr-2" /> Download
-                </Button>
-              </>
-            )}
-            {/* {document.status === "not_uploaded" && (
-            <Button variant="outline" size="sm" onClick={onUpload} className="flex-1">
-            <Upload className="w-4 h-4 mr-2" /> Upload
-            </Button>
-            )} */}
-          </div>
+        </div>
+        <div className="flex w-full mt-auto">
+          {document.status !== "not_uploaded" && (
+            <a href={`${document.thumbnail}`} className="flex justify-center px-4 py-2 shadow-md bg-emerald-500 text-white font-semibold rounded w-full hover:bg-emerald-600 transition duration-200" download>
+              <Download className="w-4 h-4 mr-2" /> ডাউনলোড করুন
+            </a>
+          )}
         </div>
       </CardContent>
     </Card >
