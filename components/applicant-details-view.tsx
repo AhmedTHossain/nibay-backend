@@ -67,7 +67,7 @@ export default function ApplicantDetailsView({ applicant }: { applicant: TUser }
             e.stopPropagation();
             handleApplicantStatus("ACCEPTED");
           }}
-            disabled={isProcessing} className="bg-green-500 hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-700 dark:text-white">
+            disabled={isProcessing} className="rounded-md bg-emerald-600/5 hover:bg-emerald-500 border-emerald-600/10 hover:border-emerald-600 text-emerald-600 duration-200 transition-all hover:text-white md:relative flex items-center justify-center px-4 py-2 space-x-1 cursor-pointer text-sm font-medium">
             <Check className="mr-2 h-4 w-4" /> গ্রহন করুন
           </Button>
           <Button
@@ -77,8 +77,7 @@ export default function ApplicantDetailsView({ applicant }: { applicant: TUser }
               handleApplicantStatus("SHORT_LISTED");
             }}
             disabled={isProcessing}
-            variant="outline"
-            className="text-yellow-600 border-yellow-600 dark:border-yellow-600 hover:bg-yellow-50"
+            className="rounded-md bg-yellow-600/5 hover:bg-yellow-500 border-yellow-600/10 hover:border-yellow-600 text-yellow-600 duration-200 transition-all hover:text-white md:relative flex items-center justify-center px-4 py-2 space-x-1 cursor-pointer text-sm font-medium"
           >
             <List className="mr-2 h-4 w-4" /> শর্টলিস্ট করুন
           </Button>
@@ -89,8 +88,7 @@ export default function ApplicantDetailsView({ applicant }: { applicant: TUser }
               handleApplicantStatus("REJECTED");
             }}
             disabled={isProcessing}
-            variant="outline"
-            className="text-red-600 border-red-600 dark:border-red-600 hover:bg-red-50"
+            className="rounded-md bg-red-600/5 hover:bg-red-500 border-red-600/10 hover:border-red-600 text-red-600 duration-200 transition-all hover:text-white md:relative flex items-center justify-center px-4 py-2 space-x-1 cursor-pointer text-sm font-medium"
           >
             <X className="mr-2 h-4 w-4" /> বাতিল করুন
           </Button>
@@ -98,7 +96,7 @@ export default function ApplicantDetailsView({ applicant }: { applicant: TUser }
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Professional Information */}
-        <Card className="md:col-span-2">
+        <Card className="md:col-span-2 border-0">
           <CardHeader>
             <CardTitle className="text-green-600">ব্যক্তিগত তথ্য</CardTitle>
           </CardHeader>
@@ -161,7 +159,7 @@ export default function ApplicantDetailsView({ applicant }: { applicant: TUser }
         </Card>
 
         {/* Required Documents */}
-        <Card className="md:col-span-3">
+        <Card className="md:col-span-3 border-0">
           <CardHeader>
             <CardTitle className="text-green-600">প্রয়োজনীয় নথিপত্র</CardTitle>
           </CardHeader>
@@ -197,7 +195,7 @@ export default function ApplicantDetailsView({ applicant }: { applicant: TUser }
         </Card>
 
         {/* Additional Documents */}
-        <Card className="md:col-span-3">
+        <Card className="md:col-span-3 border-0">
           <CardHeader>
             <CardTitle className="text-green-600">অতিরিক্ত নথিপত্র</CardTitle>
           </CardHeader>
@@ -224,7 +222,7 @@ export default function ApplicantDetailsView({ applicant }: { applicant: TUser }
         </Card>
 
         {/* Reviews */}        {/* Additional Documents */}
-        <Card className="md:col-span-3">
+        <Card className="md:col-span-3 border-0">
           <CardHeader>
             <CardTitle className="text-green-600">রিভিউ</CardTitle>
           </CardHeader>
@@ -233,7 +231,7 @@ export default function ApplicantDetailsView({ applicant }: { applicant: TUser }
           </CardContent>
         </Card>
       </div>
-    </div>
+    </div >
   )
 }
 
