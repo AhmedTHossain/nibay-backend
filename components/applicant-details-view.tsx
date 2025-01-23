@@ -60,7 +60,7 @@ export default function ApplicantDetailsView({ applicant }: { applicant: TUser }
   return (
     <div className="container mx-auto p-6">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold text-green-700">আবেদনকারীর বিস্তারিত তথ্য</h1>
+        <h1 className="text-3xl font-bold">আবেদনকারীর বিস্তারিত তথ্য</h1>
         <div className="flex space-x-2">
           <Button onClick={(e) => {
             e.preventDefault();
@@ -98,7 +98,7 @@ export default function ApplicantDetailsView({ applicant }: { applicant: TUser }
         {/* Professional Information */}
         <Card className="md:col-span-2 border-0">
           <CardHeader>
-            <CardTitle className="text-green-600">ব্যক্তিগত তথ্য</CardTitle>
+            <CardTitle className="">ব্যক্তিগত তথ্য</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="flex items-center space-x-4 mb-4">
@@ -115,13 +115,13 @@ export default function ApplicantDetailsView({ applicant }: { applicant: TUser }
             </div>
             <div className="space-y-2 mb-4">
               <p className="flex items-center">
-                <Briefcase className="mr-2 text-green-500" /> {formatEnglishToBangalNum(applicant.yearsOfExperience)} বছরের অভিজ্ঞতা
+                <Briefcase className="mr-2" /> {formatEnglishToBangalNum(applicant.yearsOfExperience)} বছরের অভিজ্ঞতা
               </p>
               <p className="flex items-center">
-                <GraduationCap className="mr-2 text-green-500" /> {EDUCTATION_LEVELS[Number(applicant.maxEducationLevel)].label}
+                <GraduationCap className="mr-2" /> {EDUCTATION_LEVELS[Number(applicant.maxEducationLevel)].label}
               </p>
               <p className="flex items-center">
-                <MapPin className="mr-2 text-green-500" /> {applicant.division}
+                <MapPin className="mr-2" /> {applicant.division}
               </p>
               {/* <div className="flex flex-wrap gap-2 mt-2">
                 <Badge variant="secondary">React</Badge>
@@ -135,23 +135,23 @@ export default function ApplicantDetailsView({ applicant }: { applicant: TUser }
         {/* Contact Information */}
         <Card>
           <CardHeader>
-            <CardTitle className="text-green-600">যোগাযোগের তথ্য</CardTitle>
+            <CardTitle className="">যোগাযোগের তথ্য</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-2">
               {applicant.email && (
                 <p className="flex items-center">
-                  <Mail className="mr-2 text-green-500" /> {applicant.email}
+                  <Mail className="mr-2" /> {applicant.email}
                 </p>
               )}
               {applicant.phone && (
                 <p className="flex items-center">
-                  <Phone className="mr-2 text-green-500" /> {formatEnglishToBangalNum(applicant.phone)}
+                  <Phone className="mr-2" /> {formatEnglishToBangalNum(applicant.phone)}
                 </p>
               )}
               {applicant.division && (
                 <p className="flex items-center">
-                  <MapPin className="mr-2 text-green-500" /> {applicant.division + ", " + applicant.district}
+                  <MapPin className="mr-2" /> {applicant.division + ", " + applicant.district}
                 </p>
               )}
             </div>
@@ -161,7 +161,7 @@ export default function ApplicantDetailsView({ applicant }: { applicant: TUser }
         {/* Required Documents */}
         <Card className="md:col-span-3 border-0">
           <CardHeader>
-            <CardTitle className="text-green-600">প্রয়োজনীয় নথিপত্র</CardTitle>
+            <CardTitle className="">প্রয়োজনীয় নথিপত্র</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -197,7 +197,7 @@ export default function ApplicantDetailsView({ applicant }: { applicant: TUser }
         {/* Additional Documents */}
         <Card className="md:col-span-3 border-0">
           <CardHeader>
-            <CardTitle className="text-green-600">অতিরিক্ত নথিপত্র</CardTitle>
+            <CardTitle className="">অতিরিক্ত নথিপত্র</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -224,7 +224,7 @@ export default function ApplicantDetailsView({ applicant }: { applicant: TUser }
         {/* Reviews */}        {/* Additional Documents */}
         <Card className="md:col-span-3 border-0">
           <CardHeader>
-            <CardTitle className="text-green-600">রিভিউ</CardTitle>
+            <CardTitle className="">রিভিউ</CardTitle>
           </CardHeader>
           <CardContent>
             <ApplicantReviews applicantId={applicant._id} />

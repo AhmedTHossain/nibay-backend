@@ -44,7 +44,7 @@ export default function DocumentCard({ document, onView, onDownload }: DocumentC
       <CardContent className="p-4 h-full flex flex-col">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center">
-            <FileText className="w-6 h-6 mr-2 text-green-500" />
+            <FileText className="w-6 h-6 mr-2" />
             <h3 className="font-semibold">{document.name}</h3>
           </div>
           {getStatusBadge()}
