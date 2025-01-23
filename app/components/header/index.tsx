@@ -21,10 +21,10 @@ import {
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Avatar } from "../common/Avatar";
 import { Navigation } from "./Navigation";
 import AdminPanel from "@/app/admin/page";
 import { ModeToggle } from "../common/ModeToggle";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const Header = () => {
   const { scrollY } = useScroll();
@@ -79,11 +79,12 @@ function ProfileMenu() {
     <Menubar className="border-0 bg-transparent dark:bg-transparent dark:border-0">
       <MenubarMenu>
         <MenubarTrigger className="focus:bg-transparent dark:bg-transparent data-[state=open]:bg-transparent dark:data-[state=open]:bg-transparent">
-          {user?.profilePhoto ? (
-            <Avatar title={`${user?.name}`} image={`${user?.profilePhoto}`} />
-          ) : (
-            <Avatar title="Profile Photo" />
-          )}
+          <Avatar>
+            <AvatarImage src={user?.profilePhoto} alt="Applicant" />
+            <AvatarFallback className="text-3xl">
+              {user?.name.charAt(0)}
+            </AvatarFallback>
+          </Avatar>
         </MenubarTrigger>
         <MenubarContent>
           <MenubarItem
