@@ -72,13 +72,13 @@ function ApplicantReview({
   return (
     <>
       <div className="absolute -top-16 left-1/2 transform -translate-x-1/2">
-        <Avatar className="w-32 h-32 border-4 border-white shadow-lg">
+        <Avatar className="w-32 h-32">
           <AvatarImage
             src={applicant.profilePhoto}
             alt={applicant.name}
             className="object-cover"
           />
-          <AvatarFallback className="text-3xl bg-green-100 text-green-700">
+          <AvatarFallback className="text-3xl">
             {applicant.name
               .split(" ")
               .map((n) => n[0])
@@ -93,8 +93,8 @@ function ApplicantReview({
         transition={{ duration: 0.3 }}
         className="space-y-6"
       >
-        <div className="text-center space-y-4 mb-4">
-          <h2 className="text-3xl font-bold text-gray-900 mt-16 dark:text-white">{applicant.name}</h2>
+        <div className="text-center">
+          <h2 className="text-3xl font-bold text-gray-900 mt-14 dark:text-white">{applicant.name}</h2>
           <p className="text-xl text-gray-600 dark:text-white">{JOB_ROLES[Number(applicant.role)]?.label}</p>
         </div>
         <div className="space-y-4 star-rating">
@@ -103,8 +103,8 @@ function ApplicantReview({
               <Star
                 key={star}
                 className={`w-8 h-8 cursor-pointer transition-all duration-150 
-                      ${star <= rating ? "text-yellow-400 fill-yellow-400 scale-110" : "text-gray-400 dark:text-gray-400"}
-                      hover:text-yellow-400 hover:fill-yellow-400 hover:scale-110`}
+                      ${star <= rating ? "text-[#c5a502] fill-[#c5a502] scale-110" : "text-gray-400 dark:text-gray-400"}
+                      hover:text-[#c5a502] hover:fill-[#c5a502] hover:scale-110`}
                 onMouseEnter={() => {
                   const stars = document.querySelectorAll(
                     ".star-rating .lucide-star"
@@ -112,16 +112,16 @@ function ApplicantReview({
                   stars.forEach((s, index) => {
                     if (index < star) {
                       s.classList.add(
-                        "text-yellow-400",
-                        "dark:text-yellow-400",
-                        "fill-yellow-400",
+                        "text-[#c5a502]",
+                        "dark:text-[#c5a502]",
+                        "fill-[#c5a502]",
                         "scale-110"
                       );
                     } else {
                       s.classList.remove(
-                        "text-yellow-400",
-                        "dark:text-yellow-400",
-                        "fill-yellow-400",
+                        "text-[#c5a502]",
+                        "dark:text-[#c5a502]",
+                        "fill-[#c5a502]",
                         "scale-110"
                       );
                     }
@@ -134,16 +134,16 @@ function ApplicantReview({
                   stars.forEach((s, index) => {
                     if (index < rating) {
                       s.classList.add(
-                        "text-yellow-400",
-                        "dark:text-yellow-400",
-                        "fill-yellow-400",
+                        "text-[#c5a502]",
+                        "dark:text-[#c5a502]",
+                        "fill-[#c5a502]",
                         "scale-110"
                       );
                     } else {
                       s.classList.remove(
-                        "text-yellow-400",
-                        "dark:text-yellow-400",
-                        "fill-yellow-400",
+                        "text-[#c5a502]",
+                        "dark:text-[#c5a502]",
+                        "fill-[#c5a502]",
                         "scale-110"
                       );
                     }
@@ -155,12 +155,12 @@ function ApplicantReview({
           </div>
 
           <div className="space-y-6">
-            <h3 className="text-md text-center text-gray-700 dark:text-white">এই কর্মী সম্পর্কে আপনার মতামত আমাদের সাথে শেয়ার করুন</h3>
+            <h3 className="text-md text-center text-gray-700 dark:text-white">এই কর্মী সম্পর্কে মতামত আমাদের সাথে শেয়ার করুন</h3>
             <Textarea
               value={feedback}
               onChange={(e) => setFeedback(e.target.value)}
               placeholder="আপনার মন্তব্য এখানে লিখুন..."
-              className="min-h-[150px] text-lg p-4 rounded-2xl border-gray-200 bg-gray-50 dark:bg-slate-800 dark:border-slate-700"
+              className="min-h-[150px] text-lg p-4 rounded-2xl border-0 bg-gray-50 dark:bg-slate-800 focus:outline-none"
             />
           </div>
         </div>
@@ -177,24 +177,25 @@ function ApplicantReview({
               </Alert>
             </motion.div>
           )}
-        </AnimatePresence>
+        </AnimatePresence >
         <div className="space-y-4">
           <Button
-            variant="outline"
-            onClick={handleSubmit}
-            className="w-full h-14 text-md font-semibold bg-emerald-500 hover:bg-emerald-600 text-white hover:text-white"
-          >
-            রিভিউ সাবমিট করুন
-          </Button>
-          <Button
             onClick={onGoBack}
-            variant="ghost" className="w-full text-gray-600 hover:text-gray-800"
+            variant="ghost" className="w-full text-gray-600 hover:text-gray-800 mb-8"
           >
             <ArrowLeft className="w-4 h-4" />
             পিছনে যান
           </Button>
+          <Button
+            variant="outline"
+            onClick={handleSubmit}
+            className="w-[90%] h-16 text-md font-semibold bg-origin-border bg-[#78ac6e] hover:bg-[#88bc7e] text-white hover:text-white rounded-full absolute -bottom-4 left-1/2 transform -translate-x-1/2"
+          >
+            রিভিউ সাবমিট করুন
+          </Button>
+          {/* absolute -top-16 left-1/2 transform -translate-x-1/2 */}
         </div>
-      </motion.div>
+      </motion.div >
     </>
   );
 }
@@ -243,7 +244,7 @@ export default function ApplicantReviewModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent className="max-w-xl bg-white dark:bg-slate-800">
+      <DialogContent className={`bg-white dark:bg-slate-800 ${selectedApplicant ? "max-w-md px-10 !rounded-[50px]" : "max-w-xl"}`}>
         {!selectedApplicant && (
           <DialogHeader>
             <DialogTitle className="text-2xl font-bold text-gray-900 dark:text-gray-100">
@@ -289,111 +290,110 @@ export default function ApplicantReviewModal({
                           key={applicant._id}
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
+                          className="focus:outline-none"
                         >
-                          <div key={applicant._id}>
-                            <div className="bg-white dark:bg-slate-700 rounded-lg p-4 shadow-sm border border-emerald-100 dark:border-emerald-700">
-                              <div className="flex items-start justify-start gap-4">
-                                <Avatar className="w-24 h-24 border-2 border-emerald-500">
-                                  <AvatarImage
-                                    src={applicant.profilePhoto}
-                                    alt={applicant.name}
-                                    className="object-cover"
-                                  />
-                                  <AvatarFallback className="text-xl bg-emerald-100 dark:bg-emerald-800 text-emerald-700 dark:text-emerald-300">
-                                    {applicant.name
-                                      .split(" ")
-                                      .map((n) => n[0])
-                                      .join("")}
-                                  </AvatarFallback>
-                                </Avatar>
-                                <div className="flex items-start justify-between w-full">
-                                  <div className="space-y-3">
-                                    <div className="flex items-center gap-2">
-                                      <User className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-                                      <h3 className="font-semibold text-gray-900 dark:text-gray-100">
-                                        {applicant.name}
-                                      </h3>
-                                      <Badge
-                                        variant="secondary"
-                                        className="ml-2 bg-orange-100 dark:bg-orange-900 text-orange-600 dark:text-orange-300"
-                                      >
-                                        {
-                                          JOB_ROLES[Number(applicant.role)]?.label
-                                        }
-                                      </Badge>
-                                    </div>
-                                    <div className="space-y-1 text-sm text-gray-600 dark:text-gray-400">
-                                      {applicant?.email && (
-                                        <div className="flex items-center gap-2">
-                                          <Mail className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-                                          <span>{applicant.email}</span>
-                                        </div>
-                                      )}
-                                      {applicant?.phone && (
-                                        <div className="flex items-center gap-2">
-                                          <Phone className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-                                          <span>
-                                            {formatEnglishToBangalNum(
-                                              applicant.phone
-                                            )}
-                                          </span>
-                                        </div>
-                                      )}
-                                      {applicant?.address && (
-                                        <div className="flex items-center gap-2">
-                                          <MapPin className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-                                          <span>{applicant.address}</span>
-                                        </div>
-                                      )}
-                                      {applicant?.jobId && (
-                                        <div className="flex items-center gap-2">
-                                          <Briefcase className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-                                          <span>
-                                            <a
-                                              href="#"
-                                              onClick={(e) =>
-                                                handleJobClick(
-                                                  applicant.jobId,
-                                                  e
-                                                )
-                                              }
-                                              className="text-emerald-600 dark:text-emerald-300 hover:underline"
-                                            >
-                                              {applicant.jobTitle}
-                                            </a>
-                                          </span>
-                                        </div>
-                                      )}
+                          <div className="bg-white dark:bg-slate-700 rounded-lg p-4 shadow-sm border border-emerald-100 dark:border-emerald-700">
+                            <div className="flex items-start justify-start gap-4">
+                              <Avatar className="w-24 h-24 border-2 border-emerald-500">
+                                <AvatarImage
+                                  src={applicant.profilePhoto}
+                                  alt={applicant.name}
+                                  className="object-cover"
+                                />
+                                <AvatarFallback className="text-xl bg-emerald-100 dark:bg-emerald-800 text-emerald-700 dark:text-emerald-300">
+                                  {applicant.name
+                                    .split(" ")
+                                    .map((n) => n[0])
+                                    .join("")}
+                                </AvatarFallback>
+                              </Avatar>
+                              <div className="flex items-start justify-between w-full">
+                                <div className="space-y-3">
+                                  <div className="flex items-center gap-2">
+                                    <User className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                                    <h3 className="font-semibold text-gray-900 dark:text-gray-100">
+                                      {applicant.name}
+                                    </h3>
+                                    <Badge
+                                      variant="secondary"
+                                      className="ml-2 bg-orange-100 dark:bg-orange-900 text-orange-600 dark:text-orange-300"
+                                    >
+                                      {
+                                        JOB_ROLES[Number(applicant.role)]?.label
+                                      }
+                                    </Badge>
+                                  </div>
+                                  <div className="space-y-1 text-sm text-gray-600 dark:text-gray-400">
+                                    {applicant?.email && (
                                       <div className="flex items-center gap-2">
-                                        <Clock className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                                        <Mail className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                                        <span>{applicant.email}</span>
+                                      </div>
+                                    )}
+                                    {applicant?.phone && (
+                                      <div className="flex items-center gap-2">
+                                        <Phone className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                                         <span>
-                                          আবেদনটি গ্রহণ করেছেন{" "}
                                           {formatEnglishToBangalNum(
-                                            new Date(
-                                              applicant?.statusChangeDate
-                                            ).toLocaleDateString()
+                                            applicant.phone
                                           )}
                                         </span>
                                       </div>
+                                    )}
+                                    {applicant?.address && (
+                                      <div className="flex items-center gap-2">
+                                        <MapPin className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                                        <span>{applicant.address}</span>
+                                      </div>
+                                    )}
+                                    {applicant?.jobId && (
+                                      <div className="flex items-center gap-2">
+                                        <Briefcase className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                                        <span>
+                                          <a
+                                            href="#"
+                                            onClick={(e) =>
+                                              handleJobClick(
+                                                applicant.jobId,
+                                                e
+                                              )
+                                            }
+                                            className="text-emerald-600 dark:text-emerald-300 hover:underline"
+                                          >
+                                            {applicant.jobTitle}
+                                          </a>
+                                        </span>
+                                      </div>
+                                    )}
+                                    <div className="flex items-center gap-2">
+                                      <Clock className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                                      <span>
+                                        আবেদনটি গ্রহণ করেছেন{" "}
+                                        {formatEnglishToBangalNum(
+                                          new Date(
+                                            applicant?.statusChangeDate
+                                          ).toLocaleDateString()
+                                        )}
+                                      </span>
                                     </div>
                                   </div>
                                 </div>
-                                <div className="flex gap-2">
-                                  <Button
-                                    onClick={() =>
-                                      handleApplicantClick(applicant)
-                                    }
-                                    className="bg-emerald-600 dark:bg-emerald-700 dark:text-white hover:bg-emerald-700 dark:hover:bg-emerald-800"
-                                  >
-                                    রিভিউ দিন
-                                  </Button>
-                                </div>
+                              </div>
+                              <div className="flex gap-2">
+                                <Button
+                                  onClick={() =>
+                                    handleApplicantClick(applicant)
+                                  }
+                                  className="bg-emerald-600 dark:bg-emerald-700 dark:text-white hover:bg-emerald-700 dark:hover:bg-emerald-800"
+                                >
+                                  রিভিউ দিন
+                                </Button>
                               </div>
                             </div>
-                            {index < pendingReviews.length - 1 && (
-                              <Separator className="my-4 bg-emerald-100 dark:bg-emerald-700" />
-                            )}
                           </div>
+                          {index < pendingReviews.length - 1 && (
+                            <Separator className="my-4 bg-emerald-100 dark:bg-emerald-700" />
+                          )}
                         </motion.li>
                       ))}
                     </motion.ul>
