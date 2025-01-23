@@ -251,7 +251,7 @@ export default function ApplicantReviewModal({
             <DialogTitle className="text-2xl font-bold text-gray-900 dark:text-gray-100">
               আবেদনকারীর রিভিউ
             </DialogTitle>
-            <DialogDescription className="pt-4 text-gray-700 dark:text-gray-300">
+            <DialogDescription className="pt-4 text-gray-700 dark:text-gray-300 text-justify">
               আপনার পর্যালোচনা আমাদের অন্য ব্যবহারকারীদের সহায়তা করতে এবং তাদের
               অভিজ্ঞতা উন্নত করতে সাহায্য করবে। দয়া করে আপনার মতামত শেয়ার করুন!
             </DialogDescription>
@@ -277,7 +277,7 @@ export default function ApplicantReviewModal({
                   </Badge>
                 </div>
                 <ScrollArea className="max-h-[50vh] overflow-auto">
-                  <div className="p-4 space-y-4">
+                  <div className="space-y-4">
                     <motion.ul
                       key="list"
                       className="space-y-4"
