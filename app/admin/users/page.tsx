@@ -89,8 +89,7 @@ export default function UserList() {
                   <p className="text-sm text-gray-600 flex items-center">
                     <Briefcase className="mr-2 text-green-600" size={12} />
                     {
-                      // @ts-expect-error
-                      // maybe some issue with the enum
+                      // @ts-expect-error: enum type issue
                       USER_ROLE[Number(user.role)]?.label
                     }
                   </p>
