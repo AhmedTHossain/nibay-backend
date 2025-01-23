@@ -10,6 +10,7 @@ import { api_client } from "@/lib/axios";
 import { TUser } from "@/utils/types/user";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { USER_ROLE } from "@/lib/constant";
+import { formatEnglishToBangalNum } from "@/utils/formatEtoBLang";
 
 export default function UserList() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -32,7 +33,7 @@ export default function UserList() {
       <div className="mb-8 relative">
         <Input
           type="text"
-          placeholder="Search by name, email, or job role"
+          placeholder="ফোন নম্বর দিয়ে সার্চ করুন"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           className="w-full pl-10 pr-4 py-2 border-green-200 focus:border-green-500 focus:ring-green-500"
@@ -68,7 +69,7 @@ export default function UserList() {
               <CardContent className="pt-4 flex-grow">
                 <p className="text-sm text-gray-600 flex items-center mb-1">
                   <Phone className="mr-2 text-green-600" size={12} />
-                  {user.phone}
+                  {formatEnglishToBangalNum(user.phone)}
                 </p>
                 {user.email && (
                   <p className="text-sm text-gray-600 flex items-center mb-1">

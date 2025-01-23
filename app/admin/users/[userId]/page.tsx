@@ -11,6 +11,13 @@ import { JobFilterByStatus } from "@/app/jobs/components/JobFilterByStatus";
 import Footer from "@/components/sections/Footer";
 import { useEffect, useState } from "react";
 
+interface jobsRouteProps {
+  jobs: any;
+  isLoading: boolean;
+  pagination: any;
+  refetch: any;
+}
+
 export default function JobsRoute() {
   const { jobs, isLoading, pagination, refetch } = useJobContext();
 
