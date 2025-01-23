@@ -51,7 +51,7 @@ export default function DocumentCard({ document, onView, onDownload }: DocumentC
         </div>
         <div className="flex flex-col items-center flex-1 justify-center mb-4">
           {document.thumbnail && (
-            <ImagePreview src={document.thumbnail} alt={document.name} width={1024} height={1024} />
+            <ImagePreview src={document.thumbnail} alt={document.name} width={200} height={200} />
           )}
         </div>
         <div className="flex w-full mt-auto">
