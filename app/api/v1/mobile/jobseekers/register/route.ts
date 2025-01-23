@@ -78,6 +78,21 @@ import User from "../../../../models/user";
  *         required: false
  *         description: Port entry permit number of the user.
  *         type: string
+ *       - in: formData
+ *         name: division
+ *         required: false
+ *         description: Division of the user.
+ *         type: string
+ *       - in: formData
+ *         name: district
+ *         required: false
+ *         description: District of the user.
+ *         type: string
+ *       - in: formData
+ *         name: yearsOfExperience
+ *         required: false
+ *         description: Years of experience of the user.
+ *         type: string
  *     responses:
  *       200:
  *         description: User successfully registered.
@@ -126,6 +141,15 @@ import User from "../../../../models/user";
  *                     port_entry_permit:
  *                       type: string
  *                       nullable: true
+ *                     division:
+ *                       type: string
+ *                       nullable: true
+ *                     district:
+ *                       type: string
+ *                       nullable: true
+ *                     years_of_experience:
+ *                       type: number
+ *                       nullable: true
  *                     is_mobile_user:
  *                       type: boolean
  *                       example: true
@@ -158,15 +182,17 @@ export async function POST(request: NextRequest) {
       (formData.get("maxEducationLevelCopy") as File | null) || null;
     const profilePhoto =
       (formData.get("profilePhoto") as File | null) || null;
-    const birthCertificate = (formData.get("chairmansCertificate") as File) || null;
+    const birthCertificate = (formData.get("birthCertificate") as File) || null;
     const portEntryPermit = (formData.get("portEntryPermit") as File) || null;
+    const division = (formData.get("division") as string) || null;
+    const district = (formData.get("district") as string) || null;
+    const yearsOfExperience = (formData.get("yearsOfExperience") as string) || null;
 
     if (!phone || !deviceID || !name || !role || !nidNumber || !nidPhoto) {
       return NextResponse.json({
         status: false,
         message: "Requirements not fulfilled!",
-        data: {
-        },
+        data: {},
       });
     }
 
@@ -177,8 +203,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({
         status: false,
         message: "User already exists with this phone number!",
-        data: {
-        },
+        data: {},
       });
     }
 
@@ -212,8 +237,11 @@ export async function POST(request: NextRequest) {
         : undefined,
       maxEducationLevelCopy: maxEducationLevelCopyPath,
       profilePhoto: profilePhotoPath,
-      birthCertificate : birthCertificatePath,
+      birthCertificate: birthCertificatePath,
       portEntryPermit: portEntryPermitPath,
+      division,
+      district,
+      yearsOfExperience: yearsOfExperience ? Number(yearsOfExperience) : undefined,
       deviceID,
       isMobileUser: true,
     });
@@ -233,8 +261,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       status: false,
       message: "Registration unsuccessful!",
-      data: {
-      },
+      data: {},
     });
   }
 }
