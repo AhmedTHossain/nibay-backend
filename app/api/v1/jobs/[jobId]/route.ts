@@ -72,7 +72,8 @@ export async function PATCH(request: NextRequest, { params }: TUserParams) {
       applicationDeadline,
       salary,
       division,
-      district
+      district,
+      jobRole
     } = await request.json();
 
     await Job.findOneAndUpdate(
@@ -86,7 +87,8 @@ export async function PATCH(request: NextRequest, { params }: TUserParams) {
         applicationDeadline,
         salary,
         division,
-        district
+        district,
+        jobRole
       },
       { new: true, runValidators: true }
     );
