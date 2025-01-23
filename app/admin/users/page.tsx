@@ -11,16 +11,20 @@ import { TUser } from "@/utils/types/user";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { USER_ROLE } from "@/lib/constant";
 import { formatEnglishToBangalNum } from "@/utils/formatEtoBLang";
+import { set } from "mongoose";
 
 export default function UserList() {
   const [searchTerm, setSearchTerm] = useState("");
   const [users, setUsers] = useState<TUser[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   useEffect(() => {
+    setIsLoading(true);
+    console.log(searchTerm, isLoading);
     const delayDebounceFn = setTimeout(async () => {
       const res = await api_client.get(`user?searchByPhone=${searchTerm}`);
       setUsers(res.data.data.users);
     }, 1000);
-
+    setIsLoading(false);
     return () => clearTimeout(delayDebounceFn);
   }, [searchTerm]);
 
@@ -95,10 +99,17 @@ export default function UserList() {
           </Link>
         ))}
       </div>
-      {users.length === 0 && (
+      {users.length === 0 && isLoading == false && (
         <p className="text-center mt-8 text-gray-600">
           No users found matching your search.
         </p>
+      )}
+      {isLoading && (
+        <div className="absolute inset-0 bg-white bg-opacity-90 flex items-center justify-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-green-500">
+            asdf
+          </div>
+        </div>
       )}
     </div>
   );
