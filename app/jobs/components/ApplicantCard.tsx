@@ -114,7 +114,7 @@ export function ApplicantCard(props: ApplicantCardProps) {
 
             <div className="flex items-center justify-between pt-5">
               <button
-                className="text-xs bg-[#10b981] p-[7px] text-white rounded-sm"
+                className="rounded-md bg-emerald-600/5 hover:bg-emerald-500 border-emerald-600/10 hover:border-emerald-600 text-emerald-600 duration-200 transition-all hover:text-white md:relative flex items-center justify-center px-2 py-2 space-x-1 cursor-pointer text-xs font-medium"
                 onClick={(event) => {
                   event.stopPropagation();
                   handleApplicantStatus("ACCEPTED");
@@ -123,22 +123,22 @@ export function ApplicantCard(props: ApplicantCardProps) {
                 গ্রহণ করুন
               </button>
               <button
-                className="text-xs bg-red-700 p-[7px] text-white rounded-sm"
-                onClick={(event) => {
-                  event.stopPropagation();
-                  handleApplicantStatus("REJECTED");
-                }}
-              >
-                বাতিল করুন
-              </button>
-              <button
-                className="rounded-sm p-[7px] border transition-all duration-200 border-gray-600 hover:bg-gray-600 hover:text-white bg-transparent text-gray-800 text-xs dark:text-white"
+                className="rounded-md bg-yellow-600/5 hover:bg-yellow-500 border-yellow-600/10 hover:border-yellow-600 text-yellow-600 duration-200 transition-all hover:text-white md:relative flex items-center justify-center px-2 py-2 space-x-1 cursor-pointer text-xs font-medium"
                 onClick={(event) => {
                   event.stopPropagation();
                   handleApplicantStatus("SHORT_LISTED");
                 }}
               >
                 শর্টলিস্ট করুন
+              </button>
+              <button
+                className="rounded-md bg-red-600/5 hover:bg-red-500 border-red-600/10 hover:border-red-600 text-red-600 duration-200 transition-all hover:text-white md:relative flex items-center justify-center px-2 py-2 space-x-1 cursor-pointer text-xs font-medium"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  handleApplicantStatus("REJECTED");
+                }}
+              >
+                বাতিল করুন
               </button>
             </div>
           </div>
