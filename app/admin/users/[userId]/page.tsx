@@ -5,20 +5,20 @@ import { CustomPagination } from "@/app/components/common/Pagination";
 import { WhySection } from "@/app/components/common/WhySection";
 import Header from "@/app/components/header";
 import { useJobContext } from "@/app/contexts/JobContext";
+import useUserById from "@/app/hooks/users/useUserById";
+import { useUser } from "@/app/hooks/useUser";
 import { JobBox } from "@/app/jobs/components/JobBox";
 import { JobFilter } from "@/app/jobs/components/JobFilter";
 import { JobFilterByStatus } from "@/app/jobs/components/JobFilterByStatus";
 import Footer from "@/components/sections/Footer";
+import { TUser } from "@/utils/types/user";
 import { useEffect, useState } from "react";
 
-interface jobsRouteProps {
-  jobs: any;
-  isLoading: boolean;
-  pagination: any;
-  refetch: any;
+interface jobsRouteParams {
+  params: { userId: string };
 }
 
-export default function JobsRoute() {
+export default function JobsRoute({ params }: jobsRouteParams) {
   const { jobs, isLoading, pagination, refetch } = useJobContext();
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -26,12 +26,16 @@ export default function JobsRoute() {
   const [jobStatusFilter, setJobStatusFilter] = useState<string>("all");
   const [forceTrigger, setForceTrigger] = useState(false);
 
+  const userId = params.userId;
+  const { user } = useUserById({ userId });
+
   useEffect(() => {
     // Refetch jobs whenever the page or filter changes
     refetch({
       page: currentPage,
       jobRole: jobRoleFilter === "all" ? undefined : jobRoleFilter,
-      jobStatus: jobStatusFilter === "all" ? undefined : jobStatusFilter
+      jobStatus: jobStatusFilter === "all" ? undefined : jobStatusFilter,
+      userId: userId
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage, forceTrigger]);
