@@ -125,6 +125,10 @@ const userSchema = new mongoose.Schema<TUser, object, IUserMethods>(
       default: "PENDING",
       required: false
     },
+    isAdmin: {
+      type: Boolean,
+      default: false
+    },
 
     jobsApplied: [{ type: mongoose.Schema.Types.ObjectId, ref: "Job" }]
   },
