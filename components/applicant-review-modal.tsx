@@ -56,7 +56,8 @@ function ApplicantReview({
   const [feedbackCount, setFeedbackCount] = useState(0);
   const [error, setError] = useState("");
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     if (rating === 0) {
       setError("দয়া করে একটি রেটিং নির্বাচন করুন");
       return;
@@ -160,7 +161,7 @@ function ApplicantReview({
               value={feedback}
               onChange={(e) => setFeedback(e.target.value)}
               placeholder="আপনার মন্তব্য এখানে লিখুন..."
-              className="min-h-[150px] text-lg p-4 rounded-2xl border-0 bg-gray-50 dark:bg-slate-800 focus:outline-none"
+              className="min-h-[150px] text-lg p-4 rounded-2xl border-0 bg-gray-50 dark:bg-slate-950 focus:outline-none"
             />
           </div>
         </div>
@@ -181,7 +182,7 @@ function ApplicantReview({
         <div className="space-y-4">
           <Button
             onClick={onGoBack}
-            variant="ghost" className="w-full text-gray-600 hover:text-gray-800 mb-8"
+            variant="ghost" className="w-full text-gray-600 hover:text-gray-800 mb-8 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-white"
           >
             <ArrowLeft className="w-4 h-4" />
             পিছনে যান
@@ -189,7 +190,7 @@ function ApplicantReview({
           <Button
             variant="outline"
             onClick={handleSubmit}
-            className="w-[90%] h-16 text-md font-semibold bg-origin-border bg-[#78ac6e] hover:bg-[#88bc7e] text-white hover:text-white rounded-full absolute -bottom-4 left-1/2 transform -translate-x-1/2"
+            className="w-[90%] h-16 text-md font-semibold bg-origin-border bg-[#78ac6e] dark:bg-[#285c1e] dark:hover:bg-[#588c4e] hover:bg-[#88bc7e] text-white hover:text-white rounded-full absolute -bottom-4 left-1/2 transform -translate-x-1/2"
           >
             রিভিউ সাবমিট করুন
           </Button>
@@ -269,13 +270,13 @@ export default function ApplicantReviewModal({
                 <div className="flex items-center justify-between mb-4">
                   <Badge
                     variant="outline"
-                    className="bg-emerald-50 dark:bg-emerald-900 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-700"
+                    className="bg-purple-600/10 dark:bg-purple-900 text-purple-600 dark:text-purple-300 border-purple-200 dark:border-purple-700"
                   >
                     {formatEnglishToBangalNum(String(pendingReviews.length))} টি
                     রিভিউ বাকি
                   </Badge>
                 </div>
-                <ScrollArea className="h-auto rounded-md border border-emerald-100 dark:border-emerald-700 bg-emerald-50/50 dark:bg-emerald-900/50">
+                <ScrollArea className="max-h-[50vh] overflow-auto">
                   <div className="p-4 space-y-4">
                     <motion.ul
                       key="list"
@@ -300,7 +301,7 @@ export default function ApplicantReviewModal({
                                   alt={applicant.name}
                                   className="object-cover"
                                 />
-                                <AvatarFallback className="text-xl bg-emerald-100 dark:bg-emerald-800 text-emerald-700 dark:text-emerald-300">
+                                <AvatarFallback className="text-xl">
                                   {applicant.name
                                     .split(" ")
                                     .map((n) => n[0])
