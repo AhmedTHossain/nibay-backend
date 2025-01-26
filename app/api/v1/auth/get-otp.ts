@@ -10,10 +10,11 @@ export async function getOTP(request: Request) {
 
     const user = await User.findOne({ phone: phone });
     if (!user) {
-      return NextResponse.json(
-        { error: "Invalid Credentials!" },
-        { status: 400 }
-      );
+      return NextResponse.json({
+        status: false,
+        message: "User not found",
+        data:{}
+      });
     }
 
     // TODO: send otp
@@ -25,13 +26,16 @@ export async function getOTP(request: Request) {
     );
 
     return NextResponse.json({
-      status: "success",
-      message: "Otp sent successfully"
+      status: true,
+      message: "Otp sent successfully",
+      data:{}
     });
   } catch (error) {
+
     return NextResponse.json({
-      status: "error",
-      message: "User not found or other error message"
+      status: false,
+      message: "Operation failed",
+      data:{}
     });
   }
 }

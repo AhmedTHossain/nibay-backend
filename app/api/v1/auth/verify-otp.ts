@@ -10,22 +10,37 @@ export async function verifyOTP(request: Request) {
   try {
     const { phone, otpCode, deviceID } = await request.json();
 
+
     await connectToMongoDB();
 
     const user = await User.findOne({ phone });
     if (!user) {
-      return NextResponse.json(
-        { error: "Invalid Credentials!" },
-        { status: 400 }
-      );
+      return NextResponse.json({
+        status: false,
+        message: "Invalid credentials!",
+        data: {
+        },
+      });
+    }
+    const userOtp = String(user.otpCode)
+
+    if (user.otpCode != userOtp) {
+      return NextResponse.json({
+        status: false,
+        message: "Invalid otp!",
+        data: {
+        },
+      });
     }
 
-    if (user.otpCode !== otpCode) {
-      return NextResponse.json({ error: "Invalid OTP!" }, { status: 400 });
-    }
 
     if (user.deviceID !== deviceID) {
-      return NextResponse.json({ error: "Invalid Device!" }, { status: 400 });
+        return NextResponse.json({
+        status: false,
+        message: "Invalid device!",
+        data: {
+        },
+      });
     }
 
     // TODO: verify otp
@@ -45,19 +60,18 @@ export async function verifyOTP(request: Request) {
     );
 
     return NextResponse.json({
-      status: "success",
+      status: true,
       message: "Phone number verified successfully",
-      token
+      data:{'token':token}
     });
 
-    // return NextResponse.json({ token });
   } catch (error) {
+    console.log(error);
     return NextResponse.json(
       {
-        status: "error",
-        message: "Otp mismatch | User not found or other error message"
-      },
-      { status: 400 }
+        status: false,
+        message: "Otp mismatch"
+      }
     );
   }
 }
