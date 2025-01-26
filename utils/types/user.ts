@@ -39,6 +39,7 @@ export interface TUser {
   id: string;
   job: string;
   applicant: string;
+  isAdmin: boolean;
   profession: string;
   nidPhoto: "";
   drivingLicensePhoto: "",

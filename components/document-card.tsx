@@ -44,14 +44,14 @@ export default function DocumentCard({ document, onView, onDownload }: DocumentC
       <CardContent className="p-4 h-full flex flex-col">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center">
-            <FileText className="w-6 h-6 mr-2 text-green-500" />
+            <FileText className="w-6 h-6 mr-2" />
             <h3 className="font-semibold">{document.name}</h3>
           </div>
           {getStatusBadge()}
         </div>
         <div className="flex flex-col items-center flex-1 justify-center mb-4">
           {document.thumbnail && (
-            <ImagePreview src={document.thumbnail} alt={document.name} width={1024} height={1024} />
+            <ImagePreview src={document.thumbnail} alt={document.name} width={200} height={200} />
           )}
         </div>
         <div className="flex w-full mt-auto">

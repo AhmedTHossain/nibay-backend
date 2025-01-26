@@ -42,12 +42,14 @@ export const JobProvider: FC<{ children: ReactNode }> = ({ children }) => {
     page = 1,
     limit = 12,
     jobRole,
-    jobStatus
+    jobStatus,
+    userId
   }: {
     page?: number;
     limit?: number;
     jobRole?: string;
     jobStatus?: string;
+    userId?: string;
   } = {}) => {
     setIsLoading(true);
     try {
@@ -57,6 +59,7 @@ export const JobProvider: FC<{ children: ReactNode }> = ({ children }) => {
       queryParams.append("limit", limit.toString());
       if (jobRole) queryParams.append("jobRole", jobRole);
       if (jobStatus) queryParams.append("jobStatus", jobStatus);
+      if (userId) queryParams.append("userId", userId);
 
       // API request with query parameters
       const res = await api_client.get(`jobs?${queryParams.toString()}`);

@@ -30,9 +30,17 @@ export async function GET(request: NextRequest) {
     const limit = parseInt(searchParams.get("limit") || "10", 10); // Default to 10 items per page
     const jobRole = searchParams.get("jobRole") || undefined;
     const jobStatus = searchParams.get("jobStatus") || undefined;
+    const userId = searchParams.get("userId") || undefined;
+
+    if (userId && !user.isAdmin) {
+      return NextResponse.json(
+        { error: "You are not authorized to access this route" },
+        { status: 401 }
+      );
+    }
 
     // Build the query object
-    const query: Record<string, any> = { user: user._id };
+    const query: Record<string, any> = { user: userId || user._id }; // Only fetch jobs created by the user unless the user is an admin
     if (jobRole) {
       query.jobRole = jobRole;
     }
