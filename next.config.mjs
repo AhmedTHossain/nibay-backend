@@ -26,8 +26,8 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: "http",
-        hostname: "173.231.56.108", // Your VPS IP
+        protocol: "https",
+        hostname: "nibay.co", // Your VPS IP
         port: "", // No port required if running on default
         pathname: "/uploads/**", // Allow access to /uploads
       },
@@ -39,7 +39,7 @@ const nextConfig = {
     return [
       {
         source: "/_next/image",
-        destination: "http://173.231.56.108/_next/image",
+        destination: "https://nibay.co/_next/image",
         permanent: false,
       },
     ];
