@@ -1,21 +1,33 @@
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { FileText, Download, Upload, Eye, CheckCircle, AlertCircle, Clock } from "lucide-react"
-import { ImagePreview } from "@/app/components/common/ImagePreview"
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import {
+  FileText,
+  Download,
+  Upload,
+  Eye,
+  CheckCircle,
+  AlertCircle,
+  Clock
+} from "lucide-react";
+import { ImagePreview } from "@/app/components/common/ImagePreview";
 
 interface DocumentCardProps {
   document: {
-    name: string
-    status: "verified" | "pending" | "not_uploaded"
-    thumbnail?: string
-  }
-  onView?: () => void
-  onDownload?: () => void
+    name: string;
+    status: "verified" | "pending" | "not_uploaded";
+    thumbnail?: string;
+  };
+  onView?: () => void;
+  onDownload?: () => void;
   // onUpload: () => void
 }
 
-export default function DocumentCard({ document, onView, onDownload }: DocumentCardProps) {
+export default function DocumentCard({
+  document,
+  onView,
+  onDownload
+}: DocumentCardProps) {
   const getStatusBadge = () => {
     switch (document.status) {
       // case "verified":
@@ -35,15 +47,15 @@ export default function DocumentCard({ document, onView, onDownload }: DocumentC
           <Badge variant="destructive" className="mb-2">
             <AlertCircle className="w-3 h-3 mr-1" /> নেই
           </Badge>
-        )
+        );
     }
-  }
+  };
 
   return (
-    <Card>
+    <Card className="border-0">
       <CardContent className="p-4 h-full flex flex-col">
         <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center">
+          <div className="flex items-center text-gray-500">
             <FileText className="w-6 h-6 mr-2" />
             <h3 className="font-semibold">{document.name}</h3>
           </div>
@@ -51,18 +63,26 @@ export default function DocumentCard({ document, onView, onDownload }: DocumentC
         </div>
         <div className="flex flex-col items-center flex-1 justify-center mb-4">
           {document.thumbnail && (
-            <ImagePreview src={document.thumbnail} alt={document.name} width={200} height={200} />
+            <ImagePreview
+              src={document.thumbnail}
+              alt={document.name}
+              width={200}
+              height={200}
+            />
           )}
         </div>
         <div className="flex w-full mt-auto">
           {document.status !== "not_uploaded" && (
-            <a href={`${document.thumbnail}`} className="flex justify-center px-4 py-2 shadow-md bg-emerald-500 text-white font-semibold rounded w-full hover:bg-emerald-600 transition duration-200" download>
+            <a
+              href={`${document.thumbnail}`}
+              className="flex justify-center px-4 py-2 shadow-md bg-emerald-500 text-white font-semibold rounded w-full hover:bg-emerald-600 transition duration-200"
+              download
+            >
               <Download className="w-4 h-4 mr-2" /> ডাউনলোড করুন
             </a>
           )}
         </div>
       </CardContent>
-    </Card >
-  )
+    </Card>
+  );
 }
-

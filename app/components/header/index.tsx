@@ -99,15 +99,6 @@ function ProfileMenu() {
           <MenubarItem
             className="gap-2"
             onClick={() => {
-              router.push("/admin");
-            }}
-          >
-            <MonitorCogIcon size={18} strokeWidth={1.5} /> <span>অ্যাডমিন</span>
-          </MenubarItem>
-          <MenubarSeparator />
-          <MenubarItem
-            className="gap-2"
-            onClick={() => {
               localStorage.clear();
               router.push("/auth/login");
             }}

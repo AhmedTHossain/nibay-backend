@@ -95,16 +95,20 @@ function ApplicantReview({
         className="space-y-6"
       >
         <div className="text-center">
-          <h2 className="text-3xl font-bold text-gray-900 mt-14 dark:text-white">{applicant.name}</h2>
-          <p className="text-xl text-gray-600 dark:text-white">{JOB_ROLES[Number(applicant.role)]?.label}</p>
+          <h2 className="text-3xl font-bold text-gray-900 mt-14 dark:text-white">
+            {applicant.name}
+          </h2>
+          <p className="text-xl text-gray-600 dark:text-white">
+            {JOB_ROLES[Number(applicant.role)]?.label}
+          </p>
         </div>
         <div className="space-y-4 star-rating">
           <div className="flex justify-center space-x-2">
             {[1, 2, 3, 4, 5].map((star) => (
               <Star
                 key={star}
-                className={`w-8 h-8 cursor-pointer transition-all duration-150 
-                      ${star <= rating ? "text-[#c5a502] fill-[#c5a502] scale-110" : "text-gray-400 dark:text-gray-400"}
+                className={`w-8 h-8 cursor-pointer transition-all duration-150 text-gray-400 dark:text-gray-400
+                      ${star <= rating ? "text-[#c5a502] fill-[#c5a502] scale-110 !text-[#c5a502]" : ""}
                       hover:text-[#c5a502] hover:fill-[#c5a502] hover:scale-110`}
                 onMouseEnter={() => {
                   const stars = document.querySelectorAll(
@@ -113,14 +117,14 @@ function ApplicantReview({
                   stars.forEach((s, index) => {
                     if (index < star) {
                       s.classList.add(
-                        "text-[#c5a502]",
+                        "!text-[#c5a502]",
                         "dark:text-[#c5a502]",
                         "fill-[#c5a502]",
                         "scale-110"
                       );
                     } else {
                       s.classList.remove(
-                        "text-[#c5a502]",
+                        "!text-[#c5a502]",
                         "dark:text-[#c5a502]",
                         "fill-[#c5a502]",
                         "scale-110"
@@ -135,14 +139,14 @@ function ApplicantReview({
                   stars.forEach((s, index) => {
                     if (index < rating) {
                       s.classList.add(
-                        "text-[#c5a502]",
+                        "!text-[#c5a502]",
                         "dark:text-[#c5a502]",
                         "fill-[#c5a502]",
                         "scale-110"
                       );
                     } else {
                       s.classList.remove(
-                        "text-[#c5a502]",
+                        "!text-[#c5a502]",
                         "dark:text-[#c5a502]",
                         "fill-[#c5a502]",
                         "scale-110"
@@ -156,7 +160,9 @@ function ApplicantReview({
           </div>
 
           <div className="space-y-6">
-            <h3 className="text-md text-center text-gray-700 dark:text-white">এই কর্মী সম্পর্কে মতামত আমাদের সাথে শেয়ার করুন</h3>
+            <h3 className="text-md text-center text-gray-700 dark:text-white">
+              এই কর্মী সম্পর্কে মতামত আমাদের সাথে শেয়ার করুন
+            </h3>
             <Textarea
               value={feedback}
               onChange={(e) => setFeedback(e.target.value)}
@@ -178,25 +184,26 @@ function ApplicantReview({
               </Alert>
             </motion.div>
           )}
-        </AnimatePresence >
+        </AnimatePresence>
         <div className="space-y-4">
           <Button
             onClick={onGoBack}
-            variant="ghost" className="w-full text-gray-600 hover:text-gray-800 mb-8 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-white"
+            variant="ghost"
+            className="w-full text-gray-600 hover:text-gray-800 mb-8 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-white"
           >
             <ArrowLeft className="w-4 h-4" />
             পিছনে যান
           </Button>
           <Button
-            variant="outline"
+            variant="default"
             onClick={handleSubmit}
-            className="w-[90%] h-16 text-md font-semibold bg-origin-border bg-[#78ac6e] dark:bg-[#285c1e] dark:hover:bg-[#588c4e] hover:bg-[#88bc7e] text-white hover:text-white rounded-full absolute -bottom-4 left-1/2 transform -translate-x-1/2"
+            className="w-[90%] h-16 text-md font-semibold bg-emerald-500 dark:bg-emerald-600 dark:hover:bg-emerald-700 hover:bg-emerald-600 text-white hover:text-white rounded-full absolute -bottom-4 left-1/2 transform -translate-x-1/2"
           >
             রিভিউ সাবমিট করুন
           </Button>
           {/* absolute -top-16 left-1/2 transform -translate-x-1/2 */}
         </div>
-      </motion.div >
+      </motion.div>
     </>
   );
 }
@@ -245,7 +252,9 @@ export default function ApplicantReviewModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent className={`bg-white dark:bg-slate-800 ${selectedApplicant ? "max-w-md px-10 !rounded-[50px]" : "max-w-xl"}`}>
+      <DialogContent
+        className={`bg-white dark:bg-slate-800 ${selectedApplicant ? "max-w-md px-10" : "max-w-xl"}`}
+      >
         {!selectedApplicant && (
           <DialogHeader>
             <DialogTitle className="text-2xl font-bold text-gray-900 dark:text-gray-100">
@@ -253,7 +262,8 @@ export default function ApplicantReviewModal({
             </DialogTitle>
             <DialogDescription className="pt-4 text-gray-700 dark:text-gray-300 text-justify">
               আপনার পর্যালোচনা আমাদের অন্য ব্যবহারকারীদের সহায়তা করতে এবং তাদের
-              অভিজ্ঞতা উন্নত করতে সাহায্য করবে। দয়া করে আপনার মতামত শেয়ার করুন!
+              অভিজ্ঞতা উন্নত করতে সাহায্য করবে। দয়া করে আপনার মতামত শেয়ার
+              করুন!
             </DialogDescription>
           </DialogHeader>
         )}
@@ -293,9 +303,9 @@ export default function ApplicantReviewModal({
                           whileTap={{ scale: 0.98 }}
                           className="focus:outline-none"
                         >
-                          <div className="bg-white dark:bg-slate-700 rounded-lg p-4 shadow-sm border border-emerald-100 dark:border-emerald-700">
+                          <div className="bg-white dark:bg-slate-700 rounded-lg p-4 shadow-sm border">
                             <div className="flex items-start justify-start gap-4">
-                              <Avatar className="w-24 h-24 border-2 border-emerald-500">
+                              <Avatar className="w-24 h-24">
                                 <AvatarImage
                                   src={applicant.profilePhoto}
                                   alt={applicant.name}
@@ -311,7 +321,7 @@ export default function ApplicantReviewModal({
                               <div className="flex items-start justify-between w-full">
                                 <div className="space-y-3">
                                   <div className="flex items-center gap-2">
-                                    <User className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                                    <User className="w-4 h-4" />
                                     <h3 className="font-semibold text-gray-900 dark:text-gray-100">
                                       {applicant.name}
                                     </h3>
@@ -319,21 +329,19 @@ export default function ApplicantReviewModal({
                                       variant="secondary"
                                       className="ml-2 bg-orange-100 dark:bg-orange-900 text-orange-600 dark:text-orange-300"
                                     >
-                                      {
-                                        JOB_ROLES[Number(applicant.role)]?.label
-                                      }
+                                      {JOB_ROLES[Number(applicant.role)]?.label}
                                     </Badge>
                                   </div>
                                   <div className="space-y-1 text-sm text-gray-600 dark:text-gray-400">
                                     {applicant?.email && (
                                       <div className="flex items-center gap-2">
-                                        <Mail className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                                        <Mail className="w-4 h-4" />
                                         <span>{applicant.email}</span>
                                       </div>
                                     )}
                                     {applicant?.phone && (
                                       <div className="flex items-center gap-2">
-                                        <Phone className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                                        <Phone className="w-4 h-4" />
                                         <span>
                                           {formatEnglishToBangalNum(
                                             applicant.phone
@@ -343,21 +351,18 @@ export default function ApplicantReviewModal({
                                     )}
                                     {applicant?.address && (
                                       <div className="flex items-center gap-2">
-                                        <MapPin className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                                        <MapPin className="w-4 h-4" />
                                         <span>{applicant.address}</span>
                                       </div>
                                     )}
                                     {applicant?.jobId && (
                                       <div className="flex items-center gap-2">
-                                        <Briefcase className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                                        <Briefcase className="w-4 h-4" />
                                         <span>
                                           <a
                                             href="#"
                                             onClick={(e) =>
-                                              handleJobClick(
-                                                applicant.jobId,
-                                                e
-                                              )
+                                              handleJobClick(applicant.jobId, e)
                                             }
                                             className="text-emerald-600 dark:text-emerald-300 hover:underline"
                                           >
@@ -367,7 +372,7 @@ export default function ApplicantReviewModal({
                                       </div>
                                     )}
                                     <div className="flex items-center gap-2">
-                                      <Clock className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                                      <Clock className="w-4 h-4" />
                                       <span>
                                         আবেদনটি গ্রহণ করেছেন{" "}
                                         {formatEnglishToBangalNum(
@@ -393,7 +398,7 @@ export default function ApplicantReviewModal({
                             </div>
                           </div>
                           {index < pendingReviews.length - 1 && (
-                            <Separator className="my-4 bg-emerald-100 dark:bg-emerald-700" />
+                            <Separator className="my-4" />
                           )}
                         </motion.li>
                       ))}
