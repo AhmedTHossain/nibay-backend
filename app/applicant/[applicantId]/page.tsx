@@ -164,18 +164,6 @@ export default function ApplicantProfileRoute({
                             <div className="p-5">
                               <h5 className="flex items-center justify-between text-lg font-semibold">
                                 আবেদনকারীর তথ্য
-                                <div className="flex items-start justify-between">
-                                  {user && (
-                                    <span className="text-white text-sm bg-violet-800 px-4 py-2 rounded-3xl dark:bg-violet-700">
-                                      আবেদন{" "}
-                                      {
-                                        APPLICATION_STATUS[
-                                          user?.applicationStatus as keyof typeof APPLICATION_STATUS
-                                        ]?.label
-                                      }
-                                    </span>
-                                  )}
-                                </div>
                               </h5>
                             </div>
                             <div className="p-6 border-t border-slate-100 dark:border-t-gray-700">
@@ -300,6 +288,18 @@ export default function ApplicantProfileRoute({
                         <div className="lg:col-span-8 md:col-span-6">
                           {user && (
                             <>
+                              <div className="flex items-start justify-end">
+                                {user && (
+                                  <span className="text-white text-sm bg-violet-800 px-4 py-2 rounded-3xl dark:bg-violet-700">
+                                    আবেদন{" "}
+                                    {
+                                      APPLICATION_STATUS[
+                                        user?.applicationStatus as keyof typeof APPLICATION_STATUS
+                                      ]?.label
+                                    }
+                                  </span>
+                                )}
+                              </div>
                               <h5 className="mt-12 text-lg font-semibold text-slate-900 dark:text-slate-100">
                                 প্রয়োজনীয় নথিপত্র
                               </h5>
