@@ -10,6 +10,9 @@ const swaggerDefinition = {
   servers: [
     {
       url: "https://kormi-wine.vercel.app" // Update this to match your API base URL
+    },
+    {
+      url: "http://localhost:3000/api/v1" // Update this to match your API base URL
     }
   ]
 };

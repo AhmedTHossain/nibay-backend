@@ -173,7 +173,7 @@ import { verifyOTP } from "../verify-otp";
  * /auth/otp:
  *   post:
  *     summary: Request OTP for Login
- *     description: Sends an OTP to the user's phone number for authentication.
+ *     description: Sends an OTP to the user's email for authentication.
  *     tags:
  *       - Users
  *     requestBody:
@@ -183,9 +183,9 @@ import { verifyOTP } from "../verify-otp";
  *           schema:
  *             type: object
  *             properties:
- *               phone:
+ *               email:
  *                 type: string
- *                 description: The user's phone number.
+ *                 description: The user's email.
  *                 example: "42342342342"
  *               deviceID:
  *                 type: string
@@ -309,4 +309,3 @@ export async function POST(
   if (action === "otp") return getOTP(request);
   if (action === "verify-otp") return verifyOTP(request);
 }
-
