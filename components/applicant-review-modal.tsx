@@ -197,7 +197,7 @@ function ApplicantReview({
           <Button
             variant="default"
             onClick={handleSubmit}
-            className="w-[90%] h-16 text-md font-semibold bg-emerald-600 dark:bg-emerald-500 dark:hover:bg-emerald-600 hover:bg-emerald-700 text-white hover:text-white rounded-full absolute -bottom-4 left-1/2 transform -translate-x-1/2"
+            className="w-[90%] h-16 text-md font-semibold bg-emerald-500 dark:bg-emerald-600 dark:hover:bg-emerald-700 hover:bg-emerald-600 text-white hover:text-white rounded-full absolute -bottom-4 left-1/2 transform -translate-x-1/2"
           >
             রিভিউ সাবমিট করুন
           </Button>
