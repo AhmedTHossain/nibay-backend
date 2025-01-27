@@ -43,6 +43,8 @@ export interface TUser {
   isAdmin: boolean;
   profession: string;
   nidPhoto: "";
-  drivingLicensePhoto: "";
-  isMobileUser: boolean;
+  drivingLicensePhoto: "",
+  isMobileUser: boolean,
+  isDeleted: boolean,
+  deletedAt: Date
 }

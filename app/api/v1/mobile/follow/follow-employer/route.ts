@@ -64,10 +64,10 @@ import { authMiddleware } from "@/app/api/middleware/auth";
 export async function POST(request: NextRequest) {
   try {
 
-    const authUser = await authMiddleware(request);
-    if (authUser instanceof NextResponse) {
-      return authUser;
-    }
+    // const authUser = await authMiddleware(request);
+    // if (authUser instanceof NextResponse) {
+    //   return authUser;
+    // }
     const body = await request.json();
 
     let { userId, employerId } = body;

@@ -17,6 +17,14 @@ const userSchema = new mongoose.Schema<TUser, object, IUserMethods>(
       type: String,
       required: true
     },
+    deletedAt: {
+      type: Date,
+      required: false
+    },
+    isDeleted: {
+      type: Boolean,
+      required: false
+    },
     email: {
       type: String,
       required: false,
