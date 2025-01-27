@@ -10,11 +10,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import storage from "@/lib/storage";
 
-interface SetNewPasswordFormProps {
-  email: string;
-}
-
-export default function SetNewPasswordForm({ email }: SetNewPasswordFormProps) {
+export default function SetNewPasswordForm() {
   const router = useRouter();
 
   const [newPassword, setNewPassword] = useState("");
