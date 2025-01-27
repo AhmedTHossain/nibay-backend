@@ -58,7 +58,7 @@ export async function getOTP(request: Request) {
 
     return NextResponse.json({
       status: true,
-      message: "OTP sent successfully",
+      message: "ওটিপি সফলভাবে পাঠানো হয়েছে",
       data: {}
     });
   } catch (error) {
@@ -66,7 +66,7 @@ export async function getOTP(request: Request) {
     return NextResponse.json(
       {
         status: false,
-        message: "OTP sending failed",
+        message: "ওটিপি পাঠানো ব্যর্থ হয়েছে",
         data: {}
       },
       { status: 500 }
