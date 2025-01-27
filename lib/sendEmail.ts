@@ -16,9 +16,9 @@ const transporter: Transporter = nodemailer.createTransport({
   },
   tls: {
     rejectUnauthorized: false // Allow self-signed certificates
-  },
-  logger: true,
-  debug: true
+  }
+  // logger: true,
+  // debug: true
 });
 
 export const sendPasswordResetEmail = async (

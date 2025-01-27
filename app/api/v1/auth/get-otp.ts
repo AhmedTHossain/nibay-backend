@@ -37,12 +37,18 @@ export async function getOTP(request: Request) {
     const otp = crypto.randomInt(100000, 999999).toString();
     const otpExpiry = new Date(Date.now() + 15 * 60 * 1000); // 15 minutes expiration
 
+    console.log("Generated OTP Expiry:", otpExpiry);
+
     // Update user with OTP and expiry
-    await User.findByIdAndUpdate(user._id, {
-      deviceID,
-      otpCode: otp,
-      otpExpiry
-    });
+    await User.findByIdAndUpdate(
+      user._id,
+      {
+        deviceID,
+        otpCode: otp,
+        otpExpiry: otpExpiry
+      },
+      { new: true }
+    );
 
     // Send email with OTP
     await sendPasswordResetEmail({
