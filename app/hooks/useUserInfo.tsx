@@ -15,7 +15,7 @@ export const useUserInfo = () => {
     if (!token) {
       router.push("/auth/login");
     }
-  }, [router]);
+  }, [router, isLoading]);
 
   const fetchCurrentUser = () => {
     api_client("auth/me")

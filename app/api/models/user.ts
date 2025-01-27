@@ -112,6 +112,11 @@ const userSchema = new mongoose.Schema<TUser, object, IUserMethods>(
       required: false,
       default: null
     },
+    otpExpiry: {
+      type: Date,
+      required: false,
+      default: null
+    },
     following: {
       type: [],
       required: false

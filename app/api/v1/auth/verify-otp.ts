@@ -8,49 +8,48 @@ const JWT_SECRET_EXPIRES_IN = process.env.JWT_SECRET_EXPIRES_IN as string;
 
 export async function verifyOTP(request: Request) {
   try {
-    const { phone, otpCode, deviceID } = await request.json();
-
+    const { email, otpCode, deviceID } = await request.json();
 
     await connectToMongoDB();
 
-    const user = await User.findOne({ phone });
+    const user = await User.findOne({ email: email });
     if (!user) {
       return NextResponse.json({
         status: false,
-        message: "Invalid credentials!",
-        data: {
-        },
+        message: "ভুল ইমেইল!",
+        data: {}
       });
     }
-    const userOtp = String(user.otpCode)
-
-    if (user.otpCode != userOtp) {
+    if (user.otpCode != otpCode) {
       return NextResponse.json({
         status: false,
-        message: "Invalid otp!",
-        data: {
-        },
+        message: "ওটিপি ভুল হয়েছে!",
+        data: {}
       });
     }
-
 
     if (user.deviceID !== deviceID) {
-        return NextResponse.json({
+      return NextResponse.json({
         status: false,
-        message: "Invalid device!",
-        data: {
-        },
+        message: "পাসওয়ার্ড রিসেট ব্যর্থ হয়েছে!",
+        data: {}
       });
     }
 
-    // TODO: verify otp
+    if (user.otpExpiry < new Date()) {
+      return NextResponse.json({
+        status: false,
+        message: "ওটিপি মেয়াদ উত্তীর্ণ!",
+        data: {}
+      });
+    }
 
     const token = JWT.sign(
       {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
+        id: "reset-password" + user.email,
+        name: "temp",
+        email: "temp",
+        role: "temp",
         deviceID: user.deviceID
       },
       JWT_SECRET,
@@ -61,17 +60,14 @@ export async function verifyOTP(request: Request) {
 
     return NextResponse.json({
       status: true,
-      message: "Phone number verified successfully",
-      data:{'token':token}
+      message: "ইমেইল সফলভাবে যাচাই করা হয়েছে",
+      data: { token: token }
     });
-
   } catch (error) {
     console.log(error);
-    return NextResponse.json(
-      {
-        status: false,
-        message: "Otp mismatch"
-      }
-    );
+    return NextResponse.json({
+      status: false,
+      message: "ওটিপি ভুল!"
+    });
   }
 }

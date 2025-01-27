@@ -30,7 +30,7 @@ api_client.interceptors.response.use(
     const status = error.response?.status;
 
     if (status === 401 || status === 404) {
-      // localStorage.clear();
+      localStorage.clear();
     } else if (status === 500) toast.error("দুঃখিত! কোনো একটা সমস্যা হয়েছে।");
     else toast.error(messageData);
 

@@ -11,9 +11,18 @@ export async function GET(request: NextRequest) {
       return authUser;
     }
 
+    if (authUser.userId.startsWith("reset-password")) {
+      return NextResponse.json(
+        { error: "ইউজার ভেরিফাই হয়নি। আবার চেষ্টা করুন।" },
+        { status: 404 }
+      );
+    }
+
     await connectToMongoDB();
 
     const user = await User.findById(authUser.userId);
+
+    console.log("User:", user);
     if (!user) {
       return NextResponse.json(
         { error: "ইমেইলটি রেজিস্টার্ড নয়!" },

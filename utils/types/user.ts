@@ -27,6 +27,7 @@ export interface TUser {
   organizationContactPerson: string;
   otpCode: string;
   deviceID: string;
+  otpExpiry: Date;
   createdAt: Date;
   birthCertificate: string;
   portEntryPermit: string;
