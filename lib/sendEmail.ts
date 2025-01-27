@@ -114,13 +114,6 @@ export const sendPasswordResetEmail = async (
           <p>Dear User,</p>
           <p>We received a request to reset your password. Please use the OTP below to proceed. This OTP is valid for the next 15 minutes:</p>
           <div class="otp">${otp}</div>
-          <div class="button-container">
-            <button 
-              class="copy-button" 
-              onclick="navigator.clipboard.writeText('${otp}')">
-              Copy OTP
-            </button>
-          </div>
           <p>If you did not request this password reset, please disregard this email or contact our support team if you have concerns.</p>
         </div>
         <div class="footer">
