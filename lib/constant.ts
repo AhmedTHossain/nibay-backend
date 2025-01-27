@@ -14,7 +14,8 @@ export const USER_ROLE = {
     value: "SUPERVISOR_PASSENGER_GUIDE"
   },
   9: { label: "ট্রাক ড্রাইভার", value: "TRUCK_DRIVER" },
-  10: { label: "প্রতিষ্ঠানিক", value: "INSTITUTION" }
+  10: { label: "প্রতিষ্ঠানিক", value: "INSTITUTION" },
+  11: { label: "ব্যক্তিগত", value: "INDIVIDUAL" }
 };
 
 export const APPLICATION_STATUS = {
