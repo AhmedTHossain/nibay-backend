@@ -1,6 +1,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import AdminLayout from "./layout";
 import { Briefcase, Users } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function DashboardPage() {
   return (
@@ -25,6 +27,30 @@ export default function DashboardPage() {
             <div className="text-2xl font-bold">১৫০</div>
           </CardContent>
         </Card>
+        <Link
+          href={`/admin/users/?type=institution`}
+          className="no-underline"
+        >
+          <Card className="hover:shadow-lg transition-shadow duration-200 border-green-100 h-full flex flex-col">
+            <CardHeader className="bg-green-50 border-b border-green-100 flex flex-row items-center gap-3 space-y-0 p-3">
+              <CardTitle className="text-green-800 flex items-center justify-center text-md h-[100px] w-full text-center">
+                প্রাতিষ্ঠানিক ইউজার
+              </CardTitle>
+            </CardHeader>
+          </Card>
+        </Link>
+        <Link
+          href={`/admin/users/?type=individual`}
+          className="no-underline"
+        >
+          <Card className="hover:shadow-lg transition-shadow duration-200 border-green-100 h-full flex flex-col">
+            <CardHeader className="bg-green-50 border-b border-green-100 flex flex-row items-center gap-3 space-y-0 p-3">
+              <CardTitle className="text-green-800 flex items-center justify-center text-md h-[100px] w-full text-center">
+                ব্যক্তিগত ইউজার
+              </CardTitle>
+            </CardHeader>
+          </Card>
+        </Link>
       </div>
     </div>
   );
