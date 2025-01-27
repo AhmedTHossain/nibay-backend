@@ -107,8 +107,8 @@ function ApplicantReview({
             {[1, 2, 3, 4, 5].map((star) => (
               <Star
                 key={star}
-                className={`w-8 h-8 cursor-pointer transition-all duration-150 
-                      ${star <= rating ? "text-[#c5a502] fill-[#c5a502] scale-110" : "text-gray-400 dark:text-gray-400"}
+                className={`w-8 h-8 cursor-pointer transition-all duration-150 text-gray-400 dark:text-gray-400
+                      ${star <= rating ? "text-[#c5a502] fill-[#c5a502] scale-110 !text-[#c5a502]" : ""}
                       hover:text-[#c5a502] hover:fill-[#c5a502] hover:scale-110`}
                 onMouseEnter={() => {
                   const stars = document.querySelectorAll(
@@ -117,14 +117,14 @@ function ApplicantReview({
                   stars.forEach((s, index) => {
                     if (index < star) {
                       s.classList.add(
-                        "text-[#c5a502]",
+                        "!text-[#c5a502]",
                         "dark:text-[#c5a502]",
                         "fill-[#c5a502]",
                         "scale-110"
                       );
                     } else {
                       s.classList.remove(
-                        "text-[#c5a502]",
+                        "!text-[#c5a502]",
                         "dark:text-[#c5a502]",
                         "fill-[#c5a502]",
                         "scale-110"
@@ -139,14 +139,14 @@ function ApplicantReview({
                   stars.forEach((s, index) => {
                     if (index < rating) {
                       s.classList.add(
-                        "text-[#c5a502]",
+                        "!text-[#c5a502]",
                         "dark:text-[#c5a502]",
                         "fill-[#c5a502]",
                         "scale-110"
                       );
                     } else {
                       s.classList.remove(
-                        "text-[#c5a502]",
+                        "!text-[#c5a502]",
                         "dark:text-[#c5a502]",
                         "fill-[#c5a502]",
                         "scale-110"
@@ -195,9 +195,9 @@ function ApplicantReview({
             পিছনে যান
           </Button>
           <Button
-            variant="outline"
+            variant="default"
             onClick={handleSubmit}
-            className="w-[90%] h-16 text-md font-semibold bg-origin-border bg-[#78ac6e] dark:bg-[#285c1e] dark:hover:bg-[#588c4e] hover:bg-[#88bc7e] text-white hover:text-white rounded-full absolute -bottom-4 left-1/2 transform -translate-x-1/2"
+            className="w-[90%] h-16 text-md font-semibold bg-emerald-600 dark:bg-emerald-500 dark:hover:bg-emerald-600 hover:bg-emerald-700 text-white hover:text-white rounded-full absolute -bottom-4 left-1/2 transform -translate-x-1/2"
           >
             রিভিউ সাবমিট করুন
           </Button>
@@ -253,7 +253,7 @@ export default function ApplicantReviewModal({
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogContent
-        className={`bg-white dark:bg-slate-800 ${selectedApplicant ? "max-w-md px-10 !rounded-[50px]" : "max-w-xl"}`}
+        className={`bg-white dark:bg-slate-800 ${selectedApplicant ? "max-w-md px-10" : "max-w-xl"}`}
       >
         {!selectedApplicant && (
           <DialogHeader>
