@@ -44,4 +44,6 @@ export interface TUser {
   nidPhoto: "";
   drivingLicensePhoto: "",
   isMobileUser: boolean,
+  isDeleted: boolean,
+  deletedAt: Date
 }

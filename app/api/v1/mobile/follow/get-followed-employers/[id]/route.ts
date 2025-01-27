@@ -55,10 +55,10 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   try {
-    const authUser = await authMiddleware(request);
-    if (authUser instanceof NextResponse) {
-      return authUser;
-    }
+    // const authUser = await authMiddleware(request);
+    // if (authUser instanceof NextResponse) {
+    //   return authUser;
+    // }
     const { id } = params;
     if (!id) {
       return NextResponse.json({ error: "Invalid input!" }, { status: 400 });
