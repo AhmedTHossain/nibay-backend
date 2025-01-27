@@ -22,7 +22,6 @@ export async function GET(request: NextRequest) {
 
     const user = await User.findById(authUser.userId);
 
-    console.log("User:", user);
     if (!user) {
       return NextResponse.json(
         { error: "ইমেইলটি রেজিস্টার্ড নয়!" },
