@@ -21,28 +21,28 @@ export async function getOTP(request: Request) {
 
     await connectToMongoDB();
 
-    // const user = await User.findOne({ email });
-    // if (!user) {
-    //   return NextResponse.json(
-    //     {
-    //       status: false,
-    //       message: "User not found",
-    //       data: {}
-    //     },
-    //     { status: 404 }
-    //   );
-    // }
+    const user = await User.findOne({ email });
+    if (!user) {
+      return NextResponse.json(
+        {
+          status: false,
+          message: "User not found",
+          data: {}
+        },
+        { status: 404 }
+      );
+    }
 
     // Generate secure 6-digit OTP
     const otp = crypto.randomInt(100000, 999999).toString();
     const otpExpiry = new Date(Date.now() + 15 * 60 * 1000); // 15 minutes expiration
 
     // Update user with OTP and expiry
-    // await User.findByIdAndUpdate(user._id, {
-    //   deviceID,
-    //   otpCode: otp,
-    //   otpExpiry
-    // });
+    await User.findByIdAndUpdate(user._id, {
+      deviceID,
+      otpCode: otp,
+      otpExpiry
+    });
 
     // Send email with OTP
     await sendPasswordResetEmail({
