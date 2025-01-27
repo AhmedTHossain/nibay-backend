@@ -367,17 +367,6 @@ export default function ApplicantProfileRoute({
                           )}
 
                           {user && <ApplicantReviews applicantId={user._id} />}
-
-                          {user?.shortDescription && (
-                            <div className="mt-4">
-                              <h5 className="text-lg font-semibold text-slate-900 dark:text-slate-100">
-                                সারসংক্ষেপ
-                              </h5>
-                              <pre className="text-slate-800 dark:text-slate-300">
-                                {user?.shortDescription}
-                              </pre>
-                            </div>
-                          )}
                         </div>
                       </div>
                     </motion.div>
