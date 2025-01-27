@@ -46,10 +46,10 @@ export async function verifyOTP(request: Request) {
 
     const token = JWT.sign(
       {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
+        id: "reset-password" + user.email,
+        name: "temp",
+        email: "temp",
+        role: "temp",
         deviceID: user.deviceID
       },
       JWT_SECRET,

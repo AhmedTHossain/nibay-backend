@@ -12,7 +12,7 @@ export async function getOTP(request: Request) {
       return NextResponse.json(
         {
           status: false,
-          message: "Email is required",
+          message: "ইমেইল প্রয়োজন",
           data: {}
         },
         { status: 400 }
@@ -26,7 +26,7 @@ export async function getOTP(request: Request) {
       return NextResponse.json(
         {
           status: false,
-          message: "User not found",
+          message: "ইমেইল পাওয়া যায়নি",
           data: {}
         },
         { status: 404 }

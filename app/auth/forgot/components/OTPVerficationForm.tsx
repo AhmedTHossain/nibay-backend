@@ -6,7 +6,9 @@ import { Input } from "@/components/ui/input";
 import { api_client } from "@/lib/axios";
 import { formatEnglishToBangalNum } from "@/utils/formatEtoBLang";
 import { toast } from "sonner";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
+import storage from "@/lib/storage";
+import { useRouter } from "next/navigation";
 
 interface OTPVerificationFormProps {
   email: string;
@@ -17,6 +19,8 @@ export default function OTPVerificationForm({
   email,
   deviceId
 }: OTPVerificationFormProps) {
+  const router = useRouter();
+
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const [timer, setTimer] = useState(30);
   const [isResendDisabled, setIsResendDisabled] = useState(true);
@@ -109,9 +113,12 @@ export default function OTPVerificationForm({
         deviceID: deviceId,
         otpCode: otpValue
       };
-      const result = await api_client.post("auth/verify-otp", requestBody);
-      console.log(result);
-      toast.success(result.data.message);
+      api_client.post("auth/verify-otp", requestBody).then((res) => {
+        console.log("OTP Verification Response:", res.data);
+        storage.setToken({ token: res.data.data.token });
+        toast.success(res.data.message);
+        router.push("/auth/reset-password");
+      });
     } catch (error) {
       setSubmitMessage({
         type: "error",

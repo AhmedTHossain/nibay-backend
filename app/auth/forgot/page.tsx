@@ -45,8 +45,7 @@ export default function ForgotPasswordRoute() {
         setIsOTPSent(true); // Show the OTP verification form
       })
       .catch((error) => {
-        console.error("ওটিপি পাঠানো সফল হয়নি:", error);
-        toast.error("ওটিপি পাঠানো সফল হয়নি। দয়া করে আবার চেষ্টা করুন।");
+        toast.error(error.response.data.message);
       })
       .finally(() => {
         setIsLoading(false);
