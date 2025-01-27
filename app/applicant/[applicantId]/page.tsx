@@ -363,10 +363,9 @@ export default function ApplicantProfileRoute({
                                   }}
                                 />
                               </div>
+                              <ApplicantReviews applicantId={user._id} />
                             </>
                           )}
-
-                          {user && <ApplicantReviews applicantId={user._id} />}
                         </div>
                       </div>
                     </motion.div>
