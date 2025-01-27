@@ -13,27 +13,46 @@ import { USER_ROLE } from "@/lib/constant";
 import { formatEnglishToBangalNum } from "@/utils/formatEtoBLang";
 import { set } from "mongoose";
 import { AnimatePresence, motion } from "framer-motion";
+import { useSearchParams } from "next/navigation";
 
 export default function UserList() {
   const [searchTerm, setSearchTerm] = useState("");
   const [users, setUsers] = useState<TUser[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [typeName, setTypeName] = useState<string>("সকল");
+
+  const params = useSearchParams();
+  const type = params.get("type");
+
+  useEffect(() => {
+    if (type == "individual") {
+      setTypeName("ব্যক্তি");
+    }
+    else if (type == "institution") {
+      setTypeName("প্রতিষ্ঠান");
+    }
+    else {
+      setTypeName("সকল");
+    }
+  }, [type]);
+
   useEffect(() => {
     const delayDebounceFn = setTimeout(async () => {
       setIsLoading(true);
       setUsers([]);
-      const res = await api_client.get(`user?searchByPhone=${searchTerm}`);
-      setUsers(res.data.data.users);
+      const query = type ? `user?searchByPhone=${searchTerm}&type=${type}` : `user?searchByPhone=${searchTerm}`;
+      const resp = await api_client.get(query);
+      setUsers(resp.data.data.users);
       setIsLoading(false);
     }, 500);
     return () => clearTimeout(delayDebounceFn);
-  }, [searchTerm]);
+  }, [searchTerm, type]);
 
   return (
     <div className="container mx-auto p-8">
       <h1 className="text-3xl font-bold mb-8 text-green-800 flex items-center">
         <User className="mr-2" size={32} />
-        ইউজার লিস্ট
+        ইউজার লিস্ট ({typeName})
       </h1>
       <div className="mb-8 relative">
         <Input
