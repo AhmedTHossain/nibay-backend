@@ -36,10 +36,12 @@ export function UserDeleteModal(props: JobDeleteModalProps) {
       if (res.data.status === "success") {
         // setJobs((prevJobs) => prevJobs.filter((item) => item._id !== jobId));
         toast.success(res.data.message);
-        if (pathname.includes("jobs")) {
-          router.push("/jobs");
-        }
         setIsOpen(false);
+        // reload page
+        router.refresh();
+      } else {
+        console.error("Failed to delete the job:", res.data.error);
+        toast.error(res.data.error);
       }
     } catch (err) {
       console.error("Failed to delete the job:", err);

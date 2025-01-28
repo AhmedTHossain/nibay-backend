@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { formatEnglishToBangalNum } from "@/utils/formatEtoBLang";
 import { TUser } from "@/utils/types/user";
-import { Phone, Mail, Briefcase, Edit, Trash } from "lucide-react";
+import { Phone, Mail, Briefcase, Edit, Trash, BanIcon } from "lucide-react";
 import router from "next/router";
 import { useState } from "react";
 import { boolean } from "zod";
@@ -70,7 +70,7 @@ export default function UserCard({ user }: { user: TUser }) {
               }}
             >
               <Button
-                className="rounded-md bg-emerald-600/5 hover:bg-emerald-500 border-emerald-600/10 hover:border-emerald-600 text-emerald-600 duration-200 transition-all hover:text-white md:relative flex items-center justify-center px-4 py-2 space-x-1 cursor-pointer text-sm font-medium"
+                className="rounded-md bg-emerald-600/5 hover:bg-emerald-500 border-emerald-600/10 hover:border-emerald-600 text-emerald-600 duration-200 transition-all hover:text-white md:relative flex items-center justify-center px-2 py-2 space-x-1 cursor-pointer text-sm font-medium"
                 onClick={(event) => {
                   // event.stopPropagation();
                   router.push(`/admin/users/${user._id}/settings`);
@@ -80,7 +80,17 @@ export default function UserCard({ user }: { user: TUser }) {
                 এডিট
               </Button>
               <Button
-                className="rounded-md bg-red-600/5 hover:bg-red-500 border-red-600/10 hover:border-red-600 text-red-600 duration-200 transition-all hover:text-white md:relative flex items-center justify-center px-4 py-2 space-x-1 cursor-pointer text-sm font-medium"
+                className="rounded-md bg-yellow-600/5 hover:bg-yellow-500 border-yellow-600/10 hover:border-yellow-600 text-yellow-600 duration-200 transition-all hover:text-white md:relative flex items-center justify-center px-2 py-2 space-x-1 cursor-pointer text-sm font-medium"
+                onClick={(event) => {
+                  // event.stopPropagation();
+                  setIsDeleteOpen(true);
+                }}
+              >
+                <BanIcon strokeWidth={1.7} size={16} />
+                ব্যান
+              </Button>
+              <Button
+                className="rounded-md bg-red-600/5 hover:bg-red-500 border-red-600/10 hover:border-red-600 text-red-600 duration-200 transition-all hover:text-white md:relative flex items-center justify-center px-2 py-2 space-x-1 cursor-pointer text-sm font-medium"
                 onClick={(event) => {
                   // event.stopPropagation();
                   setIsDeleteOpen(true);

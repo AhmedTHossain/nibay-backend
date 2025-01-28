@@ -42,7 +42,8 @@ export async function GET(request: NextRequest) {
 
     const query: any = {
       phone: { $regex: `^${searchByPhone}` },
-      isMobileUser: { $ne: true }
+      isMobileUser: { $ne: true },
+      isDeleted: { $ne: true }
     };
 
     if (role) {
