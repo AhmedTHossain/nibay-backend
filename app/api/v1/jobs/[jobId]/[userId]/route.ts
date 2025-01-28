@@ -98,10 +98,13 @@ export async function PATCH(request: NextRequest, { params }: TREQPARAMS) {
     const { status } = await request.json();
 
     job.applicants = job.applicants.map((item) => {
-      return {
-        ...item,
-        applicationStatus: status
-      };
+      if (item.applicant.id === applicantId) {
+        return {
+          ...item,
+          applicationStatus: status
+        };
+      }
+      return item;
     });
     await job.save();
 
