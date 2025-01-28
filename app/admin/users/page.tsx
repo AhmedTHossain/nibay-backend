@@ -1,6 +1,6 @@
 "use client";
 
-import { use, useEffect, useState } from "react";
+import { Suspense, use, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -17,16 +17,16 @@ import { useSearchParams } from "next/navigation";
 import { SidebarNav } from "../components/sidebar-nav";
 import Header from "@/app/components/header";
 
-export default function UserList() {
+function UserList() {
   const [searchTerm, setSearchTerm] = useState("");
   const [users, setUsers] = useState<TUser[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [typeName, setTypeName] = useState<string>("সকল");
 
   const params = useSearchParams();
-  const type = params.get("type");
 
   useEffect(() => {
+    const type = params.get("type");
     if (type == "individual") {
       setTypeName("ব্যক্তি");
     } else if (type == "institution") {
@@ -34,21 +34,21 @@ export default function UserList() {
     } else {
       setTypeName("সকল");
     }
-  }, [type]);
+  }, [params]);
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(async () => {
       setIsLoading(true);
       setUsers([]);
-      const query = type
-        ? `user?searchByPhone=${searchTerm}&type=${type}`
+      const query = params.get("type")
+        ? `user?searchByPhone=${searchTerm}&type=${params.get("type")}`
         : `user?searchByPhone=${searchTerm}`;
       const resp = await api_client.get(query);
       setUsers(resp.data.data.users);
       setIsLoading(false);
     }, 500);
     return () => clearTimeout(delayDebounceFn);
-  }, [searchTerm, type]);
+  }, [searchTerm, params]);
 
   return (
     <>
@@ -155,5 +155,13 @@ export default function UserList() {
         </main>
       </div>
     </>
+  );
+}
+
+export default function Users() {
+  return (
+    <Suspense>
+      <UserList />
+    </Suspense>
   );
 }

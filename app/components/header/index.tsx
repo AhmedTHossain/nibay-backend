@@ -82,7 +82,9 @@ interface ProfileMenuProps {
 
 const ProfileMenu = ({ userId }: ProfileMenuProps) => {
   const router = useRouter();
-  const { user } = userId ? useUserById({ userId }) : useUserInfo();
+  const userById = useUserById({ userId: userId ?? "" });
+  const userInfo = useUserInfo();
+  const user = userId ? userById.user : userInfo.user;
 
   return (
     <Menubar className="border-0 bg-transparent dark:bg-transparent dark:border-0">
