@@ -11,6 +11,7 @@ import { USER_ROLE } from "@/lib/constant";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { UserBanModal } from "@/app/admin/components/UserBanModal";
+import { useRouter } from "next/navigation";
 
 export default function UserCard({
   user,
@@ -19,6 +20,7 @@ export default function UserCard({
   user: TUser;
   setUsers: Dispatch<SetStateAction<TUser[]>>;
 }) {
+  const router = useRouter();
   const [isDeleteOpen, setIsDeleteOpen] = useState<boolean>(false);
   const [shouldRemove, setShouldRemove] = useState<boolean>(false);
   const [isBanOpen, setIsBanOpen] = useState<boolean>(false);
