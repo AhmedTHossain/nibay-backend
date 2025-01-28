@@ -5,7 +5,17 @@ import Link from "next/link";
 import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Search, Phone, Mail, Briefcase, User, Loader } from "lucide-react";
+import {
+  Search,
+  Phone,
+  Mail,
+  Briefcase,
+  User,
+  Loader,
+  PenIcon,
+  Edit,
+  Trash
+} from "lucide-react";
 import { api_client } from "@/lib/axios";
 import { TUser } from "@/utils/types/user";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -16,12 +26,18 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useSearchParams } from "next/navigation";
 import { SidebarNav } from "../components/sidebar-nav";
 import Header from "@/app/components/header";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
+import { UserDeleteModal } from "@/app/jobs/components/UserDeleteModal";
+import UserCard from "./UserCard";
 
 function UserList() {
+  const router = useRouter();
   const [searchTerm, setSearchTerm] = useState("");
   const [users, setUsers] = useState<TUser[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [typeName, setTypeName] = useState<string>("সকল");
+  const [isDeleteOpen, setIsDeleteOpen] = useState<boolean>(false);
 
   const params = useSearchParams();
 
@@ -78,56 +94,7 @@ function UserList() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {users.map((user) => (
-                <Link
-                  href={`/admin/users/${user._id}/jobs`}
-                  key={user._id}
-                  className="no-underline"
-                >
-                  <Card className="hover:shadow-lg transition-shadow duration-200 border-green-100 h-full flex flex-col">
-                    <CardHeader className="bg-green-50 border-b border-green-100 flex flex-row items-center gap-3 space-y-0 p-3">
-                      <Avatar>
-                        <AvatarImage
-                          src={user.profilePhoto}
-                          alt="Applicant"
-                          className="object-cover"
-                        />
-                        <AvatarFallback className="text-3xl object-cover">
-                          {user.name[0]}
-                        </AvatarFallback>
-                      </Avatar>
-                      <CardTitle className="text-green-800 flex items-center text-md">
-                        {user.name}
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent className="pt-4 flex-grow">
-                      <p className="text-sm text-gray-600 flex items-center mb-1">
-                        <Phone className="mr-2 text-green-600" size={12} />
-                        {formatEnglishToBangalNum(user.phone)}
-                      </p>
-                      {user.email && (
-                        <p className="text-sm text-gray-600 flex items-center mb-1">
-                          <Mail
-                            className="mr-2 text-green-600 flex-shrink-0"
-                            size={12}
-                          />
-                          <span className="truncate">{user.email}</span>
-                        </p>
-                      )}
-                      {user.role && (
-                        <p className="text-sm text-gray-600 flex items-center">
-                          <Briefcase
-                            className="mr-2 text-green-600"
-                            size={12}
-                          />
-                          {
-                            // @ts-expect-error: enum type issue
-                            USER_ROLE[Number(user.role)]?.label
-                          }
-                        </p>
-                      )}
-                    </CardContent>
-                  </Card>
-                </Link>
+                <UserCard user={user} />
               ))}
             </div>
             {users.length === 0 && isLoading == false && (
