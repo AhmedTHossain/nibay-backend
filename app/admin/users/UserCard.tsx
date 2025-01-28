@@ -5,14 +5,29 @@ import { formatEnglishToBangalNum } from "@/utils/formatEtoBLang";
 import { TUser } from "@/utils/types/user";
 import { Phone, Mail, Briefcase, Edit, Trash, BanIcon } from "lucide-react";
 import router from "next/router";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { boolean } from "zod";
 import { USER_ROLE } from "@/lib/constant";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-export default function UserCard({ user }: { user: TUser }) {
+export default function UserCard({
+  user,
+  setUsers
+}: {
+  user: TUser;
+  setUsers: Dispatch<SetStateAction<TUser[]>>;
+}) {
   const [isDeleteOpen, setIsDeleteOpen] = useState<boolean>(false);
+  const [shouldRemove, setShouldRemove] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (shouldRemove) {
+      setUsers((prevUsers) =>
+        prevUsers.filter((item) => item._id !== user._id)
+      );
+    }
+  }, [shouldRemove]);
 
   return (
     <>
@@ -20,6 +35,7 @@ export default function UserCard({ user }: { user: TUser }) {
         open={isDeleteOpen}
         setIsOpen={setIsDeleteOpen}
         userId={user._id}
+        setShouldRemove={setShouldRemove}
       />
       <Link
         href={`/admin/users/${user._id}/jobs`}
@@ -83,6 +99,7 @@ export default function UserCard({ user }: { user: TUser }) {
                 className="rounded-md bg-yellow-600/5 hover:bg-yellow-500 border-yellow-600/10 hover:border-yellow-600 text-yellow-600 duration-200 transition-all hover:text-white md:relative flex items-center justify-center px-2 py-2 space-x-1 cursor-pointer text-sm font-medium"
                 onClick={(event) => {
                   // event.stopPropagation();
+                  setShouldRemove(false);
                   setIsDeleteOpen(true);
                 }}
               >

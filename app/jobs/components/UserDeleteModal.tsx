@@ -12,6 +12,7 @@ import {
   DialogTitle
 } from "@/components/ui/dialog";
 import { api_client } from "@/lib/axios";
+import { TUser } from "@/utils/types/user";
 import { Loader } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { Dispatch, SetStateAction, useState } from "react";
@@ -21,10 +22,11 @@ interface JobDeleteModalProps {
   open: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
   userId: string | undefined;
+  setShouldRemove: Dispatch<SetStateAction<boolean>>;
 }
 
 export function UserDeleteModal(props: JobDeleteModalProps) {
-  const { open, setIsOpen, userId } = props;
+  const { open, setIsOpen, userId, setShouldRemove } = props;
   const [isLoading, setIsLoading] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
@@ -38,7 +40,7 @@ export function UserDeleteModal(props: JobDeleteModalProps) {
         toast.success(res.data.message);
         setIsOpen(false);
         // reload page
-        router.refresh();
+        setShouldRemove(true);
       } else {
         console.error("Failed to delete the job:", res.data.error);
         toast.error(res.data.error);
