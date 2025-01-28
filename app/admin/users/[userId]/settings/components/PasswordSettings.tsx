@@ -15,7 +15,7 @@ import {
   passwordSettingsFormValues
 } from "./form";
 
-export function PasswordSettings() {
+export function PasswordSettings({ userId }: { userId: string }) {
   const [isLoading, setIsLoading] = useState(false);
   const { user: currentUser, isLoading: userLoading } = useUserInfo();
 
@@ -43,7 +43,7 @@ export function PasswordSettings() {
     });
 
     api_client
-      .patch(`/user/${currentUser?._id}`, formData, {
+      .patch(`/user/${userId}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data"
         }
