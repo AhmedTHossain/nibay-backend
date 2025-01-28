@@ -10,6 +10,7 @@ import { boolean } from "zod";
 import { USER_ROLE } from "@/lib/constant";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { UserBanModal } from "@/app/admin/components/UserBanModal";
 
 export default function UserCard({
   user,
@@ -20,6 +21,7 @@ export default function UserCard({
 }) {
   const [isDeleteOpen, setIsDeleteOpen] = useState<boolean>(false);
   const [shouldRemove, setShouldRemove] = useState<boolean>(false);
+  const [isBanOpen, setIsBanOpen] = useState<boolean>(false);
 
   useEffect(() => {
     if (shouldRemove) {
@@ -36,6 +38,11 @@ export default function UserCard({
         setIsOpen={setIsDeleteOpen}
         userId={user._id}
         setShouldRemove={setShouldRemove}
+      />
+      <UserBanModal
+        open={isBanOpen}
+        setIsOpen={setIsBanOpen}
+        userId={user._id}
       />
       <Link
         href={`/admin/users/${user._id}/jobs`}
@@ -100,7 +107,7 @@ export default function UserCard({
                 onClick={(event) => {
                   // event.stopPropagation();
                   setShouldRemove(false);
-                  setIsDeleteOpen(true);
+                  setIsBanOpen(true);
                 }}
               >
                 <BanIcon strokeWidth={1.7} size={16} />

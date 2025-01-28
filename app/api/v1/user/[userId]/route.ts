@@ -189,7 +189,6 @@ export async function DELETE(request: NextRequest, { params }: TUserParams) {
 
     await connectToMongoDB();
 
-    console.log("here2", auth);
     const authUser = await User.findById(auth.userId);
 
     if (!authUser) {
@@ -212,7 +211,6 @@ export async function DELETE(request: NextRequest, { params }: TUserParams) {
 
     user.isDeleted = true;
     user.deletedAt = new Date();
-    user.markModified;
     await user.save();
 
     return NextResponse.json({
