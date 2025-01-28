@@ -1,6 +1,7 @@
 import { APPLICATION_STATUS } from "@/lib/constant";
 import { TJob } from "./job";
 import { Review } from "./reviews";
+import { BlockList } from "net";
 
 export interface TUser {
   _id: string;
@@ -43,8 +44,9 @@ export interface TUser {
   isAdmin: boolean;
   profession: string;
   nidPhoto: "";
-  drivingLicensePhoto: "",
-  isMobileUser: boolean,
-  isDeleted: boolean,
-  deletedAt: Date
+  drivingLicensePhoto: "";
+  isMobileUser: boolean;
+  isDeleted: boolean;
+  deletedAt: Date;
+  isBanned: boolean;
 }

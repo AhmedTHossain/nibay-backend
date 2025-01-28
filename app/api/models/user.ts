@@ -149,6 +149,10 @@ const userSchema = new mongoose.Schema<TUser, object, IUserMethods>(
       type: Boolean,
       default: false
     },
+    isBanned: {
+      type: Boolean,
+      required: false
+    },
 
     jobsApplied: [{ type: mongoose.Schema.Types.ObjectId, ref: "Job" }]
   },
