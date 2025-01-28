@@ -28,7 +28,7 @@ import { SidebarNav } from "../components/sidebar-nav";
 import Header from "@/app/components/header";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import { UserDeleteModal } from "@/app/jobs/components/UserDeleteModal";
+import { UserDeleteModal } from "@/app/admin/components/UserDeleteModal";
 import UserCard from "./UserCard";
 
 function UserList() {

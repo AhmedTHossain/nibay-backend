@@ -1,4 +1,4 @@
-import { UserDeleteModal } from "@/app/jobs/components/UserDeleteModal";
+import { UserDeleteModal } from "@/app/admin/components/UserDeleteModal";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { formatEnglishToBangalNum } from "@/utils/formatEtoBLang";
