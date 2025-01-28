@@ -47,6 +47,7 @@ export async function GET(request: Request) {
             role: Number(applicant.role),
             jobId: job.id,
             jobTitle: job.title,
+            jobRole: job.jobRole,
             jobShortDescription: job.shortDescription,
             profilePhoto: applicant.profilePhoto,
             statusChangeDate: application.statusChangeDate

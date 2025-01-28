@@ -7,6 +7,7 @@ export interface Applicant {
   jobId: string;
   jobTitle: string;
   jobShortDescription: string;
+  jobRole?: string;
   profilePhoto: string;
   statusChangeDate: Date;
   email: string;

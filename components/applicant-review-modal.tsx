@@ -329,7 +329,9 @@ export default function ApplicantReviewModal({
                                       variant="secondary"
                                       className="ml-2 bg-orange-100 dark:bg-orange-900 text-orange-600 dark:text-orange-300"
                                     >
-                                      {JOB_ROLES[Number(applicant.role)]?.label}
+                                      <span className="truncate max-w-[80px]">
+                                        {applicant.jobRole}
+                                      </span>
                                     </Badge>
                                   </div>
                                   <div className="space-y-1 text-sm text-gray-600 dark:text-gray-400">
