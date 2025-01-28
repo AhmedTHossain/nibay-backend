@@ -13,11 +13,11 @@ const links = [
     href: "/admin",
     icon: LayoutDashboard
   },
-  {
-    title: "চাকরি ম্যানেজমেন্ট",
-    href: "/admin/jobs",
-    icon: Briefcase
-  },
+  // {
+  //   title: "চাকরি ম্যানেজমেন্ট",
+  //   href: "/admin/jobs",
+  //   icon: Briefcase
+  // },
   {
     title: "ইউজার ম্যানেজমেন্ট",
     href: "/admin/users",

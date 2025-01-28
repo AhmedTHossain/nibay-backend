@@ -7,11 +7,13 @@ import Header from "@/app/components/header";
 import { useJobContext } from "@/app/contexts/JobContext";
 import useUserById from "@/app/hooks/users/useUserById";
 import { useUser } from "@/app/hooks/useUser";
-import { JobBox } from "@/app/jobs/components/JobBox";
+import { JobBox } from "./components/JobBox";
 import { JobFilter } from "@/app/jobs/components/JobFilter";
 import { JobFilterByStatus } from "@/app/jobs/components/JobFilterByStatus";
 import Footer from "@/components/sections/Footer";
+import { Button } from "@/components/ui/button";
 import { TUser } from "@/utils/types/user";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 interface jobsRouteParams {
@@ -54,11 +56,24 @@ export default function JobsRoute({ params }: jobsRouteParams) {
 
   return (
     <>
+      <Header userId={userId} />
+
+      <HeroSection title="জব্‌স" />
+
       <section className="md:pb-24 pb-16">
         <div className="container z-1">
-          <div className="mt-6 flex gap-6">
+          <div className="mt-6 flex gap-6 items-center">
             <JobFilter onFilterChange={setjobRoleFilter} />
             <JobFilterByStatus onFilterChange={setJobStatusFilter} />
+            <Link href={`/admin/users/${userId}/jobs/new`}>
+              <Button
+                size="lg"
+                className="bg-[#10b981] text-white hover:bg-[#0e9c6e] 
+             dark:bg-[#065f46] dark:text-gray-200 dark:hover:bg-[#046c47]"
+              >
+                নতুন চাকরি তৈরি করুন
+              </Button>
+            </Link>
           </div>
           <JobBox jobs={jobs} isLoading={isLoading} />
           {jobs !== null && jobs?.length > 0 && (

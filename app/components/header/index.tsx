@@ -25,8 +25,13 @@ import { Navigation } from "./Navigation";
 import AdminPanel from "@/app/admin/page";
 import { ModeToggle } from "../common/ModeToggle";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import useUserById from "@/app/hooks/users/useUserById";
 
-const Header = () => {
+interface HeaderProps {
+  userId?: string;
+}
+
+const Header = ({ userId }: HeaderProps) => {
   const { scrollY } = useScroll();
   const height = useMotionValue(80);
   const [hasShadow, setHasShadow] = useState(false);
@@ -57,7 +62,7 @@ const Header = () => {
 
           <div className="flex space-x-3 items-center">
             <Navigation />
-            <ProfileMenu />
+            <ProfileMenu userId={userId} />
             <div>
               <ModeToggle />
               {/* <Switch id="switch-lang" color="green" /> */}
@@ -71,9 +76,13 @@ const Header = () => {
 
 export default Header;
 
-function ProfileMenu() {
+interface ProfileMenuProps {
+  userId?: string;
+}
+
+const ProfileMenu = ({ userId }: ProfileMenuProps) => {
   const router = useRouter();
-  const { user } = useUserInfo();
+  const { user } = userId ? useUserById({ userId }) : useUserInfo();
 
   return (
     <Menubar className="border-0 bg-transparent dark:bg-transparent dark:border-0">
@@ -90,23 +99,29 @@ function ProfileMenu() {
           <MenubarItem
             className="gap-2"
             onClick={() => {
-              router.push("/settings");
+              router.push(
+                (userId ? `/admin/users/${userId}` : "") + "/settings"
+              );
             }}
           >
             <SettingsIcon size={18} strokeWidth={1.5} /> <span>সেটিংস</span>
           </MenubarItem>
-          <MenubarSeparator />
-          <MenubarItem
-            className="gap-2"
-            onClick={() => {
-              localStorage.clear();
-              router.push("/auth/login");
-            }}
-          >
-            <LogOutIcon size={18} strokeWidth={1.5} /> <span>লগ আউট</span>
-          </MenubarItem>
+          {!userId && (
+            <>
+              <MenubarSeparator />
+              <MenubarItem
+                className="gap-2"
+                onClick={() => {
+                  localStorage.clear();
+                  router.push("/auth/login");
+                }}
+              >
+                <LogOutIcon size={18} strokeWidth={1.5} /> <span>লগ আউট</span>
+              </MenubarItem>
+            </>
+          )}
         </MenubarContent>
       </MenubarMenu>
     </Menubar>
   );
-}
+};

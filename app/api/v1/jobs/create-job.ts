@@ -31,7 +31,8 @@ export async function createJob(request: NextRequest) {
       division,
       district,
       isBirthCertificateRequired,
-      isPortEntryPermitRequired
+      isPortEntryPermitRequired,
+      userId
     } = await request.json();
 
     console.log({
@@ -46,8 +47,11 @@ export async function createJob(request: NextRequest) {
       division,
       district,
       isBirthCertificateRequired,
-      isPortEntryPermitRequired
+      isPortEntryPermitRequired,
+      userId
     });
+
+    const creatorId = user.isAdmin === true && userId ? userId : user._id;
 
     await Job.create({
       title,
@@ -60,7 +64,7 @@ export async function createJob(request: NextRequest) {
       jobRole,
       district,
       division,
-      user: user._id,
+      user: creatorId,
       isBirthCertificateRequired,
       isPortEntryPermitRequired
     });
