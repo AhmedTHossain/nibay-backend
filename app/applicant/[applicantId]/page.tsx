@@ -338,31 +338,31 @@ export default function ApplicantProfileRoute({
                                 />
                               </div>
 
-                              <h5 className="mt-12 text-lg font-semibold text-slate-900 dark:text-slate-100">
-                                অতিরিক্ত নথিপত্র
-                              </h5>
-                              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                                <DocumentCard
-                                  key="DOC001"
-                                  document={{
-                                    name: "চেয়ারম্যান সার্টিফিকেট",
-                                    status: user?.chairmanCertificateCopy
-                                      ? "verified"
-                                      : "not_uploaded",
-                                    thumbnail: user?.chairmanCertificateCopy
-                                  }}
-                                />
-                                <DocumentCard
-                                  key="DOC001"
-                                  document={{
-                                    name: "পোর্ট এন্ট্রি পারমিট",
-                                    status: user?.portEntryPermitCopy
-                                      ? "verified"
-                                      : "not_uploaded",
-                                    thumbnail: user?.portEntryPermitCopy
-                                  }}
-                                />
-                              </div>
+                              {user?.role === "9" && (
+                                <>
+                                  <h5 className="mt-12 text-lg font-semibold text-slate-900 dark:text-slate-100">
+                                    অতিরিক্ত নথিপত্র
+                                  </h5>
+                                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                                    <DocumentCard
+                                      key="DOC001"
+                                      document={{
+                                        name: "চেয়ারম্যান সার্টিফিকেট",
+                                        status: user?.chairmanCertificateCopy ? "verified" : "not_uploaded",
+                                        thumbnail: user?.chairmanCertificateCopy
+                                      }}
+                                    />
+                                    <DocumentCard
+                                      key="DOC001"
+                                      document={{
+                                        name: "পোর্ট এন্ট্রি পারমিট",
+                                        status: user?.portEntryPermitCopy ? "verified" : "not_uploaded",
+                                        thumbnail: user?.portEntryPermitCopy
+                                      }}
+                                    />
+                                  </div>
+                                </>
+                              )}
                               <ApplicantReviews applicantId={user._id} />
                             </>
                           )}
