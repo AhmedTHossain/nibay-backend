@@ -70,7 +70,7 @@ export default function ApplicantProfileRoute({
 
       if (response.data.status === "success") {
         toast.success(response.data.message);
-        router.push(`/jobs/${jobId}/applicant-list`);
+        window.location.reload();
       }
     } catch (error) {
       toast.error("Something went wrong!");
@@ -348,7 +348,9 @@ export default function ApplicantProfileRoute({
                                       key="DOC001"
                                       document={{
                                         name: "চেয়ারম্যান সার্টিফিকেট",
-                                        status: user?.chairmanCertificateCopy ? "verified" : "not_uploaded",
+                                        status: user?.chairmanCertificateCopy
+                                          ? "verified"
+                                          : "not_uploaded",
                                         thumbnail: user?.chairmanCertificateCopy
                                       }}
                                     />
@@ -356,7 +358,9 @@ export default function ApplicantProfileRoute({
                                       key="DOC001"
                                       document={{
                                         name: "পোর্ট এন্ট্রি পারমিট",
-                                        status: user?.portEntryPermitCopy ? "verified" : "not_uploaded",
+                                        status: user?.portEntryPermitCopy
+                                          ? "verified"
+                                          : "not_uploaded",
                                         thumbnail: user?.portEntryPermitCopy
                                       }}
                                     />
