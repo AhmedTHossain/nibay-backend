@@ -28,7 +28,9 @@ export function ApplicantCard(props: ApplicantCardProps) {
   const router = useRouter();
 
   const { application } = props;
-  const { user, isLoading } = useUserById({ userId: application?.applicant.id });
+  const { user, isLoading } = useUserById({
+    userId: application?.applicant.id
+  });
 
   if (!isLoading) {
     console.log(user?.profilePhoto);
@@ -48,19 +50,25 @@ export function ApplicantCard(props: ApplicantCardProps) {
       .catch((err) => {
         console.log(err);
       })
-      .finally(() => { });
+      .finally(() => {});
   }
 
   return (
     <div
       className="w-[290px] relative group bg-white dark:bg-slate-900 overflow-hidden rounded-md shadow dark:shadow-gray-700 text-center p-6 hover:bg-emerald-600/[0.02] hover:dark:bg-emerald-600/5 transition-all duration-500 cursor-pointer"
       onClick={() => {
-        console.log(application?.applicant)
-        router.push(`/applicant/${application?.applicant.id}?jobId=${application?.job.id}`);
+        console.log(application?.applicant);
+        router.push(
+          `/applicant/${application?.applicant.id}?jobId=${application?.job.id}`
+        );
       }}
     >
       <p className="text-xs font-semibold absolute top-3 right-2 bg-violet-800 text-violet-200 py-1 px-2 rounded-3xl">
-        {APPLICATION_STATUS[application?.applicationStatus as keyof typeof APPLICATION_STATUS].label}
+        {
+          APPLICATION_STATUS[
+            application?.applicationStatus as keyof typeof APPLICATION_STATUS
+          ].label
+        }
       </p>
       {isLoading ? (
         <AnimatePresence>
@@ -80,15 +88,18 @@ export function ApplicantCard(props: ApplicantCardProps) {
         </AnimatePresence>
       ) : (
         <>
-          <Image unoptimized
+          <Image
+            unoptimized
             src={`${user?.profilePhoto || "/"}`}
             width={60}
             height={60}
-            className="size-20 rounded-full shadow dark:shadow-gray-700 mx-auto"
+            className="size-20 rounded-full shadow dark:shadow-gray-700 mx-auto object-cover"
             alt="Profile Photo"
           />
           <div className="mt-2">
-            <p className="font-semibold text-lg text-slate-800 dark:text-slate-200">{application?.applicant.name}</p>
+            <p className="font-semibold text-lg text-slate-800 dark:text-slate-200">
+              {application?.applicant.name}
+            </p>
             <p className="text-sm text-slate-800 dark:text-slate-400">
               {USER_ROLE[Number(user?.role) as keyof typeof USER_ROLE]?.label}
             </p>
@@ -96,16 +107,22 @@ export function ApplicantCard(props: ApplicantCardProps) {
 
           <div className="mt-6 text-left space-y-1">
             <div className="flex items-center gap-2">
-              <span className="text-slate-800 dark:text-slate-200 text-sm min-w-[100px] shrink-0 pr-0 mr-0">শিক্ষাগত যোগ্যতা</span>
+              <span className="text-slate-800 dark:text-slate-200 text-sm min-w-[100px] shrink-0 pr-0 mr-0">
+                শিক্ষাগত যোগ্যতা
+              </span>
               <span className="p-0 m-0">:</span>
               <span className="text-sm font-semibold text-slate-800 dark:text-slate-200 truncate">
                 {
-                  EDUCTATION_LEVELS.find(level => level.id === Number(user?.maxEducationLevel))?.label
+                  EDUCTATION_LEVELS.find(
+                    (level) => level.id === Number(user?.maxEducationLevel)
+                  )?.label
                 }
               </span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-slate-800 dark:text-slate-200 text-sm min-w-[100px]">অভিজ্ঞতা</span>
+              <span className="text-slate-800 dark:text-slate-200 text-sm min-w-[100px]">
+                অভিজ্ঞতা
+              </span>
               <span className="p-0 m-0">:</span>
               <span className="text-sm font-semibold text-slate-800 dark:text-slate-200">
                 {formatEnglishToBangalNum(user?.yearsOfExperience)} বছর
@@ -143,7 +160,6 @@ export function ApplicantCard(props: ApplicantCardProps) {
             </div>
           </div>
         </>
-
       )}
     </div>
   );

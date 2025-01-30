@@ -93,7 +93,11 @@ const ProfileMenu = ({ userId, userName }: ProfileMenuProps) => {
       <MenubarMenu>
         <MenubarTrigger className="space-x-3 focus:bg-transparent dark:bg-transparent data-[state=open]:bg-transparent dark:data-[state=open]:bg-transparent">
           <Avatar>
-            <AvatarImage src={user?.profilePhoto} alt="Applicant" />
+            <AvatarImage
+              src={user?.profilePhoto}
+              alt="profile photo"
+              className="object-cover"
+            />
             <AvatarFallback className="text-3xl">
               {user?.name.charAt(0)}
             </AvatarFallback>

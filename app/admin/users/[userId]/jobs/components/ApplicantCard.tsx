@@ -94,7 +94,7 @@ export function ApplicantCard(props: ApplicantCardProps) {
             src={`${user?.profilePhoto || "/"}`}
             width={60}
             height={60}
-            className="size-20 rounded-full shadow dark:shadow-gray-700 mx-auto"
+            className="size-20 rounded-full shadow dark:shadow-gray-700 mx-auto object-cover"
             alt="Profile Photo"
           />
           <div className="mt-2">
