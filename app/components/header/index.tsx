@@ -26,6 +26,7 @@ import AdminPanel from "@/app/admin/page";
 import { ModeToggle } from "../common/ModeToggle";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import useUserById from "@/app/hooks/users/useUserById";
+import { userInfo } from "os";
 
 interface HeaderProps {
   userId?: string;
@@ -78,9 +79,10 @@ export default Header;
 
 interface ProfileMenuProps {
   userId?: string;
+  userName?: string;
 }
 
-const ProfileMenu = ({ userId }: ProfileMenuProps) => {
+const ProfileMenu = ({ userId, userName }: ProfileMenuProps) => {
   const router = useRouter();
   const userById = useUserById({ userId: userId ?? "" });
   const userInfo = useUserInfo();
@@ -89,13 +91,14 @@ const ProfileMenu = ({ userId }: ProfileMenuProps) => {
   return (
     <Menubar className="border-0 bg-transparent dark:bg-transparent dark:border-0">
       <MenubarMenu>
-        <MenubarTrigger className="focus:bg-transparent dark:bg-transparent data-[state=open]:bg-transparent dark:data-[state=open]:bg-transparent">
+        <MenubarTrigger className="space-x-3 focus:bg-transparent dark:bg-transparent data-[state=open]:bg-transparent dark:data-[state=open]:bg-transparent">
           <Avatar>
             <AvatarImage src={user?.profilePhoto} alt="Applicant" />
             <AvatarFallback className="text-3xl">
               {user?.name.charAt(0)}
             </AvatarFallback>
           </Avatar>
+          <span>{user?.name}</span>
         </MenubarTrigger>
         <MenubarContent>
           <MenubarItem
@@ -108,20 +111,22 @@ const ProfileMenu = ({ userId }: ProfileMenuProps) => {
           >
             <SettingsIcon size={18} strokeWidth={1.5} /> <span>সেটিংস</span>
           </MenubarItem>
-          {!userId && (
-            <>
-              <MenubarSeparator />
-              <MenubarItem
-                className="gap-2"
-                onClick={() => {
+          <>
+            <MenubarSeparator />
+            <MenubarItem
+              className="gap-2"
+              onClick={() => {
+                if (userId) {
+                  router.push("/admin/");
+                } else {
                   localStorage.clear();
                   router.push("/auth/login");
-                }}
-              >
-                <LogOutIcon size={18} strokeWidth={1.5} /> <span>লগ আউট</span>
-              </MenubarItem>
-            </>
-          )}
+                }
+              }}
+            >
+              <LogOutIcon size={18} strokeWidth={1.5} /> <span>লগ আউট</span>
+            </MenubarItem>
+          </>
         </MenubarContent>
       </MenubarMenu>
     </Menubar>
