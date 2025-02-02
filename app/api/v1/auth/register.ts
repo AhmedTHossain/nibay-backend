@@ -35,6 +35,15 @@ export async function register(request: NextRequest) {
         { status: 400 }
       );
     }
+
+    const existingUserByPhone = await User.findOne({ phone });
+    if (existingUserByPhone) {
+      return NextResponse.json(
+        { error: "আপনার ফোন নাম্বারটি রেজিস্টার্ড আছে!" },
+        { status: 400 }
+      );
+    }
+
     let profilePhotoPath: string | null = null;
     if (profilePhoto) {
       profilePhotoPath = await processFile(profilePhoto as File);
