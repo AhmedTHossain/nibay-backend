@@ -7,6 +7,7 @@ const useUserById = ({ userId }: { userId: string }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   async function fetchUser() {
+    if (userId == "") return;
     setIsLoading(true);
     api_client
       .get(`user/${userId}`)
