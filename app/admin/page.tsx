@@ -1,8 +1,12 @@
+"use client";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Briefcase, Users } from "lucide-react";
 import Link from "next/link";
 import Header from "../components/header";
 import { SidebarNav } from "./components/sidebar-nav";
+import { useUserInfo } from "../hooks/useUserInfo";
+import { useEffect } from "react";
 
 export default function DashboardPage() {
   return (
