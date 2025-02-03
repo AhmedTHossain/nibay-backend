@@ -30,6 +30,7 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { UserDeleteModal } from "@/app/admin/components/UserDeleteModal";
 import UserCard from "./UserCard";
+import { toast } from "sonner";
 
 function UserList() {
   const router = useRouter();
@@ -59,8 +60,12 @@ function UserList() {
       const query = params.get("type")
         ? `user?searchByPhone=${searchTerm}&type=${params.get("type")}`
         : `user?searchByPhone=${searchTerm}`;
-      const resp = await api_client.get(query);
-      setUsers(resp.data.data.users);
+      try {
+        const resp = await api_client.get(query);
+        setUsers(resp.data.data.users);
+      } catch (e) {
+        toast.error("দুঃখিত! ইউজার লিস্ট লোড করা যায়নি");
+      }
       setIsLoading(false);
     }, 500);
     return () => clearTimeout(delayDebounceFn);
