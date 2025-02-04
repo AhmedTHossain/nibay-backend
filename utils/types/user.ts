@@ -49,4 +49,5 @@ export interface TUser {
   isDeleted: boolean;
   deletedAt: Date;
   isBanned: boolean;
+  isVerified: boolean;
 }

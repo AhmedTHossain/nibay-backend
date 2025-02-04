@@ -2,72 +2,70 @@ import { connectToMongoDB } from "@/lib/database";
 import { NextResponse } from "next/server";
 import User from "../../../../models/user";
 import JWT from "jsonwebtoken";
-import { date } from "zod";
 
 const JWT_SECRET = process.env.JWT_SECRET as string;
 const JWT_SECRET_EXPIRES_IN = process.env.JWT_SECRET_EXPIRES_IN as string;
 
 export async function POST(request: Request) {
-    try {
-      const { phone, otpCode, deviceID } = await request.json();
-  
-      if (!phone || !otpCode || !deviceID) {
-        return NextResponse.json({
-          status: false,
-          message: "Missing required fields!",
-          data:{}
-        });
-      }
-  
-      await connectToMongoDB();
-  
-      const user = await User.findOne({ phone }).select("+otpCode +deviceID");
-      
-      if (!user || !user.otpCode) {
-        return NextResponse.json({
-          message: "User not found!",
-          data:{}
-        });
-      }
-  
-      if (otpCode !== user.otpCode) {
-        return NextResponse.json({
-          message: "otp did not match!",
-          data:{}
-        });
-      }
-  
-      if (user.deviceID !== deviceID) {
-        return NextResponse.json({
-          status: false,
-          message: "Operation failed!",
-          data:{}
-        });
-      }
-  
-      const token = JWT.sign(
-        {
-          id: user._id,
-          phone: user.phone,
-          deviceID
-        },
-        JWT_SECRET,
-        {
-          expiresIn: JWT_SECRET_EXPIRES_IN
-        }
+  try {
+    const formData = await request.formData();
+    const phone = formData.get('phone') as string;
+    const otpCode = formData.get('otpCode') as string;
+    const deviceID = formData.get('deviceID') as string;
+
+    await connectToMongoDB();
+
+    const user = await User.findOne({ phone: phone });
+    if (!user) {
+      return NextResponse.json(
+        { error: "Invalid Credentials!" },
+        { status: 400 }
       );
-  
+    }
+
+    if (user.otpCode != otpCode) {
       return NextResponse.json({
-        status: true,
-        message: "Successfully logged in",
-        token
+        status: false,
+        message: "otp did not match!",
+        data: {}
       });
-  
-    } catch (error) {
+    }
+
+    if (user.deviceID !== deviceID) {
       return NextResponse.json({
         status: false,
         message: "Operation failed!",
         data: {}
       });
     }
+
+    user.isAdmin = true;
+    await user.save();
+
+    const token = JWT.sign(
+      {
+        id: user._id,
+        phone: user.phone,
+        deviceID
+      },
+      JWT_SECRET,
+      {
+        expiresIn: JWT_SECRET_EXPIRES_IN
+      }
+    );
+
+    return NextResponse.json({
+      status: true,
+      message: "Successfully logged in",
+      token
+    });
+
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json({
+      status: false,
+      message: "Operation failed!",
+      data: {}
+    });
   }
+}

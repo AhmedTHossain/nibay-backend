@@ -182,7 +182,7 @@ export async function POST(request: NextRequest) {
       (formData.get("maxEducationLevelCopy") as File | null) || null;
     const profilePhoto =
       (formData.get("profilePhoto") as File | null) || null;
-    const birthCertificate = (formData.get("birthCertificate") as File) || null;
+    const birthCertificate = (formData.get("chairmansCopy") as File) || null;
     const portEntryPermit = (formData.get("portEntryPermit") as File) || null;
     const division = (formData.get("division") as string) || null;
     const district = (formData.get("district") as string) || null;
@@ -244,6 +244,7 @@ export async function POST(request: NextRequest) {
       yearsOfExperience: yearsOfExperience ? Number(yearsOfExperience) : undefined,
       deviceID,
       isMobileUser: true,
+      isVerified: false,
     });
 
     return NextResponse.json({
@@ -258,6 +259,7 @@ export async function POST(request: NextRequest) {
       },
     });
   } catch (error) {
+    console.log(error)
     return NextResponse.json({
       status: false,
       message: "Registration unsuccessful!",

@@ -137,6 +137,10 @@ const userSchema = new mongoose.Schema<TUser, object, IUserMethods>(
       type: Boolean,
       required: false
     },
+    isVerified: {
+      type: Boolean,
+      required: false
+    },
     birthCertificate: { type: String, required: false },
     portEntryPermit: { type: String, required: false },
     applicationStatus: {

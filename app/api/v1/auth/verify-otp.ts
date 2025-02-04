@@ -44,6 +44,9 @@ export async function verifyOTP(request: Request) {
       });
     }
 
+    user.isVerified = true;
+    await user.save();
+
     const token = JWT.sign(
       {
         id: "reset-password" + user.email,

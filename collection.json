@@ -1,0 +1,579 @@
+{
+  "info": {
+    "name": "Job Portal API Collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Website APIs",
+      "item": [
+        {
+          "name": "Auth",
+          "item": [
+            {
+              "name": "Register",
+              "request": {
+                "method": "POST",
+                "url": "{{baseUrl}}/api/v1/auth/register",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    { "key": "email", "value": "test@example.com" },
+                    { "key": "password", "value": "password123" },
+                    { "key": "name", "value": "John Doe" },
+                    { "key": "phone", "value": "1234567890" }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Login",
+              "request": {
+                "method": "POST",
+                "url": "{{baseUrl}}/api/v1/auth/login",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    { "key": "email", "value": "test@example.com" },
+                    { "key": "password", "value": "password123" }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Reset Password",
+              "request": {
+                "method": "POST",
+                "url": "{{baseUrl}}/api/v1/auth/reset-password",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    { "key": "email", "value": "test@example.com" }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Me",
+              "request": {
+                "method": "GET",
+                "url": "{{baseUrl}}/api/v1/auth/me",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Jobs",
+          "item": [
+            {
+              "name": "Get Jobs",
+              "request": {
+                "method": "GET",
+                "url": "{{baseUrl}}/api/v1/jobs",
+                "query": [
+                  {
+                    "key": "page",
+                    "value": "1"
+                  },
+                  {
+                    "key": "limit",
+                    "value": "10"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "Create Job",
+              "request": {
+                "method": "POST",
+                "url": "{{baseUrl}}/api/v1/jobs",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    { "key": "title", "value": "Software Engineer" },
+                    { "key": "shortDescription", "value": "Develop and maintain software applications." },
+                    { "key": "longDescription", "value": "We are looking for a skilled software engineer to join our team." },
+                    { "key": "qualification", "value": "Bachelor's degree in Computer Science" },
+                    { "key": "experience", "value": "3-5 years" },
+                    { "key": "applicationDeadline", "value": "2024-12-31T11:42:00.000Z" },
+                    { "key": "salary", "value": "50000" },
+                    { "key": "division", "value": "Dhaka" },
+                    { "key": "district", "value": "Dhaka" },
+                    { "key": "jobRole", "value": "Developer" }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Get Job by ID",
+              "request": {
+                "method": "GET",
+                "url": "{{baseUrl}}/api/v1/jobs/{{jobId}}",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "Update Job",
+              "request": {
+                "method": "PATCH",
+                "url": "{{baseUrl}}/api/v1/jobs/{{jobId}}",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    { "key": "title", "value": "Updated Job Title" },
+                    { "key": "shortDescription", "value": "Updated short description" },
+                    { "key": "longDescription", "value": "Updated long description" },
+                    { "key": "qualification", "value": "Updated qualification" },
+                    { "key": "experience", "value": "Updated experience" },
+                    { "key": "applicationDeadline", "value": "2024-12-31T11:42:00.000Z" },
+                    { "key": "salary", "value": "60000" },
+                    { "key": "division", "value": "Chittagong" },
+                    { "key": "district", "value": "Chittagong" },
+                    { "key": "jobRole", "value": "Manager" }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Delete Job",
+              "request": {
+                "method": "DELETE",
+                "url": "{{baseUrl}}/api/v1/jobs/{{jobId}}",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Users",
+          "item": [
+            {
+              "name": "Get Users",
+              "request": {
+                "method": "GET",
+                "url": "{{baseUrl}}/api/v1/user",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "Get User by ID",
+              "request": {
+                "method": "GET",
+                "url": "{{baseUrl}}/api/v1/user/{{userId}}",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "Update User",
+              "request": {
+                "method": "PATCH",
+                "url": "{{baseUrl}}/api/v1/user/{{userId}}",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    { "key": "name", "value": "Updated User Name" },
+                    { "key": "phone", "value": "1234567890" },
+                    { "key": "role", "value": "1" }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Ban User",
+              "request": {
+                "method": "PATCH",
+                "url": "{{baseUrl}}/api/v1/user/{{userId}}/ban",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Reviews",
+          "item": [
+            {
+              "name": "Get Reviews by Applicant ID",
+              "request": {
+                "method": "GET",
+                "url": "{{baseUrl}}/api/v1/reviews/{{applicantId}}",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "Get Pending Reviews",
+              "request": {
+                "method": "GET",
+                "url": "{{baseUrl}}/api/v1/reviews/pending",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "Post Review for Job",
+              "request": {
+                "method": "POST",
+                "url": "{{baseUrl}}/api/v1/reviews/job/{{jobId}}",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    { "key": "applicantId", "value": "123" },
+                    { "key": "rating", "value": "5" },
+                    { "key": "feedback", "value": "Great job!" }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Mobile APIs",
+      "item": [
+        {
+          "name": "Auth",
+          "item": [
+            {
+              "name": "Register",
+              "request": {
+                "method": "POST",
+                "url": "{{baseUrl}}/api/v1/mobile/jobseekers/register",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    { "key": "phone", "value": "1234567890" },
+                    { "key": "name", "value": "John Doe" },
+                    { "key": "role", "value": "1" },
+                    { "key": "nidNumber", "value": "123456789" },
+                    { "key": "nidPhoto", "value": "base64encodedstring" },
+                    { "key": "drivingLicense", "value": "DL123456" },
+                    { "key": "drivingLicensePhoto", "value": "base64encodedstring" },
+                    { "key": "maxEducationLevel", "value": "Bachelor's" },
+                    { "key": "profilePhoto", "value": "base64encodedstring" },
+                    { "key": "birthCertificate", "value": "BC123456" },
+                    { "key": "portEntryPermit", "value": "PEP123456" },
+                    { "key": "division", "value": "Dhaka" },
+                    { "key": "district", "value": "Dhaka" },
+                    { "key": "yearsOfExperience", "value": "5" },
+                    { "key": "deviceID", "value": "device123" }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Login",
+              "request": {
+                "method": "POST",
+                "url": "{{baseUrl}}/api/v1/mobile/jobseekers/signin",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    { "key": "phone", "value": "1234567890" },
+                    { "key": "otpCode", "value": "123456" },
+                    { "key": "deviceID", "value": "device123" }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Delete User",
+              "request": {
+                "method": "POST",
+                "url": "{{baseUrl}}/api/v1/mobile/jobseekers/delete",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    { "key": "userId", "value": "123" }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Jobs",
+          "item": [
+            {
+              "name": "Get Jobs",
+              "request": {
+                "method": "GET",
+                "url": "{{baseUrl}}/api/v1/mobile/jobs/get-jobs",
+                "query": [
+                  {
+                    "key": "page",
+                    "value": "1"
+                  },
+                  {
+                    "key": "limit",
+                    "value": "10"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "Apply Job",
+              "request": {
+                "method": "POST",
+                "url": "{{baseUrl}}/api/v1/mobile/jobs/apply",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    { "key": "jobId", "value": "123" },
+                    { "key": "userId", "value": "456" }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Get Applied Jobs",
+              "request": {
+                "method": "GET",
+                "url": "{{baseUrl}}/api/v1/mobile/jobs/get-applied-jobs/{{userId}}",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "Get Job by ID",
+              "request": {
+                "method": "GET",
+                "url": "{{baseUrl}}/api/v1/mobile/jobs/get-jobs/{{id}}",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Profile",
+          "item": [
+            {
+              "name": "Get Profile",
+              "request": {
+                "method": "GET",
+                "url": "{{baseUrl}}/api/v1/mobile/profile",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "Update Profile",
+              "request": {
+                "method": "PATCH",
+                "url": "{{baseUrl}}/api/v1/mobile/profile",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    { "key": "name", "value": "Updated Name" },
+                    { "key": "phone", "value": "1234567890" },
+                    { "key": "division", "value": "Dhaka" },
+                    { "key": "district", "value": "Dhaka" },
+                    { "key": "nidNumber", "value": "123456789" },
+                    { "key": "maxEducationLevel", "value": "Master's" },
+                    { "key": "drivingLicense", "value": "DL123456" },
+                    { "key": "yearsOfExperience", "value": "10" },
+                    { "key": "profilePhoto", "value": "base64encodedstring" },
+                    { "key": "nidCopy", "value": "base64encodedstring" },
+                    { "key": "drivingLicenseCopy", "value": "base64encodedstring" },
+                    { "key": "chairmanCertificateCopy", "value": "base64encodedstring" },
+                    { "key": "portEntryPermit", "value": "base64encodedstring" }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Follow",
+          "item": [
+            {
+              "name": "Follow Employer",
+              "request": {
+                "method": "POST",
+                "url": "{{baseUrl}}/api/v1/mobile/follow/follow-employer",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    { "key": "userId", "value": "123" },
+                    { "key": "employerId", "value": "456" }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Get Followed Employers",
+              "request": {
+                "method": "GET",
+                "url": "{{baseUrl}}/api/v1/mobile/follow/get-followed-employers/{{userId}}",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{token}}"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
