@@ -1,57 +1,48 @@
 import { NextResponse } from "next/server";
 import { connectToMongoDB } from "@/lib/database";
-import Job from "../../../../models/job";
+import Job from "@/app/api/models/job";
 import { handleError } from "@/lib/handleErrors";
+
 /**
  * @swagger
  * /api/v1/mobile/jobs/get-jobs:
  *   get:
- *     summary: Retrieve a list of job posts
- *     description: Get a list of jobs with optional filters like `title`, `employerType`, and sorting by `orderBy`.
- *     tags:
- *       - Jobs
+ *     summary: Get jobs
+ *     description: Retrieve a list of jobs with optional filters.
  *     parameters:
- *       - name: title
- *         in: query
- *         description: Filter jobs by title (case-insensitive).
- *         required: false
+ *       - in: query
+ *         name: orderBy
  *         schema:
  *           type: string
- *           example: Software
- *       - name: employerType
- *         in: query
- *         description: Filter jobs by employer type (e.g., "Institutional", "Individual").
- *         required: false
+ *         description: Field to order by (default: -createdAt)
+ *       - in: query
+ *         name: title
  *         schema:
  *           type: string
- *           example: PartTime
- *       - name: orderBy
- *         in: query
- *         description: |
- *           Sort jobs by a specific field. Use '-' for descending order (default: `-createdAt`).
- *         required: false
+ *         description: Job title to filter by
+ *       - in: query
+ *         name: employerType
  *         schema:
  *           type: string
- *           example: '-createdAt'
- *       - name: page
- *         in: query
- *         description: |
- *           Page number for pagination (default: 1).
- *         required: false
+ *         description: Employer type to filter by
+ *       - in: query
+ *         name: employer_id
+ *         schema:
+ *           type: string
+ *         description: Employer ID to filter by
+ *       - in: query
+ *         name: pageSize
  *         schema:
  *           type: integer
- *           example: 1
- *       - name: pageSize
- *         in: query
- *         description: |
- *           Number of results per page (default: 10).
- *         required: false
+ *         description: Number of jobs per page (default: 10)
+ *       - in: query
+ *         name: page
  *         schema:
  *           type: integer
- *           example: 10
+ *         description: Page number (default: 1)
  *     responses:
  *       '200':
- *         description: Successful response with a list of jobs.
+ *         description: A list of jobs
  *         content:
  *           application/json:
  *             schema:
@@ -70,49 +61,48 @@ import { handleError } from "@/lib/handleErrors";
  *                     properties:
  *                       _id:
  *                         type: string
- *                         example: 676a9fd354b7646db136d012
+ *                         example: 678e58763721ebb114a828e2
  *                       title:
  *                         type: string
- *                         example: "ভারী ট্রাক ড্রাইভার"
+ *                         example: সেরা রাইডস লিমিটেডে চেকার নিয়োগ
  *                       shortDescription:
  *                         type: string
- *                         example: "চট্টগ্রাম বন্দর থেকে পণ্য পরিবহন করে বাংলাদেশের সকল জেলায় নিরাপদে এবং সময়মত পৌঁছানোর দায়িত্ব।"
+ *                         example: সেরা রাইডস লিমিটেডে চেকার নিয়োগ। টিকিট যাচাই এবং যাত্রী পরামর্শের জন্য অভিজ্ঞতা এবং মনোযোগ প্রয়োজন।
  *                       longDescription:
  *                         type: string
- *                         example: "চাকরির বিবরণ:\n\nবাংলাদেশের সকল জেলায় পণ্য পরিবহন নিশ্চিত করতে চট্টগ্রাম বন্দর থেকে ভারী ট্রাকে পণ্য পরিবহন করা।"
+ *                         example: "\nদায়িত্বসমূহ:\n\nযাত্রীদের টিকিট যাচাই করা\nরুট এবং গন্তব্য নিশ্চিত করা\nযাত্রীদের সঠিক পরামর্শ প্রদান করা\nট্রিপের সময়সূচি তদারকি করা\n\nযোগ্যতা:\n\nমাধ্যমিক বা উচ্চ মাধ্যমিক শিক্ষাগত যোগ্যতা\nটিকিট যাচাই ও যাত্রী সেবা কাজে অভিজ্ঞতা\nসঠিক মনোযোগ এবং যোগাযোগ দক্ষতা\n\nবেতন এবং সুবিধা:\n\nআকর্ষণীয় বেতন\nঅন্যান্য সুবিধা: [যতটুকু প্রযোজ্য]"
  *                       experience:
  *                         type: string
- *                         example: 5-7
+ *                         example: 3-4
  *                       qualification:
  *                         type: string
- *                         example: Secondary (SSC)
+ *                         example: NO_FORMAL_EDUCATION
  *                       applicationDeadline:
  *                         type: string
  *                         format: date-time
- *                         example: 2024-12-31T11:42:00.000Z
- *                       location:
- *                         type: string
- *                         example: চট্টগ্রাম, চট্টগ্রাম
+ *                         example: 2025-03-15T00:00:00.000Z
  *                       salary:
  *                         type: string
- *                         example: "৩৫,০০০"
+ *                         example: 0
  *                       jobRole:
  *                         type: string
- *                         example: ড্রাইভার
- *                       jobType:
+ *                         example: চেকার
+ *                       isBirthCertificateRequired:
+ *                         type: boolean
+ *                         example: false
+ *                       isPortEntryPermitRequired:
+ *                         type: boolean
+ *                         example: false
+ *                       division:
  *                         type: string
- *                         example: ফুল টাইম
- *                       user:
+ *                         example: বরিশাল
+ *                       district:
  *                         type: string
- *                         example: 6769c973c7f8010dfa1b7cf3
- *                       createdAt:
- *                         type: string
- *                         format: date-time
- *                         example: 2024-12-24T11:49:39.693Z
- *                       updatedAt:
- *                         type: string
- *                         format: date-time
- *                         example: 2024-12-24T18:42:16.102Z
+ *                         example: ভোলা
+ *                       applicants:
+ *                         type: array
+ *                         items:
+ *                           type: string
  *       '400':
  *         description: Bad Request - Missing or invalid query parameters.
  *         content:
@@ -130,7 +120,7 @@ import { handleError } from "@/lib/handleErrors";
  *                   type: string
  *                   example: Bad Request
  *       '500':
- *         description: Internal Server Error - Unexpected error during the request.
+ *         description: Internal server error
  *         content:
  *           application/json:
  *             schema:
@@ -175,11 +165,10 @@ export async function GET(request: Request) {
     }
 
     const jobs = await query
-      .sort(orderBy) // Sorting
-      .limit(pageSize) // Pagination: Limit
-      .skip((page - 1) * pageSize) // Pagination: Skip
-      // .populate("user", "name email phone") // Populate the "user" field with specific properties
-      .lean(); // Convert MongoDB documents to plain JavaScript objects
+      .sort(orderBy)
+      .limit(pageSize)
+      .skip((page - 1) * pageSize)
+      .select("_id title shortDescription longDescription experience qualification applicationDeadline salary jobRole isBirthCertificateRequired isPortEntryPermitRequired division district");
 
     return NextResponse.json({
       status: true,
@@ -187,10 +176,6 @@ export async function GET(request: Request) {
       data: jobs
     });
   } catch (error) {
-    return NextResponse.json({
-      status: false,
-      message: "Jobs fetching was failed",
-      data: {}
-    });
+    return handleError(error);
   }
 }

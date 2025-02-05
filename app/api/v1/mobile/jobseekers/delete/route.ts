@@ -6,9 +6,9 @@ import { authMiddleware } from "@/app/api/middleware/auth";
 
 export async function POST(request: NextRequest) {
   try {
-    let formData;
+    let body;
     try {
-      formData = await request.formData();
+      body = await request.json();
     } catch (error) {
       return NextResponse.json({
         success: false,
@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    const userId = formData.get('userId');
+    const { userId } = body;
     console.log(userId);
 
     await connectToMongoDB();
