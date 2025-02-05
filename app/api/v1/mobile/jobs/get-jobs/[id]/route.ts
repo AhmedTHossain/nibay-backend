@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import { connectToMongoDB } from "@/lib/database";
 import Job from "../../../../../models/job";
 import { handleError } from "@/lib/handleErrors";
-/*************  ✨ Codeium Command ⭐  *************/
 /**
  * @swagger
  * /api/v1/mobile/jobs/get-jobs/{id}:
@@ -94,14 +93,11 @@ import { handleError } from "@/lib/handleErrors";
  *                   example: Internal server error
  */
 
-/******  012fb813-1a9f-46ab-b366-28d05c36123a  *******/
-
-
 export async function GET(request: Request, { params }: { params: { id: string } }) {
   try {
     await connectToMongoDB();
 
-    const job = await Job.findById(params.id);
+    const job = await Job.findById(params.id).select('_id title shortDescription longDescription experience qualification applicationDeadline salary jobRole isBirthCertificateRequired isPortEntryPermitRequired division district');
 
     if (!job) {
       return NextResponse.json({ error: "Job not found!" }, { status: 404 });
@@ -120,5 +116,3 @@ export async function GET(request: Request, { params }: { params: { id: string }
     });
   }
 }
-
-
