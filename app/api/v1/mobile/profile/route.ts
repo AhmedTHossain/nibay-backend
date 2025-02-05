@@ -80,49 +80,25 @@ import { processFile } from "@/lib/processFile";
  *                   example: Internal server error.
  */
 
-export async function POST(request: Request) {
+export async function GET(request: Request) {
   try {
-    // Parse the form data from the request
-    const formData = await request.formData();
-
-    // Extract the `id` field from the form data
-    const id = (formData.get("id") as string) || null;
-
-    // Log the extracted ID for debugging
-    console.log("Extracted ID:", id);
-
-    // Validate the ID
-    if (!id) {
-      return NextResponse.json(
-        {
-          status: false,
-          message: "ID is required in the request body",
-          data: {}
-        },
-        { status: 400 }
-      );
+    const authUser = await authMiddleware(request);
+    if (authUser instanceof NextResponse) {
+      return authUser;
     }
 
-    // Connect to MongoDB
     await connectToMongoDB();
 
-    // Find the user by ID
-    const user = await User.findById(id);
+    const user = await User.findById(authUser.userId);
     if (!user) {
       return NextResponse.json(
-        {
-          status: false,
-          message: "User not found!",
-          data: {}
-        },
+        { error: "User not found!" },
         { status: 404 }
       );
     }
 
-    // Return the user data
     return NextResponse.json({
-      status: true,
-      message: "User details retrieved successfully",
+      status: "success",
       data: { user }
     });
   } catch (error) {
@@ -130,7 +106,7 @@ export async function POST(request: Request) {
     return NextResponse.json(
       {
         status: false,
-        message: "Details not found",
+        message: "Internal server error",
         data: {}
       },
       { status: 500 }
@@ -139,96 +115,105 @@ export async function POST(request: Request) {
 }
 
 export async function PATCH(request: Request) {
-  const formData = await request.formData();
+  try {
+    const authUser = await authMiddleware(request);
+    if (authUser instanceof NextResponse) {
+      return authUser;
+    }
 
-  const userId = (formData.get("id") as string) || null;
-  const name = (formData.get("name") as string) || null;
-  const role = (formData.get("role") as string) || null;
-  const phone = (formData.get("phone") as string) || null;
-  const division = (formData.get("division") as string) || null;
-  const district = (formData.get("district") as string) || null;
-  const nidNumber = (formData.get("nidNumber") as string) || null;
-  const maxEducationLevel =
-    (formData.get("maxEducationLevel") as string) || null;
-  const drivingLicense = (formData.get("drivingLicense") as string) || null;
-  const yearsOfExperience =
-    (formData.get("yearsOfExperience") as string) || null;
-  const profilePhoto =
-    (formData.get("profilePhoto") as File | string | null) || null;
-  const nidCopy = (formData.get("nidCopy") as File | string | null) || null;
-  const drivingLicenseCopy =
-    (formData.get("drivingLicenseCopy") as File | string | null) || null;
-  const chairmanCertificate =
-    (formData.get("chairmanCertificateCopy") as File | string | null) || null;
-  const portEntryPermit =
-    (formData.get("portEntryPermit") as File | string | null) || null;
+    const formData = await request.formData();
 
-  if (!userId) {
+    const name = (formData.get("name") as string) || null;
+    const role = (formData.get("role") as string) || null;
+    const phone = (formData.get("phone") as string) || null;
+    const division = (formData.get("division") as string) || null;
+    const district = (formData.get("district") as string) || null;
+    const nidNumber = (formData.get("nidNumber") as string) || null;
+    const maxEducationLevel =
+      (formData.get("maxEducationLevel") as string) || null;
+    const drivingLicense = (formData.get("drivingLicense") as string) || null;
+    const yearsOfExperience =
+      (formData.get("yearsOfExperience") as string) || null;
+    const profilePhoto =
+      (formData.get("profilePhoto") as File | string | null) || null;
+    const nidCopy = (formData.get("nidCopy") as File | string | null) || null;
+    const drivingLicenseCopy =
+      (formData.get("drivingLicenseCopy") as File | string | null) || null;
+    const chairmanCertificate =
+      (formData.get("chairmanCertificateCopy") as File | string | null) || null;
+    const portEntryPermit =
+      (formData.get("portEntryPermit") as File | string | null) || null;
+
+    await connectToMongoDB();
+
+    const user = await User.findById(authUser.userId).select("+password");
+
+    if (!user) {
+      return NextResponse.json({ error: "User not found!" }, { status: 404 });
+    }
+
+    let profilePhotoLocation = user.profilePhoto;
+    let nidCopyLocation = user.nidCopy;
+    let drivingLicenseCopyLocation = user.drivingLicenseCopy;
+    let chairmanCertificateCopyLocation = user.chairmanCertificateCopy;
+    let portEntryPermitLocation = user.portEntryPermit;
+
+    if (profilePhoto) {
+      profilePhotoLocation = await processFile(profilePhoto as File);
+    }
+    if (nidCopy) {
+      nidCopyLocation = await processFile(nidCopy as File);
+    }
+    if (drivingLicenseCopy) {
+      drivingLicenseCopyLocation = await processFile(drivingLicenseCopy as File);
+    }
+    if (chairmanCertificate) {
+      chairmanCertificateCopyLocation = await processFile(
+        chairmanCertificate as File
+      );
+    }
+    if (portEntryPermit) {
+      portEntryPermitLocation = await processFile(portEntryPermit as File);
+    }
+
+    const updateFields: any = {};
+
+    if (name) updateFields.name = name;
+    if (role) updateFields.role = role;
+    if (phone) updateFields.phone = phone;
+    if (division) updateFields.division = division;
+    if (district) updateFields.district = district;
+    if (nidNumber) updateFields.nidNumber = nidNumber;
+    if (maxEducationLevel) updateFields.maxEducationLevel = maxEducationLevel;
+    if (drivingLicense) updateFields.drivingLicense = drivingLicense;
+    if (yearsOfExperience) updateFields.yearsOfExperience = yearsOfExperience;
+    if (profilePhotoLocation) updateFields.profilePhoto = profilePhotoLocation;
+    if (nidCopyLocation) updateFields.nidCopy = nidCopyLocation;
+    if (drivingLicenseCopyLocation)
+      updateFields.drivingLicenseCopy = drivingLicenseCopyLocation;
+    if (chairmanCertificateCopyLocation)
+      updateFields.chairmanCertificateCopy = chairmanCertificateCopyLocation;
+    if (portEntryPermitLocation)
+      updateFields.portEntryPermit = portEntryPermitLocation;
+
+    await User.findOneAndUpdate({ _id: authUser.userId }, updateFields, {
+      new: true,
+      runValidators: true
+    });
+
+    return NextResponse.json({
+      status: "success",
+      message: "User updated successfully!"
+    });
+  } catch (error) {
+    console.error("Error:", error);
     return NextResponse.json(
-      { error: "User ID is required!" },
-      { status: 400 }
+      {
+        status: false,
+        message: "Internal server error",
+        data: {}
+      },
+      { status: 500 }
     );
   }
-
-  await connectToMongoDB();
-
-  const user = await User.findById(userId).select("+password");
-
-  if (!user) {
-    return NextResponse.json({ error: "User not found!" }, { status: 404 });
-  }
-
-  let profilePhotoLocation = user.profilePhoto;
-  let nidCopyLocation = user.nidCopy;
-  let drivingLicenseCopyLocation = user.drivingLicenseCopy;
-  let chairmanCertificateCopyLocation = user.chairmanCertificateCopy;
-  let portEntryPermitLocation = user.portEntryPermit;
-
-  if (profilePhoto) {
-    profilePhotoLocation = await processFile(profilePhoto as File);
-  }
-  if (nidCopy) {
-    nidCopyLocation = await processFile(nidCopy as File);
-  }
-  if (drivingLicenseCopy) {
-    drivingLicenseCopyLocation = await processFile(drivingLicenseCopy as File);
-  }
-  if (chairmanCertificate) {
-    chairmanCertificateCopyLocation = await processFile(
-      chairmanCertificate as File
-    );
-  }
-  if (portEntryPermit) {
-    portEntryPermitLocation = await processFile(portEntryPermit as File);
-  }
-
-  const updateFields: any = {};
-
-  if (name) updateFields.name = name;
-  if (role) updateFields.role = role;
-  if (phone) updateFields.phone = phone;
-  if (division) updateFields.division = division;
-  if (district) updateFields.district = district;
-  if (nidNumber) updateFields.nidNumber = nidNumber;
-  if (maxEducationLevel) updateFields.maxEducationLevel = maxEducationLevel;
-  if (drivingLicense) updateFields.drivingLicense = drivingLicense;
-  if (yearsOfExperience) updateFields.yearsOfExperience = yearsOfExperience;
-  if (profilePhotoLocation) updateFields.profilePhoto = profilePhotoLocation;
-  if (nidCopyLocation) updateFields.nidCopy = nidCopyLocation;
-  if (drivingLicenseCopyLocation)
-    updateFields.drivingLicenseCopy = drivingLicenseCopyLocation;
-  if (chairmanCertificateCopyLocation)
-    updateFields.chairmanCertificateCopy = chairmanCertificateCopyLocation;
-  if (portEntryPermitLocation)
-    updateFields.portEntryPermit = portEntryPermitLocation;
-
-  await User.findOneAndUpdate({ _id: userId }, updateFields, {
-    new: true,
-    runValidators: true
-  });
-
-  return NextResponse.json({
-    status: "success",
-    message: "ইউজার আপডেট সফল হয়েছে!"
-  });
 }

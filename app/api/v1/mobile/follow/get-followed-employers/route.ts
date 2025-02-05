@@ -50,32 +50,30 @@ import { authMiddleware } from "@/app/api/middleware/auth";
  *                         example: "data:image/jpeg;base64,/9j/4QAYRXhpZ..."
  */
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function GET(request: NextRequest) {
   try {
-    // const authUser = await authMiddleware(request);
-    // if (authUser instanceof NextResponse) {
-    //   return authUser;
-    // }
-    const { id } = params;
-    if (!id) {
+    const authUser = await authMiddleware(request);
+    if (authUser instanceof NextResponse) {
+      return authUser;
+    }
+
+    const { userId } = authUser;
+    if (!userId) {
       return NextResponse.json({ error: "Invalid input!" }, { status: 400 });
     }
 
     await connectToMongoDB();
-    const objectId = new mongoose.Types.ObjectId(id);
+    const objectId = new mongoose.Types.ObjectId(userId);
 
     const user = await User.findById(objectId)
       .populate({
         path: 'following',
-        select: '_id name email profilePhoto', // Add or remove fields as needed
+        select: '_id name email profilePhoto', 
         model: User
       });
 
     if (!user) {
-      return NextResponse.json({ message: false }, { status: 400});
+      return NextResponse.json({ message: false }, { status: 400 });
     }
 
     return NextResponse.json({
@@ -83,6 +81,10 @@ export async function GET(
       data: user.following
     });
   } catch (error) {
-    return handleError(error);
+    console.log(error)
+    return NextResponse.json({
+      status: false,
+      data: {}
+    });
   }
 }

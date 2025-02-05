@@ -63,41 +63,40 @@ import { authMiddleware } from "@/app/api/middleware/auth";
 
 export async function POST(request: NextRequest) {
   try {
+    const authUser = await authMiddleware(request);
+    if (authUser instanceof NextResponse) {
+      return authUser;
+    }
+    
+    const formData = await request.formData();
+    const employerId = formData.get('employerId')?.toString();
 
-    // const authUser = await authMiddleware(request);
-    // if (authUser instanceof NextResponse) {
-    //   return authUser;
-    // }
-    const body = await request.json();
-
-    let { userId, employerId } = body;
-    if (!userId || !employerId) {
+    if (!employerId) {
       return NextResponse.json({ error: "Invalid input!" }, { status: 400 });
     }
 
-
     await connectToMongoDB();
-    userId = new mongoose.Types.ObjectId(userId);
-    employerId = new mongoose.Types.ObjectId(employerId);
-    console.log(userId, employerId)
+    const userObjectId = new mongoose.Types.ObjectId(authUser.userId);
+    const employerObjectId = new mongoose.Types.ObjectId(employerId);
+    console.log(userObjectId, employerObjectId)
 
-    const user = await User.findById(userId);
+    const user = await User.findById(userObjectId);
     if (!user) {
       return NextResponse.json({ error: "User not found!" }, { status: 404 });
     }
     
-    const employer = await User.findById(employerId);
+    const employer = await User.findById(employerObjectId);
     if (!employer) {
       return NextResponse.json({ error: "Employer not found!" }, { status: 404 });
     }
 
-    if (!user.following.includes(employerId)) {
-      user.following.push(employerId);
+    if (!user.following.includes(employerObjectId.toString())) {
+      user.following.push(employerObjectId.toString());
       await user.save();
     }
 
-    if (!employer.followers.includes(userId)) {
-      employer.followers.push(userId);
+    if (!employer.followers.includes(userObjectId.toString())) {
+      employer.followers.push(userObjectId.toString());
       await employer.save();
     }
 
