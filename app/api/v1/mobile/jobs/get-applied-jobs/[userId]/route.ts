@@ -101,8 +101,6 @@ export async function GET(
       district: job.district,
       salary: job.salary,
       applicationDeadline: job.applicationDeadline,
-      createdAt: job.createdAt,
-      updatedAt: job.updatedAt,
       company_name:
         typeof job.user === "object" && "name" in job.user
           ? job.user.name

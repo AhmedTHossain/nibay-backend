@@ -89,12 +89,14 @@ import { EDUCATION_PRECEDENCE } from "../../../../../../lib/constant"; // Assumi
 
 export async function POST(request: NextRequest) {
   try {
-    const { jobId, userId } = await request.json(); // Extract data from request body
+    const formData = await request.formData(); // Extract data from form data
+    const jobId = formData.get('jobId');
+    const userId = formData.get('userId');
 
-    const authUser = await authMiddleware(request);
-    if (authUser instanceof NextResponse) {
-      return authUser;
-    }
+    // const authUser = await authMiddleware(request);
+    // if (authUser instanceof NextResponse) {
+    //   return authUser;
+    // }
 
     await connectToMongoDB();
 
@@ -103,7 +105,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "User not found!" }, { status: 404 });
     }
 
-    const jobData = await Job.findById(jobId);
+    const jobData = await Job.findById(jobId).select('_id title shortDescription longDescription experience qualification applicationDeadline salary jobRole isBirthCertificateRequired isPortEntryPermitRequired division district');
     if (!jobData) {
       return NextResponse.json({ error: "Job not found!" }, { status: 404 });
     }
@@ -176,4 +178,3 @@ export async function POST(request: NextRequest) {
     });
   }
 }
-
