@@ -11,7 +11,7 @@ export async function POST(request: Request) {
     const user = await User.findOne({ phone: phone });
     if (!user) {
       return NextResponse.json(
-        { error: "Invalid Credentials!" },
+        { message: "Invalid Credentials!", status: false },
         { status: 400 }
       );
     }

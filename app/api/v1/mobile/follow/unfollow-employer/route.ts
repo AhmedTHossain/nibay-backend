@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
 
     if (!employerId) {
       return NextResponse.json(
-        { error: "Employer ID is required" },
+        { status: false, message: "Employer ID is required" },
         { status: 400 }
       );
     }
@@ -29,12 +29,12 @@ export async function POST(request: NextRequest) {
 
     const user = await User.findById(userObjectId);
     if (!user) {
-      return NextResponse.json({ error: "User not found!" }, { status: 404 });
+      return NextResponse.json({ status: false, message: "User not found!" }, { status: 404 });
     }
 
     const employer = await User.findById(employerObjectId);
     if (!employer) {
-      return NextResponse.json({ error: "Employer not found!" }, { status: 404 });
+      return NextResponse.json({ status: false, message: "Employer not found!" }, { status: 404 });
     }
 
     // Remove from following array of user
@@ -60,9 +60,8 @@ export async function POST(request: NextRequest) {
 
   } catch (error) {
     return NextResponse.json({
-        status: false,
-        message: ""
-      })
-
+      status: false,
+      message: "An error occurred"
+    });
   }
 }

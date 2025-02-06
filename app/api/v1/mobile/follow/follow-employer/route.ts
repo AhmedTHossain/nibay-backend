@@ -72,7 +72,7 @@ export async function POST(request: NextRequest) {
     const employerId = formData.get('employerId')?.toString();
 
     if (!employerId) {
-      return NextResponse.json({ error: "Invalid input!" }, { status: 400 });
+      return NextResponse.json({ status: false, message: "Invalid input!"}, { status: 400 });
     }
 
     await connectToMongoDB();
@@ -82,12 +82,12 @@ export async function POST(request: NextRequest) {
 
     const user = await User.findById(userObjectId);
     if (!user) {
-      return NextResponse.json({ error: "User not found!" }, { status: 404 });
+      return NextResponse.json({ status: false, message: "User not found!" }, { status: 404 });
     }
     
     const employer = await User.findById(employerObjectId);
     if (!employer) {
-      return NextResponse.json({ error: "Employer not found!" }, { status: 404 });
+      return NextResponse.json({ status: false, message: "Employer not found!"}, { status: 404 });
     }
 
     if (!user.following.includes(employerObjectId.toString())) {

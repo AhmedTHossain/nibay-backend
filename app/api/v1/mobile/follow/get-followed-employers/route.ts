@@ -59,7 +59,7 @@ export async function GET(request: NextRequest) {
 
     const { userId } = authUser;
     if (!userId) {
-      return NextResponse.json({ error: "Invalid input!" }, { status: 400 });
+      return NextResponse.json({ status: false, message: "Invalid input!" }, { status: 400 });
     }
 
     await connectToMongoDB();
@@ -73,18 +73,20 @@ export async function GET(request: NextRequest) {
       });
 
     if (!user) {
-      return NextResponse.json({ message: false }, { status: 400 });
+      return NextResponse.json({ status: false, message: "User not found!" }, { status: 404 });
     }
 
     return NextResponse.json({
       status: true,
+      message: "Data retrieved successfully",
       data: user.following
     });
   } catch (error) {
-    console.log(error)
-    return NextResponse.json({
-      status: false,
-      data: {}
-    });
-  }
-}
+    console.log(error);
+        return NextResponse.json({
+          status: false,
+          message: "An error occurred",
+          data: {}
+        });
+      }
+    }

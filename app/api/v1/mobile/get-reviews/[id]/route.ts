@@ -63,7 +63,7 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
   try {
     const { id } = params;
     if (!id) {
-      return NextResponse.json({ error: "Invalid input!" }, { status: 400 });
+      return NextResponse.json({status: false, message: "Invalid input!" }, { status: 400 });
     }
 
     await connectToMongoDB();
@@ -77,7 +77,7 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
     });
 
     if (!user) {
-      return NextResponse.json({ status: "error", message: "User not found!" }, { status: 404 });
+      return NextResponse.json({ status: false, message: "User not found!" }, { status: 404 });
     }
 
 

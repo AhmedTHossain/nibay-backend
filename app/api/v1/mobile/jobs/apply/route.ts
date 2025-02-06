@@ -102,12 +102,12 @@ export async function POST(request: NextRequest) {
 
     const user = await User.findById(userId);
     if (!user) {
-      return NextResponse.json({ error: "User not found!" }, { status: 404 });
+      return NextResponse.json({ status: false, message: "User not found!" }, { status: 404 });
     }
 
     const jobData = await Job.findById(jobId).select('_id title shortDescription longDescription experience qualification applicationDeadline salary jobRole isBirthCertificateRequired isPortEntryPermitRequired division district');
     if (!jobData) {
-      return NextResponse.json({ error: "Job not found!" }, { status: 404 });
+      return NextResponse.json({ status: false, message: "Job not found!" }, { status: 404 });
     }
 
     // Get precedence values for user and job qualifications
@@ -121,7 +121,7 @@ export async function POST(request: NextRequest) {
 
     if (!userEducationPrecedence || !jobQualificationPrecedence) {
       return NextResponse.json(
-        { error: "Invalid education level or qualification!" },
+        { status: false, message: "Invalid education level or qualification!" },
         { status: 400 }
       );
     }
@@ -131,7 +131,7 @@ export async function POST(request: NextRequest) {
       parseInt(userEducationPrecedence) < parseInt(jobQualificationPrecedence)
     ) {
       return NextResponse.json(
-        { error: "Your education level does not meet the job qualification!" },
+        { status: false, message: "Your education level does not meet the job qualification!" },
         { status: 403 }
       );
     }
@@ -142,7 +142,7 @@ export async function POST(request: NextRequest) {
 
     if (isAlreadyApplied) {
       return NextResponse.json(
-        { error: "Already applied to this job!" },
+        { status: false, message: "Already applied to this job!" },
         { status: 400 }
       );
     }
@@ -173,8 +173,8 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     return NextResponse.json({
-      status: true,
-      message: error
+      status: false,
+      message: "An error occurred"
     });
   }
 }

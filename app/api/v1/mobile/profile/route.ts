@@ -92,13 +92,14 @@ export async function GET(request: Request) {
     const user = await User.findById(authUser.userId);
     if (!user) {
       return NextResponse.json(
-        { error: "User not found!" },
+        { status: false, message: "User not found!" },
         { status: 404 }
       );
     }
 
     return NextResponse.json({
-      status: "success",
+      status: false,
+      message: "success",
       data: { user }
     });
   } catch (error) {
@@ -149,7 +150,7 @@ export async function PATCH(request: Request) {
     const user = await User.findById(authUser.userId).select("+password");
 
     if (!user) {
-      return NextResponse.json({ error: "User not found!" }, { status: 404 });
+      return NextResponse.json({ message: "User not found!",status: false }, { status: 404 });
     }
 
     let profilePhotoLocation = user.profilePhoto;
