@@ -162,7 +162,8 @@ const userSchema = new mongoose.Schema<TUser, object, IUserMethods>(
   },
   {
     timestamps: true
-  }
+  },
+  
 );
 
 const User: Model<TUser> =

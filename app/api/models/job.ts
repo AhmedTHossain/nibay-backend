@@ -1,4 +1,10 @@
 import { TJob } from "@/utils/types/job";
+import {
+  APPLICATION_STATUS,
+  MAX_EDUCATION_LEVEL,
+  USER_ROLE
+} from "@/lib/constant";
+
 import mongoose, { Model } from "mongoose";
 
 const jobSchema = new mongoose.Schema<TJob, object>(
@@ -27,6 +33,12 @@ const jobSchema = new mongoose.Schema<TJob, object>(
     },
     district: {
       type: String,
+      required: false
+    },
+    applicationStatus: {
+      type: String,
+      enum: Object.keys(APPLICATION_STATUS),
+      default: "PENDING",
       required: false
     },
     applicants: {

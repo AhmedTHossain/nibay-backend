@@ -89,7 +89,9 @@ export async function GET(request: Request) {
 
     await connectToMongoDB();
 
-    const user = await User.findById(authUser.userId);
+    const user = await User.findById(authUser.userId).select(
+      "_id name role phone nidNumber nidCopy drivingLicense drivingLicenseCopy yearsOfExperience division district profilePhoto maxEducationLevel deviceID following birthCertificate portEntryPermit"
+    );
     if (!user) {
       return NextResponse.json(
         { status: false, message: "User not found!" },
@@ -98,9 +100,9 @@ export async function GET(request: Request) {
     }
 
     return NextResponse.json({
-      status: false,
+      status: true,
       message: "success",
-      data: { user }
+      data: user
     });
   } catch (error) {
     console.error("Error:", error);
@@ -205,7 +207,7 @@ export async function PATCH(request: Request) {
     return NextResponse.json({
       status: "success",
       message: "User updated successfully!"
-    });
+    }, {status: 200});
   } catch (error) {
     console.error("Error:", error);
     return NextResponse.json(

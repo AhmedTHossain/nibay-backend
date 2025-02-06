@@ -105,9 +105,14 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ status: false, message: "User not found!" }, { status: 404 });
     }
 
-    const jobData = await Job.findById(jobId).select('_id title shortDescription longDescription experience qualification applicationDeadline salary jobRole isBirthCertificateRequired isPortEntryPermitRequired division district');
+    const jobData = await Job.findById(jobId).select('_id title shortDescription longDescription experience qualification applicationDeadline salary jobRole isBirthCertificateRequired isPortEntryPermitRequired division district applicants');
     if (!jobData) {
       return NextResponse.json({ status: false, message: "Job not found!" }, { status: 404 });
+    }
+
+    // Ensure jobData.applicants is initialized
+    if (!jobData.applicants) {
+      jobData.applicants = [];
     }
 
     // Get precedence values for user and job qualifications
@@ -137,8 +142,24 @@ export async function POST(request: NextRequest) {
     }
 
     const isAlreadyApplied = jobData.applicants.find(
-      (item: any) => item.applicantId === user.id && item.jobId === jobData.id
+      (item: any) => item.applicant.id === user.id && item.job.id === jobData.id
     );
+    
+    console.log(jobData); // Log the entire jobData object
+    
+    // Log each applicant in the applicants array with more details
+    jobData.applicants.forEach((applicant, index) => {
+      console.log(`Applicant ${index + 1}:`, applicant);
+      console.log(`Applicant ${index + 1} Details:`, applicant.applicant);
+      console.log(`Job ${index + 1} Details:`, applicant.job);
+    });
+    
+    if (isAlreadyApplied) {
+      return NextResponse.json(
+        { status: false, message: "Already applied to this job!" },
+        { status: 400 }
+      );
+    }
 
     if (isAlreadyApplied) {
       return NextResponse.json(
@@ -172,9 +193,10 @@ export async function POST(request: NextRequest) {
       message: "Applied for the job successfully!"
     });
   } catch (error) {
+    console.log(error);
     return NextResponse.json({
       status: false,
       message: "An error occurred"
-    });
+    }, {status: 500});
   }
 }

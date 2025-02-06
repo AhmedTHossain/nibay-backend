@@ -78,7 +78,7 @@ export async function GET(
     const jobs = await Job.find({ _id: { $in: jobIds } }).populate({
       path: "user",
       model: "User",
-      select: "name"
+      select: "name profilePhoto applicationStatus"
     });
 
     if (!jobs.length) {
@@ -101,10 +101,15 @@ export async function GET(
       district: job.district,
       salary: job.salary,
       applicationDeadline: job.applicationDeadline,
-      company_name:
+      employerName:
         typeof job.user === "object" && "name" in job.user
           ? job.user.name
-          : "Unknown Company"
+          : "Unknown Company",
+      employerPhoto:
+        typeof job.user === "object" && "profilePhoto" in job.user
+          ? job.user.profilePhoto
+          : null,
+      applicationStatus: job.applicationStatus
     }));
 
     return NextResponse.json({

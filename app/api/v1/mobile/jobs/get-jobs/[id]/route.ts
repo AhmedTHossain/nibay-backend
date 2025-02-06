@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { connectToMongoDB } from "@/lib/database";
 import Job from "../../../../../models/job";
+import User from "../../../../../models/user";
 import { handleError } from "@/lib/handleErrors";
 /**
  * @swagger
@@ -92,21 +93,54 @@ import { handleError } from "@/lib/handleErrors";
  *                   type: string
  *                   example: Internal server error
  */
+import { authMiddleware } from "@/app/api/middleware/auth";
 
 export async function GET(request: Request, { params }: { params: { id: string } }) {
   try {
+    const authUser = await authMiddleware(request);
+    if (authUser instanceof NextResponse) {
+      return authUser;
+    }
+
     await connectToMongoDB();
 
-    const job = await Job.findById(params.id).select('_id title shortDescription longDescription experience qualification applicationDeadline salary jobRole isBirthCertificateRequired isPortEntryPermitRequired division district');
+    const job = await Job.findById(params.id).select(
+      '_id title shortDescription longDescription experience qualification applicationDeadline salary jobRole isBirthCertificateRequired isPortEntryPermitRequired division district user'
+    );
 
     if (!job) {
-      return NextResponse.json({ error: "Job not found!" }, { status: 404 });
+      return NextResponse.json({ status: false, message: "Job not found!" }, { status: 404 });
     }
+
+    const jobPoster = await User.findById(job.user).select('followers');
+    if (!jobPoster) {
+      return NextResponse.json({ status: false, message: "Job poster not found!" }, { status: 404 });
+    }
+
+    const isFollowing = jobPoster.followers.some(follower => follower.toString() === authUser.userId);
+
+    const jobResponse = {
+      _id: job._id,
+      title: job.title,
+      shortDescription: job.shortDescription,
+      longDescription: job.longDescription,
+      experience: job.experience,
+      qualification: job.qualification,
+      applicationDeadline: job.applicationDeadline,
+      salary: job.salary,
+      jobRole: job.jobRole,
+      isBirthCertificateRequired: job.isBirthCertificateRequired,
+      isPortEntryPermitRequired: job.isPortEntryPermitRequired,
+      division: job.division,
+      district: job.district,
+      employerId: job.user, // Mapping user to employerId
+      isFollowing: isFollowing // Adding isFollowing to the response
+    };
 
     return NextResponse.json({
       status: true,
       message: "Job fetched successfully",
-      data: job
+      data: jobResponse
     });
   } catch (error) {
     return NextResponse.json({
