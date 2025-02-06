@@ -23,7 +23,8 @@ export default function JobManagement() {
     isBirthCertificateRequired: false,
     isPortEntryPermitRequired: false,
     status: "",
-    __v: 0
+    __v: 0,
+    applicationStatus: "PENDING"
   });
 
   const handleAddJob = () => {
@@ -47,7 +48,8 @@ export default function JobManagement() {
       isBirthCertificateRequired: false,
       isPortEntryPermitRequired: false,
       status: "",
-      __v: 0
+      __v: 0,
+      applicationStatus: "PENDING"
     });
   };
 
