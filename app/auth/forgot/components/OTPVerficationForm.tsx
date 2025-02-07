@@ -114,10 +114,13 @@ export default function OTPVerificationForm({
         otpCode: otpValue
       };
       api_client.post("auth/verify-otp", requestBody).then((res) => {
-        console.log("OTP Verification Response:", res.data);
-        storage.setToken({ token: res.data.data.token });
-        toast.success(res.data.message);
-        router.push("/auth/reset-password");
+        if (res.data.status) {
+          storage.setToken({ token: res.data.data.token });
+          toast.success(res.data.message);
+          router.push("/auth/reset-password");
+        } else {
+          toast.error(res.data.message);
+        }
       });
     } catch (error) {
       setSubmitMessage({
