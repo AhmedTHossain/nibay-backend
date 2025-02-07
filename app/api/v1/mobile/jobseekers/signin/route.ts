@@ -23,20 +23,26 @@ export async function POST(request: Request) {
       );
     }
 
+//     In Login API (mobile/jobseekers/signin) when incorrect deviceId is passed in the request form-data, the response received has a code 200. 
+
+// Expected Behavior: expectation is when incorrect deviceId is sent in the request the API will give an error with appropriate reasoning and an error response (4xx)
+
     if (user.otpCode != otpCode) {
       return NextResponse.json({
         status: false,
         message: "otp did not match!",
         data: {}
-      });
+      },
+      { status: 400 });
     }
 
     if (user.deviceID !== deviceID) {
       return NextResponse.json({
         status: false,
-        message: "Operation failed!",
+        message: "Device ID did not match!",
         data: {}
-      });
+      },
+      { status: 400 });
     }
 
     user.isAdmin = true;
