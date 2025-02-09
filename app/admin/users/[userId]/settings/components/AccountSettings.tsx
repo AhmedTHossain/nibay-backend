@@ -26,6 +26,7 @@ import {
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import useUserById from "@/app/hooks/users/useUserById";
+import { MobileUserAccountSettings } from "./MobileUserAccountSettings";
 
 export function AccountSettings({ userId }: { userId: string }) {
   const router = useRouter();
@@ -139,7 +140,7 @@ export function AccountSettings({ userId }: { userId: string }) {
           <Loader size={20} className="animate-spin" />
         </div>
       )}
-      {!userLoading && currentUser && (
+      {!userLoading && currentUser?.isMobileUser != true && (
         <div className="mt-4 p-6 rounded-md shadow dark:shadow-gray-800 bg-white dark:bg-slate-900">
           <h5 className="text-lg font-semibold mb-6">Personal Details</h5>
           <form className="text-left" onSubmit={form.handleSubmit(onSubmit)}>
@@ -362,6 +363,9 @@ export function AccountSettings({ userId }: { userId: string }) {
             </div>
           </form>
         </div>
+      )}
+      {!userLoading && currentUser?.isMobileUser && (
+        <MobileUserAccountSettings currentUser={currentUser} refetch={refetch} />
       )}
     </div>
   );
