@@ -32,10 +32,6 @@ export function ApplicantCard(props: ApplicantCardProps) {
     userId: application?.applicant.id
   });
 
-  if (!isLoading) {
-    console.log(user?.profilePhoto);
-  }
-
   function handleApplicantStatus(status: keyof typeof APPLICATION_STATUS) {
     api_client
       .patch(`/jobs/${application?.job.id}/${application?.applicant.id}`, {
@@ -50,7 +46,7 @@ export function ApplicantCard(props: ApplicantCardProps) {
       .catch((err) => {
         console.log(err);
       })
-      .finally(() => {});
+      .finally(() => { });
   }
 
   return (
@@ -64,11 +60,11 @@ export function ApplicantCard(props: ApplicantCardProps) {
       }}
     >
       <p className="text-xs font-semibold absolute top-3 right-2 bg-violet-800 text-violet-200 py-1 px-2 rounded-3xl">
-        {user?.isDeleted
+        {application?.isDeleted
           ? "N/A"
           : APPLICATION_STATUS[
-              application?.applicationStatus as keyof typeof APPLICATION_STATUS
-            ].label}
+            application?.applicationStatus as keyof typeof APPLICATION_STATUS
+          ].label}
       </p>
       {isLoading ? (
         <AnimatePresence>
@@ -91,7 +87,7 @@ export function ApplicantCard(props: ApplicantCardProps) {
           <Image
             unoptimized
             src={
-              user?.isDeleted
+              application?.isDeleted
                 ? "/assets/applicant-placeholder-image.png"
                 : `${user?.profilePhoto || "/"}`
             }
@@ -102,15 +98,15 @@ export function ApplicantCard(props: ApplicantCardProps) {
           />
           <div className="mt-2">
             <p className="font-semibold text-lg text-slate-800 dark:text-slate-200">
-              {user?.isDeleted
+              {application?.isDeleted
                 ? "Nibay Job Seeker"
                 : application?.applicant.name}
             </p>
             <p className="text-sm text-slate-800 dark:text-slate-400">
-              {user?.isDeleted
+              {application?.isDeleted
                 ? "N/A"
                 : USER_ROLE[Number(user?.role) as keyof typeof USER_ROLE]
-                    ?.label}
+                  ?.label}
             </p>
           </div>
 
@@ -121,11 +117,11 @@ export function ApplicantCard(props: ApplicantCardProps) {
               </span>
               <span className="p-0 m-0">:</span>
               <span className="text-sm font-semibold text-slate-800 dark:text-slate-200 truncate">
-                {user?.isDeleted
+                {application?.isDeleted
                   ? "N/A"
                   : EDUCTATION_LEVELS.find(
-                      (level) => level.id === Number(user?.maxEducationLevel)
-                    )?.label}
+                    (level) => level.id === Number(user?.maxEducationLevel)
+                  )?.label}
               </span>
             </div>
             <div className="flex items-center gap-2">
@@ -134,7 +130,7 @@ export function ApplicantCard(props: ApplicantCardProps) {
               </span>
               <span className="p-0 m-0">:</span>
               <span className="text-sm font-semibold text-slate-800 dark:text-slate-200">
-                {user?.isDeleted
+                {application?.isDeleted
                   ? "N/A"
                   : formatEnglishToBangalNum(user?.yearsOfExperience) + " বছর"}
               </span>
@@ -147,7 +143,7 @@ export function ApplicantCard(props: ApplicantCardProps) {
                   event.stopPropagation();
                   handleApplicantStatus("ACCEPTED");
                 }}
-                disabled={user?.isDeleted}
+                disabled={application?.isDeleted}
               >
                 গ্রহণ করুন
               </Button>
@@ -157,7 +153,7 @@ export function ApplicantCard(props: ApplicantCardProps) {
                   event.stopPropagation();
                   handleApplicantStatus("SHORT_LISTED");
                 }}
-                disabled={user?.isDeleted}
+                disabled={application?.isDeleted}
               >
                 শর্টলিস্ট করুন
               </Button>
@@ -167,7 +163,7 @@ export function ApplicantCard(props: ApplicantCardProps) {
                   event.stopPropagation();
                   handleApplicantStatus("REJECTED");
                 }}
-                disabled={user?.isDeleted}
+                disabled={application?.isDeleted}
               >
                 বাতিল করুন
               </Button>

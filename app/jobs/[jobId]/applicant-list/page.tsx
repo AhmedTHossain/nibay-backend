@@ -23,6 +23,7 @@ export default function ApplicantListRoute({
   const router = useRouter();
   const { job, isLoading, refetch } = useJobById({ jobId: params.jobId });
   const [statusFilter, setStatusFilter] = useState<ApplicationStatus>("ALL");
+  const [allApplicants, setAllApplicants] = useState<Application[]>([]);
   const [filteredApplicants, setFilteredApplicants] = useState<Application[]>(
     []
   );
@@ -34,18 +35,11 @@ export default function ApplicantListRoute({
   const [forceTrigger, setForceTrigger] = useState(false);
 
   useEffect(() => {
-    // if job status is not active, remove the applicants those are deleted
-    if (job?.applicationStatus == "ACTIVE") {
-      console.log(job?.applicants);
-      setFilteredApplicants(
-        job?.applicants?.filter(
-          (applicant) =>
-            applicant?.isDeleted == null || applicant.isDeleted != true
-        ) || []
-      );
-    } else {
-      setFilteredApplicants(job?.applicants || []);
+    if (!job) {
+      return
     }
+    // if job status is not active, remove the applicants those are deleted
+    setAllApplicants(job?.applicants?.filter((applicant) => job?.applicationStatus == "ACTIVE" ? applicant?.isDeleted != true : true) || []);
   }, [job]);
 
   useEffect(() => {
@@ -69,12 +63,12 @@ export default function ApplicantListRoute({
   useEffect(() => {
     setFilteredApplicants(
       statusFilter == "ALL"
-        ? job?.applicants || []
-        : job?.applicants?.filter(
-            (applicant) => applicant.applicationStatus === statusFilter
-          ) || []
+        ? allApplicants
+        : allApplicants?.filter(
+          (applicant) => applicant.applicationStatus === statusFilter
+        ) || []
     );
-  }, [statusFilter, job?.applicants]);
+  }, [statusFilter, allApplicants]);
 
   return (
     <>
