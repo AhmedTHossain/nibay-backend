@@ -1,14 +1,38 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Briefcase, Users } from "lucide-react";
-import Link from "next/link";
+import { Briefcase, User, Users } from "lucide-react";
 import Header from "../components/header";
 import { SidebarNav } from "./components/sidebar-nav";
-import { useUserInfo } from "../hooks/useUserInfo";
-import { useEffect } from "react";
+import { use, useEffect, useState } from "react";
+import { formatEnglishToBangalNum } from "@/utils/formatEtoBLang";
+import { api_client } from "@/lib/axios";
+
+interface DashboardPageData {
+  totalJobs: string;
+  totalActiveJobs: string;
+  totalInstitutionJobs: string;
+  totalIndividualJobs: string;
+  totalEmployers: string;
+  totalIndividualEmployers: string;
+  totalInstitutionEmployers: string;
+  totalMobileUsers: string;
+}
 
 export default function DashboardPage() {
+  const [dashboardData, setDashboardData] = useState<DashboardPageData | null>(null);
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await api_client.get('/dashboard');
+      const result = response.data;
+      setDashboardData(result.data);
+      console.log("Dashboard: ", dashboardData);
+      console.log("Result: ", result.data);
+    }
+    fetchData();
+  }, []);
+
   return (
     <>
       <Header />
@@ -19,30 +43,111 @@ export default function DashboardPage() {
         <main className="flex w-full flex-1 flex-col overflow-hidden">
           <div className="flex-1 space-y-4 p-8 pt-6">
             <h2 className="text-3xl font-bold tracking-tight">ড্যাশবোর্ড</h2>
-            <div className="grid gap-4 md:grid-cols-2">
-              <Card className="border-emerald-200">
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">
-                    মোট চাকরি
-                  </CardTitle>
-                  <Briefcase className="h-4 w-4 text-emerald-600" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">২৫</div>
-                </CardContent>
-              </Card>
-              <Card className="border-emerald-200">
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">
-                    সক্রিয় ইউজার
-                  </CardTitle>
-                  <Users className="h-4 w-4 text-emerald-600" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">১৫০</div>
-                </CardContent>
-              </Card>
-            </div>
+            {dashboardData ? (
+              <>
+                <h3 className="text-xl font-semibold pt-5 tracking-tight">চাকরির বিজ্ঞাপন</h3>
+                <div className="grid gap-4 md:grid-cols-2">
+                  <Card className="border-emerald-200">
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                      <CardTitle className="text-sm font-medium">
+                        মোট চাকরির বিজ্ঞাপন
+                      </CardTitle>
+                      <Briefcase className="h-4 w-4 text-emerald-600" />
+                    </CardHeader>
+                    <CardContent>
+                      <div className="text-2xl font-bold">{dashboardData.totalJobs}</div>
+                    </CardContent>
+                  </Card>
+                  <Card className="border-emerald-200">
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                      <CardTitle className="text-sm font-medium">
+                        সক্রিয় চাকরির বিজ্ঞাপন
+                      </CardTitle>
+                      <Briefcase className="h-4 w-4 text-emerald-600" />
+                    </CardHeader>
+                    <CardContent>
+                      <div className="text-2xl font-bold">{dashboardData.totalActiveJobs}</div>
+                    </CardContent>
+                  </Card>
+                  <Card className="border-emerald-200">
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                      <CardTitle className="text-sm font-medium">
+                        প্রাতিষ্ঠানিক চাকরির বিজ্ঞাপন
+                      </CardTitle>
+                      <Briefcase className="h-4 w-4 text-emerald-600" />
+                    </CardHeader>
+                    <CardContent>
+                      <div className="text-2xl font-bold">{dashboardData.totalInstitutionJobs}</div>
+                    </CardContent>
+                  </Card>
+                  <Card className="border-emerald-200">
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                      <CardTitle className="text-sm font-medium">
+                        ব্যক্তিগত চাকরির বিজ্ঞাপন
+                      </CardTitle>
+                      <Briefcase className="h-4 w-4 text-emerald-600" />
+                    </CardHeader>
+                    <CardContent>
+                      <div className="text-2xl font-bold">{dashboardData.totalIndividualJobs}</div>
+                    </CardContent>
+                  </Card>
+                </div>
+
+                <h3 className="text-xl font-semibold pt-5 tracking-tight">চাকরির নিয়োগকর্তা</h3>
+                <div className="grid gap-4 md:grid-cols-2">
+                  <Card className="border-emerald-200">
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                      <CardTitle className="text-sm font-medium">
+                        মোট নিয়োগকর্তার সংখ্যা
+                      </CardTitle>
+                      <Users className="h-4 w-4 text-emerald-600" />
+                    </CardHeader>
+                    <CardContent>
+                      <div className="text-2xl font-bold">{dashboardData.totalEmployers}</div>
+                    </CardContent>
+                  </Card>
+                  <Card className="border-emerald-200">
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                      <CardTitle className="text-sm font-medium">
+                        প্রাতিষ্ঠানিক নিয়োগকর্তার সংখ্যা
+                      </CardTitle>
+                      <Users className="h-4 w-4 text-emerald-600" />
+                    </CardHeader>
+                    <CardContent>
+                      <div className="text-2xl font-bold">{dashboardData.totalInstitutionEmployers}</div>
+                    </CardContent>
+                  </Card>
+                  <Card className="border-emerald-200">
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                      <CardTitle className="text-sm font-medium">
+                        ব্যক্তিগত নিয়োগকর্তার সংখ্যা
+                      </CardTitle>
+                      <Users className="h-4 w-4 text-emerald-600" />
+                    </CardHeader>
+                    <CardContent>
+                      <div className="text-2xl font-bold">{dashboardData.totalIndividualEmployers}</div>
+                    </CardContent>
+                  </Card>
+                </div>
+
+                <h3 className="text-xl font-semibold pt-5 tracking-tight">চাকরির সন্ধানকারী</h3>
+                <div className="grid gap-4 md:grid-cols-2">
+                  <Card className="border-emerald-200">
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                      <CardTitle className="text-sm font-medium">
+                        মোট চাকরির সন্ধানকারী
+                      </CardTitle>
+                      <Users className="h-4 w-4 text-emerald-600" />
+                    </CardHeader>
+                    <CardContent>
+                      <div className="text-2xl font-bold">{dashboardData.totalMobileUsers}</div>
+                    </CardContent>
+                  </Card>
+                </div>
+              </>
+            ) : (
+              <div className="text-center">লোড হচ্ছে...</div>
+            )}
           </div>
         </main>
       </div>
