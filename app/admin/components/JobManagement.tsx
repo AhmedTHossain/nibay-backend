@@ -24,7 +24,7 @@ export default function JobManagement() {
     isPortEntryPermitRequired: false,
     status: "",
     __v: 0,
-    applicationStatus: "PENDING"
+    applicationStatus: "ACTIVE"
   });
 
   const handleAddJob = () => {
@@ -49,7 +49,7 @@ export default function JobManagement() {
       isPortEntryPermitRequired: false,
       status: "",
       __v: 0,
-      applicationStatus: "PENDING"
+      applicationStatus: "ACTIVE"
     });
   };
 

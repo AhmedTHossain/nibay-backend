@@ -30,7 +30,7 @@ export interface TJob {
     review: string | null;
     reviewCreatedDate: Date | null;
   }>;
-  applicationStatus: keyof typeof APPLICATION_STATUS;
+  applicationStatus: string;
   isBirthCertificateRequired: boolean;
   isPortEntryPermitRequired: boolean;
   status: string;

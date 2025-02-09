@@ -66,7 +66,8 @@ export async function createJob(request: NextRequest) {
       division,
       user: creatorId,
       isBirthCertificateRequired,
-      isPortEntryPermitRequired
+      isPortEntryPermitRequired,
+      applicationStatus: "ACTIVE"
     });
 
     return NextResponse.json({

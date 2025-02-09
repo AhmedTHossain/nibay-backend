@@ -1,6 +1,7 @@
 import { TJob } from "@/utils/types/job";
 import {
   APPLICATION_STATUS,
+  JOB_STATUS,
   MAX_EDUCATION_LEVEL,
   USER_ROLE
 } from "@/lib/constant";
@@ -37,8 +38,8 @@ const jobSchema = new mongoose.Schema<TJob, object>(
     },
     applicationStatus: {
       type: String,
-      enum: Object.keys(APPLICATION_STATUS),
-      default: "PENDING",
+      // enum: JOB_STATUS.map((status) => status.value),
+      default: "ACTIVE",
       required: false
     },
     applicants: {

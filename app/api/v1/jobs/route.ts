@@ -45,7 +45,7 @@ export async function GET(request: NextRequest) {
       query.jobRole = jobRole;
     }
     if (jobStatus) {
-      query.status = jobStatus;
+      query.applicationStatus = jobStatus;
     }
 
     // Pagination
