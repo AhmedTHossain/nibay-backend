@@ -32,6 +32,9 @@ export async function POST(request: NextRequest) {
 
     user.isDeleted = true;
     user.deletedAt = new Date();
+    if (user.phone) {
+      user.phone = `$${user.phone}`;
+    }
     await user.save();
 
     return NextResponse.json({

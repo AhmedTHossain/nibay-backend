@@ -18,7 +18,7 @@ export async function POST(request: Request) {
     const user = await User.findOne({ phone: phone });
     if (!user || user.isDeleted) {
       return NextResponse.json(
-        { message: "Your account was deleted. Please contact support", status: false },
+        { message: "Your account was deleted. Please contact support", status: false, data: {} },
         { status: 400 }
       );
     }
