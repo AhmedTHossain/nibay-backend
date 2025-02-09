@@ -29,6 +29,7 @@ export interface TJob {
     statusChangeDate: Date;
     review: string | null;
     reviewCreatedDate: Date | null;
+    isDeleted?: boolean;
   }>;
   applicationStatus: string;
   isBirthCertificateRequired: boolean;

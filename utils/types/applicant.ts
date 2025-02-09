@@ -30,4 +30,5 @@ export interface Application {
   statusChangeDate: Date;
   review: string | null;
   reviewCreatedDate: Date | null;
+  isDeleted?: boolean;
 }

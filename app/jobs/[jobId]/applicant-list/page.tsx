@@ -23,14 +23,29 @@ export default function ApplicantListRoute({
   const router = useRouter();
   const { job, isLoading, refetch } = useJobById({ jobId: params.jobId });
   const [statusFilter, setStatusFilter] = useState<ApplicationStatus>("ALL");
-  const [filteredApplicants, setFilteredApplicants] = useState<Application[]>([]);
-  const [paginatedApplicants, setPaginatedApplicants] = useState<Application[]>([]);
+  const [filteredApplicants, setFilteredApplicants] = useState<Application[]>(
+    []
+  );
+  const [paginatedApplicants, setPaginatedApplicants] = useState<Application[]>(
+    []
+  );
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [forceTrigger, setForceTrigger] = useState(false);
 
   useEffect(() => {
-    setFilteredApplicants(job?.applicants || []);
+    // if job status is not active, remove the applicants those are deleted
+    if (job?.applicationStatus == "ACTIVE") {
+      console.log(job?.applicants);
+      setFilteredApplicants(
+        job?.applicants?.filter(
+          (applicant) =>
+            applicant?.isDeleted == null || applicant.isDeleted != true
+        ) || []
+      );
+    } else {
+      setFilteredApplicants(job?.applicants || []);
+    }
   }, [job]);
 
   useEffect(() => {
@@ -46,16 +61,20 @@ export default function ApplicantListRoute({
   useEffect(() => {
     if (currentPage != 1) {
       setCurrentPage(1);
-    }
-    else {
+    } else {
       setForceTrigger(!forceTrigger);
     }
   }, [filteredApplicants]);
 
   useEffect(() => {
-    setFilteredApplicants(statusFilter == "ALL" ? job?.applicants || [] : job?.applicants?.filter(applicant => applicant.applicationStatus === statusFilter) || []);
+    setFilteredApplicants(
+      statusFilter == "ALL"
+        ? job?.applicants || []
+        : job?.applicants?.filter(
+            (applicant) => applicant.applicationStatus === statusFilter
+          ) || []
+    );
   }, [statusFilter, job?.applicants]);
-
 
   return (
     <>
@@ -80,7 +99,10 @@ export default function ApplicantListRoute({
                   justifyContent: "center"
                 }}
               >
-                <Loader size={22} className="animate-spin text-slate-400 dark:text-slate-600" />
+                <Loader
+                  size={22}
+                  className="animate-spin text-slate-400 dark:text-slate-600"
+                />
               </motion.div>
             </AnimatePresence>
           ) : (
@@ -100,21 +122,21 @@ export default function ApplicantListRoute({
                     );
                   })}
                 </div>
-                {paginatedApplicants !== null && filteredApplicants?.length > 0 && (
-                  <div className="flex justify-center items-center w-full mt-12">
-                    <CustomPagination
-                      totalPages={totalPages}
-                      currentPage={currentPage}
-                      onPageChange={setCurrentPage}
-                    />
-                  </div>
-                )}
+                {paginatedApplicants !== null &&
+                  filteredApplicants?.length > 0 && (
+                    <div className="flex justify-center items-center w-full mt-12">
+                      <CustomPagination
+                        totalPages={totalPages}
+                        currentPage={currentPage}
+                        onPageChange={setCurrentPage}
+                      />
+                    </div>
+                  )}
               </motion.div>
             </AnimatePresence>
           )}
         </div>
       </section>
-
 
       <Footer />
     </>

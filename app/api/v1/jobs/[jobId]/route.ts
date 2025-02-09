@@ -6,6 +6,18 @@ import { authMiddleware } from "@/app/api/middleware/auth";
 import User from "@/app/api/models/user";
 import Job from "@/app/api/models/job";
 
+async function getApplicantsDeletedStatus(applicants: any) {
+  return Promise.all(
+    applicants.map(async (applicant: any) => {
+      const detailedApplicant = await User.findById(applicant.applicant.id);
+      return {
+        ...applicant,
+        isDeleted: !detailedApplicant || detailedApplicant.isDeleted
+      };
+    })
+  );
+}
+
 export async function GET(
   request: NextRequest,
   { params }: { params: { jobId: string } }
@@ -23,7 +35,13 @@ export async function GET(
       return NextResponse.json({ error: "User not found!" }, { status: 404 });
     }
 
-    const job = await Job.findById(params.jobId).populate("applicants");
+    let job = await Job.findById(params.jobId).populate("applicants");
+
+    // add a field that if the applicant is deleted or not
+
+    if (job) {
+      job.applicants = await getApplicantsDeletedStatus(job.applicants);
+    }
 
     return NextResponse.json({
       status: "success",
