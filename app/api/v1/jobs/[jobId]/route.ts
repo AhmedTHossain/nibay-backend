@@ -35,7 +35,7 @@ export async function GET(
       return NextResponse.json({ error: "User not found!" }, { status: 404 });
     }
 
-    let job = await Job.findById(params.jobId).populate("applicants");
+    const job = await Job.findById(params.jobId).populate("applicants");
 
     // add a field that if the applicant is deleted or not
 
