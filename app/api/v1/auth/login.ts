@@ -30,6 +30,13 @@ export async function login(request: Request) {
       );
     }
 
+    if (user.isDeleted) {
+      return NextResponse.json(
+        { error: "আপনার অ্যাকাউন্ট মুছে ফেলা হয়েছে। সাপোর্ট যোগাযোগ করুন।" },
+        { status: 400 }
+      );
+    }
+
     const token = JWT.sign(
       {
         id: user.id,
