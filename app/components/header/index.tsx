@@ -116,6 +116,20 @@ const ProfileMenu = ({ userId, userName }: ProfileMenuProps) => {
             <SettingsIcon size={18} strokeWidth={1.5} /> <span>সেটিংস</span>
           </MenubarItem>
           <>
+            {user?.isAdmin &&
+              <>
+                <MenubarSeparator />
+                <MenubarItem
+                  className="gap-2"
+                  onClick={() => {
+                    router.push("/admin/");
+                  }}
+                >
+                  <MonitorCogIcon size={18} strokeWidth={1.5} />
+                  <span>অ্যাডমিন</span>
+                </MenubarItem>
+              </>
+            }
             <MenubarSeparator />
             <MenubarItem
               className="gap-2"
