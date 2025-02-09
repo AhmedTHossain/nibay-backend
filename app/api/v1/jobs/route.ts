@@ -5,6 +5,7 @@ import User from "../../models/user";
 import { handleError } from "@/lib/handleErrors";
 import { authMiddleware } from "../../middleware/auth";
 import Job from "../../models/job";
+import { updateExpiredJobs } from "@/utils/cron";
 
 export async function POST(request: NextRequest) {
   return createJob(request);
@@ -38,6 +39,8 @@ export async function GET(request: NextRequest) {
         { status: 401 }
       );
     }
+
+    updateExpiredJobs();
 
     // Build the query object
     const query: Record<string, any> = { user: userId || user._id }; // Only fetch jobs created by the user unless the user is an admin
