@@ -93,10 +93,10 @@ export async function POST(request: NextRequest) {
     const jobId = formData.get('jobId');
     const userId = formData.get('userId');
 
-    // const authUser = await authMiddleware(request);
-    // if (authUser instanceof NextResponse) {
-    //   return authUser;
-    // }
+    const authUser = await authMiddleware(request);
+    if (authUser instanceof NextResponse) {
+      return authUser;
+    }
 
     await connectToMongoDB();
 
@@ -133,7 +133,7 @@ export async function POST(request: NextRequest) {
 
     // Compare precedence (convert keys to numbers for comparison)
     if (
-      parseInt(userEducationPrecedence) < parseInt(jobQualificationPrecedence)
+      parseInt(userEducationPrecedence) > parseInt(jobQualificationPrecedence)
     ) {
       return NextResponse.json(
         { status: false, message: "Your education level does not meet the job qualification!" },
@@ -145,7 +145,6 @@ export async function POST(request: NextRequest) {
       (item: any) => item.applicant.id === user.id && item.job.id === jobData.id
     );
     
-    console.log(jobData); // Log the entire jobData object
     
     // Log each applicant in the applicants array with more details
     jobData.applicants.forEach((applicant, index) => {
