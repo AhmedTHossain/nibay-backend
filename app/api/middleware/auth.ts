@@ -36,6 +36,13 @@ export async function authMiddleware(
 
   try {
     const decoded = jwt.verify(token, JWT_SECRET) as DecodedToken;
+
+    if (decoded.id.startsWith("reset-password")) {
+      return {
+        userId: decoded.id
+      };
+    }
+
     const foundUser = await user.findById(decoded.id);
 
     if (!foundUser || foundUser.isDeleted) {
