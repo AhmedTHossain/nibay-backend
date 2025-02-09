@@ -99,10 +99,16 @@ export async function GET(request: Request) {
       );
     }
 
+    const userData: Partial<TUser> = user.toObject();
+    userData.chairmanCertificateCopy = userData.birthCertificate;
+    if (userData.birthCertificate) {
+      delete userData.birthCertificate;
+    }
+
     return NextResponse.json({
       status: true,
       message: "success",
-      data: user
+      data: userData
     });
   } catch (error) {
     console.error("Error:", error);
@@ -195,7 +201,7 @@ export async function PATCH(request: Request) {
     if (drivingLicenseCopyLocation)
       updateFields.drivingLicenseCopy = drivingLicenseCopyLocation;
     if (chairmanCertificateCopyLocation)
-      updateFields.chairmanCertificateCopy = chairmanCertificateCopyLocation;
+      updateFields.birthCertificate = chairmanCertificateCopyLocation;
     if (portEntryPermitLocation)
       updateFields.portEntryPermit = portEntryPermitLocation;
 

@@ -5,6 +5,7 @@ import jwt, {
   TokenExpiredError
 } from "jsonwebtoken";
 import { NextResponse } from "next/server";
+import user from "../models/user";
 
 const JWT_SECRET = process.env.JWT_SECRET as string;
 
@@ -12,9 +13,9 @@ interface DecodedToken extends JwtPayload {
   id: string;
 }
 
-export function authMiddleware(
+export async function authMiddleware(
   req: Request
-): NextResponse | { userId: string } {
+): Promise<NextResponse | { userId: string }> {
   const header = req.headers.get("Authorization");
 
   if (!header) {
@@ -35,6 +36,14 @@ export function authMiddleware(
 
   try {
     const decoded = jwt.verify(token, JWT_SECRET) as DecodedToken;
+    const foundUser = await user.findById(decoded.id);
+
+    if (!foundUser || foundUser.isDeleted) {
+      return errorResponse({
+        message: "User account is deleted. Contact support.",
+        statusCode: 403
+      });
+    }
 
     return { userId: decoded.id };
   } catch (error) {
