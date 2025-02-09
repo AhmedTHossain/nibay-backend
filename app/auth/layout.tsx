@@ -15,7 +15,7 @@ export default function AuthLayout({
     <section className="h-screen">
       <div className="w-full max-w-7xl mx-auto p-6">
         <div>
-          <AppLogo />
+          <AppLogo isLogin={true} />
         </div>
         {children}
       </div>
