@@ -33,6 +33,8 @@ api_client.interceptors.response.use(
       toast.error("দুঃখিত! কোনো তথ্য পাওয়া যায়নি।");
     } else if (status === 401) {
       // toast.error("দুঃখিত! আপনার এই রুটে প্রবেশাধিকার নেই।");
+    } else if (status === 403) {
+      storage.clearToken();
     } else if (status === 500) toast.error("দুঃখিত! কোনো একটা সমস্যা হয়েছে।");
     else toast.error(messageData);
 
