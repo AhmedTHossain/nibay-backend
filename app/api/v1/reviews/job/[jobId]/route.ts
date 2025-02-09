@@ -12,7 +12,7 @@ interface TJobParams {
 }
 export async function POST(request: NextRequest, { params }: TJobParams) {
   try {
-    const authUser = authMiddleware(request);
+    const authUser = await authMiddleware(request);
     if (authUser instanceof NextResponse) {
       return authUser;
     }

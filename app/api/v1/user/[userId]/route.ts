@@ -11,7 +11,7 @@ interface TUserParams {
 
 export async function GET(request: NextRequest, { params }: TUserParams) {
   try {
-    const auth = authMiddleware(request);
+    const auth =  await authMiddleware(request);
     if (auth instanceof NextResponse) {
       return auth;
     }
@@ -182,7 +182,7 @@ export async function PATCH(request: NextRequest, { params }: TUserParams) {
 export async function DELETE(request: NextRequest, { params }: TUserParams) {
   const userId = params.userId;
   try {
-    const auth = authMiddleware(request);
+    const auth =  await authMiddleware(request);
     if (auth instanceof NextResponse) {
       return auth;
     }

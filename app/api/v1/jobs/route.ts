@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
   try {
     await connectToMongoDB();
 
-    const authUser = authMiddleware(request);
+    const authUser = await authMiddleware(request);
     if (authUser instanceof NextResponse) {
       return authUser;
     }

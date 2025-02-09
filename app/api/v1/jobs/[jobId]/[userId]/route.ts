@@ -14,7 +14,7 @@ interface TREQPARAMS {
 
 export async function POST(request: NextRequest, { params }: TREQPARAMS) {
   try {
-    const authUser = authMiddleware(request);
+    const authUser = await authMiddleware(request);
     if (authUser instanceof NextResponse) {
       return authUser;
     }
@@ -69,7 +69,7 @@ export async function PATCH(request: NextRequest, { params }: TREQPARAMS) {
   try {
     await connectToMongoDB();
 
-    const authUser = authMiddleware(request);
+    const authUser = await authMiddleware(request);
     if (authUser instanceof NextResponse) {
       return authUser;
     }

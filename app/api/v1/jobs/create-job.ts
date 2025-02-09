@@ -7,7 +7,7 @@ import Job from "../../models/job";
 
 export async function createJob(request: NextRequest) {
   try {
-    const authUser = authMiddleware(request);
+    const authUser = await authMiddleware(request);
     if (authUser instanceof NextResponse) {
       return authUser;
     }

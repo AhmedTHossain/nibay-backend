@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const password = body.password;
 
-    const authUser = authMiddleware(request);
+    const authUser = await authMiddleware(request);
     if (authUser instanceof NextResponse) {
       return authUser;
     }

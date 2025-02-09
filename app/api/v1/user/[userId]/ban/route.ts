@@ -12,7 +12,7 @@ export async function PATCH(request: NextRequest, { params }: TUserParams) {
   try {
     const userId = params.userId;
 
-    const auth = authMiddleware(request);
+    const auth =  await authMiddleware(request);
     if (auth instanceof NextResponse) {
       return auth;
     }

@@ -11,7 +11,7 @@ export async function GET(
   { params }: { params: { jobId: string } }
 ) {
   try {
-    const authUser = authMiddleware(request);
+    const authUser = await authMiddleware(request);
     if (authUser instanceof NextResponse) {
       return authUser;
     }
@@ -43,7 +43,7 @@ export async function PATCH(request: NextRequest, { params }: TUserParams) {
   try {
     const jobId = params.jobId;
 
-    const authUser = authMiddleware(request);
+    const authUser = await authMiddleware(request);
     if (authUser instanceof NextResponse) {
       return authUser;
     }
@@ -102,7 +102,7 @@ export async function DELETE(request: NextRequest, { params }: TUserParams) {
   try {
     const jobId = params.jobId;
 
-    const authUser = authMiddleware(request);
+    const authUser = await authMiddleware(request);
     if (authUser instanceof NextResponse) {
       return authUser;
     }

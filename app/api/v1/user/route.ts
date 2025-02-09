@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
     const searchByPhone = request.nextUrl.searchParams.get("searchByPhone");
     const type = request.nextUrl.searchParams.get("type");
 
-    const auth = authMiddleware(request);
+    const auth =  await authMiddleware(request);
     if (auth instanceof NextResponse) {
       return auth;
     }

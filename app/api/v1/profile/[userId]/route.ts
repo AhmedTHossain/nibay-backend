@@ -78,7 +78,7 @@ export async function DELETE(request: NextRequest, { params }: TUserParams) {
   try {
     const userId = params.userId;
 
-    const authUser = authMiddleware(request);
+    const authUser = await authMiddleware(request);
     if (authUser instanceof NextResponse) {
       return authUser;
     }

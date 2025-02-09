@@ -188,12 +188,14 @@ export async function POST(request: NextRequest) {
     const district = (formData.get("district") as string) || null;
     const yearsOfExperience = (formData.get("yearsOfExperience") as string) || null;
 
+    console.log(phone, deviceID, name, role, nidNumber, nidPhoto);
+
     if (!phone || !deviceID || !name || !role || !nidNumber || !nidPhoto) {
       return NextResponse.json({
         status: false,
         message: "Requirements not fulfilled!",
         data: {},
-      });
+      }, { status: 400 });
     }
 
     await connectToMongoDB();
@@ -204,7 +206,7 @@ export async function POST(request: NextRequest) {
         status: false,
         message: "User already exists with this phone number!",
         data: {},
-      });
+      }, { status: 400 });
     }
 
     const nidPhotoPath = await processFile(nidPhoto);

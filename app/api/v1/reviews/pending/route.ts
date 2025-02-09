@@ -11,7 +11,7 @@ threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
 
 export async function GET(request: Request) {
   try {
-    const authUser = authMiddleware(request);
+    const authUser = await authMiddleware(request);
     if (authUser instanceof NextResponse) {
       return authUser;
     }

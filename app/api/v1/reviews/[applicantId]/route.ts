@@ -14,7 +14,7 @@ interface TApplicantId {
 
 export async function GET(request: NextRequest, { params }: TApplicantId) {
   try {
-    const authUser = authMiddleware(request);
+    const authUser = await authMiddleware(request);
     if (authUser instanceof NextResponse) {
       return authUser;
     }
