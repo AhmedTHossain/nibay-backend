@@ -31,10 +31,12 @@ import { useRouter } from "next/navigation";
 import { UserDeleteModal } from "@/app/admin/components/UserDeleteModal";
 import UserCard from "./UserCard";
 import { toast } from "sonner";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 function UserList() {
   const router = useRouter();
   const [searchTerm, setSearchTerm] = useState("");
+  const [searchByType, setSearchByType] = useState("Name");
   const [users, setUsers] = useState<TUser[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [typeName, setTypeName] = useState<string>("সকল");
@@ -48,8 +50,8 @@ function UserList() {
       setTypeName("ব্যক্তি");
     } else if (type == "institution") {
       setTypeName("প্রতিষ্ঠান");
-    } else {
-      setTypeName("সকল");
+    } else if (type == "mobile") {
+      setTypeName("মোবাইল");
     }
   }, [params]);
 
@@ -57,11 +59,9 @@ function UserList() {
     const delayDebounceFn = setTimeout(async () => {
       setIsLoading(true);
       setUsers([]);
-      const query = params.get("type")
-        ? `user?searchByPhone=${searchTerm}&type=${params.get("type")}`
-        : `user?searchByPhone=${searchTerm}`;
+      const query = `searchBy${searchByType}=${searchTerm}&` + (params.get("type") ? `type=${params.get("type")}` : "");
       try {
-        const resp = await api_client.get(query);
+        const resp = await api_client.get(`user?${query}`);
         setUsers(resp.data.data.users);
       } catch (e) {
         toast.error("দুঃখিত! ইউজার লিস্ট লোড করা যায়নি");
@@ -84,27 +84,43 @@ function UserList() {
               <User className="mr-2" size={32} />
               ইউজার লিস্ট ({typeName})
             </h1>
-            <div className="mb-8 relative">
+            <div className="flex mb-8 relative gap-2">
+              <Select onValueChange={(value) => setSearchByType(value)} defaultValue="Name">
+                <SelectTrigger className="w-32 border-green-200 focus:border-green-500 focus:ring-0 text-gray-600 text-center">
+                  <SelectValue placeholder="সার্চের ধরন" className="w-full" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Name" className="hover:bg-green-100">
+                    নাম
+                  </SelectItem>
+                  <SelectItem value="Email" className="hover:bg-green-100">
+                    ইমেইল
+                  </SelectItem>
+                  <SelectItem value="Phone" className="hover:bg-green-100">
+                    মোবাইল
+                  </SelectItem>
+                </SelectContent>
+              </Select>
               <Input
                 type="text"
-                placeholder="ফোন নম্বর দিয়ে সার্চ করুন"
+                placeholder="সার্চ করুন"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full pl-10 pr-4 py-2 border-green-200 focus:border-green-500 focus:ring-green-500"
               />
               <Search
-                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+                className="absolute left-[132px] top-1/2 transform -translate-y-1/2 text-gray-400"
                 size={20}
               />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {users.map((user) => (
-                <UserCard user={user} setUsers={setUsers} key={user._id} />
+                <UserCard user={user} setUsers={setUsers} key={user._id} isMobileUser={params.get("type") == "mobile"} />
               ))}
             </div>
             {users.length === 0 && isLoading == false && (
               <p className="text-center mt-8 text-gray-600">
-                No users found matching your search.
+                আপনার অনুসন্ধানে কোনো ইউজার পাওয়া যায়নি।
               </p>
             )}
             {isLoading && (
@@ -124,8 +140,8 @@ function UserList() {
               </AnimatePresence>
             )}
           </div>
-        </main>
-      </div>
+        </main >
+      </div >
     </>
   );
 }

@@ -15,10 +15,12 @@ import { useRouter } from "next/navigation";
 
 export default function UserCard({
   user,
-  setUsers
+  setUsers,
+  isMobileUser
 }: {
   user: TUser;
   setUsers: Dispatch<SetStateAction<TUser[]>>;
+  isMobileUser?: boolean;
 }) {
   const router = useRouter();
   const [isDeleteOpen, setIsDeleteOpen] = useState<boolean>(false);
@@ -32,6 +34,10 @@ export default function UserCard({
       );
     }
   }, [shouldRemove]);
+
+  useEffect(() => {
+    console.log("IsMobileUser", isMobileUser);
+  }, [isMobileUser]);
 
   return (
     <>
@@ -47,9 +53,9 @@ export default function UserCard({
         userId={user._id}
       />
       <Link
-        href={`/admin/users/${user._id}/jobs`}
+        href={isMobileUser ? "#" : `/admin/users/${user._id}/jobs`}
         key={user._id}
-        className="no-underline"
+        className={`no-underline ${isMobileUser ? "cursor-default" : ""}`}
       >
         <Card className="hover:shadow-lg transition-shadow duration-200 border-green-100 h-full flex flex-col">
           <CardHeader className="bg-green-50 border-b border-green-100 flex flex-row items-center gap-3 space-y-0 p-3">
