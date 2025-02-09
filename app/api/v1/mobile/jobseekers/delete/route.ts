@@ -6,23 +6,14 @@ import { authMiddleware } from "@/app/api/middleware/auth";
 
 export async function POST(request: NextRequest) {
   try {
-    let body;
-    try {
-      body = await request.json();
-    } catch (error) {
-      return NextResponse.json({
-        success: false,
-        message: "Invalid request body",
-        data: {}
-      });
+    const authUser = await authMiddleware(request);
+    if (authUser instanceof NextResponse) {
+      return authUser;
     }
-
-    const { userId } = body;
-    console.log(userId);
 
     await connectToMongoDB();
 
-    const user = await User.findById(userId);
+    const user = await User.findById(authUser.userId);
     if (!user) {
       return NextResponse.json({
         success: false,
