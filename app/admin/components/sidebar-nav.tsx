@@ -20,7 +20,7 @@ const links = [
   // },
   {
     title: "ইউজার ম্যানেজমেন্ট",
-    href: "/admin/users",
+    href: "/admin/user-management",
     icon: Users
   }
 ];
