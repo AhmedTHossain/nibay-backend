@@ -16,16 +16,12 @@ export async function POST(request: Request) {
     await connectToMongoDB();
 
     const user = await User.findOne({ phone: phone });
-    if (!user) {
+    if (!user || user.isDeleted) {
       return NextResponse.json(
-        { error: "Invalid Credentials!" },
+        { message: "Your account was deleted. Please contact support", status: false },
         { status: 400 }
       );
     }
-
-//     In Login API (mobile/jobseekers/signin) when incorrect deviceId is passed in the request form-data, the response received has a code 200. 
-
-// Expected Behavior: expectation is when incorrect deviceId is sent in the request the API will give an error with appropriate reasoning and an error response (4xx)
 
     if (user.otpCode != otpCode) {
       return NextResponse.json({
