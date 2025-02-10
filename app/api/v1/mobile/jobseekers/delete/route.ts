@@ -19,9 +19,11 @@ export async function POST(request: NextRequest) {
       return authUser;
     }
 
+    const userId = authUser.userId; // Extract user ID from the auth token
+
     await connectToMongoDB();
 
-    const user = await User.findById(authUser.userId);
+    const user = await User.findById(userId);
     if (!user) {
       return NextResponse.json({
         success: false,

@@ -1,10 +1,10 @@
 import { connectToMongoDB } from "@/lib/database";
 import { handleError } from "@/lib/handleErrors";
 import { NextRequest, NextResponse } from "next/server";
-// Restored original paths
 import User from "@/app/api/models/user";
 import Job from "@/app/api/models/job";
 import mongoose from "mongoose";
+import { authMiddleware } from "@/app/api/middleware/auth";
 
 /**
  * @swagger
@@ -44,19 +44,15 @@ import mongoose from "mongoose";
  */
 
 export async function GET(
-  request: NextRequest,
-  { params }: { params: { userId: string } }
+  request: NextRequest
 ) {
   try {
-    const { userId } = params;
-
-    if (!userId) {
-      return NextResponse.json({
-        status: false,
-        message: "User ID is required",
-        data: {}
-      }, { status: 400 });
+    const authUser = await authMiddleware(request);
+    if (authUser instanceof NextResponse) {
+      return authUser;
     }
+
+    const userId = authUser.userId; // Extract user ID from the auth token
 
     await connectToMongoDB();
 
