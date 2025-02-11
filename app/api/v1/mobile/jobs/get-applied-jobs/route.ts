@@ -43,6 +43,130 @@ import { authMiddleware } from "@/app/api/middleware/auth";
  *         description: Server error
  */
 
+const MAX_EDUCATION_LEVEL = {
+  0: {
+    value: "BACHELOR",
+    educationLevelTxtEn: "Bachelor's Degree",
+    educationLevelTxtBn: "স্নাতক ডিগ্রি"
+  },
+  1: {
+    value: "HIGHER_SECONDARY",
+    educationLevelTxtEn: "Higher Secondary",
+    educationLevelTxtBn: "উচ্চ মাধ্যমিক"
+  },
+  2: {
+    value: "JUNIOR_SECONDARY",
+    educationLevelTxtEn: "Junior Secondary",
+    educationLevelTxtBn: "নিম্ন মাধ্যমিক"
+  },
+  3: {
+    value: "MASTER",
+    educationLevelTxtEn: "Master's Degree",
+    educationLevelTxtBn: "স্নাতকোত্তর ডিগ্রি"
+  },
+  4: {
+    value: "NO_FORMAL_EDUCATION",
+    educationLevelTxtEn: "No Formal Education",
+    educationLevelTxtBn: "কোনো আনুষ্ঠানিক শিক্ষা নয়"
+  },
+  5: {
+    value: "PRIMARY",
+    educationLevelTxtEn: "Primary",
+    educationLevelTxtBn: "প্রাথমিক"
+  },
+  6: {
+    value: "SECONDARY",
+    educationLevelTxtEn: "Secondary",
+    educationLevelTxtBn: "মাধ্যমিক"
+  }
+};
+
+ const USER_ROLE = {
+  0: { 
+    label: "চেকার", 
+    value: "CHECKER",
+    jobRoleTxtEn: "Checker",
+    jobRoleTxtBn: "চেকার"
+  },
+  1: { 
+    label: "কাউন্টার মাস্টার", 
+    value: "COUNTER_MASTER",
+    jobRoleTxtEn: "Counter Master",
+    jobRoleTxtBn: "কাউন্টার মাস্টার"
+  },
+  2: { 
+    label: "ড্রাইভার", 
+    value: "DRIVER",
+    jobRoleTxtEn: "Driver",
+    jobRoleTxtBn: "ড্রাইভার"
+  },
+  3: { 
+    label: "ফোরম্যান", 
+    value: "FOREMAN",
+    jobRoleTxtEn: "Foreman",
+    jobRoleTxtBn: "ফোরম্যান"
+  },
+  4: { 
+    label: "জিএম", 
+    value: "GM",
+    jobRoleTxtEn: "General Manager",
+    jobRoleTxtBn: "জিএম"
+  },
+  5: { 
+    label: "হেল্পার", 
+    value: "HELPER",
+    jobRoleTxtEn: "Helper",
+    jobRoleTxtBn: "হেল্পার"
+  },
+  6: { 
+    label: "ম্যানেজার", 
+    value: "MANAGER",
+    jobRoleTxtEn: "Manager",
+    jobRoleTxtBn: "ম্যানেজার"
+  },
+  7: { 
+    label: "মেকানিক/মিস্ত্রি", 
+    value: "MECHANIC_MISTRY",
+    jobRoleTxtEn: "Mechanic/Technician",
+    jobRoleTxtBn: "মেকানিক/মিস্ত্রি"
+  },
+  8: {
+    label: "সুপারভাইজার/প্যাসেঞ্জার গাইড",
+    value: "SUPERVISOR_PASSENGER_GUIDE",
+    jobRoleTxtEn: "Supervisor/Passenger Guide",
+    jobRoleTxtBn: "সুপারভাইজার/প্যাসেঞ্জার গাইড"
+  },
+  9: { 
+    label: "ট্রাক ড্রাইভার", 
+    value: "TRUCK_DRIVER",
+    jobRoleTxtEn: "Truck Driver",
+    jobRoleTxtBn: "ট্রাক ড্রাইভার"
+  },
+  10: { 
+    label: "প্রতিষ্ঠানিক", 
+    value: "INSTITUTION",
+    jobRoleTxtEn: "Institutional",
+    jobRoleTxtBn: "প্রতিষ্ঠানিক"
+  },
+  11: { 
+    label: "ব্যক্তিগত", 
+    value: "INDIVIDUAL",
+    jobRoleTxtEn: "Individual",
+    jobRoleTxtBn: "ব্যক্তিগত"
+  }
+};
+
+function getJobRoleDetails(jobRoleId: number) {
+  const role = USER_ROLE[jobRoleId as keyof typeof USER_ROLE];
+  if (!role) return null;
+  
+  return {
+    jobRoleId,
+    ...role
+  };
+}
+
+
 export async function GET(
   request: NextRequest
 ) {
@@ -85,28 +209,43 @@ export async function GET(
       }, { status: 404 });
     }
 
-    const formattedJobs = jobs.map((job) => ({
-      _id: job._id.toString(),
-      title: job.title,
-      shortDescription: job.shortDescription,
-      longDescription: job.longDescription,
-      experience: job.experience,
-      qualification: job.qualification,
-      jobRole: job.jobRole,
-      division: job.division,
-      district: job.district,
-      salary: job.salary,
-      applicationDeadline: job.applicationDeadline,
-      employerName:
-        typeof job.user === "object" && "name" in job.user
-          ? job.user.name
-          : "Unknown Company",
-      employerPhoto:
-        typeof job.user === "object" && "profilePhoto" in job.user
-          ? job.user.profilePhoto
-          : null,
-      applicationStatus: job.applicationStatus
-    }));
+    const jobRoleKey = (Object.keys(USER_ROLE) as string[]).find(
+      (key: string) => jobs.some(job => USER_ROLE[key as unknown as keyof typeof USER_ROLE].label === job.jobRole)
+    );
+
+    const formattedJobs = jobs.map((job) => {
+      const applicant = job.applicants.find(
+        (applicant) => applicant.applicant.id.toString() === userId.toString()
+      );
+      const jobRoleKey = (Object.keys(USER_ROLE) as string[]).find(
+        (key: string) => jobs.some(job => USER_ROLE[key as unknown as keyof typeof USER_ROLE].label === job.jobRole)
+      );
+  
+    
+      return {
+        _id: job._id.toString(),
+        title: job.title,
+        shortDescription: job.shortDescription,
+        longDescription: job.longDescription,
+        experience: job.experience,
+        qualification: job.qualification,
+        jobRole: parseInt(jobRoleKey || "0"),
+        division: job.division,
+        district: job.district,
+        salary: parseInt(job.salary || "0"),
+        applicationDeadline: job.applicationDeadline,
+        employerName:
+          typeof job.user === "object" && "name" in job.user
+            ? job.user.name
+            : "Unknown Company",
+        employerPhoto:
+          typeof job.user === "object" && "profilePhoto" in job.user
+            ? job.user.profilePhoto
+            : null,
+        applicationStatus: applicant ? applicant.applicationStatus : job.applicationStatus, 
+        jobSatus: job.applicationStatus,
+      };
+    });
 
     return NextResponse.json({
       status: true,

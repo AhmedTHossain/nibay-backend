@@ -50,4 +50,6 @@ export interface TUser {
   deletedAt: Date;
   isBanned: boolean;
   isVerified: boolean;
+  lastOTPRequestTime: Date;
+  otpRequestCount: number;
 }

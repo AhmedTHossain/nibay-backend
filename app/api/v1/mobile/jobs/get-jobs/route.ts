@@ -3,6 +3,8 @@ import { connectToMongoDB } from "@/lib/database";
 import Job from "@/app/api/models/job";
 import User from "@/app/api/models/user";
 import { handleError } from "@/lib/handleErrors";
+import { authMiddleware } from "@/app/api/middleware/auth";
+
 
 
 /**
@@ -280,6 +282,12 @@ function isAcademicCertificateNeeded(educationLevelId: number): boolean {
 
 export async function GET(request: Request) {
   try {
+        const authUser = await authMiddleware(request);
+        if (authUser instanceof NextResponse) {
+          return authUser;
+        }
+    
+    const userId = authUser.userId; 
     const { searchParams } = new URL(request.url);
 
     const orderBy = searchParams.get("orderBy") || "-createdAt";
@@ -328,7 +336,7 @@ export async function GET(request: Request) {
     const transformedJobs = jobs.map(job => {
       const jobObj = job.toObject();
       const employer = employerMap.get(jobObj.user?.toString());
-      
+    
       const educationKey = (Object.keys(MAX_EDUCATION_LEVEL) as string[]).find(
         (key: string) => MAX_EDUCATION_LEVEL[key as unknown as keyof typeof MAX_EDUCATION_LEVEL].value === jobObj.qualification
       );
@@ -336,11 +344,15 @@ export async function GET(request: Request) {
         (key: string) => USER_ROLE[key as unknown as keyof typeof USER_ROLE].label === jobObj.jobRole
       );
       const isDrivingLicenseRequired = jobRoleKey === "2" || jobRoleKey === "9";
-
+    
       const educationLevelId = parseInt(educationKey || "4");
       const jobRoleDetails = getJobRoleDetails(parseInt(jobRoleKey || "0"));
       const educationLevelDetails = getEducationLevelDetails(educationLevelId);
-
+    
+      // Check if the current user's ID is present in the applicants array
+      const currentUserApplication = jobObj.applicants.find(applicant => applicant.applicant.id === userId);
+      const applicantStatus = currentUserApplication ? currentUserApplication.applicationStatus : null;
+    
       return {
         ...jobObj,
         employerName: employer?.name || "",
@@ -353,8 +365,11 @@ export async function GET(request: Request) {
         jobRoleTxtEn: jobRoleDetails?.jobRoleTxtEn || "",
         jobRoleTxtBn: jobRoleDetails?.jobRoleTxtBn || "",
         isDrivingLicenseRequired,
+        salary: parseInt(jobObj.salary || "0", 10) || 0,
         qualification: undefined,
         applicants: undefined,
+        applicantStatus,
+        applicationStatus: jobObj.applicationStatus // Include the application status in the response
       };
     });
     
