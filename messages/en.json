@@ -3,6 +3,12 @@
     "title": "Hello world!"
   },
   "Login": {
-    "title": "Sign In"
+    "title": "Sign In",
+    "email": "Email",
+    "password": "Password",
+    "forgot-password": "Forgot Password?",
+    "sign-in": "Sign In",
+    "no-account": "No Account?",
+    "sign-up": "Sign Up"
   }
 }

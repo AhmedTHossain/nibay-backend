@@ -3,6 +3,12 @@
     "title": "Hello world!"
   },
   "Login": {
-    "title": "সাইন ইন"
+    "title": "সাইন ইন",
+    "email": "ইমেইল",
+    "password": "পাসওয়ার্ড",
+    "forgot-password": "পাসওয়ার্ড ভুলে গেছেন?",
+    "sign-in": "সাইন ইন",
+    "no-account": "অ্যাকাউন্ট নেই?",
+    "sign-up": "সাইন আপ"
   }
 }

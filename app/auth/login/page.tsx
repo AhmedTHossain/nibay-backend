@@ -64,7 +64,7 @@ export default function LoginRoute() {
           <div className="grid grid-cols-1">
             <div className="mb-4 text-left">
               <label className="font-semibold" htmlFor="email">
-                ইমেইল
+                {t('email')}
               </label>
               <Input
                 id="email"
@@ -74,12 +74,12 @@ export default function LoginRoute() {
                 {...form.register("email")}
               />
             </div>
-            <InputPassword label="পাসওয়ার্ড" {...form.register("password")} />
+            <InputPassword label={t('password')} {...form.register("password")} />
 
             <div className="flex justify-between mb-4">
               <p className="text-slate-800 mb-0">
                 <a className="text-slate-800" href="/auth/forgot">
-                  পাসওয়ার্ড ভুলে গেছেন ?
+                  {t('forgot-password')}
                 </a>
               </p>
             </div>
@@ -89,16 +89,16 @@ export default function LoginRoute() {
                 className="bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white rounded-md w-full"
                 disabled={isLoading}
               >
-                {isLoading && <Loader className="animate-spin" />} সাইন ইন
+                {isLoading && <Loader className="animate-spin" />} {t('sign-in')}
               </Button>
             </div>
             <div className="text-center">
-              <span className="text-slate-800 me-2">অ্যাকাউন্ট নেই ?</span>{" "}
+              <span className="text-slate-800 me-2">{t('no-account')}</span>{" "}
               <Link
                 className="text-black dark:text-white font-bold"
                 href="/auth/signup"
               >
-                সাইন আপ
+                {t('sign-up')}
               </Link>
             </div>
           </div>
