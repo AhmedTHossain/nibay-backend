@@ -14,7 +14,10 @@
   },
   "Header": {
     "about": "About Us",
-    "contact": "Contact"
+    "contact": "Contact",
+    "settings": "Settings",
+    "admin": "Admin",
+    "logout": "Log out"
   },
   "Footer": {
     "about": "About Us",
