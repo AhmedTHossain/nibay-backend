@@ -50,5 +50,21 @@
       "description": "Select and confirm the candidate you want to hire for the position."
     },
     "read-more": "Read More"
+  },
+  "JobFilter": {
+    "all": "All Jobs",
+    "roles": {
+      "চেকার": "Checker",
+      "কাউন্টার মাস্টার": "Counter Master",
+      "ড্রাইভার": "Driver",
+      "ফোরম্যান": "Foreman",
+      "জিএম (জেনারেল ম্যানেজার)": "GM (General Manager)",
+      "হেল্পার": "Helper",
+      "ম্যানেজার": "Manager",
+      "মেকানিক/মিস্ত্রি": "Mechanic/Mistry",
+      "সুপারভাইজার/প্যাসেঞ্জার গাইড": "Supervisor/Passenger Guide",
+      "ট্রাক ড্রাইভার": "Truck Driver"
+    },
+    "filter": "Filter"
   }
 }
