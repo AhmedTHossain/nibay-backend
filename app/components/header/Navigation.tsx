@@ -12,8 +12,11 @@ import {
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
 import { HEADER_NAV_ITEMS } from "@/app/assets/resources";
+import { useTranslations } from "next-intl";
 
 export function Navigation() {
+  const t = useTranslations('Header');
+
   return (
     <NavigationMenu>
       <NavigationMenuList>
@@ -22,7 +25,7 @@ export function Navigation() {
             <NavigationMenuItem key={item.id}>
               <Link href={item.link} legacyBehavior passHref>
                 <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  {item.title}
+                  {t(item.key)}
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>

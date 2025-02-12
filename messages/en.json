@@ -11,5 +11,15 @@
     "no-account": "No Account?",
     "sign-up": "Sign Up",
     "success": "Welcome! You are now logged in"
+  },
+  "Header": {
+    "about": "About Us",
+    "contact": "Contact"
+  },
+  "Footer": {
+    "about": "About Us",
+    "contact": "Contact",
+    "privacy-policy": "Privacy Policy",
+    "terms-of-services": "Terms of Services"
   }
 }
