@@ -10,7 +10,7 @@ import { SidebarNav } from "../components/sidebar-nav";
 export default function DashboardPage() {
   return (
     <>
-      <Header />
+      <Header isAdminRoute={true} />
       <div className="container grid flex-1 gap-12 pt-[100px] md:grid-cols-[200px_1fr]">
         <aside className="hidden w-[200px] flex-col md:flex">
           <SidebarNav />

@@ -73,7 +73,7 @@ function UserList() {
 
   return (
     <>
-      <Header />
+      <Header isAdminRoute={true} />
       <div className="max-w-6xl mx-auto grid flex-1 gap-12 pt-[100px] md:grid-cols-[150px_1fr] ">
         <aside className="hidden flex-col md:flex">
           <SidebarNav />
