@@ -90,7 +90,7 @@ export async function GET(request: Request) {
     await connectToMongoDB();
 
     const user = await User.findById(authUser.userId).select(
-      "_id name role phone nidNumber nidCopy drivingLicense drivingLicenseCopy yearsOfExperience division district profilePhoto maxEducationLevel deviceID following birthCertificate portEntryPermit"
+      "_id name role phone nidNumber nidCopy drivingLicense drivingLicenseCopy yearsOfExperience division district profilePhoto maxEducationLevel maxEducationLevelCertificateCopy deviceID following birthCertificate portEntryPermit"
     );
     if (!user) {
       return NextResponse.json(
@@ -146,6 +146,11 @@ export async function PATCH(request: Request) {
     const profilePhoto =
       (formData.get("profilePhoto") as File | string | null) || null;
     const nidCopy = (formData.get("nidCopy") as File | string | null) || null;
+    const maxEducationLevelCertificateCopy =
+      (formData.get("maxEducationLevelCertificateCopy") as
+        | File
+        | string
+        | null) || null;
     const drivingLicenseCopy =
       (formData.get("drivingLicenseCopy") as File | string | null) || null;
     const chairmanCertificate =
@@ -158,11 +163,16 @@ export async function PATCH(request: Request) {
     const user = await User.findById(authUser.userId).select("+password");
 
     if (!user) {
-      return NextResponse.json({ message: "User not found!",status: false }, { status: 404 });
+      return NextResponse.json(
+        { message: "User not found!", status: false },
+        { status: 404 }
+      );
     }
 
     let profilePhotoLocation = user.profilePhoto;
     let nidCopyLocation = user.nidCopy;
+    let maxEducationLevelCertificateCopyLocation =
+      user.maxEducationLevelCertificateCopy;
     let drivingLicenseCopyLocation = user.drivingLicenseCopy;
     let chairmanCertificateCopyLocation = user.chairmanCertificateCopy;
     let portEntryPermitLocation = user.portEntryPermit;
@@ -173,8 +183,15 @@ export async function PATCH(request: Request) {
     if (nidCopy) {
       nidCopyLocation = await processFile(nidCopy as File);
     }
+    if (maxEducationLevelCertificateCopy) {
+      maxEducationLevelCertificateCopyLocation = await processFile(
+        maxEducationLevelCertificateCopy as File
+      );
+    }
     if (drivingLicenseCopy) {
-      drivingLicenseCopyLocation = await processFile(drivingLicenseCopy as File);
+      drivingLicenseCopyLocation = await processFile(
+        drivingLicenseCopy as File
+      );
     }
     if (chairmanCertificate) {
       chairmanCertificateCopyLocation = await processFile(
@@ -198,6 +215,9 @@ export async function PATCH(request: Request) {
     if (yearsOfExperience) updateFields.yearsOfExperience = yearsOfExperience;
     if (profilePhotoLocation) updateFields.profilePhoto = profilePhotoLocation;
     if (nidCopyLocation) updateFields.nidCopy = nidCopyLocation;
+    if (maxEducationLevelCertificateCopyLocation)
+      updateFields.maxEducationLevelCertificateCopy =
+        maxEducationLevelCertificateCopyLocation;
     if (drivingLicenseCopyLocation)
       updateFields.drivingLicenseCopy = drivingLicenseCopyLocation;
     if (chairmanCertificateCopyLocation)
@@ -210,10 +230,13 @@ export async function PATCH(request: Request) {
       runValidators: true
     });
 
-    return NextResponse.json({
-      status: "success",
-      message: "User updated successfully!"
-    }, {status: 200});
+    return NextResponse.json(
+      {
+        status: "success",
+        message: "User updated successfully!"
+      },
+      { status: 200 }
+    );
   } catch (error) {
     console.error("Error:", error);
     return NextResponse.json(
