@@ -6,6 +6,9 @@ import { Toaster } from "@/components/ui/sonner";
 import { JobProvider } from "./contexts/JobContext";
 import { UserProvider } from "./contexts/UserContext";
 
+import { NextIntlClientProvider } from 'next-intl';
+import { getLocale, getMessages } from 'next-intl/server';
+
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -22,13 +25,20 @@ export const metadata: Metadata = {
   description: "Find & Hire Experts for any Job"
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+
+  // Providing all messages to the client
+  // side is the easiest way to get started
+  const messages = await getMessages();
+
+
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
@@ -39,7 +49,11 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <JobProvider>
-            <UserProvider>{children}</UserProvider>
+            <UserProvider>
+              <NextIntlClientProvider messages={messages}>
+                {children}
+              </NextIntlClientProvider>
+            </UserProvider>
           </JobProvider>
           <Toaster />
         </ThemeProvider>

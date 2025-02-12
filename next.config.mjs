@@ -1,3 +1,7 @@
+import createNextIntlPlugin from "next-intl/plugin";
+
+const withNextIntl = createNextIntlPlugin();
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Enable API headers for CORS
@@ -10,15 +14,15 @@ const nextConfig = {
           { key: "Access-Control-Allow-Origin", value: "*" },
           {
             key: "Access-Control-Allow-Methods",
-            value: "GET,OPTIONS,PATCH,DELETE,POST,PUT",
+            value: "GET,OPTIONS,PATCH,DELETE,POST,PUT"
           },
           {
             key: "Access-Control-Allow-Headers",
             value:
-              "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version",
-          },
-        ],
-      },
+              "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
+          }
+        ]
+      }
     ];
   },
 
@@ -29,9 +33,9 @@ const nextConfig = {
         protocol: "https",
         hostname: "nibay.co", // Your VPS IP
         port: "", // No port required if running on default
-        pathname: "/uploads/**", // Allow access to /uploads
-      },
-    ],
+        pathname: "/uploads/**" // Allow access to /uploads
+      }
+    ]
   },
 
   // Handle redirects to avoid infinite loops
@@ -40,8 +44,8 @@ const nextConfig = {
       {
         source: "/_next/image",
         destination: "https://nibay.co/_next/image",
-        permanent: false,
-      },
+        permanent: false
+      }
     ];
   },
 
@@ -50,8 +54,8 @@ const nextConfig = {
     BASE_URL:
       process.env.NODE_ENV === "development"
         ? "http://localhost:3000"
-        : "http://173.231.56.108",
-  },
+        : "http://173.231.56.108"
+  }
 };
 
-export default nextConfig;
+export default withNextIntl(nextConfig);

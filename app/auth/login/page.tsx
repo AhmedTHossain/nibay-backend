@@ -15,6 +15,8 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
+import { useTranslations } from 'next-intl';
+
 const formSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
   password: z
@@ -23,6 +25,8 @@ const formSchema = z.object({
 });
 
 export default function LoginRoute() {
+  const t = useTranslations('Login');
+
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -46,7 +50,7 @@ export default function LoginRoute() {
         router.push("/");
         toast.success("অভ্যর্থনা জানাচ্ছি! আপনি এখন লগ ইন করেছেন");
       })
-      .catch(() => {})
+      .catch(() => { })
       .finally(() => {
         setIsLoading(false);
       });
@@ -55,7 +59,7 @@ export default function LoginRoute() {
   return (
     <div className="relative overflow-hidden max-w-lg mx-auto mt-20 bg-white dark:bg-slate-900 shadow-md dark:shadow-gray-800 rounded-md">
       <div className="p-6">
-        <h5 className="my-6 text-xl font-semibold">সাইন ইন</h5>
+        <h5 className="my-6 text-xl font-semibold">{t('title')}</h5>
         <form className="text-left" onSubmit={form.handleSubmit(onSubmit)}>
           <div className="grid grid-cols-1">
             <div className="mb-4 text-left">
