@@ -9,6 +9,7 @@
     "forgot-password": "Forgot Password?",
     "sign-in": "Sign In",
     "no-account": "No Account?",
-    "sign-up": "Sign Up"
+    "sign-up": "Sign Up",
+    "success": "Welcome! You are now logged in"
   }
 }
