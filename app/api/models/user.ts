@@ -149,6 +149,14 @@ const userSchema = new mongoose.Schema<TUser, object, IUserMethods>(
       default: "PENDING",
       required: false
     },
+    lastOTPRequestTime: { 
+      type: Date,
+      required: false
+     },
+    otpRequestCount: {
+       type: Number, 
+       default: 0, 
+       required: false},
     isAdmin: {
       type: Boolean,
       default: false
@@ -163,6 +171,7 @@ const userSchema = new mongoose.Schema<TUser, object, IUserMethods>(
   {
     timestamps: true
   },
+  
   
 );
 

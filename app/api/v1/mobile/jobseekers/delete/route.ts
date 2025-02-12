@@ -4,6 +4,14 @@ import { NextRequest, NextResponse } from "next/server";
 import User from "@/app/api/models/user";
 import { authMiddleware } from "@/app/api/middleware/auth";
 
+function generateRandom10DigitString(): string {
+  let result = '';
+  for (let i = 0; i < 10; i++) {
+    result += Math.floor(Math.random() * 10).toString();
+  }
+  return result;
+}
+
 export async function POST(request: NextRequest) {
   try {
     const authUser = await authMiddleware(request);
@@ -11,9 +19,11 @@ export async function POST(request: NextRequest) {
       return authUser;
     }
 
+    const userId = authUser.userId; // Extract user ID from the auth token
+
     await connectToMongoDB();
 
-    const user = await User.findById(authUser.userId);
+    const user = await User.findById(userId);
     if (!user) {
       return NextResponse.json({
         success: false,
@@ -33,7 +43,7 @@ export async function POST(request: NextRequest) {
     user.isDeleted = true;
     user.deletedAt = new Date();
     if (user.phone) {
-      user.phone = `$${user.phone}`;
+      user.phone = `${generateRandom10DigitString()}-${user.phone}`;
     }
     await user.save();
 
