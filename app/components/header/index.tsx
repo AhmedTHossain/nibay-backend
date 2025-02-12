@@ -30,9 +30,10 @@ import { userInfo } from "os";
 
 interface HeaderProps {
   userId?: string;
+  isAdminRoute?: boolean;
 }
 
-const Header = ({ userId }: HeaderProps) => {
+const Header = ({ userId, isAdminRoute }: HeaderProps) => {
   const { scrollY } = useScroll();
   const height = useMotionValue(80);
   const [hasShadow, setHasShadow] = useState(false);
@@ -45,7 +46,7 @@ const Header = ({ userId }: HeaderProps) => {
       } else {
         height.set(Math.min(height.get() - diff, 80));
       }
-      if (current > 100) setHasShadow(true);
+      if (current > (isAdminRoute ? 20 : 100)) setHasShadow(true);
       else setHasShadow(false);
     });
   }, [scrollY]); // eslint-disable-line
