@@ -20,7 +20,11 @@ import usePendingReviews from "./hooks/reviews/usePendingReviews";
 import { CustomPagination } from "./components/common/Pagination";
 import { useJobContext } from "./contexts/JobContext";
 
+import { useTranslations } from 'next-intl';
+
+
 export default function Home() {
+  const t = useTranslations("Landing");
   useAuth();
 
   const { jobs, isLoading, pagination, refetch } = useJobContext();
@@ -75,7 +79,7 @@ export default function Home() {
         <div className="container">
           <div className="grid grid-cols-1 pb-8 text-center">
             <h3 className="md:text-[26px] md:leading-normal text-2xl leading-normal font-semibold">
-              একটিভ জবস
+              {t("active-jobs")}
             </h3>
           </div>
           <div className="flex justify-end"></div>
@@ -92,7 +96,7 @@ export default function Home() {
                     className="bg-[#10b981] text-white hover:bg-[#0e9c6e] 
              dark:bg-[#065f46] dark:text-gray-200 dark:hover:bg-[#046c47]"
                   >
-                    নতুন চাকরি তৈরি করুন
+                    {t("create-new-job")}
                   </Button>
                 </Link>
               </div>
@@ -115,7 +119,7 @@ export default function Home() {
                       href="/jobs"
                       className="btn btn-link text-slate-800 dark:text-slate-200 hover:text-emerald-600 dark:hover:text-emerald-400 after:bg-emerald-600 dark:after:bg-emerald-600/50 transition-colors ease-in inline-flex items-center"
                     >
-                      See all Jobs
+                      {t("see-all-jobs")}
                       <svg
                         stroke="currentColor"
                         fill="currentColor"
@@ -142,7 +146,7 @@ export default function Home() {
         <div className="container">
           <div className="grid grid-cols-1 pb-8 text-center">
             <h3 className="mb-1 md:text-[26px] md:leading-normal text-2xl leading-normal font-semibold">
-              কিভাবে এটি কাজ করে?
+              {t("how-it-works")}
             </h3>
             {/* <p className="text-slate-800 max-w-xl mx-auto">
               Search all the open positions on the web. Get your own
@@ -488,3 +492,7 @@ export default function Home() {
     </div>
   );
 }
+function useTranslation(arg0: string) {
+  throw new Error("Function not implemented.");
+}
+

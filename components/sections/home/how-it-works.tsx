@@ -6,15 +6,18 @@ import {
   UserPen,
   UserPlus
 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 
 type HowItWorksProps = {
+  id: number;
   title: string;
   text: string;
   Icon: LucideIcon;
 };
 
 export function HowItWorks(props: HowItWorksProps) {
+  const t = useTranslations("HowItWorks");
   const { text, title, Icon } = props;
 
   return (
@@ -27,15 +30,15 @@ export function HowItWorks(props: HowItWorksProps) {
           className="title h5 text-lg font-semibold hover:text-emerald-600 dark:hover:text-emerald-400"
           href="/index-three"
         >
-          {title}
+          {t(`${props.id}.title`)}
         </a>
-        <p className="text-slate-800 mt-3 dark:text-slate-200">{text}</p>
+        <p className="text-slate-800 mt-3 dark:text-slate-200">{t(`${props.id}.description`)}</p>
         <div className="mt-5">
           <Link
             className="btn btn-link text-emerald-600 hover:text-emerald-600 after:bg-emerald-600 duration-500 ease-in-out inline-flex items-center dark:text-emerald-400 dark:hover:text-emerald-300 dark:after:bg-emerald-600/30"
             href="/index-three"
           >
-            আর পড়ুন{" "}
+            {t("read-more")}
             <svg
               stroke="currentColor"
               fill="currentColor"

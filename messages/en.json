@@ -1,7 +1,4 @@
 {
-  "Landing": {
-    "title": "Hello world!"
-  },
   "Login": {
     "title": "Sign In",
     "email": "Email",
@@ -24,5 +21,34 @@
     "contact": "Contact",
     "privacy-policy": "Privacy Policy",
     "terms-of-services": "Terms of Services"
+  },
+  "Landing": {
+    "active-jobs": "Active Jobs",
+    "create-new-job": "Create New Job",
+    "see-all-jobs": "See All Jobs",
+    "how-it-works": "How It Works?"
+  },
+  "HowItWorks": {
+    "1": {
+      "title": "Account Type (Personal/Organization)",
+      "description": "Create your account. Select 'Personal' if signing up individually and 'Organization' if registering for a business."
+    },
+    "2": {
+      "title": "Complete Your Profile",
+      "description": "Fill in all the necessary information to complete your account setup and unlock full access."
+    },
+    "3": {
+      "title": "Post Job Ads",
+      "description": "Provide job details, requirements, and qualifications to attract suitable candidates."
+    },
+    "4": {
+      "title": "View Applicants",
+      "description": "Review the list of applicants for the job, along with their profiles and submitted resumes."
+    },
+    "5": {
+      "title": "Hire Employees",
+      "description": "Select and confirm the candidate you want to hire for the position."
+    },
+    "read-more": "Read More"
   }
 }
