@@ -86,6 +86,18 @@
       "ট্রাক ড্রাইভার": "ট্রাক ড্রাইভার"
     }
   },
+  "JobFilterByStatus": {
+    "all_status": "সব স্ট্যাটাস",
+    "search": "অনুসন্ধান",
+    "JobStatus": {
+      "ACTIVE": "সক্রিয়",
+      "COMPLETED": "সম্পন্ন",
+      "EXPIRED": "মেয়াদোত্তীর্ণ"
+    }
+  },
+  "Jobs": {
+    "title": "চাকরি"
+  },
   "language": {
     "name": "বাংলা",
     "code": "bn"
