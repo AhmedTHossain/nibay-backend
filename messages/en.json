@@ -281,5 +281,12 @@
     "ময়মনসিংহ": "Mymensingh",
     "নেত্রকোনা": "Netrokona",
     "শেরপুর": "Sherpur"
+  },
+  "ApplicantReviews": {
+    "average_rating": "Average Rating",
+    "reviews_count": "{count} reviews.",
+    "no_reviews": "This applicant has not received any reviews yet. Check back later for updates.",
+    "reviewed_for": "Reviewed for {jobTitle} position.",
+    "review_date": "{date}"
   }
 }

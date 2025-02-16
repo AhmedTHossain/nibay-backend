@@ -5,7 +5,8 @@ import { Progress } from "@/components/ui/progress";
 import useReviewsByApplicantId from "@/app/hooks/reviews/useReviewsByApplicantId";
 import { formatEnglishToBangalNum } from "@/utils/formatEtoBLang";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { useEffect } from "react";
+import { use, useEffect } from "react";
+import { useTranslations } from "next-intl";
 
 export default function ApplicantReviews({
   applicantId
@@ -42,7 +43,7 @@ export default function ApplicantReviews({
           </div>
         ))}
         <span className="ml-1 text-sm text-gray-600">
-          {roundedRating.toFixed(1)}
+          {formatEnglishToBangalNum(roundedRating.toFixed(1), language)}
         </span>
       </div>
     );
@@ -56,12 +57,16 @@ export default function ApplicantReviews({
     },
     {} as Record<number, number>
   );
+  const t = useTranslations("ApplicantReviews"); // Initialize translations
+  const language = useTranslations("language")("code");
 
   return (
     <div className="container p-0 mt-10 max-w-full">
       <Card className="mb-8 border-0">
         <CardHeader className="pb-2">
-          <CardTitle className="text-lg font-bold">গড় রেটিং</CardTitle>
+          <CardTitle className="text-lg font-bold">
+            {t("average_rating")}
+          </CardTitle>
         </CardHeader>
         <CardContent>
           {hasReviews ? (
@@ -83,15 +88,17 @@ export default function ApplicantReviews({
                 ))}
               </div>
               <p className="text-sm text-gray-500 mt-2">
-                {formatEnglishToBangalNum(String(reviews.length))} টি রিভিউ।
+                {t("reviews_count", {
+                  count: formatEnglishToBangalNum(
+                    String(reviews.length),
+                    language
+                  )
+                })}
               </p>
             </>
           ) : (
             <Alert>
-              <AlertDescription>
-                এই আবেদনকারী এখনও কোন রিভিউ পাননি। আপডেটের জন্য পরে আবার চেক
-                করুন।
-              </AlertDescription>
+              <AlertDescription>{t("no_reviews")}</AlertDescription>
             </Alert>
           )}
         </CardContent>
@@ -111,15 +118,18 @@ export default function ApplicantReviews({
                     <div className="flex items-center justify-between">
                       <h3 className="font-semibold">{review.reviewerName}</h3>
                       <span className="text-sm text-gray-500">
-                        {formatEnglishToBangalNum(
-                          new Date(review.createdAt).toLocaleDateString()
-                        )}{" "}
+                        {t("review_date", {
+                          date: formatEnglishToBangalNum(
+                            new Date(review.createdAt).toLocaleDateString(),
+                            language
+                          )
+                        })}
                         {/* Placeholder date */}
                       </span>
                     </div>
                     <div>
                       <p className="text-sm text-gray-500">
-                        {review.jobTitle} পজিশনে রিভিউ দেন।
+                        {t("reviewed_for", { jobTitle: review.jobTitle })}
                       </p>
                     </div>
                     <div className="flex items-center mt-1">
