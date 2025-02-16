@@ -176,5 +176,34 @@
     "9": "Truck Driver",
     "10": "Institutional",
     "11": "Individual"
+  },
+  "ApplicantDetails": {
+    "applicant_deleted": "Applicant has been deleted",
+    "applicant_info_deleted": "This applicant's information has been deleted",
+    "application": "Application",
+    "applicant_info": "Applicant Information",
+    "phone": "Phone Number",
+    "email": "Email",
+    "division": "Division",
+    "district": "District",
+    "experience": "Experience",
+    "education": "Educational Qualification",
+    "ACCEPTED": "accepted",
+    "SHORT_LISTED": "shortlisted",
+    "REJECTED": "rejected",
+    "PENDING": "pending",
+    "accept": "Accept",
+    "shortlist": "Shortlist",
+    "reject": "Reject",
+    "required_documents": "Required Documents",
+    "additional_documents": "Additional Documents",
+    "year": "Years",
+    "national_id": "National ID",
+    "certificate": "Certificate",
+    "driving_license": "Driving License"
+  },
+  "DocumentCard": {
+    "download": "Download",
+    "not_uploaded": "Not Uploaded"
   }
 }

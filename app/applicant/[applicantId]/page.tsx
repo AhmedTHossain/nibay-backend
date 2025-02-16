@@ -44,6 +44,7 @@ import { Link } from "@radix-ui/react-navigation-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import DocumentCard from "@/components/document-card";
 import ApplicantReviews from "./Reviews";
+import { useTranslations } from "next-intl";
 
 export default function ApplicantProfileRoute({
   params
@@ -55,6 +56,11 @@ export default function ApplicantProfileRoute({
   const jobId = searchParams.get("jobId") as string;
   const { user, isLoading } = useUserById({ userId: params.applicantId });
   const [isProcessing, setIsProcessing] = useState(false);
+
+  const t = useTranslations("ApplicantDetails"); // Initialize translations
+  const language = useTranslations("language")("code");
+  const userRole = useTranslations("UserRoles");
+  const education = useTranslations("EducationLevels");
 
   const handleApplicantStatus = async (
     status: keyof typeof APPLICATION_STATUS
@@ -106,10 +112,10 @@ export default function ApplicantProfileRoute({
                   <div className="flex items-center justify-center flex-col space-y-4">
                     <Trash size={64} />
                     <h2 className="text-2xl font-semibold text-slate-900 dark:text-slate-100">
-                      আবেদনকারী মুছে ফেলা হয়েছে
+                      {t("applicant_deleted")}
                     </h2>
                     <p className="text-base text-slate-500 dark:text-slate-400">
-                      এই আবেদনকারীর তথ্য মুছে ফেলা হয়েছে
+                      {t("applicant_info_deleted")}
                     </p>
                   </div>
                 </div>
@@ -169,7 +175,7 @@ export default function ApplicantProfileRoute({
                                         {user?.name}
                                       </h2>
                                       <p className="text-gray-500">
-                                        {JOB_ROLES[Number(user?.role)].label}
+                                        {userRole(user?.role)}
                                       </p>
                                     </div>
                                   </div>
@@ -177,7 +183,7 @@ export default function ApplicantProfileRoute({
 
                                 <div className="p-5">
                                   <h5 className="flex items-center justify-between text-lg font-semibold">
-                                    আবেদনকারীর তথ্য
+                                    {t("applicant_info")}
                                   </h5>
                                 </div>
                                 <div className="p-6 border-t border-slate-100 dark:border-t-gray-700">
@@ -187,11 +193,12 @@ export default function ApplicantProfileRoute({
                                         <Phone className="mr-2" />
                                         <div className="ms-4">
                                           <p className="font-medium">
-                                            ফোন নাম্বার{" "}
+                                            {t("phone")}{" "}
                                           </p>
                                           <span className="text-emerald-600 font-medium text-sm">
                                             {formatEnglishToBangalNum(
-                                              user?.phone
+                                              user?.phone,
+                                              language
                                             )}
                                           </span>
                                         </div>
@@ -201,7 +208,9 @@ export default function ApplicantProfileRoute({
                                       <li className="flex items-center mt-3">
                                         <Mail className="mr-2" />
                                         <div className="ms-4">
-                                          <p className="font-medium">ইমেইল </p>
+                                          <p className="font-medium">
+                                            {t("email")}{" "}
+                                          </p>
                                           <span className="text-emerald-600 font-medium text-sm">
                                             {user?.email}
                                           </span>
@@ -212,7 +221,9 @@ export default function ApplicantProfileRoute({
                                       <li className="flex items-center mt-3">
                                         <MapPin className="mr-2" />
                                         <div className="ms-4">
-                                          <p className="font-medium">বিভাগ </p>
+                                          <p className="font-medium">
+                                            {t("division")}{" "}
+                                          </p>
                                           <span className="text-emerald-600 font-medium text-sm">
                                             {user?.division}
                                           </span>
@@ -223,7 +234,9 @@ export default function ApplicantProfileRoute({
                                       <li className="flex items-center mt-3">
                                         <MapIcon className="mr-2" />
                                         <div className="ms-4">
-                                          <p className="font-medium">জেলা </p>
+                                          <p className="font-medium">
+                                            {t("district")}{" "}
+                                          </p>
                                           <span className="text-emerald-600 font-medium text-sm">
                                             {user?.district}
                                           </span>
@@ -235,13 +248,14 @@ export default function ApplicantProfileRoute({
                                         <Briefcase className="mr-2" />
                                         <div className="ms-4">
                                           <p className="font-medium">
-                                            অভিজ্ঞতা{" "}
+                                            {t("experience")}{" "}
                                           </p>
                                           <span className="text-emerald-600 font-medium text-sm">
                                             {formatEnglishToBangalNum(
-                                              user?.yearsOfExperience
+                                              user?.yearsOfExperience,
+                                              language
                                             )}{" "}
-                                            বছর
+                                            {t("year")}
                                           </span>
                                         </div>
                                       </li>
@@ -251,20 +265,16 @@ export default function ApplicantProfileRoute({
                                         <MapPinCheck className="mr-2" />
                                         <div className="ms-4">
                                           <p className="font-medium">
-                                            শিক্ষাগত যোগ্যতা{" "}
+                                            {t("education")}{" "}
                                           </p>
                                           <span className="text-emerald-600 font-medium text-sm">
-                                            {
-                                              EDUCTATION_LEVELS[
-                                                Number(user?.maxEducationLevel)
-                                              ].label
-                                            }
+                                            {education(user?.maxEducationLevel)}
                                           </span>
                                         </div>
                                       </li>
                                     )}
 
-                                    <li className="mt-10 flex items-center gap-4 justify-between">
+                                    <li className="mt-10 flex flex-warp items-center gap-1 justify-between">
                                       <Button
                                         onClick={(e) => {
                                           e.preventDefault();
@@ -274,7 +284,8 @@ export default function ApplicantProfileRoute({
                                         disabled={isProcessing}
                                         className="rounded-md bg-emerald-600/5 hover:bg-emerald-500 border-emerald-600/10 hover:border-emerald-600 text-emerald-600 duration-200 transition-all hover:text-white md:relative flex items-center justify-center px-3 py-2 space-x-1 cursor-pointer text-sm font-medium"
                                       >
-                                        <Check className="h-4 w-4" /> গ্রহন
+                                        <Check className="h-4 w-4" />{" "}
+                                        {t("accept")}
                                       </Button>
                                       <Button
                                         onClick={(e) => {
@@ -285,7 +296,8 @@ export default function ApplicantProfileRoute({
                                         disabled={isProcessing}
                                         className="rounded-md bg-yellow-600/5 hover:bg-yellow-500 border-yellow-600/10 hover:border-yellow-600 text-yellow-600 duration-200 transition-all hover:text-white md:relative flex items-center justify-center px-3 py-2 space-x-1 cursor-pointer text-sm font-medium"
                                       >
-                                        <List className="h-4 w-4" /> শর্টলিস্ট
+                                        <List className="h-4 w-4" />{" "}
+                                        {t("shortlist")}
                                       </Button>
                                       <Button
                                         onClick={(e) => {
@@ -296,7 +308,7 @@ export default function ApplicantProfileRoute({
                                         disabled={isProcessing}
                                         className="rounded-md bg-red-600/5 hover:bg-red-500 border-red-600/10 hover:border-red-600 text-red-600 duration-200 transition-all hover:text-white md:relative flex items-center justify-center px-3 py-2 space-x-1 cursor-pointer text-sm font-medium"
                                       >
-                                        <X className="h-4 w-4" /> বাতিল
+                                        <X className="h-4 w-4" /> {t("reject")}
                                       </Button>
                                     </li>
                                   </ul>
@@ -309,23 +321,18 @@ export default function ApplicantProfileRoute({
                                   <div className="flex items-start justify-end">
                                     {user && (
                                       <span className="text-white text-sm bg-violet-800 px-4 py-2 rounded-3xl dark:bg-violet-700">
-                                        আবেদন{" "}
-                                        {
-                                          APPLICATION_STATUS[
-                                            user?.applicationStatus as keyof typeof APPLICATION_STATUS
-                                          ]?.label
-                                        }
+                                        {`${t("application")} ${t(user.applicationStatus)}`}
                                       </span>
                                     )}
                                   </div>
                                   <h5 className="mt-12 text-lg font-semibold text-slate-900 dark:text-slate-100">
-                                    প্রয়োজনীয় নথিপত্র
+                                    {t("required_documents")}{" "}
                                   </h5>
                                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                                     <DocumentCard
                                       key="DOC001"
                                       document={{
-                                        name: "জাতীয় পরিচয়পত্র",
+                                        name: t("national_id"),
                                         status: user?.nidCopy
                                           ? "verified"
                                           : "not_uploaded",
@@ -335,7 +342,7 @@ export default function ApplicantProfileRoute({
                                     <DocumentCard
                                       key="DOC001"
                                       document={{
-                                        name: "সার্টিফিকেট",
+                                        name: t("certificate"),
                                         status:
                                           user?.maxEducationLevelCertificateCopy
                                             ? "verified"
@@ -347,7 +354,7 @@ export default function ApplicantProfileRoute({
                                     <DocumentCard
                                       key="DOC001"
                                       document={{
-                                        name: "ড্রাইভিং লাইসেন্স",
+                                        name: t("driving_license"),
                                         status: user?.drivingLicenseCopy
                                           ? "verified"
                                           : "not_uploaded",
@@ -359,7 +366,7 @@ export default function ApplicantProfileRoute({
                                   {user?.role === "9" && (
                                     <>
                                       <h5 className="mt-12 text-lg font-semibold text-slate-900 dark:text-slate-100">
-                                        অতিরিক্ত নথিপত্র
+                                        {t("additional_documents")}{" "}
                                       </h5>
                                       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                                         <DocumentCard

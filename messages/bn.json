@@ -176,5 +176,34 @@
     "9": "ট্রাক ড্রাইভার",
     "10": "প্রতিষ্ঠানিক",
     "11": "ব্যক্তিগত"
+  },
+  "ApplicantDetails": {
+    "applicant_deleted": "আবেদনকারী মুছে ফেলা হয়েছে",
+    "applicant_info_deleted": "এই আবেদনকারীর তথ্য মুছে ফেলা হয়েছে",
+    "application": "আবেদন",
+    "applicant_info": "আবেদনকারীর তথ্য",
+    "phone": "ফোন নাম্বার",
+    "email": "ইমেইল",
+    "division": "বিভাগ",
+    "district": "জেলা",
+    "experience": "অভিজ্ঞতা",
+    "education": "শিক্ষাগত যোগ্যতা",
+    "ACCEPTED": "গৃহীত",
+    "SHORT_LISTED": "শর্টলিস্টেড",
+    "REJECTED": "বাতিল",
+    "PENDING": "অপেক্ষমাণ",
+    "accept": "গ্রহণ",
+    "shortlist": "শর্টলিস্ট",
+    "reject": "বাতিল",
+    "required_documents": "প্রয়োজনীয় নথিপত্র",
+    "additional_documents": "অতিরিক্ত নথিপত্র",
+    "year": "বছর",
+    "national_id": "জাতীয় পরিচয়পত্র",
+    "certificate": "সার্টিফিকেট",
+    "driving_license": "ড্রাইভিং লাইসেন্স"
+  },
+  "DocumentCard": {
+    "download": "ডাউনলোড করুন",
+    "not_uploaded": "আপলোড করা হয়নি"
   }
 }
