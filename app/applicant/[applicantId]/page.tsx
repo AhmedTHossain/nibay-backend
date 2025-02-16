@@ -61,6 +61,8 @@ export default function ApplicantProfileRoute({
   const language = useTranslations("language")("code");
   const userRole = useTranslations("UserRoles");
   const education = useTranslations("EducationLevels");
+  const division = useTranslations("Divisions");
+  const district = useTranslations("Districts");
 
   const handleApplicantStatus = async (
     status: keyof typeof APPLICATION_STATUS
@@ -225,7 +227,7 @@ export default function ApplicantProfileRoute({
                                             {t("division")}{" "}
                                           </p>
                                           <span className="text-emerald-600 font-medium text-sm">
-                                            {user?.division}
+                                            {division(user?.division)}
                                           </span>
                                         </div>
                                       </li>
@@ -238,7 +240,7 @@ export default function ApplicantProfileRoute({
                                             {t("district")}{" "}
                                           </p>
                                           <span className="text-emerald-600 font-medium text-sm">
-                                            {user?.district}
+                                            {district(user?.district)}
                                           </span>
                                         </div>
                                       </li>
