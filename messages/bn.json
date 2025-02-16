@@ -1,4 +1,8 @@
 {
+  "language": {
+    "name": "বাংলা",
+    "code": "bn"
+  },
   "Login": {
     "title": "সাইন ইন",
     "email": "ইমেইল",
@@ -98,8 +102,10 @@
   "Jobs": {
     "title": "চাকরি"
   },
-  "language": {
-    "name": "বাংলা",
-    "code": "bn"
+  "JobDeleteConfirmation": {
+    "title": "চাকরি ডিলিট নিশ্চিতকরণ",
+    "description": "আপনি কি এই চাকরিটি ডিলিট করার বিষয়ে নিশ্চিত?",
+    "cancel": "না",
+    "confirm": "হ্যাঁ"
   }
 }
