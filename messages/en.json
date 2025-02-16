@@ -129,5 +129,15 @@
       "BACHELOR": "Bachelor's Degree",
       "MASTER": "Master's Degree"
     }
+  },
+  "ApplicantFilter": {
+    "all": "All",
+    "search": "Filter",
+    "application_status": {
+      "PENDING": "Pending",
+      "ACCEPTED": "Accepted",
+      "REJECTED": "Rejected",
+      "SHORT_LISTED": "Shortlisted"
+    }
   }
 }

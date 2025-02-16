@@ -129,5 +129,15 @@
       "BACHELOR": "ব্যাচেলর ডিগ্রী",
       "MASTER": "মাস্টার্স ডিগ্রী"
     }
+  },
+  "ApplicantFilter": {
+    "all": "সব",
+    "search": "অনুসন্ধান",
+    "application_status": {
+      "PENDING": "অপেক্ষমাণ",
+      "ACCEPTED": "গৃহীত",
+      "REJECTED": "বাতিল",
+      "SHORT_LISTED": "শর্টলিস্টেড"
+    }
   }
 }
