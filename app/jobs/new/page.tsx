@@ -339,19 +339,13 @@ export default function NewJobRoute() {
                       id="qualification"
                       {...form.register("qualification")}
                     >
-                      {[
-                        "NO_FORMAL_EDUCATION",
-                        "PRIMARY",
-                        "JUNIOR_SECONDARY",
-                        "SECONDARY",
-                        "HIGHER_SECONDARY",
-                        "BACHELOR",
-                        "MASTER"
-                      ].map((value) => (
-                        <option key={value} value={value}>
-                          {t_education(value)}
-                        </option>
-                      ))}
+                      {EDUCTATION_LEVELS.map((option) => {
+                        return (
+                          <option key={option.id} value={option.value}>
+                            {t_education(option.value)}
+                          </option>
+                        );
+                      })}
                       {error("qualification") ? (
                         <p className="text-red-500 font-semibold text-sm">
                           {error("qualification")}
@@ -507,7 +501,7 @@ export default function NewJobRoute() {
                   {form.getValues("jobRole") === "ট্রাক ড্রাইভার" && (
                     <div className="mb-4 ">
                       <label className="font-semibold">
-                        অতিরিক্ত দরকারি নথি সমূহ
+                        {t("required_documents")}{" "}
                       </label>
 
                       <div className="mt-2 text-left flex items-center gap-8">
@@ -521,7 +515,7 @@ export default function NewJobRoute() {
                             htmlFor="chairman-birth-certificate"
                             className="ml-1"
                           >
-                            চেয়ারম্যান সার্টিফিকেট
+                            {t("chairman_certificate")}{" "}
                           </label>
                         </div>
                         <div>
@@ -531,7 +525,7 @@ export default function NewJobRoute() {
                             {...form.register("isPortEntryPermitRequired")}
                           />
                           <label htmlFor="port-entry-permit" className="ml-1">
-                            পোর্ট এন্ট্রি পার্মিট
+                            {t("port_entry_permit")}{" "}
                           </label>
                         </div>
                       </div>
