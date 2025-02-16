@@ -66,5 +66,25 @@
       "ট্রাক ড্রাইভার": "Truck Driver"
     },
     "filter": "Filter"
+  },
+  "JobGrid": {
+    "edit": "Edit",
+    "delete": "Delete",
+    "duplicate": "Duplicate",
+    "job": "Job",
+    "action": "Action",
+    "roles": {
+      "চেকার": "Checker",
+      "কাউন্টার মাস্টার": "Counter Master",
+      "ড্রাইভার": "Driver",
+      "ফোরম্যান": "Foreman",
+      "জিএম (জেনারেল ম্যানেজার)": "GM (General Manager)",
+      "হেল্পার": "Helper",
+      "ম্যানেজার": "Manager",
+      "মেকানিক/মিস্ত্রি": "Mechanic/Mistry",
+      "সুপারভাইজার/প্যাসেঞ্জার গাইড": "Supervisor/Passenger Guide",
+      "ট্রাক ড্রাইভার": "Truck Driver"
+    },
+    "language": "english"
   }
 }
