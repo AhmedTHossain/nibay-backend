@@ -21,6 +21,7 @@ export function JobGrid(props: JobGridProps) {
   const { setCopyJob } = useJobContext();
   const router = useRouter();
   const t = useTranslations("JobGrid");
+  const language = useTranslations("language")("code");
 
   return (
     <div
@@ -87,7 +88,7 @@ export function JobGrid(props: JobGridProps) {
                 width={8}
                 className="dark:invert"
               />
-              <span>{formatEnglishToBangalNum(salary, t("language"))}</span>
+              <span>{formatEnglishToBangalNum(salary, language)}</span>
             </p>
           )}
 

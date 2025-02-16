@@ -84,7 +84,10 @@
       "মেকানিক/মিস্ত্রি": "Mechanic/Mistry",
       "সুপারভাইজার/প্যাসেঞ্জার গাইড": "Supervisor/Passenger Guide",
       "ট্রাক ড্রাইভার": "Truck Driver"
-    },
-    "language": "english"
+    }
+  },
+  "language": {
+    "name": "English",
+    "code": "en"
   }
 }
