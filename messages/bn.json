@@ -107,5 +107,27 @@
     "description": "আপনি কি এই চাকরিটি ডিলিট করার বিষয়ে নিশ্চিত?",
     "cancel": "না",
     "confirm": "হ্যাঁ"
+  },
+  "JobDetails": {
+    "summary": "চাকরির সারসংক্ষেপ",
+    "experience": "অভিজ্ঞতা:",
+    "education": "শিক্ষাগত যোগ্যতা:",
+    "salary": "বেতন:",
+    "application_deadline": "আবেদনের শেষ তারিখ:",
+    "edit": "এডিট করুন",
+    "delete": "ডিলিট করুন",
+    "applicants_list": "আবেদনকারীর তালিকা ",
+    "short_description": "সারসংক্ষেপ",
+    "long_description": "বিস্তারিত",
+    "year": "বছর",
+    "education_levels": {
+      "NO_FORMAL_EDUCATION": "প্রাতিষ্ঠানিক শিক্ষা নেই",
+      "PRIMARY": "প্রাথমিক [শ্রেণি ১ম-৫ম]",
+      "JUNIOR_SECONDARY": "জুনিয়র সেকেন্ডারি [ক্লাস ৬ষ্ঠ-৮ম]",
+      "SECONDARY": "মাধ্যমিক (এসএসসি)",
+      "HIGHER_SECONDARY": "উচ্চ মাধ্যমিক (এইচএসসি)",
+      "BACHELOR": "ব্যাচেলর ডিগ্রী",
+      "MASTER": "মাস্টার্স ডিগ্রী"
+    }
   }
 }

@@ -107,5 +107,27 @@
     "description": "Are you sure you want to delete this job?",
     "cancel": "No",
     "confirm": "Yes"
+  },
+  "JobDetails": {
+    "summary": "Job Summary",
+    "experience": "Experience:",
+    "education": "Educational Qualification:",
+    "salary": "Salary:",
+    "application_deadline": "Application Deadline:",
+    "edit": "Edit",
+    "delete": "Delete",
+    "applicants_list": "Applicants List ",
+    "short_description": "Summary",
+    "long_description": "Details",
+    "year": "Years",
+    "education_levels": {
+      "NO_FORMAL_EDUCATION": "No Formal Education",
+      "PRIMARY": "Primary [Class 1-5]",
+      "JUNIOR_SECONDARY": "Junior Secondary [Class 6-8]",
+      "SECONDARY": "Secondary (SSC)",
+      "HIGHER_SECONDARY": "Higher Secondary (HSC)",
+      "BACHELOR": "Bachelor's Degree",
+      "MASTER": "Master's Degree"
+    }
   }
 }
