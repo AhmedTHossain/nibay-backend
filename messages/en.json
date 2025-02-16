@@ -139,5 +139,42 @@
       "REJECTED": "Rejected",
       "SHORT_LISTED": "Shortlisted"
     }
+  },
+  "ApplicantCard": {
+    "education": "Qualification",
+    "experience": "Experience",
+    "accept": "Accept",
+    "shortlist": "Shortlist",
+    "reject": "Reject",
+    "application_status": {
+      "PENDING": "Pending",
+      "ACCEPTED": "Accepted",
+      "REJECTED": "Rejected",
+      "SHORT_LISTED": "Shortlisted"
+    },
+    "year": "Years"
+  },
+  "EducationLevels": {
+    "0": "No Formal Education",
+    "1": "Primary [Class 1-5]",
+    "2": "Junior Secondary [Class 6-8]",
+    "3": "Secondary (SSC)",
+    "4": "Higher Secondary (HSC)",
+    "5": "Bachelor's Degree",
+    "6": "Master's Degree"
+  },
+  "UserRoles": {
+    "0": "Checker",
+    "1": "Counter Master",
+    "2": "Driver",
+    "3": "Foreman",
+    "4": "GM",
+    "5": "Helper",
+    "6": "Manager",
+    "7": "Mechanic/Mistry",
+    "8": "Supervisor/Passenger Guide",
+    "9": "Truck Driver",
+    "10": "Institutional",
+    "11": "Individual"
   }
 }
