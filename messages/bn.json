@@ -311,6 +311,28 @@
     "submit": "সাবমিট",
     "no_reviews_yet": "এই আবেদনকারী এখনও কোন রিভিউ পাননি। আপডেটের জন্য পরে আবার চেক করুন।"
   },
+  "EditJob": {
+    "create_new_job": "চাকরি এডিট করুন",
+    "job_title": "চাকরির শিরোনাম",
+    "job_title_placeholder": "চাকরির শিরোনাম - সর্বোচ্চ ৫০ টি শব্দ গ্রহনযোগ্য",
+    "short_description": "কাজের সারসংক্ষেপ",
+    "short_description_placeholder": "কাজের সারসংক্ষেপ - সর্বোচ্চ ১৫০ টি শব্দ গ্রহনযোগ্য",
+    "long_description": "কাজের বিবরণ",
+    "long_description_placeholder": "কাজের বিবরণ - সর্বোচ্চ ৫০০ টি শব্দ গ্রহনযোগ্য",
+    "qualification": "শিক্ষাগত যোগ্যতা",
+    "experience": "অভিজ্ঞতা",
+    "workplace": "কর্মস্থল",
+    "division": "বিভাগ",
+    "district": "জেলা",
+    "job_role": "চাকরির ভূমিকা",
+    "required_documents": "অতিরিক্ত দরকারি নথি সমূহ",
+    "chairman_certificate": "চেয়ারম্যান সার্টিফিকেট",
+    "port_entry_permit": "পোর্ট এন্ট্রি পার্মিট",
+    "application_deadline": "আবেদনের শেষ তারিখ",
+    "salary": "বেতন",
+    "submit": "সাবমিট",
+    "no_reviews_yet": "এই আবেদনকারী এখনও কোন রিভিউ পাননি। আপডেটের জন্য পরে আবার চেক করুন।"
+  },
   "ExperienceLevels": {
     "0-1": "০ — ১ বছর",
     "1-2": "১ — ২ বছর",

@@ -311,6 +311,28 @@
     "submit": "Submit",
     "no_reviews_yet": "This applicant has not received any reviews yet. Check back later for updates."
   },
+  "EditJob": {
+    "create_new_job": "Edit Job",
+    "job_title": "Job Title",
+    "job_title_placeholder": "Job Title - Maximum 50 words allowed",
+    "short_description": "Short Description",
+    "short_description_placeholder": "Short Description - Maximum 150 words allowed",
+    "long_description": "Long Description",
+    "long_description_placeholder": "Long Description - Maximum 500 words allowed",
+    "qualification": "Educational Qualification",
+    "experience": "Experience",
+    "workplace": "Workplace",
+    "division": "Division",
+    "district": "District",
+    "job_role": "Job Role",
+    "required_documents": "Required Additional Documents",
+    "chairman_certificate": "Chairman Certificate",
+    "port_entry_permit": "Port Entry Permit",
+    "application_deadline": "Application Deadline",
+    "salary": "Salary",
+    "submit": "Submit",
+    "no_reviews_yet": "This applicant has not received any reviews yet. Check back later for updates."
+  },
   "ExperienceLevels": {
     "0-1": "0 — 1 year",
     "1-2": "1 — 2 years",
