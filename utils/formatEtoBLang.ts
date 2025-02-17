@@ -1,2 +1,2 @@
-export const formatEnglishToBangalNum = (n: any) =>
-  n?.replace(/\d/g, (d: any) => "০১২৩৪৫৬৭৮৯"[d]);
+export const formatEnglishToBangalNum = (n: any, language: string = "bn") =>
+  language == "en" ? n : n?.replace(/\d/g, (d: any) => "০১২৩৪৫৬৭৮৯"[d]);

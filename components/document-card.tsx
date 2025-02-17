@@ -11,6 +11,7 @@ import {
   Clock
 } from "lucide-react";
 import { ImagePreview } from "@/app/components/common/ImagePreview";
+import { useTranslations } from "next-intl";
 
 interface DocumentCardProps {
   document: {
@@ -45,11 +46,13 @@ export default function DocumentCard({
       case "not_uploaded":
         return (
           <Badge variant="destructive" className="mb-2">
-            <AlertCircle className="w-3 h-3 mr-1" /> নেই
+            <AlertCircle className="w-3 h-3 mr-1" /> {t("not_uploaded")}
           </Badge>
         );
     }
   };
+
+  const t = useTranslations("DocumentCard");
 
   return (
     <Card className="border-0">
@@ -78,7 +81,7 @@ export default function DocumentCard({
               className="flex justify-center px-4 py-2 shadow-md bg-emerald-500 text-white font-semibold rounded w-full hover:bg-emerald-600 transition duration-200"
               download
             >
-              <Download className="w-4 h-4 mr-2" /> ডাউনলোড করুন
+              <Download className="w-4 h-4 mr-2" /> {t("download")}
             </a>
           )}
         </div>

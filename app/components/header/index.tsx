@@ -27,6 +27,8 @@ import { ModeToggle } from "../common/ModeToggle";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import useUserById from "@/app/hooks/users/useUserById";
 import { userInfo } from "os";
+import { useLocale, useTranslations } from "next-intl";
+import LanguageSwitcher from "../common/LanguageSwitcher";
 
 interface HeaderProps {
   userId?: string;
@@ -65,8 +67,9 @@ const Header = ({ userId, isAdminRoute }: HeaderProps) => {
           <div className="flex space-x-3 items-center">
             <Navigation />
             <ProfileMenu userId={userId} />
-            <div>
+            <div className="flex gap-5">
               <ModeToggle />
+              <LanguageSwitcher />
               {/* <Switch id="switch-lang" color="green" /> */}
             </div>
           </div>
@@ -84,6 +87,8 @@ interface ProfileMenuProps {
 }
 
 const ProfileMenu = ({ userId, userName }: ProfileMenuProps) => {
+  const t = useTranslations('Header');
+
   const router = useRouter();
   const userById = useUserById({ userId: userId ?? "" });
   const userInfo = useUserInfo();
@@ -114,7 +119,7 @@ const ProfileMenu = ({ userId, userName }: ProfileMenuProps) => {
               );
             }}
           >
-            <SettingsIcon size={18} strokeWidth={1.5} /> <span>সেটিংস</span>
+            <SettingsIcon size={18} strokeWidth={1.5} /> <span>{t('settings')}</span>
           </MenubarItem>
           <>
             {user?.isAdmin &&
@@ -127,7 +132,7 @@ const ProfileMenu = ({ userId, userName }: ProfileMenuProps) => {
                   }}
                 >
                   <MonitorCogIcon size={18} strokeWidth={1.5} />
-                  <span>অ্যাডমিন</span>
+                  <span>{t('admin')}</span>
                 </MenubarItem>
               </>
             }
@@ -143,7 +148,7 @@ const ProfileMenu = ({ userId, userName }: ProfileMenuProps) => {
                 }
               }}
             >
-              <LogOutIcon size={18} strokeWidth={1.5} /> <span>লগ আউট</span>
+              <LogOutIcon size={18} strokeWidth={1.5} /> <span>{t('logout')}</span>
             </MenubarItem>
           </>
         </MenubarContent>

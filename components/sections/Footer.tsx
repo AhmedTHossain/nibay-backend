@@ -1,7 +1,10 @@
 "use client";
 import { FOOTER_NAV_ITEMS } from "@/app/assets/resources";
+import { useTranslations } from "next-intl";
 
 const Footer = () => {
+  const t = useTranslations('Footer');
+
   return (
     <footer className="relative bg-slate-900 dark:bg-slate-800">
       <div className="container">
@@ -19,7 +22,7 @@ const Footer = () => {
                             className="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium me-4"
                             href={item.link}
                           >
-                            {item.title}
+                            {t(item.key)}
                           </a>
                         </li>
                       );

@@ -10,6 +10,7 @@ import { useJobContext } from "../contexts/JobContext";
 import { JobFilterByStatus } from "./components/JobFilterByStatus";
 import { useEffect, useState } from "react";
 import { CustomPagination } from "../components/common/Pagination";
+import { useTranslations } from "next-intl";
 
 export default function JobsRoute() {
   const { jobs, isLoading, pagination, refetch } = useJobContext();
@@ -18,6 +19,8 @@ export default function JobsRoute() {
   const [jobRoleFilter, setjobRoleFilter] = useState<string>("all");
   const [jobStatusFilter, setJobStatusFilter] = useState<string>("all");
   const [forceTrigger, setForceTrigger] = useState(false);
+
+  const t = useTranslations("Jobs");
 
   useEffect(() => {
     // Refetch jobs whenever the page or filter changes
@@ -45,7 +48,7 @@ export default function JobsRoute() {
     <>
       <Header />
 
-      <HeroSection title="জব্‌স" />
+      <HeroSection title={t("title")} />
 
       <section className="md:pb-24 pb-16">
         <div className="container z-1">

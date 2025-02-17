@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { JOB_ROLES, JOB_STATUS } from "@/lib/constant";
 import { Bolt } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 interface JobFilterProps {
@@ -12,6 +13,8 @@ export function JobFilterByStatus({ onFilterChange }: JobFilterProps) {
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedStatus(event.target.value);
   };
+  const t = useTranslations("JobFilterByStatus"); // Initialize translations
+
   return (
     <div className="bg-white dark:bg-slate-900 border-0 shadow rounded-md px-3 py-1 relative max-w-md">
       <form action="#">
@@ -21,25 +24,33 @@ export function JobFilterByStatus({ onFilterChange }: JobFilterProps) {
               <span>
                 <Bolt size={18} color="#10b981" />
               </span>
-              <select value={selectedStatus} onChange={handleChange} className="w-48 text-sm bg-white text-gray-700 
+              <select
+                value={selectedStatus}
+                onChange={handleChange}
+                className="w-48 text-sm bg-white text-gray-700 
                           dark:bg-gray-900 dark:text-gray-200  
                           focus:outline-none focus:ring-2 focus:ring-[#10b981] 
                           dark:focus:ring-[#065f46] border-0 rounded-lg px-4 py-2"
               >
-                <option value="all">সব স্ট্যাটাস</option>
+                <option value="all">{t("all_status")}</option>
                 {JOB_STATUS.map((item, idx) => {
                   return (
                     <option key={idx} value={item.value}>
-                      {item.label}
+                      {t(`JobStatus.${item.value}`)}
                     </option>
                   );
                 })}
               </select>
             </div>
 
-            <Button className="bg-[#10b981] hover:bg-[#10b981]"
-              onClick={(e) => { e.preventDefault(); onFilterChange(selectedStatus); }}>
-              অনুসন্ধান
+            <Button
+              className="bg-[#10b981] hover:bg-[#10b981]"
+              onClick={(e) => {
+                e.preventDefault();
+                onFilterChange(selectedStatus);
+              }}
+            >
+              {t("search")}{" "}
             </Button>
           </div>
         </div>

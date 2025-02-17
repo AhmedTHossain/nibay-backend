@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { JOB_ROLES } from "@/lib/constant";
 import { Bolt } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 interface JobFilterProps {
@@ -12,6 +13,7 @@ export function JobFilter({ onFilterChange }: JobFilterProps) {
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedRole(event.target.value);
   };
+  const t = useTranslations("JobFilter");
   return (
     <div className="bg-white dark:bg-gray-900 border-0 shadow rounded-md px-3 py-1 relative max-w-md">
       <form action="#">
@@ -29,10 +31,10 @@ export function JobFilter({ onFilterChange }: JobFilterProps) {
                           focus:outline-none focus:ring-2 focus:ring-[#10b981] 
                           dark:focus:ring-[#065f46] border-0 rounded-lg px-4 py-2"
               >
-                <option value="all">সব পেশা</option>
+                <option value="all">{t('all')}</option>
                 {JOB_ROLES.map((item, idx) => (
                   <option key={idx} value={item.value}>
-                    {item.label}
+                    {t(`roles.${item.value}`)}
                   </option>
                 ))}
               </select>
@@ -53,7 +55,7 @@ export function JobFilter({ onFilterChange }: JobFilterProps) {
             <Button className="bg-[#10b981] text-white hover:bg-[#0e9c6e] 
              dark:bg-[#065f46] dark:text-gray-200 dark:hover:bg-[#046c47] px-4 py-2 rounded-lg"
               onClick={(e) => { e.preventDefault(); onFilterChange(selectedRole); }}>
-              অনুসন্ধান
+              {t('filter')}
             </Button>
           </div>
         </div>

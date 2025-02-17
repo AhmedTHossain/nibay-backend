@@ -1,0 +1,346 @@
+{
+  "language": {
+    "name": "English",
+    "code": "en"
+  },
+  "Login": {
+    "title": "Sign In",
+    "email": "Email",
+    "password": "Password",
+    "forgot-password": "Forgot Password?",
+    "sign-in": "Sign In",
+    "no-account": "No Account?",
+    "sign-up": "Sign Up",
+    "success": "Welcome! You are now logged in"
+  },
+  "Header": {
+    "about": "About Us",
+    "contact": "Contact",
+    "settings": "Settings",
+    "admin": "Admin",
+    "logout": "Log out"
+  },
+  "Footer": {
+    "about": "About Us",
+    "contact": "Contact",
+    "privacy-policy": "Privacy Policy",
+    "terms-of-services": "Terms of Services"
+  },
+  "Landing": {
+    "active-jobs": "Active Jobs",
+    "create-new-job": "Create New Job",
+    "see-all-jobs": "See All Jobs",
+    "how-it-works": "How It Works?"
+  },
+  "HowItWorks": {
+    "1": {
+      "title": "Account Type (Personal/Organization)",
+      "description": "Create your account. Select 'Personal' if signing up individually and 'Organization' if registering for a business."
+    },
+    "2": {
+      "title": "Complete Your Profile",
+      "description": "Fill in all the necessary information to complete your account setup and unlock full access."
+    },
+    "3": {
+      "title": "Post Job Ads",
+      "description": "Provide job details, requirements, and qualifications to attract suitable candidates."
+    },
+    "4": {
+      "title": "View Applicants",
+      "description": "Review the list of applicants for the job, along with their profiles and submitted resumes."
+    },
+    "5": {
+      "title": "Hire Employees",
+      "description": "Select and confirm the candidate you want to hire for the position."
+    },
+    "read-more": "Read More"
+  },
+  "JobFilter": {
+    "all": "All Jobs",
+    "roles": {
+      "চেকার": "Checker",
+      "কাউন্টার মাস্টার": "Counter Master",
+      "ড্রাইভার": "Driver",
+      "ফোরম্যান": "Foreman",
+      "জিএম (জেনারেল ম্যানেজার)": "GM (General Manager)",
+      "হেল্পার": "Helper",
+      "ম্যানেজার": "Manager",
+      "মেকানিক/মিস্ত্রি": "Mechanic/Mistry",
+      "সুপারভাইজার/প্যাসেঞ্জার গাইড": "Supervisor/Passenger Guide",
+      "ট্রাক ড্রাইভার": "Truck Driver"
+    },
+    "filter": "Filter"
+  },
+  "JobGrid": {
+    "edit": "Edit",
+    "delete": "Delete",
+    "duplicate": "Duplicate",
+    "job": "Job",
+    "action": "Action",
+    "roles": {
+      "চেকার": "Checker",
+      "কাউন্টার মাস্টার": "Counter Master",
+      "ড্রাইভার": "Driver",
+      "ফোরম্যান": "Foreman",
+      "জিএম (জেনারেল ম্যানেজার)": "GM (General Manager)",
+      "হেল্পার": "Helper",
+      "ম্যানেজার": "Manager",
+      "মেকানিক/মিস্ত্রি": "Mechanic/Mistry",
+      "সুপারভাইজার/প্যাসেঞ্জার গাইড": "Supervisor/Passenger Guide",
+      "ট্রাক ড্রাইভার": "Truck Driver"
+    }
+  },
+  "JobFilterByStatus": {
+    "all_status": "All Status",
+    "search": "Filter",
+    "JobStatus": {
+      "ACTIVE": "Active",
+      "COMPLETED": "Completed",
+      "EXPIRED": "Expired"
+    }
+  },
+  "Jobs": {
+    "title": "Jobs"
+  },
+  "JobDeleteConfirmation": {
+    "title": "Job Deletion Confirmation",
+    "description": "Are you sure you want to delete this job?",
+    "cancel": "No",
+    "confirm": "Yes"
+  },
+  "JobDetails": {
+    "summary": "Job Summary",
+    "experience": "Experience:",
+    "education": "Educational Qualification:",
+    "salary": "Salary:",
+    "application_deadline": "Application Deadline:",
+    "edit": "Edit",
+    "delete": "Delete",
+    "applicants_list": "Applicants List ",
+    "short_description": "Summary",
+    "long_description": "Details",
+    "year": "Years",
+    "education_levels": {
+      "NO_FORMAL_EDUCATION": "No Formal Education",
+      "PRIMARY": "Primary [Class 1-5]",
+      "JUNIOR_SECONDARY": "Junior Secondary [Class 6-8]",
+      "SECONDARY": "Secondary (SSC)",
+      "HIGHER_SECONDARY": "Higher Secondary (HSC)",
+      "BACHELOR": "Bachelor's Degree",
+      "MASTER": "Master's Degree"
+    }
+  },
+  "ApplicantFilter": {
+    "all": "All",
+    "search": "Filter",
+    "application_status": {
+      "PENDING": "Pending",
+      "ACCEPTED": "Accepted",
+      "REJECTED": "Rejected",
+      "SHORT_LISTED": "Shortlisted"
+    }
+  },
+  "ApplicantCard": {
+    "education": "Qualification",
+    "experience": "Experience",
+    "accept": "Accept",
+    "shortlist": "Shortlist",
+    "reject": "Reject",
+    "application_status": {
+      "PENDING": "Pending",
+      "ACCEPTED": "Accepted",
+      "REJECTED": "Rejected",
+      "SHORT_LISTED": "Shortlisted"
+    },
+    "year": "Years"
+  },
+  "EducationLevels": {
+    "0": "No Formal Education",
+    "1": "Primary [Class 1-5]",
+    "2": "Junior Secondary [Class 6-8]",
+    "3": "Secondary (SSC)",
+    "4": "Higher Secondary (HSC)",
+    "5": "Bachelor's Degree",
+    "6": "Master's Degree"
+  },
+  "UserRoles": {
+    "0": "Checker",
+    "1": "Counter Master",
+    "2": "Driver",
+    "3": "Foreman",
+    "4": "GM",
+    "5": "Helper",
+    "6": "Manager",
+    "7": "Mechanic/Mistry",
+    "8": "Supervisor/Passenger Guide",
+    "9": "Truck Driver",
+    "10": "Institutional",
+    "11": "Individual"
+  },
+  "ApplicantDetails": {
+    "applicant_deleted": "Applicant has been deleted",
+    "applicant_info_deleted": "This applicant's information has been deleted",
+    "application": "Application",
+    "applicant_info": "Applicant Information",
+    "phone": "Phone Number",
+    "email": "Email",
+    "division": "Division",
+    "district": "District",
+    "experience": "Experience",
+    "education": "Educational Qualification",
+    "ACCEPTED": "accepted",
+    "SHORT_LISTED": "shortlisted",
+    "REJECTED": "rejected",
+    "PENDING": "pending",
+    "accept": "Accept",
+    "shortlist": "Shortlist",
+    "reject": "Reject",
+    "required_documents": "Required Documents",
+    "additional_documents": "Additional Documents",
+    "year": "Years",
+    "national_id": "National ID",
+    "certificate": "Certificate",
+    "driving_license": "Driving License"
+  },
+  "DocumentCard": {
+    "download": "Download",
+    "not_uploaded": "Not Uploaded"
+  },
+  "Divisions": {
+    "ঢাকা": "Dhaka",
+    "চট্টগ্রাম": "Chattogram",
+    "রাজশাহী": "Rajshahi",
+    "খুলনা": "Khulna",
+    "বরিশাল": "Barishal",
+    "সিলেট": "Sylhet",
+    "রংপুর": "Rangpur",
+    "ময়মনসিংহ": "Mymensingh"
+  },
+  "Districts": {
+    "ঢাকা": "Dhaka",
+    "ফরিদপুর": "Faridpur",
+    "গাজীপুর": "Gazipur",
+    "গোপালগঞ্জ": "Gopalganj",
+    "কিশোরগঞ্জ": "Kishoreganj",
+    "মাদারীপুর": "Madaripur",
+    "মানিকগঞ্জ": "Manikganj",
+    "মুন্সীগঞ্জ": "Munshiganj",
+    "নারায়ণগঞ্জ": "Narayanganj",
+    "নরসিংদী": "Narsingdi",
+    "রাজবাড়ী": "Rajbari",
+    "শরীয়তপুর": "Shariatpur",
+    "টাঙ্গাইল": "Tangail",
+    "বান্দরবান": "Bandarban",
+    "ব্রাহ্মণবাড়িয়া": "Brahmanbaria",
+    "চাঁদপুর": "Chandpur",
+    "চট্টগ্রাম": "Chattogram",
+    "কক্সবাজার": "Cox’s Bazar",
+    "কুমিল্লা": "Cumilla",
+    "ফেনী": "Feni",
+    "খাগড়াছড়ি": "Khagrachari",
+    "লক্ষ্মীপুর": "Lakshmipur",
+    "নোয়াখালী": "Noakhali",
+    "রাঙ্গামাটি": "Rangamati",
+    "বগুড়া": "Bogura",
+    "জয়পুরহাট": "Joypurhat",
+    "নওগাঁ": "Naogaon",
+    "নাটোর": "Natore",
+    "চাঁপাইনবাবগঞ্জ": "Chapai Nawabganj",
+    "পাবনা": "Pabna",
+    "রাজশাহী": "Rajshahi",
+    "সিরাজগঞ্জ": "Sirajganj",
+    "বাগেরহাট": "Bagerhat",
+    "চুয়াডাঙ্গা": "Chuadanga",
+    "যশোর": "Jashore",
+    "ঝিনাইদহ": "Jhenaidah",
+    "খুলনা": "Khulna",
+    "কুষ্টিয়া": "Kushtia",
+    "মাগুরা": "Magura",
+    "মেহেরপুর": "Meherpur",
+    "নড়াইল": "Narail",
+    "সাতক্ষীরা": "Satkhira",
+    "বরগুনা": "Barguna",
+    "বরিশাল": "Barishal",
+    "ভোলা": "Bhola",
+    "ঝালকাঠি": "Jhalokathi",
+    "পটুয়াখালী": "Patuakhali",
+    "পিরোজপুর": "Pirojpur",
+    "হবিগঞ্জ": "Habiganj",
+    "মৌলভীবাজার": "Moulvibazar",
+    "সুনামগঞ্জ": "Sunamganj",
+    "সিলেট": "Sylhet",
+    "দিনাজপুর": "Dinajpur",
+    "গাইবান্ধা": "Gaibandha",
+    "কুড়িগ্রাম": "Kurigram",
+    "লালমনিরহাট": "Lalmonirhat",
+    "নীলফামারী": "Nilphamari",
+    "পঞ্চগড়": "Panchagarh",
+    "রংপুর": "Rangpur",
+    "ঠাকুরগাঁও": "Thakurgaon",
+    "জামালপুর": "Jamalpur",
+    "ময়মনসিংহ": "Mymensingh",
+    "নেত্রকোনা": "Netrokona",
+    "শেরপুর": "Sherpur"
+  },
+  "ApplicantReviews": {
+    "average_rating": "Average Rating",
+    "reviews_count": "{count} reviews.",
+    "no_reviews": "This applicant has not received any reviews yet. Check back later for updates.",
+    "reviewed_for": "Reviewed for {jobTitle} position.",
+    "review_date": "{date}"
+  },
+  "CreateJob": {
+    "create_new_job": "Create a New Job",
+    "job_title": "Job Title",
+    "job_title_placeholder": "Job Title - Maximum 50 words allowed",
+    "short_description": "Short Description",
+    "short_description_placeholder": "Short Description - Maximum 150 words allowed",
+    "long_description": "Long Description",
+    "long_description_placeholder": "Long Description - Maximum 500 words allowed",
+    "qualification": "Educational Qualification",
+    "experience": "Experience",
+    "workplace": "Workplace",
+    "division": "Division",
+    "district": "District",
+    "job_role": "Job Role",
+    "required_documents": "Required Additional Documents",
+    "chairman_certificate": "Chairman Certificate",
+    "port_entry_permit": "Port Entry Permit",
+    "application_deadline": "Application Deadline",
+    "salary": "Salary",
+    "submit": "Submit",
+    "no_reviews_yet": "This applicant has not received any reviews yet. Check back later for updates."
+  },
+  "EditJob": {
+    "create_new_job": "Edit Job",
+    "job_title": "Job Title",
+    "job_title_placeholder": "Job Title - Maximum 50 words allowed",
+    "short_description": "Short Description",
+    "short_description_placeholder": "Short Description - Maximum 150 words allowed",
+    "long_description": "Long Description",
+    "long_description_placeholder": "Long Description - Maximum 500 words allowed",
+    "qualification": "Educational Qualification",
+    "experience": "Experience",
+    "workplace": "Workplace",
+    "division": "Division",
+    "district": "District",
+    "job_role": "Job Role",
+    "required_documents": "Required Additional Documents",
+    "chairman_certificate": "Chairman Certificate",
+    "port_entry_permit": "Port Entry Permit",
+    "application_deadline": "Application Deadline",
+    "salary": "Salary",
+    "submit": "Submit",
+    "no_reviews_yet": "This applicant has not received any reviews yet. Check back later for updates."
+  },
+  "ExperienceLevels": {
+    "0-1": "0 — 1 year",
+    "1-2": "1 — 2 years",
+    "2-3": "2 — 3 years",
+    "3-4": "3 — 4 years",
+    "4-5": "4 — 5 years",
+    "5-7": "5 — 7 years",
+    "7-10": "7 — 10 years",
+    "10+": "10+ years"
+  }
+}

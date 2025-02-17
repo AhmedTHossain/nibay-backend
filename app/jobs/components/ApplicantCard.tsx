@@ -13,7 +13,8 @@ import { formatEnglishToBangalNum } from "@/utils/formatEtoBLang";
 import { Application } from "@/utils/types/applicant";
 import { TUser } from "@/utils/types/user";
 import { AnimatePresence, motion } from "framer-motion";
-import { Loader } from "lucide-react";
+import { Languages, Loader } from "lucide-react";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Dispatch, SetStateAction, useEffect } from "react";
@@ -32,6 +33,11 @@ export function ApplicantCard(props: ApplicantCardProps) {
     userId: application?.applicant.id
   });
 
+  const t = useTranslations("ApplicantCard"); // Initialize translations
+  const language = useTranslations("language")("code");
+  const education = useTranslations("EducationLevels");
+  const userRole = useTranslations("UserRoles");
+
   function handleApplicantStatus(status: keyof typeof APPLICATION_STATUS) {
     api_client
       .patch(`/jobs/${application?.job.id}/${application?.applicant.id}`, {
@@ -46,7 +52,7 @@ export function ApplicantCard(props: ApplicantCardProps) {
       .catch((err) => {
         console.log(err);
       })
-      .finally(() => { });
+      .finally(() => {});
   }
 
   return (
@@ -62,9 +68,7 @@ export function ApplicantCard(props: ApplicantCardProps) {
       <p className="text-xs font-semibold absolute top-3 right-2 bg-violet-800 text-violet-200 py-1 px-2 rounded-3xl">
         {application?.isDeleted
           ? "N/A"
-          : APPLICATION_STATUS[
-            application?.applicationStatus as keyof typeof APPLICATION_STATUS
-          ].label}
+          : t(`application_status.${application?.applicationStatus}`)}
       </p>
       {isLoading ? (
         <AnimatePresence>
@@ -103,36 +107,36 @@ export function ApplicantCard(props: ApplicantCardProps) {
                 : application?.applicant.name}
             </p>
             <p className="text-sm text-slate-800 dark:text-slate-400">
-              {application?.isDeleted
-                ? "N/A"
-                : USER_ROLE[Number(user?.role) as keyof typeof USER_ROLE]
-                  ?.label}
+              {application?.isDeleted ? "N/A" : userRole(user?.role)}
             </p>
           </div>
 
           <div className="mt-6 text-left space-y-1">
             <div className="flex items-center gap-2">
               <span className="text-slate-800 dark:text-slate-200 text-sm min-w-[100px] shrink-0 pr-0 mr-0">
-                শিক্ষাগত যোগ্যতা
+                {t("education")}
               </span>
               <span className="p-0 m-0">:</span>
               <span className="text-sm font-semibold text-slate-800 dark:text-slate-200 truncate">
                 {application?.isDeleted
                   ? "N/A"
-                  : EDUCTATION_LEVELS.find(
-                    (level) => level.id === Number(user?.maxEducationLevel)
-                  )?.label}
+                  : education(user?.maxEducationLevel)}
               </span>
             </div>
             <div className="flex items-center gap-2">
               <span className="text-slate-800 dark:text-slate-200 text-sm min-w-[100px]">
-                অভিজ্ঞতা
+                {t("experience")}
               </span>
               <span className="p-0 m-0">:</span>
               <span className="text-sm font-semibold text-slate-800 dark:text-slate-200">
                 {application?.isDeleted
                   ? "N/A"
-                  : formatEnglishToBangalNum(user?.yearsOfExperience) + " বছর"}
+                  : formatEnglishToBangalNum(
+                      user?.yearsOfExperience,
+                      language
+                    ) +
+                    " " +
+                    t("year")}
               </span>
             </div>
 
@@ -145,7 +149,7 @@ export function ApplicantCard(props: ApplicantCardProps) {
                 }}
                 disabled={application?.isDeleted}
               >
-                গ্রহণ করুন
+                {t("accept")}
               </Button>
               <Button
                 className="rounded-md bg-yellow-600/5 hover:bg-yellow-500 border-yellow-600/10 hover:border-yellow-600 text-yellow-600 duration-200 transition-all hover:text-white md:relative flex items-center justify-center px-2 py-2 space-x-1 cursor-pointer text-xs font-medium"
@@ -155,7 +159,7 @@ export function ApplicantCard(props: ApplicantCardProps) {
                 }}
                 disabled={application?.isDeleted}
               >
-                শর্টলিস্ট করুন
+                {t("shortlist")}
               </Button>
               <Button
                 className="rounded-md bg-red-600/5 hover:bg-red-500 border-red-600/10 hover:border-red-600 text-red-600 duration-200 transition-all hover:text-white md:relative flex items-center justify-center px-2 py-2 space-x-1 cursor-pointer text-xs font-medium"
@@ -165,7 +169,7 @@ export function ApplicantCard(props: ApplicantCardProps) {
                 }}
                 disabled={application?.isDeleted}
               >
-                বাতিল করুন
+                {t("reject")}
               </Button>
             </div>
           </div>
