@@ -228,8 +228,8 @@ export async function GET(
         shortDescription: job.shortDescription,
         longDescription: job.longDescription,
         experience: job.experience,
-        qualification: job.qualification,
-        jobRole: parseInt(jobRoleKey || "0"),
+        maxEducationLevel: job.qualification,
+        role: parseInt(jobRoleKey || "0"),
         division: job.division,
         district: job.district,
         salary: parseInt(job.salary || "0"),
@@ -253,6 +253,7 @@ export async function GET(
       data: formattedJobs
     });
   } catch (error) {
+    console.log(error)
     return NextResponse.json({
       status: false,
       message: "Failed to fetch applied jobs",

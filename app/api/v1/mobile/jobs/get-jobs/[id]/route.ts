@@ -230,7 +230,7 @@ export async function GET(request: Request, { params }: { params: { id: string }
     await connectToMongoDB();
 
     const job = await Job.findById(params.id).select(
-      '_id title shortDescription longDescription experience qualification applicationDeadline salary jobRole isBirthCertificateRequired isPortEntryPermitRequired division district user'
+      '_id title shortDescription longDescription experience qualification applicationDeadline salary jobRole isBirthCertificateRequired isPortEntryPermitRequired division district user applicants applicationStatus' 
     );
 
     if (!job) {
@@ -253,6 +253,15 @@ export async function GET(request: Request, { params }: { params: { id: string }
       (key: string) => MAX_EDUCATION_LEVEL[key as unknown as keyof typeof MAX_EDUCATION_LEVEL].value === job.qualification
     );
     const educationLevelId = parseInt(educationKey || "4");
+    console.log(job.applicationStatus);
+    
+    const applicationStatusMap = {
+      PENDING: -1, // applied
+      REJECTED: 0, // declined
+      ACCEPTED: 1, // offered
+      EXPIRED: 2 // expired
+    };
+    
     const jobResponse = {
       _id: job._id,
       title: job.title,
@@ -260,21 +269,22 @@ export async function GET(request: Request, { params }: { params: { id: string }
       longDescription: job.longDescription,
       experience: job.experience,
       applicationDeadline: job.applicationDeadline,
-      salary: parseInt(job.salary as string), // Convert salary to integer using parseInt()job.salary,
-      jobRole: parseInt(jobRoleKey as string), // Convert jobRoleKey to integer using parseInt()jobRoleKey,
+      salary: parseInt(job.salary as string), // Convert salary to integer using parseInt()
+      jobRole: parseInt(jobRoleKey as string), // Convert jobRoleKey to integer using parseInt()
       isBirthCertificateRequired: job.isBirthCertificateRequired,
       isPortEntryPermitRequired: job.isPortEntryPermitRequired,
       division: job.division,
       district: job.district,
       employerId: job.user, // Mapping user to employerId
-      // isFollowing: isFollowing // Adding isFollowing to the response
-      applicationStatus: applicant ? applicant.applicationStatus : job.applicationStatus, 
-      jobStatus: job.applicationStatus,
+      isFollowing: isFollowing, // Adding isFollowing to the response
+      jobStatus: applicant ? applicant.applicationStatus : job.applicationStatus,
+      applicationStatus: applicationStatusMap[job.applicationStatus as keyof typeof applicationStatusMap] ?? job.applicationStatus,
       qualification: undefined,
       applicants: undefined,
       minEducationLevel: educationLevelId,
     };
     
+    console.log(jobResponse);
     return NextResponse.json({
       status: true,
       message: "Job fetched successfully",

@@ -368,8 +368,7 @@ export async function GET(request: Request) {
         salary: parseInt(jobObj.salary || "0", 10) || 0,
         qualification: undefined,
         applicants: undefined,
-        applicantStatus,
-        applicationStatus: jobObj.applicationStatus // Include the application status in the response
+        jobStatus: applicantStatus // Include the application status in the response
       };
     });
     

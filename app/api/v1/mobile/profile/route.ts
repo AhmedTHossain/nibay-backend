@@ -105,6 +105,16 @@ export async function GET(request: Request) {
       delete userData.birthCertificate;
     }
 
+    // Ensure maxEducationLevel is an integer
+    if (userData.maxEducationLevel) {
+      userData.maxEducationLevel = parseInt(userData.maxEducationLevel as unknown as string, 10);
+    }
+
+    // Ensure role is an integer
+    if (userData.role) {
+      userData.role = parseInt(userData.role as unknown as string, 10);
+    }
+
     return NextResponse.json({
       status: true,
       message: "success",
