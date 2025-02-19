@@ -350,7 +350,7 @@ export async function GET(request: Request) {
       const educationLevelDetails = getEducationLevelDetails(educationLevelId);
     
       // Check if the current user's ID is present in the applicants array
-      const currentUserApplication = jobObj.applicants.find(applicant => applicant.applicant.id === userId);
+      const currentUserApplication = jobObj.applicants.find(applicant => applicant?.applicant?.id === userId);
       const applicantStatus = currentUserApplication ? currentUserApplication.applicationStatus : null;
     
       return {
@@ -385,6 +385,7 @@ export async function GET(request: Request) {
     });
     
   } catch (error) {
+    console.log(error)
     return handleError(error);
   }
 }
