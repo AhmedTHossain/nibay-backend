@@ -220,7 +220,6 @@ export async function GET(
       const jobRoleKey = (Object.keys(USER_ROLE) as string[]).find(
         (key: string) => jobs.some(job => USER_ROLE[key as unknown as keyof typeof USER_ROLE].label === job.jobRole)
       );
-  
     
       return {
         _id: job._id.toString(),
@@ -246,11 +245,16 @@ export async function GET(
         jobSatus: job.applicationStatus,
       };
     });
-
+    
+    const acceptedApplications = formattedJobs.filter(job => job.applicationStatus === "ACCEPTED").length;
+    const rejectedApplications = formattedJobs.filter(job => job.applicationStatus === "REJECTED").length;
+    
     return NextResponse.json({
       status: true,
       message: "Applied jobs fetched successfully",
-      data: formattedJobs
+      data: formattedJobs,
+      acceptedApplications,
+      rejectedApplications
     });
   } catch (error) {
     console.log(error)
