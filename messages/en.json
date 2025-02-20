@@ -469,5 +469,25 @@
     "passwordLengthError": "Password must be at least 8 characters long",
     "passwordMismatchError": "Passwords do not match",
     "unexpectedError": "An unexpected error occurred. Please try again."
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "jobAds": {
+      "title": "Job Advertisements",
+      "total": "Total Job Ads",
+      "active": "Active Job Ads",
+      "institutional": "Institutional Job Ads",
+      "individual": "Individual Job Ads"
+    },
+    "employers": {
+      "title": "Employers",
+      "total": "Total Employers",
+      "institutional": "Institutional Employers",
+      "individual": "Individual Employers"
+    },
+    "jobSeekers": {
+      "title": "Job Seekers",
+      "total": "Total Job Seekers"
+    }
   }
 }

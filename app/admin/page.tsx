@@ -8,6 +8,7 @@ import { use, useEffect, useState } from "react";
 import { formatEnglishToBangalNum } from "@/utils/formatEtoBLang";
 import { api_client } from "@/lib/axios";
 import { AnimatePresence, motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 interface DashboardPageData {
   totalJobs: string;
@@ -21,11 +22,15 @@ interface DashboardPageData {
 }
 
 export default function DashboardPage() {
-  const [dashboardData, setDashboardData] = useState<DashboardPageData | null>(null);
+  const [dashboardData, setDashboardData] = useState<DashboardPageData | null>(
+    null
+  );
+  const t = useTranslations("dashboard");
+  const language = useTranslations("language")("code");
 
   useEffect(() => {
     async function fetchData() {
-      const response = await api_client.get('/dashboard');
+      const response = await api_client.get("/dashboard");
       const result = response.data;
       setDashboardData(result.data);
       console.log("Dashboard: ", dashboardData);
@@ -43,105 +48,151 @@ export default function DashboardPage() {
         </aside>
         <main className="flex w-full flex-1 flex-col overflow-hidden">
           <div className="flex-1 space-y-4 p-8 pt-6">
-            <h2 className="text-3xl font-bold tracking-tight">ড্যাশবোর্ড</h2>
+            <h2 className="text-3xl font-bold tracking-tight">{t("title")}</h2>
             {dashboardData ? (
               <>
-                <h3 className="text-xl font-semibold pt-5 tracking-tight">চাকরির বিজ্ঞাপন</h3>
+                <h3 className="text-xl font-semibold pt-5 tracking-tight">
+                  {t("jobAds.title")}
+                </h3>
                 <div className="grid gap-4 md:grid-cols-2">
                   <Card className="border-emerald-200">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                       <CardTitle className="text-sm font-medium">
-                        মোট চাকরির বিজ্ঞাপন
+                        {t("jobAds.total")}
                       </CardTitle>
                       <Briefcase className="h-4 w-4 text-emerald-600" />
                     </CardHeader>
                     <CardContent>
-                      <div className="text-2xl font-bold">{formatEnglishToBangalNum(String(dashboardData.totalJobs))}</div>
+                      <div className="text-2xl font-bold">
+                        {formatEnglishToBangalNum(
+                          String(dashboardData.totalJobs),
+                          language
+                        )}
+                      </div>
                     </CardContent>
                   </Card>
                   <Card className="border-emerald-200">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                       <CardTitle className="text-sm font-medium">
-                        সক্রিয় চাকরির বিজ্ঞাপন
+                        {t("jobAds.active")}
                       </CardTitle>
                       <Briefcase className="h-4 w-4 text-emerald-600" />
                     </CardHeader>
                     <CardContent>
-                      <div className="text-2xl font-bold">{formatEnglishToBangalNum(String(dashboardData.totalActiveJobs))}</div>
+                      <div className="text-2xl font-bold">
+                        {formatEnglishToBangalNum(
+                          String(dashboardData.totalActiveJobs),
+                          language
+                        )}
+                      </div>
                     </CardContent>
                   </Card>
                   <Card className="border-emerald-200">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                       <CardTitle className="text-sm font-medium">
-                        প্রাতিষ্ঠানিক চাকরির বিজ্ঞাপন
+                        {t("jobAds.institutional")}
                       </CardTitle>
                       <Briefcase className="h-4 w-4 text-emerald-600" />
                     </CardHeader>
                     <CardContent>
-                      <div className="text-2xl font-bold">{formatEnglishToBangalNum(String(dashboardData.totalInstitutionJobs))}</div>
+                      <div className="text-2xl font-bold">
+                        {formatEnglishToBangalNum(
+                          String(dashboardData.totalInstitutionJobs),
+                          language
+                        )}
+                      </div>
                     </CardContent>
                   </Card>
                   <Card className="border-emerald-200">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                       <CardTitle className="text-sm font-medium">
-                        ব্যক্তিগত চাকরির বিজ্ঞাপন
+                        {t("jobAds.individual")}
                       </CardTitle>
                       <Briefcase className="h-4 w-4 text-emerald-600" />
                     </CardHeader>
                     <CardContent>
-                      <div className="text-2xl font-bold">{formatEnglishToBangalNum(String(dashboardData.totalIndividualJobs))}</div>
+                      <div className="text-2xl font-bold">
+                        {formatEnglishToBangalNum(
+                          String(dashboardData.totalIndividualJobs),
+                          language
+                        )}
+                      </div>
                     </CardContent>
                   </Card>
                 </div>
 
-                <h3 className="text-xl font-semibold pt-5 tracking-tight">চাকরির নিয়োগকর্তা</h3>
+                <h3 className="text-xl font-semibold pt-5 tracking-tight">
+                  {t("employers.title")}
+                </h3>
                 <div className="grid gap-4 md:grid-cols-2">
                   <Card className="border-emerald-200">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                       <CardTitle className="text-sm font-medium">
-                        মোট নিয়োগকর্তার সংখ্যা
+                        {t("employers.total")}
                       </CardTitle>
                       <Users className="h-4 w-4 text-emerald-600" />
                     </CardHeader>
                     <CardContent>
-                      <div className="text-2xl font-bold">{formatEnglishToBangalNum(String(dashboardData.totalEmployers))}</div>
+                      <div className="text-2xl font-bold">
+                        {formatEnglishToBangalNum(
+                          String(dashboardData.totalEmployers),
+                          language
+                        )}
+                      </div>
                     </CardContent>
                   </Card>
                   <Card className="border-emerald-200">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                       <CardTitle className="text-sm font-medium">
-                        প্রাতিষ্ঠানিক নিয়োগকর্তার সংখ্যা
+                        {t("employers.institutional")}
                       </CardTitle>
                       <Users className="h-4 w-4 text-emerald-600" />
                     </CardHeader>
                     <CardContent>
-                      <div className="text-2xl font-bold">{formatEnglishToBangalNum(String(dashboardData.totalInstitutionEmployers))}</div>
+                      <div className="text-2xl font-bold">
+                        {formatEnglishToBangalNum(
+                          String(dashboardData.totalInstitutionEmployers),
+                          language
+                        )}
+                      </div>
                     </CardContent>
                   </Card>
                   <Card className="border-emerald-200">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                       <CardTitle className="text-sm font-medium">
-                        ব্যক্তিগত নিয়োগকর্তার সংখ্যা
+                        {t("employers.individual")}
                       </CardTitle>
                       <Users className="h-4 w-4 text-emerald-600" />
                     </CardHeader>
                     <CardContent>
-                      <div className="text-2xl font-bold">{formatEnglishToBangalNum(String(dashboardData.totalIndividualEmployers))}</div>
+                      <div className="text-2xl font-bold">
+                        {formatEnglishToBangalNum(
+                          String(dashboardData.totalIndividualEmployers),
+                          language
+                        )}
+                      </div>
                     </CardContent>
                   </Card>
                 </div>
 
-                <h3 className="text-xl font-semibold pt-5 tracking-tight">চাকরির সন্ধানকারী</h3>
+                <h3 className="text-xl font-semibold pt-5 tracking-tight">
+                  {t("jobSeekers.title")}
+                </h3>
                 <div className="grid gap-4 md:grid-cols-2">
                   <Card className="border-emerald-200">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                       <CardTitle className="text-sm font-medium">
-                        মোট চাকরির সন্ধানকারী
+                        {t("jobSeekers.total")}
                       </CardTitle>
                       <Users className="h-4 w-4 text-emerald-600" />
                     </CardHeader>
                     <CardContent>
-                      <div className="text-2xl font-bold">{formatEnglishToBangalNum(String(dashboardData.totalMobileUsers))}</div>
+                      <div className="text-2xl font-bold">
+                        {formatEnglishToBangalNum(
+                          String(dashboardData.totalMobileUsers),
+                          language
+                        )}
+                      </div>
                     </CardContent>
                   </Card>
                 </div>
