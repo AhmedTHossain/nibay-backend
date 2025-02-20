@@ -62,7 +62,7 @@ const Header = ({ userId, isAdminRoute }: HeaderProps) => {
     >
       <div className="container">
         <div className="flex items-center justify-between w-full">
-          <AppLogo />
+          <AppLogo userId={userId} />
 
           <div className="flex space-x-3 items-center">
             <Navigation />
@@ -87,7 +87,7 @@ interface ProfileMenuProps {
 }
 
 const ProfileMenu = ({ userId, userName }: ProfileMenuProps) => {
-  const t = useTranslations('Header');
+  const t = useTranslations("Header");
 
   const router = useRouter();
   const userById = useUserById({ userId: userId ?? "" });
@@ -119,10 +119,11 @@ const ProfileMenu = ({ userId, userName }: ProfileMenuProps) => {
               );
             }}
           >
-            <SettingsIcon size={18} strokeWidth={1.5} /> <span>{t('settings')}</span>
+            <SettingsIcon size={18} strokeWidth={1.5} />{" "}
+            <span>{t("settings")}</span>
           </MenubarItem>
           <>
-            {user?.isAdmin &&
+            {user?.isAdmin && (
               <>
                 <MenubarSeparator />
                 <MenubarItem
@@ -132,10 +133,10 @@ const ProfileMenu = ({ userId, userName }: ProfileMenuProps) => {
                   }}
                 >
                   <MonitorCogIcon size={18} strokeWidth={1.5} />
-                  <span>{t('admin')}</span>
+                  <span>{t("admin")}</span>
                 </MenubarItem>
               </>
-            }
+            )}
             <MenubarSeparator />
             <MenubarItem
               className="gap-2"
@@ -148,7 +149,8 @@ const ProfileMenu = ({ userId, userName }: ProfileMenuProps) => {
                 }
               }}
             >
-              <LogOutIcon size={18} strokeWidth={1.5} /> <span>{t('logout')}</span>
+              <LogOutIcon size={18} strokeWidth={1.5} />{" "}
+              <span>{t("logout")}</span>
             </MenubarItem>
           </>
         </MenubarContent>
