@@ -25,9 +25,14 @@ import {
 } from "./form";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 export function AccountSettings() {
   const router = useRouter();
+
+  const t = useTranslations("AccountSettings");
+  const district = useTranslations("Districts");
+  const division = useTranslations("Divisions");
 
   const [districts, setDistricts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -145,12 +150,12 @@ export function AccountSettings() {
             <div className="grid lg:grid-cols-2 grid-cols-1 gap-4">
               <div>
                 <label className="font-semibold" htmlFor="name">
-                  নাম
+                  {t("name")}
                 </label>
                 <Input
                   id="name"
                   type="text"
-                  placeholder="নাম"
+                  placeholder={t("name")}
                   {...form.register("name")}
                 />
                 {error("name") ? (
@@ -162,7 +167,7 @@ export function AccountSettings() {
 
               <div>
                 <label className="font-semibold" htmlFor="email">
-                  ইমেইল
+                  {t("email")}
                 </label>
                 <Input
                   id="email"
@@ -173,45 +178,45 @@ export function AccountSettings() {
                 />
               </div>
 
-              <div className="mb-4 text-left">
+              <div>
                 <label className="font-semibold" htmlFor="userphone">
-                  ফোন নাম্বার
+                  {t("phone_number")}
                 </label>
                 <Input
                   id="userphone"
                   type="text"
-                  placeholder="ফোন নাম্বার"
+                  placeholder={t("phone_number_placeholder")}
                   {...form.register("phone")}
                 />
-                {error("phone") ? (
+                {error("phone") && (
                   <p className="text-red-500 font-semibold text-sm">
                     {error("phone")}
                   </p>
-                ) : null}
+                )}
               </div>
 
-              <div className="mb-4 text-left">
+              <div>
                 <label className="font-semibold" htmlFor="useraddress">
-                  ঠিকানা
+                  {t("address")}
                 </label>
                 <Input
                   id="useraddress"
                   type="text"
-                  placeholder="ঠিকানা"
+                  placeholder={t("address_placeholder")}
                   {...form.register("address")}
                 />
-                {error("address") ? (
+                {error("address") && (
                   <p className="text-red-500 font-semibold text-sm">
                     {error("address")}
                   </p>
-                ) : null}
+                )}
               </div>
 
               {currentUser?.role === "11" && (
                 <>
                   <div className="mb-4 text-left">
                     <label className="font-semibold" htmlFor="division">
-                      বিভাগ
+                      {t("division_placeholder")}
                     </label>
                     <Select
                       defaultValue={currentUser?.division}
@@ -226,14 +231,14 @@ export function AccountSettings() {
                       }}
                     >
                       <SelectTrigger className="">
-                        <SelectValue placeholder="বিভাগ" />
+                        <SelectValue placeholder={t("division_placeholder")} />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectGroup>
                           {DIVISIONS.map((item) => {
                             return (
                               <SelectItem key={item.id} value={item.division}>
-                                {item.division}
+                                {division(item.division)}
                               </SelectItem>
                             );
                           })}
@@ -250,7 +255,7 @@ export function AccountSettings() {
                   {districts.length > 0 ? (
                     <div className="mb-4 text-left">
                       <label className="font-semibold" htmlFor="division">
-                        জেলা
+                        {t("district_placeholder")}
                       </label>
                       <Select
                         defaultValue={currentUser?.district}
@@ -259,14 +264,16 @@ export function AccountSettings() {
                         }
                       >
                         <SelectTrigger className="">
-                          <SelectValue placeholder="জেলা" />
+                          <SelectValue
+                            placeholder={t("district_placeholder")}
+                          />
                         </SelectTrigger>
                         <SelectContent>
                           <SelectGroup>
                             {districts.map((item, idx) => {
                               return (
                                 <SelectItem key={idx} value={item}>
-                                  {item}
+                                  {district(item)}
                                 </SelectItem>
                               );
                             })}
@@ -287,41 +294,41 @@ export function AccountSettings() {
 
               {currentUser?.role === "10" && (
                 <>
-                  <div className="mb-4 text-left">
+                  <div>
                     <label
                       className="font-semibold"
                       htmlFor="organizationContactPerson"
                     >
-                      প্রতিষ্ঠানের যোগাযোগকারীর নাম
+                      {t("organization_contact_person")}
                     </label>
                     <Input
                       id="organizationContactPerson"
                       type="text"
-                      placeholder="প্রতিষ্ঠানের নাম"
+                      placeholder={t("organization_contact_person_placeholder")}
                       {...form.register("organizationContactPerson")}
                     />
-                    {error("organizationContactPerson") ? (
+                    {error("organizationContactPerson") && (
                       <p className="text-red-500 font-semibold text-sm">
                         {error("organizationContactPerson")}
                       </p>
-                    ) : null}
+                    )}
                   </div>
 
-                  <div className="mb-4 text-left col-span-full">
+                  <div className="col-span-full">
                     <label className="font-semibold" htmlFor="companyImage">
-                      প্রতিষ্ঠানের ছবি
+                      {t("company_image")}
                     </label>
                     <Input
                       id="companyImage"
                       type="file"
-                      placeholder="প্রতিষ্ঠানের ছবি"
+                      placeholder={t("company_image_placeholder")}
                       onChange={handleFileChange}
                     />
-                    {error("image") ? (
+                    {error("image") && (
                       <p className="text-red-500 font-semibold text-sm">
                         {error("image")}
                       </p>
-                    ) : null}
+                    )}
                   </div>
 
                   <div className="max-w-[100px] max-h[100px]">
@@ -356,7 +363,8 @@ export function AccountSettings() {
                 className="bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white rounded-md"
                 disabled={isLoading}
               >
-                {isLoading && <Loader className="animate-spin" />} Save Changes
+                {isLoading && <Loader className="animate-spin" />}{" "}
+                {t("save_changes")}
               </Button>
             </div>
           </form>

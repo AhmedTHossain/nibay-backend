@@ -407,5 +407,36 @@
       "commentsPlaceholder": "কমেন্ট :",
       "sendMessage": "সেন্ড মেসেজ"
     }
+  },
+  "AccountSettings": {
+    "personal_details": "ব্যক্তিগত তথ্য",
+    "name": "নাম",
+    "name_placeholder": "নাম",
+    "email": "ইমেইল",
+    "phone_number": "ফোন নাম্বার",
+    "phone_number_placeholder": "ফোন নাম্বার",
+    "address": "ঠিকানা",
+    "address_placeholder": "ঠিকানা",
+    "on": "বিভাগ",
+    "division_placeholder": "বিভাগ",
+    "district": "জেলা",
+    "district_placeholder": "জেলা",
+    "organization_contact_person": "প্রতিষ্ঠানের যোগাযোগকারীর নাম",
+    "organization_contact_person_placeholder": "প্রতিষ্ঠানের নাম",
+    "company_image": "প্রতিষ্ঠানের ছবি",
+    "company_image_placeholder": "প্রতিষ্ঠানের ছবি",
+    "save_changes": "সেভ করুন"
+  },
+  "passwordSettings": {
+    "title": "এখানে আপনার পাসওয়ার্ড পরিবর্তন করুন",
+    "oldPassword": "পাসওয়ার্ড",
+    "newPassword": "নতুন পাসওয়ার্ড",
+    "confirmPassword": "পাসওয়ার্ড নতুন পুনরায় দিন",
+    "saveChanges": "সেভ করুন",
+    "passwordMismatchError": "পাসওয়ার্ড অনুরূপ হয় নি!"
+  },
+  "Settings": {
+    "account_settings": "অ্যাকাউন্ট সেটিংস",
+    "password_settings": "পাসওয়ার্ড সেটিংস"
   }
 }

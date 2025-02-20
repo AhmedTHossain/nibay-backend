@@ -407,5 +407,36 @@
       "commentsPlaceholder": "Comments:",
       "sendMessage": "Send Message"
     }
+  },
+  "AccountSettings": {
+    "personal_details": "Personal Details",
+    "name": "Name",
+    "name_placeholder": "Name",
+    "email": "Email",
+    "phone_number": "Phone Number",
+    "phone_number_placeholder": "Phone Number",
+    "address": "Address",
+    "address_placeholder": "Address",
+    "division": "Division",
+    "division_placeholder": "Division",
+    "district": "District",
+    "district_placeholder": "District",
+    "organization_contact_person": "Organization Contact Person",
+    "organization_contact_person_placeholder": "Organization Name",
+    "company_image": "Company Image",
+    "company_image_placeholder": "Company Image",
+    "save_changes": "Save Changes"
+  },
+  "passwordSettings": {
+    "title": "Change your password here",
+    "oldPassword": "Password",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm New Password",
+    "saveChanges": "Save Changes",
+    "passwordMismatchError": "Passwords do not match!"
+  },
+  "Settings": {
+    "account_settings": "Account Settings",
+    "password_settings": "Password Settings"
   }
 }
