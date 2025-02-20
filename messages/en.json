@@ -438,5 +438,36 @@
   "Settings": {
     "account_settings": "Account Settings",
     "password_settings": "Password Settings"
+  },
+  "otpVerification": {
+    "title": "OTP Verification",
+    "description": "We have sent a 6-digit code to {email}. Enter it below to verify your account.",
+    "verifyButton": "Verify",
+    "verifying": "Verifying...",
+    "resendTimer": "Resend in {timer} seconds",
+    "resendButton": "Resend OTP",
+    "didNotReceiveCode": "Didn't receive the code?",
+    "invalidOTPError": "Please enter a valid 6-digit OTP",
+    "unexpectedError": "An unexpected error occurred. Please try again.",
+    "resendFailed": "Failed to resend OTP. Please try again."
+  },
+  "forgotPassword": {
+    "title": "Forgot Password?",
+    "subtitle": "Enter your email address and we will send you a code",
+    "emailLabel": "Email",
+    "emailPlaceholder": "name@example.com",
+    "resetLinkButton": "Send Reset Link",
+    "loginLink": "Log In"
+  },
+  "setNewPassword": {
+    "title": "Set New Password",
+    "subtitle": "Please enter your new password below.",
+    "newPasswordLabel": "New Password",
+    "confirmPasswordLabel": "Confirm New Password",
+    "updateButton": "Set New Password",
+    "updating": "Updating...",
+    "passwordLengthError": "Password must be at least 8 characters long",
+    "passwordMismatchError": "Passwords do not match",
+    "unexpectedError": "An unexpected error occurred. Please try again."
   }
 }

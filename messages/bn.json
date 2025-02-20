@@ -438,5 +438,36 @@
   "Settings": {
     "account_settings": "অ্যাকাউন্ট সেটিংস",
     "password_settings": "পাসওয়ার্ড সেটিংস"
+  },
+  "otpVerification": {
+    "title": "ওটিপি যাচাই",
+    "description": "আমরা {email} এ ৬-সংখ্যার কোড পাঠিয়েছি। আপনার অ্যাকাউন্ট যাচাই করতে এটি নিচে প্রবেশ করুন।",
+    "verifyButton": "যাচাই করুন",
+    "verifying": "যাচাই হচ্ছে...",
+    "resendTimer": "{timer} সেকেন্ডে পুনরায় পাঠান",
+    "resendButton": "পুনরায় ওটিপি পাঠান",
+    "didNotReceiveCode": "কোডটি পাননি?",
+    "invalidOTPError": "দয়া করে একটি বৈধ ৬-সংখ্যার ওটিপি প্রবেশ করুন",
+    "unexpectedError": "একটি অপ্রত্যাশিত সমস্যা হয়েছে। দয়া করে আবার চেষ্টা করুন।",
+    "resendFailed": "ওটিপি পুনরায় পাঠানো সফল হয়নি। দয়া করে আবার চেষ্টা করুন।"
+  },
+  "forgotPassword": {
+    "title": "পাসওয়ার্ড ভুলে গেছেন?",
+    "subtitle": "আপনার ইমেল ঠিকানা লিখুন এবং আমরা আপনাকে একটি কোড পাঠাব",
+    "emailLabel": "ইমেইল",
+    "emailPlaceholder": "name@example.com",
+    "resetLinkButton": "রিসেট লিঙ্ক পাঠান",
+    "loginLink": "লগ ইন"
+  },
+  "setNewPassword": {
+    "title": "নতুন পাসওয়ার্ড সেট করুন",
+    "subtitle": "অনুগ্রহ করে নিচে আপনার নতুন পাসওয়ার্ড লিখুন।",
+    "newPasswordLabel": "নতুন পাসওয়ার্ড",
+    "confirmPasswordLabel": "নতুন পাসওয়ার্ড নিশ্চিত করুন",
+    "updateButton": "নতুন পাসওয়ার্ড সেট করুন",
+    "updating": "আপডেট হচ্ছে...",
+    "passwordLengthError": "পাসওয়ার্ড কমপক্ষে ৮ অক্ষরের হতে হবে",
+    "passwordMismatchError": "পাসওয়ার্ড ম্যাচ হয়নি",
+    "unexpectedError": "একটি অপ্রত্যাশিত সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।"
   }
 }

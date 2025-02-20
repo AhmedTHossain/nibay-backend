@@ -9,6 +9,9 @@ import { toast } from "sonner";
 import axios, { AxiosResponse } from "axios";
 import storage from "@/lib/storage";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { format } from "path";
+import { lang } from "moment";
 
 interface OTPVerificationFormProps {
   email: string;
@@ -20,6 +23,8 @@ export default function OTPVerificationForm({
   deviceId
 }: OTPVerificationFormProps) {
   const router = useRouter();
+  const t = useTranslations("otpVerification");
+  const language = useTranslations("language")("code");
 
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const [timer, setTimer] = useState(30);
@@ -88,7 +93,7 @@ export default function OTPVerificationForm({
         toast.success(res.data.message);
       });
     } catch (error) {
-      toast.error("ওটিপি পুনরায় পাঠানো সফল হয়নি। দয়া করে আবার চেষ্টা করুন।");
+      toast.error(t("resendFailed"));
     }
   };
 
@@ -99,7 +104,7 @@ export default function OTPVerificationForm({
     if (otpValue.length !== 6) {
       setSubmitMessage({
         type: "error",
-        message: "দয়া করে একটি বৈধ ৬-সংখ্যার ওটিপি প্রবেশ করুন"
+        message: t("invalidOTPError")
       });
       return;
     }
@@ -125,7 +130,7 @@ export default function OTPVerificationForm({
     } catch (error) {
       setSubmitMessage({
         type: "error",
-        message: "একটি অপ্রত্যাশিত সমস্যা হয়েছে। দয়া করে আবার চেষ্টা করুন।"
+        message: t("unexpectedError")
       });
     } finally {
       setIsSubmitting(false);
@@ -135,10 +140,9 @@ export default function OTPVerificationForm({
   return (
     <div className="flex items-center justify-center">
       <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-xl">
-        <h2 className="text-3xl font-bold text-center">ওটিপি যাচাই</h2>
+        <h2 className="text-3xl font-bold text-center">{t("title")}</h2>
         <p className="text-center text-gray-600">
-          আমরা {email} এ ৬-সংখ্যার কোড পাঠিয়েছি। আপনার অ্যাকাউন্ট যাচাই করতে
-          এটি নিচে প্রবেশ করুন।
+          {t("description", { email })}
         </p>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="flex justify-between space-x-2">
@@ -163,7 +167,7 @@ export default function OTPVerificationForm({
             className="w-full bg-emerald-600 hover:bg-emerald-700 focus:ring-emerald-500"
             disabled={isSubmitting || otp.some((digit) => digit === "")}
           >
-            {isSubmitting ? "যাচাই হচ্ছে..." : "যাচাই করুন"}
+            {isSubmitting ? t("verifying") : t("verifyButton")}
           </Button>
         </form>
         {submitMessage && (
@@ -176,10 +180,12 @@ export default function OTPVerificationForm({
         )}
         <div className="text-center">
           <p className="text-sm text-gray-600">
-            কোডটি পাননি?{" "}
+            {t("didNotReceiveCode")}{" "}
             {isResendDisabled ? (
               <span className="text-emerald-600 font-medium">
-                {formatEnglishToBangalNum(String(timer))} সেকেন্ডে পুনরায় পাঠান
+                {t("resendTimer", {
+                  timer: formatEnglishToBangalNum(String(timer), language)
+                })}
               </span>
             ) : (
               <button
@@ -187,7 +193,7 @@ export default function OTPVerificationForm({
                 className="text-emerald-600 font-medium hover:underline focus:outline-none"
                 type="button"
               >
-                পুনরায় ওটিপি পাঠান
+                {t("resendButton")}
               </button>
             )}
           </p>
