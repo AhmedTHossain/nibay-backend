@@ -171,7 +171,7 @@ export default function JobDetailsRoute({
                         <li className="mt-10 flex items-center gap-4">
                           <p
                             className="rounded-md bg-emerald-600/5 hover:bg-emerald-500 border-emerald-600/10 hover:border-emerald-600 text-emerald-600 duration-200 transition-all hover:text-white md:relative flex items-center justify-center px-4 py-2 space-x-1 cursor-pointer text-sm font-medium"
-                            title="চাকরিটি এডিট করুন"
+                            title={t("edit")}
                             onClick={(event) => {
                               event.stopPropagation();
                               router.push(`/jobs/${params.jobId}/edit`);
@@ -184,7 +184,7 @@ export default function JobDetailsRoute({
                           </p>
                           <p
                             className="rounded-md bg-red-600/5 hover:bg-red-500 border-red-600/10 hover:border-red-600 text-red-600 duration-200 transition-all hover:text-white md:relative flex items-center justify-center px-4 py-2 space-x-1 cursor-pointer text-sm font-medium"
-                            title="চাকরিটি ডিলিট করুন"
+                            title={t("delete")}
                             onClick={(event) => {
                               event.stopPropagation();
                               setIsDeleteOpen(true);
