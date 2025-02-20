@@ -514,5 +514,10 @@
     "search_placeholder": "Search...",
     "no_results": "No users found for your search.",
     "load_error": "Sorry! Could not load user list."
+  },
+  "UserCard": {
+    "edit": "Edit",
+    "ban": "Ban",
+    "delete": "Delete"
   }
 }
