@@ -519,5 +519,11 @@
     "edit": "Edit",
     "ban": "Ban",
     "delete": "Delete"
+  },
+  "UserBanModal": {
+    "ban_confirmation": "User Ban Confirmation",
+    "ban_description": "Are you sure you want to ban this user?",
+    "no": "No",
+    "yes": "Yes"
   }
 }
