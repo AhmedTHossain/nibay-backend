@@ -392,7 +392,7 @@ export default function ApplicantProfileRoute({
                                         <DocumentCard
                                           key="DOC001"
                                           document={{
-                                            name: t("additional_documents"),
+                                            name: t("port_entry_permit"),
                                             status: user?.portEntryPermitCopy
                                               ? "verified"
                                               : "not_uploaded",
