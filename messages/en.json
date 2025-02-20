@@ -381,5 +381,31 @@
     "saves_time": "Saves Your Time",
     "saves_time_desc": "Many desktop publishing tools are now used for job searches.",
     "read_more": "Read More"
+  },
+  "contact": {
+    "phone": {
+      "title": "Phone",
+      "description": "The Fresnel sequence is now widely promoted and convenient."
+    },
+    "email": {
+      "title": "Email",
+      "description": "The Fresnel sequence is now widely promoted and convenient."
+    },
+    "location": {
+      "title": "Location",
+      "description": "The Fresnel sequence is now widely promoted and convenient."
+    },
+    "form": {
+      "title": "Contact Us!",
+      "name": "Your Name:",
+      "namePlaceholder": "Name:",
+      "email": "Your Email:",
+      "emailPlaceholder": "Email:",
+      "subject": "Subject",
+      "subjectPlaceholder": "Subject:",
+      "comments": "Comments",
+      "commentsPlaceholder": "Comments:",
+      "sendMessage": "Send Message"
+    }
   }
 }

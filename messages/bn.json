@@ -381,5 +381,31 @@
     "saves_time": "এটি আপনার সময় বাঁচাবে",
     "saves_time_desc": "অনেক ডেস্কটপ প্রকাশনা এখন ব্যবহার করে এবং চাকরির সন্ধান করে।",
     "read_more": "আরও পড়ুন"
+  },
+  "contact": {
+    "phone": {
+      "title": "ফোন",
+      "description": "এর ফ্রেসাল সিকোয়েন্স এখন তাই অনেকের প্রচার ও সুবিধা"
+    },
+    "email": {
+      "title": "ইমেইল",
+      "description": "এর ফ্রেসাল সিকোয়েন্স এখন তাই অনেকের প্রচার ও সুবিধা"
+    },
+    "location": {
+      "title": "লোকেশন",
+      "description": "এর ফ্রেসাল সিকোয়েন্স এখন তাই অনেকের প্রচার ও সুবিধা"
+    },
+    "form": {
+      "title": "যোগাযোগ করুন !",
+      "name": "আপনার নাম:",
+      "namePlaceholder": "নাম:",
+      "email": "আপনার ইমেইল:",
+      "emailPlaceholder": "ইমেইল :",
+      "subject": "প্রশ্ন",
+      "subjectPlaceholder": "প্রশ্ন :",
+      "comments": "কমেন্ট",
+      "commentsPlaceholder": "কমেন্ট :",
+      "sendMessage": "সেন্ড মেসেজ"
+    }
   }
 }
