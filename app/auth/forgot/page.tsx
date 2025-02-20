@@ -11,6 +11,7 @@ import { toast } from "sonner";
 import { z } from "zod";
 import VerifyOTPForm from "./components/OTPVerficationForm";
 import OTPVerificationForm from "./components/OTPVerficationForm";
+import { useTranslations } from "next-intl";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Invalid email address" })
@@ -21,6 +22,7 @@ export default function ForgotPasswordRoute() {
   const [isOTPSent, setIsOTPSent] = useState(false);
   const [email, setEmail] = useState("");
   const [deviceID, setDeviceID] = useState("testid"); // Replace with actual device ID logic
+  const t = useTranslations("forgotPassword");
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -59,10 +61,10 @@ export default function ForgotPasswordRoute() {
       ) : (
         <div className="mx-auto mt-5 w-full max-w-lg rounded-2xl bg-white p-8 shadow">
           <h4 className="mb-6 text-2xl font-bold tracking-tight text-gray-900">
-            পাসওয়ার্ড ভুলে গেছেন ?
+            {t("title")}
           </h4>
           <h2 className="text-md mt-4 font-medium tracking-tight text-gray-900">
-            আপনার ইমেল ঠিকানা লিখুন এবং আমরা আপনাকে একটি কোড পাঠাব
+            {t("subtitle")}
           </h2>
           <form
             className="mt-6 text-left"
@@ -71,13 +73,13 @@ export default function ForgotPasswordRoute() {
             <div className="grid grid-cols-1">
               <div className="mb-4 text-left">
                 <label className="font-semibold" htmlFor="email">
-                  ইমেইল
+                  {t("emailLabel")}
                 </label>
                 <Input
                   id="email"
                   type="email"
                   className="mt-1"
-                  placeholder="name@example.com"
+                  placeholder={t("emailPlaceholder")}
                   {...form.register("email")}
                 />
               </div>
@@ -89,8 +91,8 @@ export default function ForgotPasswordRoute() {
                   value="forgot-pass"
                   disabled={isLoading}
                 >
-                  {isLoading && <Loader className="animate-spin" />} রিসেট লিঙ্ক
-                  পাঠান
+                  {isLoading && <Loader className="animate-spin" />}{" "}
+                  {t("resetLinkButton")}
                 </Button>
               </div>
             </div>
@@ -100,7 +102,7 @@ export default function ForgotPasswordRoute() {
               href="/auth/login"
               className="text-sky-700 text-sm font-semibold hover:bg-sky-50 inline rounded-md p-3 transition-all duration-150"
             >
-              লগ ইন
+              {t("loginLink")}
             </a>
           </div>
         </div>

@@ -8,7 +8,7 @@ import useJobById from "@/app/hooks/jobs/useJobById";
 import { AnimatePresence, motion } from "framer-motion";
 import { Loader } from "lucide-react";
 import { use, useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { Application, ApplicationStatus } from "@/utils/types/applicant";
 import { ApplicantCard } from "../../components/ApplicantCard";
 import { CustomPagination } from "@/app/components/common/Pagination";
@@ -23,14 +23,29 @@ export default function ApplicantListRoute({
   const router = useRouter();
   const { job, isLoading, refetch } = useJobById({ jobId: params.jobId });
   const [statusFilter, setStatusFilter] = useState<ApplicationStatus>("ALL");
-  const [filteredApplicants, setFilteredApplicants] = useState<Application[]>([]);
-  const [paginatedApplicants, setPaginatedApplicants] = useState<Application[]>([]);
+  const [allApplicants, setAllApplicants] = useState<Application[]>([]);
+  const [filteredApplicants, setFilteredApplicants] = useState<Application[]>(
+    []
+  );
+  const [paginatedApplicants, setPaginatedApplicants] = useState<Application[]>(
+    []
+  );
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [forceTrigger, setForceTrigger] = useState(false);
 
+  const { userId } = useParams();
+
   useEffect(() => {
-    setFilteredApplicants(job?.applicants || []);
+    if (!job) {
+      return;
+    }
+    // if job status is not active, remove the applicants those are deleted
+    setAllApplicants(
+      job?.applicants?.filter((applicant) =>
+        job?.applicationStatus == "ACTIVE" ? applicant?.isDeleted != true : true
+      ) || []
+    );
   }, [job]);
 
   useEffect(() => {
@@ -46,20 +61,24 @@ export default function ApplicantListRoute({
   useEffect(() => {
     if (currentPage != 1) {
       setCurrentPage(1);
-    }
-    else {
+    } else {
       setForceTrigger(!forceTrigger);
     }
   }, [filteredApplicants]);
 
   useEffect(() => {
-    setFilteredApplicants(statusFilter == "ALL" ? job?.applicants || [] : job?.applicants?.filter(applicant => applicant.applicationStatus === statusFilter) || []);
-  }, [statusFilter, job?.applicants]);
-
+    setFilteredApplicants(
+      statusFilter == "ALL"
+        ? allApplicants
+        : allApplicants?.filter(
+            (applicant) => applicant.applicationStatus === statusFilter
+          ) || []
+    );
+  }, [statusFilter, allApplicants]);
 
   return (
     <>
-      <Header />
+      <Header userId={userId as string} />
       <HeroSection title="Applicants" />
       <section className="relative md:my-24 my-16">
         <div className="container">
@@ -80,7 +99,10 @@ export default function ApplicantListRoute({
                   justifyContent: "center"
                 }}
               >
-                <Loader size={22} className="animate-spin text-slate-400 dark:text-slate-600" />
+                <Loader
+                  size={22}
+                  className="animate-spin text-slate-400 dark:text-slate-600"
+                />
               </motion.div>
             </AnimatePresence>
           ) : (
@@ -96,25 +118,26 @@ export default function ApplicantListRoute({
                       <ApplicantCard
                         key={application?.applicant?.id}
                         application={application}
+                        isDeleted={application?.isDeleted}
                       />
                     );
                   })}
                 </div>
-                {paginatedApplicants !== null && filteredApplicants?.length > 0 && (
-                  <div className="flex justify-center items-center w-full mt-12">
-                    <CustomPagination
-                      totalPages={totalPages}
-                      currentPage={currentPage}
-                      onPageChange={setCurrentPage}
-                    />
-                  </div>
-                )}
+                {paginatedApplicants !== null &&
+                  filteredApplicants?.length > 0 && (
+                    <div className="flex justify-center items-center w-full mt-12">
+                      <CustomPagination
+                        totalPages={totalPages}
+                        currentPage={currentPage}
+                        onPageChange={setCurrentPage}
+                      />
+                    </div>
+                  )}
               </motion.div>
             </AnimatePresence>
           )}
         </div>
       </section>
-
 
       <Footer />
     </>

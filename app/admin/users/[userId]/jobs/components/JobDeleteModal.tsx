@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/dialog";
 import { api_client } from "@/lib/axios";
 import { Loader } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { usePathname, useRouter } from "next/navigation";
 import { Dispatch, SetStateAction, useState } from "react";
 import { toast } from "sonner";
@@ -50,14 +51,14 @@ export function JobDeleteModal(props: JobDeleteModalProps) {
     }
   };
 
+  const t = useTranslations("JobDeleteConfirmation");
+
   return (
     <Dialog open={open} onOpenChange={setIsOpen}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader className="space-y-3">
-          <DialogTitle>চাকরি ডিলিট নিশ্চিতকরণ </DialogTitle>
-          <DialogDescription>
-            আপনি কি এই চাকরিটি ডিলিট করার বিষয়ে নিশ্চিত?
-          </DialogDescription>
+          <DialogTitle>{t("title")}</DialogTitle>
+          <DialogDescription>{t("description")}</DialogDescription>
         </DialogHeader>
 
         <DialogFooter>
@@ -67,7 +68,7 @@ export function JobDeleteModal(props: JobDeleteModalProps) {
               variant="outline"
               onClick={() => setIsOpen(false)}
             >
-              না
+              {t("cancel")}
             </Button>
             <Button
               type="button"
@@ -77,7 +78,7 @@ export function JobDeleteModal(props: JobDeleteModalProps) {
                 handleDelete();
               }}
             >
-              {isLoading && <Loader className="animate-spin" />} হ্যাঁ
+              {isLoading && <Loader className="animate-spin" />} {t("confirm")}
             </Button>
           </div>
         </DialogFooter>

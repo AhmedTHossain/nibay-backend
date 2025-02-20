@@ -4,10 +4,12 @@ import Header from "@/app/components/header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Briefcase, Users } from "lucide-react";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useTranslations } from "next-intl";
 import { SidebarNav } from "../components/sidebar-nav";
 
 export default function DashboardPage() {
+  const t = useTranslations("Dashboard");
+
   return (
     <>
       <Header isAdminRoute={true} />
@@ -17,7 +19,9 @@ export default function DashboardPage() {
         </aside>
         <main className="flex w-full flex-1 flex-col overflow-hidden">
           <div className="flex-1 space-y-4 p-8 pt-6">
-            <h2 className="text-3xl font-bold tracking-tight">ইউজার ম্যানেজমেন্ট</h2>
+            <h2 className="text-3xl font-bold tracking-tight">
+              {t("user_management")}
+            </h2>
             <div className="grid gap-4 md:grid-cols-2">
               <Link
                 href={`/admin/users/?type=institution`}
@@ -26,7 +30,7 @@ export default function DashboardPage() {
                 <Card className="hover:shadow-lg transition-shadow duration-200 border-green-100 h-full flex flex-col">
                   <CardHeader className="bg-green-50 border-b border-green-100 flex flex-row items-center gap-3 space-y-0 p-3">
                     <CardTitle className="text-green-800 flex items-center justify-center text-md h-[100px] w-full text-center">
-                      প্রাতিষ্ঠানিক ইউজার
+                      {t("institution_user")}
                     </CardTitle>
                   </CardHeader>
                 </Card>
@@ -38,19 +42,16 @@ export default function DashboardPage() {
                 <Card className="hover:shadow-lg transition-shadow duration-200 border-green-100 h-full flex flex-col">
                   <CardHeader className="bg-green-50 border-b border-green-100 flex flex-row items-center gap-3 space-y-0 p-3">
                     <CardTitle className="text-green-800 flex items-center justify-center text-md h-[100px] w-full text-center">
-                      ব্যক্তিগত ইউজার
+                      {t("individual_user")}
                     </CardTitle>
                   </CardHeader>
                 </Card>
               </Link>
-              <Link
-                href={`/admin/users/?type=mobile`}
-                className="no-underline"
-              >
+              <Link href={`/admin/users/?type=mobile`} className="no-underline">
                 <Card className="hover:shadow-lg transition-shadow duration-200 border-green-100 h-full flex flex-col">
                   <CardHeader className="bg-green-50 border-b border-green-100 flex flex-row items-center gap-3 space-y-0 p-3">
                     <CardTitle className="text-green-800 flex items-center justify-center text-md h-[100px] w-full text-center">
-                      মোবাইল ইউজার
+                      {t("mobile_user")}
                     </CardTitle>
                   </CardHeader>
                 </Card>

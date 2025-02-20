@@ -342,5 +342,194 @@
     "5-7": "5 — 7 years",
     "7-10": "7 — 10 years",
     "10+": "10+ years"
+  },
+  "AboutUs": {
+    "heading": "Millions of jobs. Find the one that's right for you.",
+    "description": "Search all open positions on the web. Get your personalized salary estimate. Read reviews on 30,000+ companies worldwide.",
+    "features": {
+      "digital_marketing": "Digital marketing solutions for tomorrow",
+      "experienced_agency": "Our talented and experienced marketing agency",
+      "brand_matching": "Create your own skin to match your brand"
+    },
+    "contact_button": "Contact Us",
+    "quick_job_heading": "Get your dream job quickly.",
+    "quick_job_description": "Search all open positions on the web. Get your personalized salary estimate. Read reviews on 30,000+ companies worldwide.",
+    "statistics": {
+      "thousand": "Thousands",
+      "jobs_filled": "Jobs Filled",
+      "branches": "Branches",
+      "years_experience": "Years of Experience"
+    },
+    "faq_heading": "Questions & Answers",
+    "faq_description": "Search all open positions on the web. Get your personalized salary estimate. Read reviews on 30,000+ companies worldwide.",
+    "faq": {
+      "apply_job_question": "How do I apply for a job?",
+      "apply_job_answer": "To apply, first go to the job description screen by tapping on the job listing. Then, tap the \"Apply\" button and upload all required documents to complete your application.",
+      "application_status_question": "What do the different application statuses mean?",
+      "application_status_answer": "Can I follow companies for job updates? How can I see my profile rating and employer comments? If I need help using the app, what should I do?"
+    }
+  },
+  "WhySection": {
+    "why_choose": "Why Choose NIBAY?",
+    "why_choose_desc": "Search all open positions on the web. Get your personalized salary estimate. Read reviews on 30,000+ companies worldwide.",
+    "support_24_7": "24/7 Support",
+    "support_24_7_desc": "Many desktop publishing tools are now used for job searches.",
+    "tech_jobs": "Tech & Startup Jobs",
+    "tech_jobs_desc": "Many desktop publishing tools are now used for job searches.",
+    "fast_easy": "Fast & Easy",
+    "fast_easy_desc": "Many desktop publishing tools are now used for job searches.",
+    "saves_time": "Saves Your Time",
+    "saves_time_desc": "Many desktop publishing tools are now used for job searches.",
+    "read_more": "Read More"
+  },
+  "contact": {
+    "phone": {
+      "title": "Phone",
+      "description": "The Fresnel sequence is now widely promoted and convenient."
+    },
+    "email": {
+      "title": "Email",
+      "description": "The Fresnel sequence is now widely promoted and convenient."
+    },
+    "location": {
+      "title": "Location",
+      "description": "The Fresnel sequence is now widely promoted and convenient."
+    },
+    "form": {
+      "title": "Contact Us!",
+      "name": "Your Name:",
+      "namePlaceholder": "Name:",
+      "email": "Your Email:",
+      "emailPlaceholder": "Email:",
+      "subject": "Subject",
+      "subjectPlaceholder": "Subject:",
+      "comments": "Comments",
+      "commentsPlaceholder": "Comments:",
+      "sendMessage": "Send Message"
+    }
+  },
+  "AccountSettings": {
+    "personal_details": "Personal Details",
+    "name": "Name",
+    "name_placeholder": "Name",
+    "email": "Email",
+    "phone_number": "Phone Number",
+    "phone_number_placeholder": "Phone Number",
+    "address": "Address",
+    "address_placeholder": "Address",
+    "division": "Division",
+    "division_placeholder": "Division",
+    "district": "District",
+    "district_placeholder": "District",
+    "organization_contact_person": "Organization Contact Person",
+    "organization_contact_person_placeholder": "Organization Name",
+    "company_image": "Company Image",
+    "company_image_placeholder": "Company Image",
+    "save_changes": "Save Changes"
+  },
+  "passwordSettings": {
+    "title": "Change your password here",
+    "oldPassword": "Password",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm New Password",
+    "saveChanges": "Save Changes",
+    "passwordMismatchError": "Passwords do not match!"
+  },
+  "Settings": {
+    "account_settings": "Account Settings",
+    "password_settings": "Password Settings"
+  },
+  "otpVerification": {
+    "title": "OTP Verification",
+    "description": "We have sent a 6-digit code to {email}. Enter it below to verify your account.",
+    "verifyButton": "Verify",
+    "verifying": "Verifying...",
+    "resendTimer": "Resend in {timer} seconds",
+    "resendButton": "Resend OTP",
+    "didNotReceiveCode": "Didn't receive the code?",
+    "invalidOTPError": "Please enter a valid 6-digit OTP",
+    "unexpectedError": "An unexpected error occurred. Please try again.",
+    "resendFailed": "Failed to resend OTP. Please try again."
+  },
+  "forgotPassword": {
+    "title": "Forgot Password?",
+    "subtitle": "Enter your email address and we will send you a code",
+    "emailLabel": "Email",
+    "emailPlaceholder": "name@example.com",
+    "resetLinkButton": "Send Reset Link",
+    "loginLink": "Log In"
+  },
+  "setNewPassword": {
+    "title": "Set New Password",
+    "subtitle": "Please enter your new password below.",
+    "newPasswordLabel": "New Password",
+    "confirmPasswordLabel": "Confirm New Password",
+    "updateButton": "Set New Password",
+    "updating": "Updating...",
+    "passwordLengthError": "Password must be at least 8 characters long",
+    "passwordMismatchError": "Passwords do not match",
+    "unexpectedError": "An unexpected error occurred. Please try again."
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "jobAds": {
+      "title": "Job Advertisements",
+      "total": "Total Job Ads",
+      "active": "Active Job Ads",
+      "institutional": "Institutional Job Ads",
+      "individual": "Individual Job Ads"
+    },
+    "employers": {
+      "title": "Employers",
+      "total": "Total Employers",
+      "institutional": "Institutional Employers",
+      "individual": "Individual Employers"
+    },
+    "jobSeekers": {
+      "title": "Job Seekers",
+      "total": "Total Job Seekers"
+    }
+  },
+  "Sidebar": {
+    "dashboard": "Dashboard",
+    "job_management": "Job Management",
+    "user_management": "User Management"
+  },
+  "Dashboard": {
+    "user_management": "User Management",
+    "institution_user": "Institutional User",
+    "individual_user": "Individual User",
+    "mobile_user": "Mobile User"
+  },
+  "Users": {
+    "user_list": "User List",
+    "all": "All",
+    "individual": "Individual",
+    "institution": "Institution",
+    "mobile": "Mobile",
+    "search_type": "Search By",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "search_placeholder": "Search...",
+    "no_results": "No users found for your search.",
+    "load_error": "Sorry! Could not load user list."
+  },
+  "UserCard": {
+    "edit": "Edit",
+    "ban": "Ban",
+    "delete": "Delete"
+  },
+  "UserBanModal": {
+    "ban_confirmation": "User Ban Confirmation",
+    "ban_description": "Are you sure you want to ban this user?",
+    "no": "No",
+    "yes": "Yes"
+  },
+  "UserDeleteModal": {
+    "delete_confirmation": "User Delete Confirmation",
+    "delete_description": "Are you sure you want to delete this user?",
+    "no": "No",
+    "yes": "Yes"
   }
 }

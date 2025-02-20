@@ -36,10 +36,14 @@ export default function ApplicantListRoute({
 
   useEffect(() => {
     if (!job) {
-      return
+      return;
     }
     // if job status is not active, remove the applicants those are deleted
-    setAllApplicants(job?.applicants?.filter((applicant) => job?.applicationStatus == "ACTIVE" ? applicant?.isDeleted != true : true) || []);
+    setAllApplicants(
+      job?.applicants?.filter((applicant) =>
+        job?.applicationStatus == "ACTIVE" ? applicant?.isDeleted != true : true
+      ) || []
+    );
   }, [job]);
 
   useEffect(() => {
@@ -65,8 +69,8 @@ export default function ApplicantListRoute({
       statusFilter == "ALL"
         ? allApplicants
         : allApplicants?.filter(
-          (applicant) => applicant.applicationStatus === statusFilter
-        ) || []
+            (applicant) => applicant.applicationStatus === statusFilter
+          ) || []
     );
   }, [statusFilter, allApplicants]);
 
@@ -112,6 +116,7 @@ export default function ApplicantListRoute({
                       <ApplicantCard
                         key={application?.applicant?.id}
                         application={application}
+                        isDeleted={application?.isDeleted}
                       />
                     );
                   })}

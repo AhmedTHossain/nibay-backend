@@ -30,7 +30,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { use, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { toast } from "sonner";
 
 import { useSearchParams } from "next/navigation";
@@ -63,6 +63,10 @@ export default function ApplicantProfileRoute({
   const education = useTranslations("EducationLevels");
   const division = useTranslations("Divisions");
   const district = useTranslations("Districts");
+
+  useEffect(() => {
+    console.log("User", user);
+  }, [user]);
 
   const handleApplicantStatus = async (
     status: keyof typeof APPLICATION_STATUS

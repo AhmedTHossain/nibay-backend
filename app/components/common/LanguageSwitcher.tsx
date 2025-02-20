@@ -25,11 +25,11 @@ export default function LanguageSwitcher() {
     <button
       onClick={toggleLocale}
       aria-label={`Switch to ${currentLocale === "en" ? "Bengali" : "English"}`}
-      className="flex items-center justify-between bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white rounded-full px-2 py-0 shadow-sm hover:shadow-md transition-all duration-300 ease-in-out focus:outline-none w-[60px]"
+      className="flex items-center justify-between bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white rounded-full px-2 py-0 shadow-sm hover:shadow-md transition-all duration-300 ease-in-out focus:outline-none"
     >
-      <span className="text-base" role="img" aria-hidden="true">
+      {/* <span className="text-base" role="img" aria-hidden="true">
         {currentLocale === "en" ? "🇬🇧" : "🇧🇩"}
-      </span>
+      </span> */}
       <span className="text-xs font-semibold">
         {currentLocale === "en" ? "EN" : "BN"}
       </span>

@@ -28,6 +28,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import { useParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 const jobSchema = z.object({
   title: z
@@ -78,6 +79,13 @@ export default function NewJobRoute() {
   const [titleCount, setTitleCount] = useState(0);
   const [shortDescCount, setShortDescCount] = useState(0);
   const [longDescCount, setLongDescCount] = useState(0);
+
+  const t = useTranslations("CreateJob"); // Initialize translations
+  const t_divisions = useTranslations("Divisions");
+  const t_districts = useTranslations("Districts");
+  const t_exprerience = useTranslations("ExperienceLevels");
+  const t_education = useTranslations("JobDetails.education_levels");
+  const t_roles = useTranslations("JobGrid.roles");
 
   const form = useForm<JobCreateType>({
     resolver: zodResolver(jobSchema),
@@ -163,10 +171,10 @@ export default function NewJobRoute() {
   return (
     <>
       <Header userId={userId as string} />
-      <section className="relative py-10">
+      <section className="relative py-40">
         <div className="container">
           <h3 className="font-semibold text-3xl text-center">
-            নতুন চাকরি তৈরি করুন
+            {t("create_new_job")}
           </h3>
           <AnimatePresence>
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
@@ -230,13 +238,13 @@ export default function NewJobRoute() {
 
                   <div className="text-left">
                     <label className="font-semibold" htmlFor="title">
-                      চাকরির শিরোনাম
+                      {t("job_title")}
                     </label>
                     <div className="relative">
                       <Input
                         id="title"
                         className="mt-1"
-                        placeholder="চাকরির শিরোনাম - সর্বোচ্চ ৫০ টি শব্দ গ্রহনযোগ্য"
+                        placeholder={t("job_title_placeholder")}
                         maxLength={50}
                         {...form.register("title")}
                         onChange={(e) => {
@@ -261,13 +269,13 @@ export default function NewJobRoute() {
 
                   <div className="text-left">
                     <label className="font-semibold" htmlFor="shortDescription">
-                      কাজের সারসংক্ষেপ
+                      {t("short_description")}
                     </label>
                     <div className="relative">
                       <Textarea
                         id="shortDescription"
                         className="mt-1"
-                        placeholder="কাজের সারসংক্ষেপ - সর্বোচ্চ ১৫০ টি শব্দ গ্রহনযোগ্য"
+                        placeholder={t("short_description_placeholder")}
                         maxLength={150}
                         rows={4}
                         {...form.register("shortDescription")}
@@ -295,13 +303,13 @@ export default function NewJobRoute() {
 
                   <div className="text-left">
                     <label className="font-semibold" htmlFor="longDescription">
-                      কাজের বিবরণ
+                      {t("long_description")}
                     </label>
                     <div className="relative">
                       <Textarea
                         id="longDescription"
                         className="mt-1"
-                        placeholder="কাজের বিবরণ - সর্বোচ্চ ৫০০ টি শব্দ গ্রহনযোগ্য"
+                        placeholder={t("long_description_placeholder")}
                         maxLength={500}
                         rows={4}
                         {...form.register("longDescription")}
@@ -327,7 +335,7 @@ export default function NewJobRoute() {
 
                   <div className="text-left">
                     <label className="font-semibold" htmlFor="qualification">
-                      শিক্ষাগত যোগ্যতা
+                      {t("qualification")}
                     </label>
                     <select
                       id="qualification"
@@ -336,7 +344,7 @@ export default function NewJobRoute() {
                       {EDUCTATION_LEVELS.map((option) => {
                         return (
                           <option key={option.id} value={option.value}>
-                            {option.label}
+                            {t_education(option.value)}
                           </option>
                         );
                       })}
@@ -357,21 +365,27 @@ export default function NewJobRoute() {
 
                   <div className="text-left">
                     <label className="font-semibold" htmlFor="experience">
-                      অভিজ্ঞতা
+                      {t("experience")}
                     </label>
                     <select
                       id="experience"
                       className="mt-1 h-10 w-full rounded-md border border-neutral-200 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:text-sm file:font-medium file:text-neutral-950 placeholder:text-neutral-500 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-800 dark:bg-neutral-950 dark:ring-offset-neutral-950 appearance-none"
                       {...form.register("experience")}
                     >
-                      <option value="0-1">০ — ১ বছর</option>
-                      <option value="1-2">১ — ২ বছর</option>
-                      <option value="2-3">২ — ৩ বছর</option>
-                      <option value="3-4">৩ — ৪ বছর</option>
-                      <option value="4-5">৪ — ৫ বছর</option>
-                      <option value="5-7">৫ — ৭ বছর</option>
-                      <option value="7-10">৭ — ১০ বছর</option>
-                      <option value="10+">১০+ বছর</option>
+                      {[
+                        "0-1",
+                        "1-2",
+                        "2-3",
+                        "3-4",
+                        "4-5",
+                        "5-7",
+                        "7-10",
+                        "10+"
+                      ].map((value) => (
+                        <option key={value} value={value}>
+                          {t_exprerience(value)}
+                        </option>
+                      ))}
                     </select>
                     {/* <Input
                       id="experience"
@@ -460,11 +474,14 @@ export default function NewJobRoute() {
 
                   {/* Replace the Division Select component with this */}
                   <div className="mt-8 mb-4">
-                    <h3 className="text-lg font-semibold mb-4">কর্মস্থল</h3>
+                    <h3 className="text-lg font-semibold mb-4">
+                      {" "}
+                      {t("workplace")}
+                    </h3>
                     <div className="grid grid-cols-1 gap-6 border rounded-lg p-4 bg-gray-50">
                       <div className="text-left">
                         <label className="font-semibold" htmlFor="division">
-                          বিভাগ
+                          {t("division")}
                         </label>
                         <select
                           id="division"
@@ -481,11 +498,11 @@ export default function NewJobRoute() {
                           }}
                         >
                           <option value="" disabled>
-                            বিভাগ
+                            {t("division")}
                           </option>
                           {DIVISIONS.map((item) => (
                             <option key={item.id} value={item.division}>
-                              {item.division}
+                              {t_divisions(item.division)}
                             </option>
                           ))}
                         </select>
@@ -499,7 +516,7 @@ export default function NewJobRoute() {
                       {districts.length > 0 && (
                         <div className="text-left">
                           <label className="font-semibold" htmlFor="district">
-                            জেলা
+                            {t("district")}
                           </label>
                           <select
                             id="district"
@@ -510,11 +527,11 @@ export default function NewJobRoute() {
                             }
                           >
                             <option value="" disabled>
-                              জেলা
+                              {t("district")}
                             </option>
                             {districts.map((item, idx) => (
                               <option key={idx} value={item}>
-                                {item}
+                                {t_districts(item)}
                               </option>
                             ))}
                           </select>
@@ -530,7 +547,7 @@ export default function NewJobRoute() {
 
                   <div className="mb-4 text-left">
                     <label className="font-semibold" htmlFor="jobRole">
-                      চাকরির ভূমিকা
+                      {t("job_role")}{" "}
                     </label>
                     <select
                       id="jobRole"
@@ -544,7 +561,7 @@ export default function NewJobRoute() {
                       {JOB_ROLES.map((item, idx) => {
                         return (
                           <option key={idx} value={item.value}>
-                            {item.label}
+                            {t_roles(item.label)}
                           </option>
                         );
                       })}
@@ -559,7 +576,7 @@ export default function NewJobRoute() {
                   {form.getValues("jobRole") === "ট্রাক ড্রাইভার" && (
                     <div className="mb-4 ">
                       <label className="font-semibold">
-                        অতিরিক্ত দরকারি নথি সমূহ
+                        {t("required_documents")}{" "}
                       </label>
 
                       <div className="mt-2 text-left flex items-center gap-8">
@@ -573,7 +590,7 @@ export default function NewJobRoute() {
                             htmlFor="chairman-birth-certificate"
                             className="ml-1"
                           >
-                            চেয়ারম্যান সার্টিফিকেট
+                            {t("chairman_certificate")}{" "}
                           </label>
                         </div>
                         <div>
@@ -583,7 +600,7 @@ export default function NewJobRoute() {
                             {...form.register("isPortEntryPermitRequired")}
                           />
                           <label htmlFor="port-entry-permit" className="ml-1">
-                            পোর্ট এন্ট্রি পার্মিট
+                            {t("port_entry_permit")}{" "}
                           </label>
                         </div>
                       </div>
@@ -592,13 +609,13 @@ export default function NewJobRoute() {
 
                   <div className="text-left">
                     <label className="font-semibold" htmlFor="deadline">
-                      আবেদনের শেষ তারিখ
+                      {t("application_deadline")}
                     </label>
                     <Input
                       id="deadline"
                       className="mt-1"
                       type="date"
-                      placeholder="আবেদনের শেষ তারিখ"
+                      placeholder={t("application_deadline")}
                       min={moment().format("YYYY-MM-DD")} // Add minimum date as today
                       value={moment(date).format("YYYY-MM-DD")}
                       onChange={(event) => {
@@ -618,7 +635,7 @@ export default function NewJobRoute() {
 
                   <div className="text-left">
                     <label className="font-semibold" htmlFor="salary">
-                      বেতন
+                      {t("salary")}
                     </label>
                     <Input
                       id="salary"
@@ -640,7 +657,8 @@ export default function NewJobRoute() {
                       className="bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white rounded-md w-full"
                       disabled={isLoading}
                     >
-                      {isLoading && <Loader className="animate-spin" />} সাবমিট
+                      {isLoading && <Loader className="animate-spin" />}{" "}
+                      {t("submit")}
                     </Button>
                   </div>
                 </div>

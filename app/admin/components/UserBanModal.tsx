@@ -1,7 +1,5 @@
 "use client";
 
-import { useJobContext } from "@/app/contexts/JobContext";
-import useJobs from "@/app/hooks/jobs/useJobs";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -12,11 +10,10 @@ import {
   DialogTitle
 } from "@/components/ui/dialog";
 import { api_client } from "@/lib/axios";
-import { TUser } from "@/utils/types/user";
 import { Loader } from "lucide-react";
-import { usePathname, useRouter } from "next/navigation";
 import { Dispatch, SetStateAction, useState } from "react";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 
 interface JobBanModalProps {
   open: boolean;
@@ -25,17 +22,15 @@ interface JobBanModalProps {
 }
 
 export function UserBanModal(props: JobBanModalProps) {
+  const t = useTranslations("UserBanModal");
   const { open, setIsOpen, userId } = props;
   const [isLoading, setIsLoading] = useState(false);
-  const pathname = usePathname();
-  const router = useRouter();
 
   const handleBan = async () => {
     setIsLoading(true);
     try {
       const res = await api_client.patch(`user/${userId}/ban`);
       if (res.data.status === "success") {
-        // setJobs((prevJobs) => prevJobs.filter((item) => item._id !== jobId));
         toast.success(res.data.message);
         setIsOpen(false);
       } else {
@@ -53,10 +48,8 @@ export function UserBanModal(props: JobBanModalProps) {
     <Dialog open={open} onOpenChange={setIsOpen}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader className="space-y-3">
-          <DialogTitle>ইউজার ব্যান নিশ্চিতকরণ </DialogTitle>
-          <DialogDescription>
-            আপনি কি এই ইউজার ব্যান করার বিষয়ে নিশ্চিত?
-          </DialogDescription>
+          <DialogTitle>{t("ban_confirmation")}</DialogTitle>
+          <DialogDescription>{t("ban_description")}</DialogDescription>
         </DialogHeader>
 
         <DialogFooter>
@@ -66,7 +59,7 @@ export function UserBanModal(props: JobBanModalProps) {
               variant="outline"
               onClick={() => setIsOpen(false)}
             >
-              না
+              {t("no")}
             </Button>
             <Button
               type="button"
@@ -77,7 +70,7 @@ export function UserBanModal(props: JobBanModalProps) {
               }}
               className="bg-orange-600 hover:bg-orange-700"
             >
-              {isLoading && <Loader className="animate-spin" />} হ্যাঁ
+              {isLoading && <Loader className="animate-spin" />} {t("yes")}
             </Button>
           </div>
         </DialogFooter>

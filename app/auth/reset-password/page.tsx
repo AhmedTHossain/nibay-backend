@@ -9,9 +9,11 @@ import { api_client } from "@/lib/axios";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import storage from "@/lib/storage";
+import { useTranslations } from "next-intl";
 
 export default function SetNewPasswordForm() {
   const router = useRouter();
+  const t = useTranslations("setNewPassword");
 
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -36,16 +38,17 @@ export default function SetNewPasswordForm() {
     const newErrors: { newPassword?: string; confirmPassword?: string } = {};
 
     if (newPassword.length < 8) {
-      newErrors.newPassword = "পাসওয়ার্ড কমপক্ষে ৮ অক্ষরের হতে হবে";
+      newErrors.newPassword = t("passwordLengthError");
     }
 
     if (newPassword !== confirmPassword) {
-      newErrors.confirmPassword = "পাসওয়ার্ড ম্যাচ হয়নি";
+      newErrors.confirmPassword = t("passwordMismatchError");
     }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
@@ -73,7 +76,7 @@ export default function SetNewPasswordForm() {
     } catch (error) {
       setSubmitMessage({
         type: "error",
-        message: "একটি অপ্রত্যাশিত সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।"
+        message: t("unexpectedError")
       });
     } finally {
       setIsSubmitting(false);
@@ -83,15 +86,11 @@ export default function SetNewPasswordForm() {
   return (
     <div className="flex items-center justify-center relative overflow-hidden max-w-lg mx-auto mt-20 bg-white dark:bg-slate-900 shadow-md dark:shadow-gray-800 rounded-md">
       <div className="w-full max-w-md p-8 space-y-6">
-        <h2 className="text-3xl font-bold text-center">
-          নতুন পাসওয়ার্ড সেট করুন
-        </h2>
-        <p className="text-center text-gray-600">
-          অনুগ্রহ করে নিচে আপনার নতুন পাসওয়ার্ড লিখুন।
-        </p>
+        <h2 className="text-3xl font-bold text-center">{t("title")}</h2>
+        <p className="text-center text-gray-600">{t("subtitle")}</p>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="new-password">নতুন পাসওয়ার্ড</Label>
+            <Label htmlFor="new-password">{t("newPasswordLabel")}</Label>
             <Input
               id="new-password"
               type="password"
@@ -107,7 +106,7 @@ export default function SetNewPasswordForm() {
           </div>
           <div className="space-y-2">
             <Label htmlFor="confirm-password">
-              নতুন পাসওয়ার্ড নিশ্চিত করুন
+              {t("confirmPasswordLabel")}
             </Label>
             <Input
               id="confirm-password"
@@ -127,7 +126,7 @@ export default function SetNewPasswordForm() {
             className="w-full bg-emerald-600 hover:bg-emerald-700 focus:ring-emerald-500"
             disabled={isSubmitting}
           >
-            {isSubmitting ? "আপডেট হচ্ছে..." : "নতুন পাসওয়ার্ড সেট করুন"}
+            {isSubmitting ? t("updating") : t("updateButton")}
           </Button>
         </form>
         {submitMessage && (

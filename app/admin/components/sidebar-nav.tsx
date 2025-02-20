@@ -6,27 +6,29 @@ import { Briefcase, LayoutDashboard, Users } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-
-const links = [
-  {
-    title: "ড্যাশবোর্ড",
-    href: "/admin",
-    icon: LayoutDashboard
-  },
-  // {
-  //   title: "চাকরি ম্যানেজমেন্ট",
-  //   href: "/admin/jobs",
-  //   icon: Briefcase
-  // },
-  {
-    title: "ইউজার ম্যানেজমেন্ট",
-    href: "/admin/user-management",
-    icon: Users
-  }
-];
+import { useTranslations } from "next-intl";
 
 export function SidebarNav() {
+  const t = useTranslations("Sidebar");
   const pathname = usePathname();
+
+  const links = [
+    {
+      title: t("dashboard"),
+      href: "/admin",
+      icon: LayoutDashboard
+    },
+    // {
+    //   title: t("job_management"),
+    //   href: "/admin/jobs",
+    //   icon: Briefcase
+    // },
+    {
+      title: t("user_management"),
+      href: "/admin/user-management",
+      icon: Users
+    }
+  ];
 
   return (
     <nav className="grid items-start gap-2">

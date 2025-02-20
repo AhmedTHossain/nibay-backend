@@ -7,6 +7,7 @@ import Footer from "@/components/sections/Footer";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { useTranslations } from "next-intl";
 
 interface ContactItemsProps {
   title: string;
@@ -21,8 +22,8 @@ interface ContactItemsProps {
 const contactItems: ContactItemsProps[] = [
   {
     id: 1,
-    title: "ফোন",
-    description: "এর ফ্রেসাল সিকোয়েন্স এখন তাই অনেকের প্রচার ও সুবিধা",
+    title: "contact.phone.title",
+    description: "contact.phone.description",
     value: "+152 534-468-854",
     link: "tel:+152 534-468-854",
     Icon: () => {
@@ -44,8 +45,8 @@ const contactItems: ContactItemsProps[] = [
   },
   {
     id: 2,
-    title: "ইমেইল",
-    description: "এর ফ্রেসাল সিকোয়েন্স এখন তাই অনেকের প্রচার ও সুবিধা",
+    title: "contact.email.title",
+    description: "contact.email.description",
     value: "contact@example.com",
     link: "mailto:contact@example.com",
     Icon: () => {
@@ -69,8 +70,8 @@ const contactItems: ContactItemsProps[] = [
   },
   {
     id: 3,
-    title: "লোকেশন",
-    description: "এর ফ্রেসাল সিকোয়েন্স এখন তাই অনেকের প্রচার ও সুবিধা",
+    title: "contact.location.title",
+    description: "contact.location.description",
     value: "View on Google map",
     link: "#",
     Icon: () => {
@@ -93,6 +94,7 @@ const contactItems: ContactItemsProps[] = [
 
 function ContactBox(props: ContactItemsProps) {
   const { Icon, description, title, value, link } = props;
+  const t = useTranslations();
   return (
     <div className="text-center px-6">
       <div className="relative text-transparent">
@@ -101,8 +103,8 @@ function ContactBox(props: ContactItemsProps) {
         </div>
       </div>
       <div className="content mt-7">
-        <h5 className="title h5 text-lg font-semibold">{title}</h5>
-        <p className="text-slate-800 mt-3">{description}</p>
+        <h5 className="title h5 text-lg font-semibold">{t(title)}</h5>
+        <p className="text-slate-800 mt-3">{t(description)}</p>
         <div className="mt-5">
           <a
             className="btn btn-link text-emerald-600 hover:text-emerald-600 after:bg-emerald-600 transition duration-500"
@@ -117,6 +119,7 @@ function ContactBox(props: ContactItemsProps) {
 }
 
 export default function ContactRoute() {
+  const t = useTranslations("contact.form");
   return (
     <>
       <Header />
@@ -130,56 +133,56 @@ export default function ContactRoute() {
               <div className="lg:ms-5">
                 <div className="bg-white dark:bg-slate-900 rounded-md shadow dark:shadow-gray-700 p-6">
                   <h3 className="mb-6 text-2xl leading-normal font-semibold">
-                    যোগাযোগ করুন !
+                    {t("title")}
                   </h3>
                   <form>
                     <div className="grid lg:grid-cols-12 lg:gap-6">
                       <div className="lg:col-span-6 mb-5">
                         <label htmlFor="name" className="font-semibold">
-                          আপনার নাম:
+                          {t("name")}
                         </label>
                         <Input
                           name="name"
                           id="name"
                           type="text"
                           className="mt-2"
-                          placeholder="নাম:"
+                          placeholder={t("namePlaceholder")}
                         />
                       </div>
                       <div className="lg:col-span-6 mb-5">
                         <label htmlFor="email" className="font-semibold">
-                          আপনার ইমেইল:
+                          {t("email")}
                         </label>
                         <Input
                           name="email"
                           id="email"
                           type="email"
                           className="mt-2"
-                          placeholder="ইমেইল :"
+                          placeholder={t("emailPlaceholder")}
                         />
                       </div>
                     </div>
                     <div className="grid grid-cols-1">
                       <div className="mb-5">
                         <label htmlFor="subject" className="font-semibold">
-                          প্রশ্ন
+                          {t("subject")}
                         </label>
                         <Input
                           name="subject"
                           id="subject"
                           className="mt-2"
-                          placeholder="প্রশ্ন :"
+                          placeholder={t("subjectPlaceholder")}
                         />
                       </div>
                       <div className="mb-5">
                         <label htmlFor="comments" className="font-semibold">
-                          কমেন্ট
+                          {t("comments")}
                         </label>
                         <Textarea
                           name="comments"
                           id="comments"
                           className="mt-2"
-                          placeholder="কমেন্ট :"
+                          placeholder={t("commentsPlaceholder")}
                           defaultValue={""}
                         />
                       </div>
@@ -190,7 +193,7 @@ export default function ContactRoute() {
                       name="send"
                       className="btn bg-emerald-600 hover:bg-emerald-700 text-white rounded-md"
                     >
-                      সেন্ড মেসেজ
+                      {t("sendMessage")}
                     </Button>
                   </form>
                 </div>

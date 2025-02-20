@@ -14,10 +14,12 @@ import {
   PasswordSettingsFormType,
   passwordSettingsFormValues
 } from "./form";
+import { useTranslations } from "next-intl";
 
 export function PasswordSettings() {
   const [isLoading, setIsLoading] = useState(false);
   const { user: currentUser, isLoading: userLoading } = useUserInfo();
+  const t = useTranslations("passwordSettings");
 
   const form = useForm<PasswordSettingsFormType>({
     resolver: zodResolver(passwordSettingsFormSchema),
@@ -34,7 +36,7 @@ export function PasswordSettings() {
 
     if (newPassword !== confirmPassword) {
       setIsLoading(false);
-      return toast.error("পাসওয়ার্ড অনুরূপ হয় নি!");
+      return toast.error(t("passwordMismatchError"));
     }
 
     const formData = new FormData();
@@ -70,24 +72,22 @@ export function PasswordSettings() {
       )}
       {!userLoading && currentUser && (
         <div className="mt-4 p-6 rounded-md shadow dark:shadow-gray-800 bg-white dark:bg-slate-900">
-          <h5 className="text-lg font-semibold mb-6">
-            Change your password here
-          </h5>
+          <h5 className="text-lg font-semibold mb-6">{t("title")}</h5>
           <form className="text-left" onSubmit={form.handleSubmit(onSubmit)}>
             <div className="grid grid-cols-1 gap-6">
               <InputPassword
-                label="পাসওয়ার্ড"
+                label={t("oldPassword")}
                 {...form.register("oldPassword")}
                 errorMessage={error("oldPassword")}
               />
               <InputPassword
-                label="নতুন পাসওয়ার্ড"
+                label={t("newPassword")}
                 {...form.register("newPassword")}
                 errorMessage={error("newPassword")}
               />
 
               <InputPassword
-                label="পাসওয়ার্ড নতুন পুনরায় দিন"
+                label={t("confirmPassword")}
                 {...form.register("confirmPassword")}
                 errorMessage={error("confirmPassword")}
               />
@@ -98,7 +98,8 @@ export function PasswordSettings() {
                 className="bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white rounded-md"
                 disabled={isLoading}
               >
-                {isLoading && <Loader className="animate-spin" />} Save Changes
+                {isLoading && <Loader className="animate-spin" />}{" "}
+                {t("saveChanges")}
               </Button>
             </div>
           </form>
