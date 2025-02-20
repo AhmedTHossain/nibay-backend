@@ -1,75 +1,69 @@
 "use client";
 
-import { Suspense, use, useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import {
-  Search,
-  Phone,
-  Mail,
-  Briefcase,
-  User,
-  Loader,
-  PenIcon,
-  Edit,
-  Trash
-} from "lucide-react";
+import { Search, User, Loader } from "lucide-react";
 import { api_client } from "@/lib/axios";
 import { TUser } from "@/utils/types/user";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { USER_ROLE } from "@/lib/constant";
-import { formatEnglishToBangalNum } from "@/utils/formatEtoBLang";
-import { set } from "mongoose";
-import { AnimatePresence, motion } from "framer-motion";
-import { useSearchParams } from "next/navigation";
 import { SidebarNav } from "../components/sidebar-nav";
 import Header from "@/app/components/header";
 import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { UserDeleteModal } from "@/app/admin/components/UserDeleteModal";
 import UserCard from "./UserCard";
 import { toast } from "sonner";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from "@/components/ui/select";
+import { useTranslations } from "next-intl";
+import { AnimatePresence, motion } from "framer-motion";
 
 function UserList() {
+  const t = useTranslations("Users");
   const router = useRouter();
+  const params = useSearchParams();
+
   const [searchTerm, setSearchTerm] = useState("");
   const [searchByType, setSearchByType] = useState("Name");
   const [users, setUsers] = useState<TUser[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [typeName, setTypeName] = useState<string>("সকল");
-  const [isDeleteOpen, setIsDeleteOpen] = useState<boolean>(false);
-
-  const params = useSearchParams();
+  const [typeName, setTypeName] = useState<string>(t("all"));
 
   useEffect(() => {
     const type = params.get("type");
-    if (type == "individual") {
-      setTypeName("ব্যক্তি");
-    } else if (type == "institution") {
-      setTypeName("প্রতিষ্ঠান");
-    } else if (type == "mobile") {
-      setTypeName("মোবাইল");
+    if (type === "individual") {
+      setTypeName(t("individual"));
+    } else if (type === "institution") {
+      setTypeName(t("institution"));
+    } else if (type === "mobile") {
+      setTypeName(t("mobile"));
     }
-  }, [params]);
+  }, [params, t]);
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(async () => {
       setIsLoading(true);
       setUsers([]);
-      const query = `searchBy${searchByType}=${searchTerm}&` + (params.get("type") ? `type=${params.get("type")}` : "");
+      const query =
+        `searchBy${searchByType}=${searchTerm}&` +
+        (params.get("type") ? `type=${params.get("type")}` : "");
       try {
         const resp = await api_client.get(`user?${query}`);
         setUsers(resp.data.data.users);
       } catch (e) {
-        toast.error("দুঃখিত! ইউজার লিস্ট লোড করা যায়নি");
+        toast.error(t("load_error"));
       }
       setIsLoading(false);
     }, 500);
     return () => clearTimeout(delayDebounceFn);
-  }, [searchTerm, params]);
+  }, [searchTerm, params, searchByType, t]);
 
   return (
     <>
@@ -82,28 +76,34 @@ function UserList() {
           <div className="container mx-auto p-8">
             <h1 className="text-3xl font-bold mb-8 text-green-800 flex items-center">
               <User className="mr-2" size={32} />
-              ইউজার লিস্ট ({typeName})
+              {t("user_list")} ({typeName})
             </h1>
             <div className="flex mb-8 relative gap-2">
-              <Select onValueChange={(value) => setSearchByType(value)} defaultValue="Name">
+              <Select
+                onValueChange={(value) => setSearchByType(value)}
+                defaultValue="Name"
+              >
                 <SelectTrigger className="w-32 border-green-200 focus:border-green-500 focus:ring-0 text-gray-600 text-center">
-                  <SelectValue placeholder="সার্চের ধরন" className="w-full" />
+                  <SelectValue
+                    placeholder={t("search_type")}
+                    className="w-full"
+                  />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="Name" className="hover:bg-green-100">
-                    নাম
+                    {t("name")}
                   </SelectItem>
                   <SelectItem value="Email" className="hover:bg-green-100">
-                    ইমেইল
+                    {t("email")}
                   </SelectItem>
                   <SelectItem value="Phone" className="hover:bg-green-100">
-                    মোবাইল
+                    {t("phone")}
                   </SelectItem>
                 </SelectContent>
               </Select>
               <Input
                 type="text"
-                placeholder="সার্চ করুন"
+                placeholder={t("search_placeholder")}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full pl-10 pr-4 py-2 border-green-200 focus:border-green-500 focus:ring-green-500"
@@ -115,12 +115,17 @@ function UserList() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {users.map((user) => (
-                <UserCard user={user} setUsers={setUsers} key={user._id} isMobileUser={params.get("type") == "mobile"} />
+                <UserCard
+                  user={user}
+                  setUsers={setUsers}
+                  key={user._id}
+                  isMobileUser={params.get("type") === "mobile"}
+                />
               ))}
             </div>
-            {users.length === 0 && isLoading == false && (
+            {users.length === 0 && !isLoading && (
               <p className="text-center mt-8 text-gray-600">
-                আপনার অনুসন্ধানে কোনো ইউজার পাওয়া যায়নি।
+                {t("no_results")}
               </p>
             )}
             {isLoading && (
@@ -140,8 +145,8 @@ function UserList() {
               </AnimatePresence>
             )}
           </div>
-        </main >
-      </div >
+        </main>
+      </div>
     </>
   );
 }

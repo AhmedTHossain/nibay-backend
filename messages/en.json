@@ -500,5 +500,19 @@
     "institution_user": "Institutional User",
     "individual_user": "Individual User",
     "mobile_user": "Mobile User"
+  },
+  "Users": {
+    "user_list": "User List",
+    "all": "All",
+    "individual": "Individual",
+    "institution": "Institution",
+    "mobile": "Mobile",
+    "search_type": "Search By",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "search_placeholder": "Search...",
+    "no_results": "No users found for your search.",
+    "load_error": "Sorry! Could not load user list."
   }
 }

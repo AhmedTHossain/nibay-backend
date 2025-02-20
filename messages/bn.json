@@ -500,5 +500,19 @@
     "institution_user": "প্রাতিষ্ঠানিক ইউজার",
     "individual_user": "ব্যক্তিগত ইউজার",
     "mobile_user": "মোবাইল ইউজার"
+  },
+  "Users": {
+    "user_list": "ইউজার লিস্ট",
+    "all": "সকল",
+    "individual": "ব্যক্তি",
+    "institution": "প্রতিষ্ঠান",
+    "mobile": "মোবাইল",
+    "search_type": "সার্চের ধরন",
+    "name": "নাম",
+    "email": "ইমেইল",
+    "phone": "মোবাইল",
+    "search_placeholder": "সার্চ করুন",
+    "no_results": "আপনার অনুসন্ধানে কোনো ইউজার পাওয়া যায়নি।",
+    "load_error": "দুঃখিত! ইউজার লিস্ট লোড করা যায়নি"
   }
 }
