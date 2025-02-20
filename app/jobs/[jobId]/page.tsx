@@ -231,7 +231,7 @@ export default function JobDetailsRoute({
                   {job?.longDescription && (
                     <div className="mt-8">
                       <h5 className="text-lg font-semibold text-slate-900 dark:text-slate-100">
-                        {t("short_description")}
+                        {t("long_description")}
                       </h5>
                       <pre className="text-slate-800 dark:text-slate-300">
                         {job?.longDescription}
