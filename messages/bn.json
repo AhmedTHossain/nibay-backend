@@ -488,6 +488,11 @@
     "jobSeekers": {
       "title": "চাকরির সন্ধানকারী",
       "total": "মোট চাকরির সন্ধানকারী"
+    },
+    "Sidebar": {
+      "dashboard": "ড্যাশবোর্ড",
+      "job_management": "চাকরি ম্যানেজমেন্ট",
+      "user_management": "ইউজার ম্যানেজমেন্ট"
     }
   }
 }

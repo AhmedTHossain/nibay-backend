@@ -489,5 +489,10 @@
       "title": "Job Seekers",
       "total": "Total Job Seekers"
     }
+  },
+  "Sidebar": {
+    "dashboard": "Dashboard",
+    "job_management": "Job Management",
+    "user_management": "User Management"
   }
 }
