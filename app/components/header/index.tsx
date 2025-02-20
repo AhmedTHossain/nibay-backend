@@ -65,7 +65,7 @@ const Header = ({ userId, isAdminRoute }: HeaderProps) => {
           <AppLogo userId={userId} />
 
           <div className="flex space-x-3 items-center">
-            <Navigation />
+            <Navigation userId={userId} />
             <ProfileMenu userId={userId} />
             <div className="flex gap-5">
               <ModeToggle />
