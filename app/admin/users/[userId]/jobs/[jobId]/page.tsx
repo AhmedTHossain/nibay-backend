@@ -206,26 +206,33 @@ export default function JobDetailsRoute({
                 <div className="lg:col-span-8 md:col-span-6">
                   <div className="pt-6 flex items-start justify-between">
                     <div></div>
-                    {job && job?.applicants?.length > 0 && (
-                      <div className="mb-5 flex justify-end">
-                        <Link
-                          href={`/admin/users/${userId}/jobs/${params.jobId}/applicant-list`}
-                        >
-                          <Button className="bg-emerald-600/5 border-emerald-100 border hover:bg-emerald-600 hover:border-emerald-600 text-emerald-600 hover:text-white rounded-md ms-2 dark:bg-emerald-600/10 dark:border-emerald-700 dark:hover:bg-emerald-600 dark:hover:border-emerald-600 dark:text-emerald-300 dark:hover:text-white">
-                            {t("applicants_list")} (
-                            {formatEnglishToBangalNum(
-                              String(
-                                job?.applicants?.filter(
-                                  (applicant) => !applicant.isDeleted
-                                ).length
-                              ),
-                              language
-                            )}
-                            )
-                          </Button>
-                        </Link>
-                      </div>
-                    )}
+                    {job &&
+                      job?.applicants?.filter((applicant) =>
+                        job?.applicationStatus == "ACTIVE"
+                          ? !applicant.isDeleted
+                          : true
+                      ).length > 0 && (
+                        <div className="mb-5 flex justify-end">
+                          <Link
+                            href={`/admin/users/${userId}/jobs/${params.jobId}/applicant-list`}
+                          >
+                            <Button className="bg-emerald-600/5 border-emerald-100 border hover:bg-emerald-600 hover:border-emerald-600 text-emerald-600 hover:text-white rounded-md ms-2 dark:bg-emerald-600/10 dark:border-emerald-700 dark:hover:bg-emerald-600 dark:hover:border-emerald-600 dark:text-emerald-300 dark:hover:text-white">
+                              {t("applicants_list")} (
+                              {formatEnglishToBangalNum(
+                                String(
+                                  job?.applicants?.filter((applicant) =>
+                                    job?.applicationStatus == "ACTIVE"
+                                      ? !applicant.isDeleted
+                                      : true
+                                  ).length
+                                ),
+                                language
+                              )}
+                              )
+                            </Button>
+                          </Link>
+                        </div>
+                      )}
                   </div>
 
                   {job?.shortDescription && (
