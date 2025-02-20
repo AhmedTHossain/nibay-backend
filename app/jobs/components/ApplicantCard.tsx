@@ -23,6 +23,7 @@ import { toast } from "sonner";
 interface ApplicantCardProps {
   key: string;
   application: Application;
+  isDeleted: boolean | undefined;
 }
 
 export function ApplicantCard(props: ApplicantCardProps) {
@@ -30,7 +31,7 @@ export function ApplicantCard(props: ApplicantCardProps) {
 
   const { application } = props;
   const { user, isLoading } = useUserById({
-    userId: application?.applicant.id
+    userId: props.isDeleted ? "" : application?.applicant.id
   });
 
   const t = useTranslations("ApplicantCard"); // Initialize translations

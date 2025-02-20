@@ -41,6 +41,18 @@ export async function GET(
 
     if (job) {
       job.applicants = await getApplicantsDeletedStatus(job.applicants);
+
+      // remove the deleted applicants from database
+      if (job.applicationStatus == "ACTIVE") {
+        await Job.findOneAndUpdate(
+          { _id: job._id },
+          {
+            applicants: job.applicants.filter(
+              (applicant: any) => !applicant.isDeleted
+            )
+          }
+        );
+      }
     }
 
     return NextResponse.json({
