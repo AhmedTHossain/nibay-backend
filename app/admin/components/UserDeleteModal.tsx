@@ -1,7 +1,5 @@
 "use client";
 
-import { useJobContext } from "@/app/contexts/JobContext";
-import useJobs from "@/app/hooks/jobs/useJobs";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -12,11 +10,10 @@ import {
   DialogTitle
 } from "@/components/ui/dialog";
 import { api_client } from "@/lib/axios";
-import { TUser } from "@/utils/types/user";
 import { Loader } from "lucide-react";
-import { usePathname, useRouter } from "next/navigation";
 import { Dispatch, SetStateAction, useState } from "react";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 
 interface JobDeleteModalProps {
   open: boolean;
@@ -26,27 +23,24 @@ interface JobDeleteModalProps {
 }
 
 export function UserDeleteModal(props: JobDeleteModalProps) {
+  const t = useTranslations("UserDeleteModal");
   const { open, setIsOpen, userId, setShouldRemove } = props;
   const [isLoading, setIsLoading] = useState(false);
-  const pathname = usePathname();
-  const router = useRouter();
 
   const handleDelete = async () => {
     setIsLoading(true);
     try {
       const res = await api_client.delete(`user/${userId}`);
       if (res.data.status === "success") {
-        // setJobs((prevJobs) => prevJobs.filter((item) => item._id !== jobId));
         toast.success(res.data.message);
         setIsOpen(false);
-        // reload page
         setShouldRemove(true);
       } else {
-        console.error("Failed to delete the job:", res.data.error);
+        console.error("Failed to delete the user:", res.data.error);
         toast.error(res.data.error);
       }
     } catch (err) {
-      console.error("Failed to delete the job:", err);
+      console.error("Failed to delete the user:", err);
     } finally {
       setIsLoading(false);
     }
@@ -56,10 +50,8 @@ export function UserDeleteModal(props: JobDeleteModalProps) {
     <Dialog open={open} onOpenChange={setIsOpen}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader className="space-y-3">
-          <DialogTitle>ইউজার ডিলিট নিশ্চিতকরণ </DialogTitle>
-          <DialogDescription>
-            আপনি কি এই ইউজার ডিলিট করার বিষয়ে নিশ্চিত?
-          </DialogDescription>
+          <DialogTitle>{t("delete_confirmation")}</DialogTitle>
+          <DialogDescription>{t("delete_description")}</DialogDescription>
         </DialogHeader>
 
         <DialogFooter>
@@ -69,17 +61,15 @@ export function UserDeleteModal(props: JobDeleteModalProps) {
               variant="outline"
               onClick={() => setIsOpen(false)}
             >
-              না
+              {t("no")}
             </Button>
             <Button
               type="button"
               variant="destructive"
               disabled={isLoading}
-              onClick={() => {
-                handleDelete();
-              }}
+              onClick={handleDelete}
             >
-              {isLoading && <Loader className="animate-spin" />} হ্যাঁ
+              {isLoading && <Loader className="animate-spin" />} {t("yes")}
             </Button>
           </div>
         </DialogFooter>
