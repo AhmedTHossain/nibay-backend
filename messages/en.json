@@ -494,5 +494,11 @@
     "dashboard": "Dashboard",
     "job_management": "Job Management",
     "user_management": "User Management"
+  },
+  "Dashboard": {
+    "user_management": "User Management",
+    "institution_user": "Institutional User",
+    "individual_user": "Individual User",
+    "mobile_user": "Mobile User"
   }
 }
