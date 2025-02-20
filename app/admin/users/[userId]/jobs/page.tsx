@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import { TUser } from "@/utils/types/user";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 
 interface jobsRouteParams {
   params: { userId: string };
@@ -30,6 +31,9 @@ export default function JobsRoute({ params }: jobsRouteParams) {
 
   const userId = params.userId;
   const { user } = useUserById({ userId });
+
+  const t = useTranslations("Jobs");
+  const t_landing = useTranslations("Landing");
 
   useEffect(() => {
     // Refetch jobs whenever the page or filter changes
@@ -58,7 +62,7 @@ export default function JobsRoute({ params }: jobsRouteParams) {
     <>
       <Header userId={userId} />
 
-      <HeroSection title="জব্‌স" />
+      <HeroSection title={t("title")} />
 
       <section className="md:pb-24 pb-16">
         <div className="container z-1">
@@ -71,7 +75,7 @@ export default function JobsRoute({ params }: jobsRouteParams) {
                 className="bg-[#10b981] text-white hover:bg-[#0e9c6e] 
              dark:bg-[#065f46] dark:text-gray-200 dark:hover:bg-[#046c47]"
               >
-                নতুন চাকরি তৈরি করুন
+                {t_landing("create-new-job")}
               </Button>
             </Link>
           </div>
