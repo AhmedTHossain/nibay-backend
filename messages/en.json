@@ -200,11 +200,13 @@
     "year": "Years",
     "national_id": "National ID",
     "certificate": "Certificate",
-    "driving_license": "Driving License"
+    "driving_license": "Driving License",
+    "chairman_certificate": "Chairman Certificate",
+    "port_entry_permit": "Port Entry Permit"
   },
   "DocumentCard": {
     "download": "Download",
-    "not_uploaded": "Not Uploaded"
+    "not_uploaded": "N/A"
   },
   "Divisions": {
     "ঢাকা": "Dhaka",

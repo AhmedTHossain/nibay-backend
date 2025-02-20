@@ -200,11 +200,13 @@
     "year": "বছর",
     "national_id": "জাতীয় পরিচয়পত্র",
     "certificate": "সার্টিফিকেট",
-    "driving_license": "ড্রাইভিং লাইসেন্স"
+    "driving_license": "ড্রাইভিং লাইসেন্স",
+    "chairman_certificate": "চেয়ারম্যান সার্টিফিকেট",
+    "port_entry_permit": "পোর্ট এন্ট্রি পারমিট"
   },
   "DocumentCard": {
     "download": "ডাউনলোড করুন",
-    "not_uploaded": "আপলোড করা হয়নি"
+    "not_uploaded": "নেই"
   },
   "Divisions": {
     "ঢাকা": "ঢাকা",
