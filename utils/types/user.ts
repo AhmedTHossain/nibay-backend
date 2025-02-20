@@ -7,7 +7,7 @@ export interface TUser {
   _id: string;
   name: string;
   email: string;
-  role: string;
+  role: string | number;
   applicationStatus: keyof typeof APPLICATION_STATUS;
   password: string;
   phone: string;
@@ -15,7 +15,7 @@ export interface TUser {
   nidCopy: string;
   drivingLicense: string;
   drivingLicenseCopy: string;
-  maxEducationLevel: string;
+  maxEducationLevel: string | number;
   maxEducationLevelCertificateCopy: string;
   chairmanCertificateCopy: string;
   portEntryPermitCopy: string;

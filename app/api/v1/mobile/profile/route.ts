@@ -105,6 +105,16 @@ export async function GET(request: Request) {
       delete userData.birthCertificate;
     }
 
+    // Ensure maxEducationLevel is an integer
+    if (userData.maxEducationLevel) {
+      userData.maxEducationLevel = parseInt(userData.maxEducationLevel as unknown as string, 10);
+    }
+
+    // Ensure role is an integer
+    if (userData.role) {
+      userData.role = parseInt(userData.role as unknown as string, 10);
+    }
+
     return NextResponse.json({
       status: true,
       message: "success",
@@ -138,25 +148,16 @@ export async function PATCH(request: Request) {
     const division = (formData.get("division") as string) || null;
     const district = (formData.get("district") as string) || null;
     const nidNumber = (formData.get("nidNumber") as string) || null;
-    const maxEducationLevel =
-      (formData.get("maxEducationLevel") as string) || null;
+    const maxEducationLevel = (formData.get("maxEducationLevel") as string) || null;
     const drivingLicense = (formData.get("drivingLicense") as string) || null;
-    const yearsOfExperience =
-      (formData.get("yearsOfExperience") as string) || null;
-    const profilePhoto =
-      (formData.get("profilePhoto") as File | string | null) || null;
+    const yearsOfExperience = (formData.get("yearsOfExperience") as string) || null;
+    const profilePhoto = (formData.get("profilePhoto") as File | string | null) || null;
     const nidCopy = (formData.get("nidCopy") as File | string | null) || null;
-    const maxEducationLevelCertificateCopy =
-      (formData.get("maxEducationLevelCertificateCopy") as
-        | File
-        | string
-        | null) || null;
-    const drivingLicenseCopy =
-      (formData.get("drivingLicenseCopy") as File | string | null) || null;
-    const chairmanCertificate =
-      (formData.get("chairmanCertificateCopy") as File | string | null) || null;
-    const portEntryPermit =
-      (formData.get("portEntryPermit") as File | string | null) || null;
+    const maxEducationLevelCertificateCopy = (formData.get("maxEducationLevelCertificateCopy") as File | string | null) || null;
+    const drivingLicenseCopy = (formData.get("drivingLicenseCopy") as File | string | null) || null;
+    const chairmanCertificate = (formData.get("chairmanCertificateCopy") as File | string | null) || null;
+    const portEntryPermit = (formData.get("portEntryPermit") as File | string | null) || null;
+
 
     await connectToMongoDB();
 
@@ -171,8 +172,7 @@ export async function PATCH(request: Request) {
 
     let profilePhotoLocation = user.profilePhoto;
     let nidCopyLocation = user.nidCopy;
-    let maxEducationLevelCertificateCopyLocation =
-      user.maxEducationLevelCertificateCopy;
+    let maxEducationLevelCertificateCopyLocation = user.maxEducationLevelCertificateCopy;
     let drivingLicenseCopyLocation = user.drivingLicenseCopy;
     let chairmanCertificateCopyLocation = user.chairmanCertificateCopy;
     let portEntryPermitLocation = user.portEntryPermit;
@@ -184,46 +184,36 @@ export async function PATCH(request: Request) {
       nidCopyLocation = await processFile(nidCopy as File);
     }
     if (maxEducationLevelCertificateCopy) {
-      maxEducationLevelCertificateCopyLocation = await processFile(
-        maxEducationLevelCertificateCopy as File
-      );
+      maxEducationLevelCertificateCopyLocation = await processFile(maxEducationLevelCertificateCopy as File);
     }
     if (drivingLicenseCopy) {
-      drivingLicenseCopyLocation = await processFile(
-        drivingLicenseCopy as File
-      );
+      drivingLicenseCopyLocation = await processFile(drivingLicenseCopy as File);
     }
     if (chairmanCertificate) {
-      chairmanCertificateCopyLocation = await processFile(
-        chairmanCertificate as File
-      );
+      chairmanCertificateCopyLocation = await processFile(chairmanCertificate as File);
     }
     if (portEntryPermit) {
       portEntryPermitLocation = await processFile(portEntryPermit as File);
     }
 
-    const updateFields: any = {};
+    const updateFields: any = {
+      name: name || user.name,
+      role: role || user.role,
+      phone: phone || user.phone,
+      division: division || user.division,
+      district: district || user.district,
+      nidNumber: nidNumber || user.nidNumber,
+      maxEducationLevel: maxEducationLevel || user.maxEducationLevel,
+      drivingLicense: drivingLicense || user.drivingLicense,
+      yearsOfExperience: yearsOfExperience || user.yearsOfExperience,
+      profilePhoto: profilePhotoLocation || user.profilePhoto,
+      nidCopy: nidCopyLocation || user.nidCopy,
+      maxEducationLevelCertificateCopy: maxEducationLevelCertificateCopyLocation || user.maxEducationLevelCertificateCopy,
+      drivingLicenseCopy: drivingLicenseCopyLocation || user.drivingLicenseCopy,
+      birthCertificate: chairmanCertificateCopyLocation || user.chairmanCertificateCopy,
+      portEntryPermit: portEntryPermitLocation || user.portEntryPermit,
+    };
 
-    if (name) updateFields.name = name;
-    if (role) updateFields.role = role;
-    if (phone) updateFields.phone = phone;
-    if (division) updateFields.division = division;
-    if (district) updateFields.district = district;
-    if (nidNumber) updateFields.nidNumber = nidNumber;
-    if (maxEducationLevel) updateFields.maxEducationLevel = maxEducationLevel;
-    if (drivingLicense) updateFields.drivingLicense = drivingLicense;
-    if (yearsOfExperience) updateFields.yearsOfExperience = yearsOfExperience;
-    if (profilePhotoLocation) updateFields.profilePhoto = profilePhotoLocation;
-    if (nidCopyLocation) updateFields.nidCopy = nidCopyLocation;
-    if (maxEducationLevelCertificateCopyLocation)
-      updateFields.maxEducationLevelCertificateCopy =
-        maxEducationLevelCertificateCopyLocation;
-    if (drivingLicenseCopyLocation)
-      updateFields.drivingLicenseCopy = drivingLicenseCopyLocation;
-    if (chairmanCertificateCopyLocation)
-      updateFields.birthCertificate = chairmanCertificateCopyLocation;
-    if (portEntryPermitLocation)
-      updateFields.portEntryPermit = portEntryPermitLocation;
 
     await User.findOneAndUpdate({ _id: authUser.userId }, updateFields, {
       new: true,
