@@ -378,7 +378,7 @@ export default function ApplicantProfileRoute({
                                         <DocumentCard
                                           key="DOC001"
                                           document={{
-                                            name: "চেয়ারম্যান সার্টিফিকেট",
+                                            name: t("chairman_certificate"),
                                             status:
                                               user?.chairmanCertificateCopy
                                                 ? "verified"
@@ -390,7 +390,7 @@ export default function ApplicantProfileRoute({
                                         <DocumentCard
                                           key="DOC001"
                                           document={{
-                                            name: "পোর্ট এন্ট্রি পারমিট",
+                                            name: t("port_entry_permit"),
                                             status: user?.portEntryPermitCopy
                                               ? "verified"
                                               : "not_uploaded",

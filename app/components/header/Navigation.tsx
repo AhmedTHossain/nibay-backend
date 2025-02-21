@@ -14,8 +14,12 @@ import { cn } from "@/lib/utils";
 import { HEADER_NAV_ITEMS } from "@/app/assets/resources";
 import { useTranslations } from "next-intl";
 
-export function Navigation() {
-  const t = useTranslations('Header');
+interface NavigationProps {
+  userId?: string;
+}
+
+export function Navigation({ userId }: NavigationProps) {
+  const t = useTranslations("Header");
 
   return (
     <NavigationMenu>
@@ -23,7 +27,11 @@ export function Navigation() {
         {HEADER_NAV_ITEMS.map((item) => {
           return (
             <NavigationMenuItem key={item.id}>
-              <Link href={item.link} legacyBehavior passHref>
+              <Link
+                href={(userId ? `/admin/users/${userId}/` : "") + item.link}
+                legacyBehavior
+                passHref
+              >
                 <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                   {t(item.key)}
                 </NavigationMenuLink>

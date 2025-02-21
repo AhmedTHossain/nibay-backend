@@ -204,8 +204,10 @@ export default function JobDetailsRoute({
                   <div className="pt-6 flex items-start justify-between">
                     <div></div>
                     {job &&
-                      job?.applicants?.filter(
-                        (applicant) => !applicant.isDeleted
+                      job?.applicants?.filter((applicant) =>
+                        job?.applicationStatus == "ACTIVE"
+                          ? !applicant.isDeleted
+                          : true
                       ).length > 0 && (
                         <div className="mb-5 flex justify-end">
                           <Link href={`/jobs/${params.jobId}/applicant-list`}>
@@ -213,8 +215,10 @@ export default function JobDetailsRoute({
                               {t("applicants_list")} (
                               {formatEnglishToBangalNum(
                                 String(
-                                  job?.applicants?.filter(
-                                    (applicant) => !applicant.isDeleted
+                                  job?.applicants?.filter((applicant) =>
+                                    job?.applicationStatus == "ACTIVE"
+                                      ? !applicant.isDeleted
+                                      : true
                                   ).length
                                 ),
                                 language
