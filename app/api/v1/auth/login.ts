@@ -36,7 +36,7 @@ export async function login(request: Request) {
         { status: 400 }
       );
     }
-
+    //@ts-expect-error JWT_SECRET_EXPIRES_IN is not undefined
     const token = JWT.sign(
       {
         id: user.id,
@@ -82,6 +82,7 @@ export async function mobileLogin(request: Request) {
         { status: 400 }
       );
     }
+    //@ts-expect-error JWT_SECRET_EXPIRES_IN is not undefined
 
     const token = JWT.sign(
       {

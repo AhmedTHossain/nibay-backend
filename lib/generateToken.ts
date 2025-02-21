@@ -5,6 +5,7 @@ export type Payload = jwt.JwtPayload & { userId: string; email: string };
 export function generatePasswordResetToken(userId: string, email: string) {
   const secret = process.env.PASSWORD_RESET_JWT_SECRET as string;
   const expiresIn = process.env.PASSWORD_RESET_JWT_SECRET_EXPIRES_IN as string;
+    //@ts-expect-error JWT_SECRET_EXPIRES_IN is not undefined
 
   const token = jwt.sign({ userId, email }, secret, {
     expiresIn

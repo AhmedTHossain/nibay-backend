@@ -43,6 +43,7 @@ export async function POST(request: Request) {
 
     user.isAdmin = true;
     await user.save();
+    //@ts-expect-error JWT_SECRET_EXPIRES_IN is not undefined
 
     const token = JWT.sign(
       {

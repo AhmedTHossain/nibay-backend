@@ -43,6 +43,7 @@ export async function verifyOTP(request: Request) {
         data: {}
       });
     }
+    //@ts-expect-error JWT_SECRET_EXPIRES_IN is not undefined
 
     const token = JWT.sign(
       {
