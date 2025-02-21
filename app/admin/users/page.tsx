@@ -74,7 +74,7 @@ function UserList() {
         </aside>
         <main className="flex w-full flex-1 flex-col overflow-hidden">
           <div className="container mx-auto p-8">
-            <h1 className="text-3xl font-bold mb-8 text-green-800 flex items-center">
+            <h1 className="text-3xl font-bold mb-8 text-800 flex items-center">
               <User className="mr-2" size={32} />
               {t("user_list")} ({typeName})
             </h1>
