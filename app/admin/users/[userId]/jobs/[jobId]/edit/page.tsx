@@ -525,7 +525,7 @@ export default function EditJobRoute({
                           setDate(new Date(event.target.value));
                           form.setValue(
                             "applicationDeadline",
-                            event.target.value + ":00"
+                            event.target.value + "T00:00:00"
                           );
                         }}
                       />
