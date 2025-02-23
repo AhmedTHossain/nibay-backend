@@ -135,7 +135,7 @@ export async function POST(request: NextRequest) {
     console.log("Job Qualification Precedence:", jobQualificationPrecedence);
     // Compare precedence (convert keys to numbers for comparison)
     if (
-      parseInt(userEducationPrecedence) <= parseInt(jobQualificationPrecedence)
+      parseInt(userEducationPrecedence) >= parseInt(jobQualificationPrecedence)
     ) {
       return NextResponse.json(
         { status: false, message: "Your education level does not meet the job qualification!" },
