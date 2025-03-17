@@ -141,6 +141,10 @@ const userSchema = new mongoose.Schema<TUser, object, IUserMethods>(
       type: Boolean,
       required: false
     },
+    fcm_token: {
+      type: String,
+      required: false
+    },
     birthCertificate: { type: String, required: false },
     portEntryPermit: { type: String, required: false },
     applicationStatus: {

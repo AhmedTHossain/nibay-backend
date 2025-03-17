@@ -52,4 +52,5 @@ export interface TUser {
   isVerified: boolean;
   lastOTPRequestTime: Date;
   otpRequestCount: number;
+  fcm_token: string;
 }
