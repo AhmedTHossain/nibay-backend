@@ -54,7 +54,7 @@ const nextConfig = {
     BASE_URL:
       process.env.NODE_ENV === "development"
         ? "http://localhost:3000"
-        : "http://173.231.56.108"
+        : "http://204.197.172.71"
   }
 };
 
