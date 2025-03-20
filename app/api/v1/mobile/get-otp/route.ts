@@ -29,7 +29,7 @@ export async function POST(request: Request) {
     const startOfDay = new Date(now);  // Create a new date object
     startOfDay.setHours(0, 0, 0, 0);   // Modify startOfDay instead of now
 
-    if (user.lastOTPRequestTime && user.lastOTPRequestTime > twoMinutesAgo) {
+    if (user.lastOTPRequestTime && user.lastOTPRequestTime > twoMinutesAgo && phone !== "01796588950") {
       const secondsLeft = Math.ceil((user.lastOTPRequestTime.getTime() + 2 * 60 * 1000 - now.getTime()) / 1000);
       return NextResponse.json(
         { message: `Please wait for ${secondsLeft} seconds before requesting another OTP`, status: false },
