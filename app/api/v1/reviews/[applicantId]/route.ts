@@ -7,6 +7,72 @@ import { connectToMongoDB } from "@/lib/database";
 import User from "../../../models/user";
 import { authMiddleware } from "../../../middleware/auth";
 
+/**
+ * @swagger
+ * /api/v1/reviews/{applicantId}:
+ *   get:
+ *     summary: Get reviews for an applicant
+ *     description: Fetches all reviews for a specific applicant, including details of the reviewers and associated jobs.
+ *     tags:
+ *       - Reviews
+ *     parameters:
+ *       - in: path
+ *         name: applicantId
+ *         required: true
+ *         description: ID of the applicant whose reviews are being fetched.
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Successfully fetched reviews for the applicant.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: success
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     averageRating:
+ *                       type: number
+ *                       description: Average rating of the applicant.
+ *                       example: 4.5
+ *                     reviews:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           reviewerId:
+ *                             type: string
+ *                             description: ID of the reviewer.
+ *                           reviewerName:
+ *                             type: string
+ *                             description: Name of the reviewer.
+ *                           jobId:
+ *                             type: string
+ *                             description: ID of the job associated with the review.
+ *                           jobTitle:
+ *                             type: string
+ *                             description: Title of the job associated with the review.
+ *                           rating:
+ *                             type: number
+ *                             description: Rating given by the reviewer.
+ *                           feedback:
+ *                             type: string
+ *                             description: Feedback provided by the reviewer.
+ *                           createdAt:
+ *                             type: string
+ *                             format: date-time
+ *                             description: Date when the review was created.
+ *       404:
+ *         description: User or applicant not found.
+ *       500:
+ *         description: Server error.
+ */
+
 // Initialize Firebase Admin SDK (ensure this is done only once in your app)
 if (!admin.apps.length) {
   admin.initializeApp({

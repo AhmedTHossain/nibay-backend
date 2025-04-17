@@ -3,6 +3,75 @@ import { NextResponse } from "next/server";
 import User from "../../../../models/user";
 import JWT from "jsonwebtoken";
 
+/**
+ * @swagger
+ * /api/v1/mobile/jobseekers/signin:
+ *   post:
+ *     summary: Jobseeker Sign In
+ *     description: Allows a jobseeker to sign in using their phone number, OTP code, and device ID.
+ *     tags:
+ *       - Jobseekers
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               phone:
+ *                 type: string
+ *                 description: The phone number of the jobseeker.
+ *               otpCode:
+ *                 type: string
+ *                 description: The OTP code sent to the jobseeker's phone.
+ *               deviceID:
+ *                 type: string
+ *                 description: The device ID of the jobseeker's device.
+ *     responses:
+ *       200:
+ *         description: Successfully logged in.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: Successfully logged in
+ *                 token:
+ *                   type: string
+ *                   description: JWT token for authentication.
+ *       400:
+ *         description: Invalid input or authentication failed.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: OTP did not match!
+ *       500:
+ *         description: Internal server error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: Operation failed!
+ */
+
 const JWT_SECRET = process.env.JWT_SECRET as string;
 const JWT_SECRET_EXPIRES_IN = process.env.JWT_SECRET_EXPIRES_IN as string;
 

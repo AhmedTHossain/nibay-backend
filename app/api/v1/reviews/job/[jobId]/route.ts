@@ -5,6 +5,57 @@ import { USER_ROLE } from "@/lib/constant";
 import { connectToMongoDB } from "@/lib/database";
 import { handleError } from "@/lib/handleErrors";
 import { NextRequest, NextResponse } from "next/server";
+
+/**
+ * @swagger
+ * /api/v1/reviews/job/{jobId}:
+ *   post:
+ *     summary: Submit a review for an applicant
+ *     description: Allows an employer to submit a review for an applicant who applied for a specific job.
+ *     tags:
+ *       - Reviews
+ *     parameters:
+ *       - in: path
+ *         name: jobId
+ *         required: true
+ *         description: ID of the job for which the review is being submitted.
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               applicantId:
+ *                 type: string
+ *                 description: ID of the applicant being reviewed.
+ *               review:
+ *                 type: object
+ *                 properties:
+ *                   rating:
+ *                     type: number
+ *                     description: Rating given to the applicant.
+ *                   feedback:
+ *                     type: string
+ *                     description: Feedback for the applicant.
+ *     responses:
+ *       200:
+ *         description: Review successfully submitted.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: success
+ *       404:
+ *         description: User, job, or application not found.
+ *       500:
+ *         description: Server error.
+ */
 interface TJobParams {
   params: {
     jobId: string;

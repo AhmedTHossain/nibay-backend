@@ -6,6 +6,73 @@ import { authMiddleware } from "../../../middleware/auth";
 import Job from "../../../models/job";
 import { Applicant } from "@/utils/types/applicant";
 
+/**
+ * @swagger
+ * /api/v1/reviews/pending:
+ *   get:
+ *     summary: Get pending reviews
+ *     description: Fetches a list of applicants who have been accepted for jobs but have not been reviewed within the last three months.
+ *     tags:
+ *       - Reviews
+ *     responses:
+ *       200:
+ *         description: Successfully fetched pending reviews.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: success
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       _id:
+ *                         type: string
+ *                         description: Applicant ID.
+ *                       name:
+ *                         type: string
+ *                         description: Applicant name.
+ *                       email:
+ *                         type: string
+ *                         description: Applicant email.
+ *                       phone:
+ *                         type: string
+ *                         description: Applicant phone number.
+ *                       address:
+ *                         type: string
+ *                         description: Applicant address (division and district).
+ *                       role:
+ *                         type: number
+ *                         description: Applicant role.
+ *                       jobId:
+ *                         type: string
+ *                         description: Job ID.
+ *                       jobTitle:
+ *                         type: string
+ *                         description: Job title.
+ *                       jobRole:
+ *                         type: string
+ *                         description: Job role.
+ *                       jobShortDescription:
+ *                         type: string
+ *                         description: Short description of the job.
+ *                       profilePhoto:
+ *                         type: string
+ *                         description: URL of the applicant's profile photo.
+ *                       statusChangeDate:
+ *                         type: string
+ *                         format: date-time
+ *                         description: Date when the application status was changed.
+ *       404:
+ *         description: User not found.
+ *       500:
+ *         description: Server error.
+ */
+
 const threeMonthsAgo = new Date();
 threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
 

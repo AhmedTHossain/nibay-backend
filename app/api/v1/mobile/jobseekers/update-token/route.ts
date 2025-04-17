@@ -4,6 +4,79 @@ import User from "../../../../models/user";
 import { authMiddleware } from "../../../../middleware/auth";
 import { NextRequest, NextResponse } from "next/server";
 
+/**
+ * @swagger
+ * /api/v1/mobile/jobseekers/update-token:
+ *   post:
+ *     summary: Update FCM token for a jobseeker
+ *     description: Allows a jobseeker to update their FCM (Firebase Cloud Messaging) token for receiving notifications.
+ *     tags:
+ *       - Jobseekers
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               fcm_token:
+ *                 type: string
+ *                 description: The FCM token to be updated.
+ *     responses:
+ *       200:
+ *         description: FCM token updated successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: FCM token updated successfully!
+ *       400:
+ *         description: FCM token is missing in the request.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: FCM token is required
+ *       404:
+ *         description: User not found.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: User not found!
+ *       500:
+ *         description: Internal server error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: Internal server error
+ */
+
 
 export async function POST(request: NextRequest) {
   try {
