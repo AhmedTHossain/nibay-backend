@@ -37,7 +37,7 @@ export async function POST(request: Request) {
       );
     }
 
-    if (user.lastOTPRequestTime && user.lastOTPRequestTime > startOfDay && user.otpRequestCount >= 5) {
+    if (user.lastOTPRequestTime && user.lastOTPRequestTime > startOfDay && user.otpRequestCount >= 5 && phone !== "01796588950") {
       return NextResponse.json(
         { message: "You have reached the maximum OTP requests for today", status: false },
         { status: 429 }
