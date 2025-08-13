@@ -209,22 +209,34 @@ export async function POST(request: NextRequest) {
       }, { status: 400 });
     }
 
-    const nidPhotoPath = await processFile(nidPhoto);
-    const drivingLicensePhotoPath = drivingLicensePhoto
-      ? await processFile(drivingLicensePhoto)
-      : null;
-    const profilePhotoPath = profilePhoto
-      ? await processFile(profilePhoto)
-      : null;
-    const maxEducationLevelCopyPath = maxEducationLevelCopy
-      ? await processFile(maxEducationLevelCopy)
-      : null;
-    const birthCertificatePath = birthCertificate
-      ? await processFile(birthCertificate)
-      : null;
-    const portEntryPermitPath = portEntryPermit
-      ? await processFile(portEntryPermit)
-      : null;
+    // Process all files in parallel for better performance
+    let nidPhotoPath, drivingLicensePhotoPath, profilePhotoPath, 
+        maxEducationLevelCopyPath, birthCertificatePath, portEntryPermitPath;
+    
+    try {
+      [
+        nidPhotoPath,
+        drivingLicensePhotoPath,
+        profilePhotoPath,
+        maxEducationLevelCopyPath,
+        birthCertificatePath,
+        portEntryPermitPath
+      ] = await Promise.all([
+        processFile(nidPhoto), // Required file
+        drivingLicensePhoto ? processFile(drivingLicensePhoto) : Promise.resolve(null),
+        profilePhoto ? processFile(profilePhoto) : Promise.resolve(null),
+        maxEducationLevelCopy ? processFile(maxEducationLevelCopy) : Promise.resolve(null),
+        birthCertificate ? processFile(birthCertificate) : Promise.resolve(null),
+        portEntryPermit ? processFile(portEntryPermit) : Promise.resolve(null)
+      ]);
+    } catch (fileProcessingError) {
+      console.error("File processing error:", fileProcessingError);
+      return NextResponse.json({
+        status: false,
+        message: "Failed to process uploaded files. Please try again.",
+        data: {},
+      }, { status: 500 });
+    }
 
     const newUser = await User.create({
       phone,

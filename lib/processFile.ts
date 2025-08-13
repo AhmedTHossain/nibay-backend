@@ -1,12 +1,18 @@
 import fs from "fs/promises";
 import path from "path";
 
+// Cache directory creation to avoid redundant filesystem checks
+let uploadDirCreated = false;
+
 export async function processFile(file: File): Promise<string> {
   // Reference the system's /tmp directory
   const uploadPath = "public/uploads";
 
-  // Create the uploads directory inside /tmp if it doesn't already exist
-  await fs.mkdir(uploadPath, { recursive: true });
+  // Only create directory once per application lifecycle
+  if (!uploadDirCreated) {
+    await fs.mkdir(uploadPath, { recursive: true });
+    uploadDirCreated = true;
+  }
 
   // Generate a unique file name with a timestamp and remove spaces
   const sanitizedFileName = file.name.replace(/\s+/g, '');

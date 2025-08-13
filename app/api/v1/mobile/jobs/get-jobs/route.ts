@@ -25,12 +25,12 @@ import { authMiddleware } from "@/app/api/middleware/auth";
  *           type: string
  *         description: Job title to filter by
  *       - in: query
- *         name: employerType
+ *         name: jobRole
  *         schema:
  *           type: string
  *         description: Employer type to filter by
  *       - in: query
- *         name: employer_id
+ *         name: employerId
  *         schema:
  *           type: string
  *         description: Employer ID to filter by
@@ -282,6 +282,8 @@ function isAcademicCertificateNeeded(educationLevelId: number): boolean {
 
 export async function GET(request: Request) {
   try {
+    await connectToMongoDB();
+    
         const authUser = await authMiddleware(request);
         if (authUser instanceof NextResponse) {
           return authUser;
@@ -292,12 +294,10 @@ export async function GET(request: Request) {
 
     const orderBy = searchParams.get("orderBy") || "-createdAt";
     const title = searchParams.get("title"); 
-    const employerType = searchParams.get("employerType");
-    const employerId = searchParams.get("employer_id");
+    const jobRoleParam = searchParams.get("jobRole");
+    const employerId = searchParams.get("employerId");
     const pageSize = parseInt(searchParams.get("pageSize") || "10", 10);
     const page = parseInt(searchParams.get("page") || "1", 10);
-
-    await connectToMongoDB();
 
     let query = Job.find();
 
@@ -305,12 +305,13 @@ export async function GET(request: Request) {
       query = query.where("title").regex(new RegExp(title, "i"));
     }
 
-    if (employerType) {
-      query = query.where("employerType").equals(employerType);
+    if (jobRoleParam) {
+      const jobRoleStr = USER_ROLE[jobRoleParam]?.label;
+      query = query.where("jobRole").equals(jobRoleStr);
     }
 
     if (employerId) {
-      query = query.where("employerId").equals(employerId);
+      query = query.where("user").equals(employerId);
     }
 
     const totalJobs = await Job.countDocuments(query);

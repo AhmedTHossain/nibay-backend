@@ -41,13 +41,13 @@ export type ROLE =
   | "TRUCK_DRIVER";
 
 export const MAX_EDUCATION_LEVEL = {
-  0: "BACHELOR",
-  1: "HIGHER_SECONDARY",
+  0: "NO_FORMAL_EDUCATION",
+  1: "PRIMARY",
   2: "JUNIOR_SECONDARY",
-  3: "MASTER",
-  4: "NO_FORMAL_EDUCATION",
-  5: "PRIMARY",
-  6: "SECONDARY"
+  3: "SECONDARY",
+  4: "HIGHER_SECONDARY",
+  5: "BACHELOR",
+  6: "MASTER"
 };
 
 export const EDUCATION_PRECEDENCE: any = {

@@ -6,6 +6,7 @@ import jwt, {
 } from "jsonwebtoken";
 import { NextResponse } from "next/server";
 import user from "../models/user";
+import { connectToMongoDB } from "@/lib/database";
 
 const JWT_SECRET = process.env.JWT_SECRET as string;
 
@@ -35,6 +36,7 @@ export async function authMiddleware(
   }
 
   try {
+    await connectToMongoDB();
     const decoded = jwt.verify(token, JWT_SECRET) as DecodedToken;
 
     if (decoded.id.startsWith("reset-password")) {
