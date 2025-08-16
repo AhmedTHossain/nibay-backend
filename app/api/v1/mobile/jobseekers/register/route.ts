@@ -249,7 +249,7 @@ export async function POST(request: NextRequest) {
       maxEducationLevel: maxEducationLevel
         ? Number(maxEducationLevel)
         : undefined,
-      maxEducationLevelCopy: maxEducationLevelCopyPath,
+      maxEducationLevelCertificateCopy: maxEducationLevelCopyPath,
       profilePhoto: profilePhotoPath,
       birthCertificate: birthCertificatePath,
       portEntryPermit: portEntryPermitPath,
